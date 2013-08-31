@@ -1,0 +1,5 @@
+E:\work\eurosim\dev\bin\Eurosim.Engine.dll
+E:\work\eurosim\dev\bin\Eurosim.Engine.pdb
+e:\work\eurosim\dev\Engine\obj\x86\Release\Eurosim.Engine.csprojResolveAssemblyReference.cache
+e:\work\eurosim\dev\Engine\obj\x86\Release\Eurosim.Engine.dll
+e:\work\eurosim\dev\Engine\obj\x86\Release\Eurosim.Engine.pdb

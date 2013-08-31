@@ -1,0 +1,10 @@
+E:\work\eurosim\dev\Physics\obj\Debug\Physics.csprojResolveAssemblyReference.cache
+E:\work\eurosim\dev\bin\CVARC.Physics.dll
+E:\work\eurosim\dev\bin\CVARC.Physics.pdb
+e:\work\eurosim\dev\Physics\obj\Debug\CVARC.Physics.dll
+e:\work\eurosim\dev\Physics\obj\Debug\CVARC.Physics.pdb
+e:\work\CVARC\CVARC\bin\CVARC.Physics.dll
+e:\work\CVARC\CVARC\bin\CVARC.Physics.pdb
+E:\work\CVARC\CVARC\Engine\Phisics\obj\Debug\Physics.csprojResolveAssemblyReference.cache
+E:\work\CVARC\CVARC\Engine\Phisics\obj\Debug\CVARC.Physics.dll
+E:\work\CVARC\CVARC\Engine\Phisics\obj\Debug\CVARC.Physics.pdb

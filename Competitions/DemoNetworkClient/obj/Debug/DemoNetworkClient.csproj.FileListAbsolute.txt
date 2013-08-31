@@ -1,0 +1,5 @@
+E:\work\CVARC\CVARC\Competitions\DemoNetworkClient\bin\Debug\DemoNetworkClient.exe
+E:\work\CVARC\CVARC\Competitions\DemoNetworkClient\bin\Debug\DemoNetworkClient.pdb
+E:\work\CVARC\CVARC\Competitions\DemoNetworkClient\obj\Debug\DemoNetworkClient.exe
+E:\work\CVARC\CVARC\Competitions\DemoNetworkClient\obj\Debug\DemoNetworkClient.pdb
+E:\work\CVARC\CVARC\Competitions\DemoNetworkClient\obj\Debug\DemoNetworkClient.csprojResolveAssemblyReference.cache
