@@ -54,7 +54,7 @@
       <HintPath>..\..\libs\AIRLab.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\..\packages\nunit.framework.dll</HintPath>
+      <HintPath>..\..\libs\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

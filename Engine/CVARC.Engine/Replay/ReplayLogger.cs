@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using AIRLab.Mathematics;
-using Ionic.Zlib;
+using System.IO.Compression;
 
 namespace CVARC.Core.Replay
 {

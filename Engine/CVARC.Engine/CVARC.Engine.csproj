@@ -47,9 +47,6 @@
     <Reference Include="AIRLab">
       <HintPath>..\..\libs\AIRLab.dll</HintPath>
     </Reference>
-    <Reference Include="Ionic.Zip">
-      <HintPath>..\..\libs\Ionic.Zip.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework, Version=2.6.1.12217, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\..\libs\nunit.framework.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
