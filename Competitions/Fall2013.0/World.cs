@@ -17,6 +17,38 @@ namespace Gems
 
         public SceneSettings Settings { get; set; }
 
+
+        void CreateWalls(Body root, WallSettings[,] array, int width, int height, int weight, string prefix, Func<int,int,Point> cooMaker)
+        {
+            for (int x = 0; x < array.GetLength(0); x++)
+                for (int y = 0; y < array.GetLength(1); y++)
+                {
+                    var wall = array[x, y];
+                    if (wall == WallSettings.NoWall) continue;
+                    Color color = Color.LightGray;
+                    string name = prefix;
+                    switch (wall)
+                    {
+                        case WallSettings.RedSocket: name += "R"; color = Color.DarkRed; break;
+                        case WallSettings.BlueSocket: name += "B"; color = Color.DarkBlue; break;
+                        case WallSettings.GreenSocket: name += "G"; color = Color.DarkGreen; break;
+                    }
+                    var coo = cooMaker(x, y);
+                    root.Add(new Box
+                    {
+                        XSize = width,
+                        YSize = height,
+                        ZSize = weight,
+                        Location = new Frame3D(coo.X, coo.Y, 0),
+                        DefaultColor = color,
+                        Name = name,
+                        IsMaterial=true,
+                        IsStatic=true,
+                    });
+                }
+
+        }
+
         public override Body CreateWorld(IEnumerable<Robot> robots)
         {
             Settings = SceneSettings.GetDefaulSettings();
@@ -63,9 +95,14 @@ namespace Gems
                     ZSize=15,
                     Location=new Frame3D(-150+25+detail.Location.X*50,100-25-50*detail.Location.Y,0),
                     DefaultColor= color,
-                     Name= name
+                     Name= name,
+                     IsMaterial=true,
+                     IsStatic=false
             });
             }
+
+            CreateWalls(root, Settings.HorizontalWalls, 50, 10, 15, "HW", (x, y) => new Point(-150 + 25 + x * 50, 100 - (y + 1) * 50));
+            CreateWalls(root, Settings.VerticalWalls, 10, 50, 14, "VW", (x, y) => new Point(-150 + (x+1) * 50, 100 - 25 - y * 50));
 
             /*
             root.Add(new Box
