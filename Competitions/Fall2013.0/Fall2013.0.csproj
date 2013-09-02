@@ -47,6 +47,7 @@
     <Compile Include="Behaviour.cs" />
     <Compile Include="KbController.cs" />
     <Compile Include="MapSensor.cs" />
+    <Compile Include="SceneSettings.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
