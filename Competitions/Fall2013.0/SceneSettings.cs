@@ -22,7 +22,7 @@ namespace Gems
         Blue,
     }
 
-    public class DetailData
+    public struct DetailData
     {
         public DetailColor Color { get; set; }
         public Point Location { get; set; }
@@ -38,7 +38,7 @@ namespace Gems
         {
             VerticalWalls = new WallSettings[5, 4];
             HorizontalWalls = new WallSettings[6, 3];
-            Details = new DetailData[8];
+            Details = new DetailData[6];
         }
 
         public static SceneSettings GetDefaulSettings()

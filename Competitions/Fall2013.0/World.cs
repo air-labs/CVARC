@@ -14,14 +14,18 @@ namespace Gems
         {
             get { return 1; }
         }
+
+        public SceneSettings Settings { get; set; }
+
         public override Body CreateWorld(IEnumerable<Robot> robots)
         {
+            Settings = SceneSettings.GetDefaulSettings();
             var root = new Body();
             var enumerable = robots as IList<Robot> ?? robots.ToList();
             var first = enumerable[0];
-            first.Body = new Box(20, 20, 20)
+            first.Body = new Box(25, 25, 25)
             {
-                Location = new Frame3D(-130, 80, 3),
+                Location = new Frame3D(-150+12.5, 100-12.5, 3),
                 DefaultColor = Color.Green,
                 IsMaterial = true,
                 Density = Density.Iron,
@@ -40,6 +44,30 @@ namespace Gems
                 IsStatic = true,
                 Name = "floor",
             });
+
+            foreach (var detail in Settings.Details)
+            {
+                Color color= Color.White;
+                string name="D";
+                switch(detail.Color)
+                {
+                    case DetailColor.Red: color=Color.Red; name+="R"; break;
+                    case DetailColor.Blue: color=Color.Blue; name+="B"; break;
+                    case DetailColor.Green: color=Color.Green; name+="G"; break;
+                }
+
+                root.Add(new Box
+                {
+                    XSize=15,
+                    YSize=15,
+                    ZSize=15,
+                    Location=new Frame3D(-150+25+detail.Location.X*50,100-25-50*detail.Location.Y,0),
+                    DefaultColor= color,
+                     Name= name
+            });
+            }
+
+            /*
             root.Add(new Box
             {
                 XSize = 10,
@@ -85,29 +113,27 @@ namespace Gems
                 IsMaterial = true,
                 Name = "wall",
             });
-            root.Add(new Box
+            root.Add(new Ball
             {
                 Location = new Frame3D(100, 0, 0),
                 Name = "place",
             });
-            root.Add(new Box
+            root.Add(new Ball
             {
                 Location = new Frame3D(-100, 0, 0),
                 Name = "place",
             });
-            root.GetSubtreeChildrenFirst().Where(a => a.Name == "place").OfType<Box>().ToList().ForEach(a =>
+            root.GetSubtreeChildrenFirst().Where(a => a.Name == "place").OfType<Ball>().ToList().ForEach(a =>
                 {
-
-                    a.XSize = 10;
-                    a.YSize = 10;
-                    a.ZSize = 15;
+                    a.Radius = 15;
+                    a.Location = new Frame3D(a.Location.X, a.Location.Y, 10);
                     a.DefaultColor = Color.Cyan;
-                    a.Top = new SolidColorBrush {Color = Color.Cyan};
                     a.IsStatic = true;
                     a.IsMaterial = true;
                 });
             CreateBorders(root);
             CreateTreasure(root);
+             * */
             return root;
         }
         
