@@ -1,5 +1,0 @@
-E:\work\eurosim\dev\bin\Eurosim.Physics.dll
-E:\work\eurosim\dev\bin\Eurosim.Physics.pdb
-e:\work\eurosim\dev\Physics\obj\Release\Physics.csprojResolveAssemblyReference.cache
-e:\work\eurosim\dev\Physics\obj\Release\Eurosim.Physics.dll
-e:\work\eurosim\dev\Physics\obj\Release\Eurosim.Physics.pdb

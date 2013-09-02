@@ -1,4 +1,0 @@
-e:\work\CVARC\CVARC\bin\CVARC.Engine.dll
-e:\work\CVARC\CVARC\bin\CVARC.Engine.pdb
-E:\work\CVARC\CVARC\Engine\CVARC.Engine\obj\Debug\CVARC.Engine.dll
-E:\work\CVARC\CVARC\Engine\CVARC.Engine\obj\Debug\CVARC.Engine.pdb

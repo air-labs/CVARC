@@ -1,9 +1,0 @@
-E:\work\eurosim\dev\bin\Eurosim.Graphics.Plus.dll
-E:\work\eurosim\dev\bin\Eurosim.Graphics.Plus.pdb
-e:\work\eurosim\dev\Graphics.Plus\obj\x86\Release\Graphics.Plus.csprojResolveAssemblyReference.cache
-e:\work\eurosim\dev\Graphics.Plus\obj\x86\Release\Eurosim.Graphics.CameraSwitchControl.resources
-e:\work\eurosim\dev\Graphics.Plus\obj\x86\Release\Eurosim.Graphics.DrawerControl.resources
-e:\work\eurosim\dev\Graphics.Plus\obj\x86\Release\Eurosim.Graphics.Properties.Resources.resources
-e:\work\eurosim\dev\Graphics.Plus\obj\x86\Release\Graphics.Plus.csproj.GenerateResource.Cache
-e:\work\eurosim\dev\Graphics.Plus\obj\x86\Release\Eurosim.Graphics.Plus.dll
-e:\work\eurosim\dev\Graphics.Plus\obj\x86\Release\Eurosim.Graphics.Plus.pdb
