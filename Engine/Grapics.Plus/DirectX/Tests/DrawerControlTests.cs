@@ -1,8 +1,8 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
-using Moq;
+//using Moq;
 using NUnit.Framework;
-
+/*
 namespace CVARC.Graphics
 {
 	public partial class DrawerControl
@@ -57,3 +57,4 @@ namespace CVARC.Graphics
 		}
 	}
 }
+*/
