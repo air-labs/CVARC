@@ -11,6 +11,9 @@ namespace DemoNetworkClient
     {
         static void Main()
         {
+
+
+
             try
             {
                 var tcpClient = new TcpClient("192.168.0.69", 14000);

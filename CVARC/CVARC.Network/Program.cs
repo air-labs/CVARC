@@ -17,9 +17,18 @@ namespace CVARK.Network
         [STAThread]
         static void Main(string[] args)
         {
-            if (args.Length == 0) return;
-            if (!File.Exists(args[0])) return;
-            var ass = Assembly.LoadFile(args[0]);
+            if (args.Length == 0)
+            {
+                MessageBox.Show("Please specify the assembly with rules", "CVARC Tutorial", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!File.Exists(args[0]))
+            {
+                MessageBox.Show("The assembly file you specified does not exist", "CVARC Tutorial", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            var file = new FileInfo(args[0]);
+            var ass = Assembly.LoadFile(file.FullName);
             int port;
             if (args.Length == 1 || !int.TryParse(args[1], out port))
                 port = 14000;

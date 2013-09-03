@@ -10,9 +10,11 @@ namespace Gems
 {
     public class GemsWorld : World
     {
+        public static readonly Color WallColor=Color.LightGray;
+
         public override int RobotCount
         {
-            get { return 1; }
+            get { return 2; }
         }
 
         public SceneSettings Settings { get; set; }
@@ -55,17 +57,32 @@ namespace Gems
             var root = new Body();
             var enumerable = robots as IList<Robot> ?? robots.ToList();
             var first = enumerable[0];
-            first.Body = new Box(25, 25, 25)
+            first.Body = new Box(20, 20, 20)
             {
-                Location = new Frame3D(-150+12.5, 100-12.5, 3),
-                DefaultColor = Color.Green,
+                Location = new Frame3D(-150+25-10, 100-25+10, 3),
+                DefaultColor = Color.DarkViolet,
                 IsMaterial = true,
                 Density = Density.Iron,
                 FrictionCoefficient = 8,
-                Back = new SolidColorBrush { Color = Color.YellowGreen }
+                Top = new SolidColorBrush { Color = Color.Red },
+                Name="R1"
+            };
+            var second = enumerable[1];
+            second.Body = new Box(20, 20, 20)
+            {
+                Location = new Frame3D(150 - 25 + 10, 100 - 25 + 10, 3, Angle.Zero, Angle.Pi, Angle.Zero),
+                DefaultColor = Color.DarkViolet,
+                IsMaterial = true,
+                Density = Density.Iron,
+                FrictionCoefficient = 8,
+                Top = new SolidColorBrush { Color = Color.Blue },
+                Name="R2"
             };
             root.Add(first.Body);
-            first.Body.Collision += body => first.AddScore(-1, "Столкновение");
+            root.Add(second.Body);
+            first.Body.Collision += body => { if (body == second.Body) first.AddScore(-30, "Столкновение"); };
+            second.Body.Collision += body => { if (body == first.Body) second.AddScore(-30, "Столкновение"); };
+            
             root.Add(new Box
             {
                 XSize = 300,
@@ -104,73 +121,9 @@ namespace Gems
             CreateWalls(root, Settings.HorizontalWalls, 50, 10, 15, "HW", (x, y) => new Point(-150 + 25 + x * 50, 100 - (y + 1) * 50));
             CreateWalls(root, Settings.VerticalWalls, 10, 50, 14, "VW", (x, y) => new Point(-150 + (x+1) * 50, 100 - 25 - y * 50));
 
-            /*
-            root.Add(new Box
-            {
-                XSize = 10,
-                YSize = 100,
-                ZSize = 10,
-                IsMaterial = true,
-                DefaultColor = Color.DarkGray,
-                Top = new SolidColorBrush { Color = Color.DarkGray },
-                IsStatic = true,
-                Name = "wall",
-            });
-            root.Add(new Box
-            {
-                XSize = 100,
-                YSize = 10,
-                ZSize = 10,
-                IsMaterial = true,
-                Location = new Frame3D(-100,0,0),
-                DefaultColor = Color.DarkGray,
-                Top = new SolidColorBrush { Color = Color.DarkGray },
-                IsStatic = true,
-                Name = "wall",
-            });
-            root.Add(new Box
-            {
-                XSize = 100,
-                YSize = 10,
-                ZSize = 10,
-                Location = new Frame3D(100, 0, 0),
-                DefaultColor = Color.DarkGray,
-                Top = new SolidColorBrush { Color = Color.DarkGray },
-                IsStatic = true,
-                Name = "wall",
-            });
-            
-            root.Add(new Box
-            {
-                XSize = 100,
-                YSize = 10,
-                ZSize = 10,
-                Location = new Frame3D(0, 50, 0),
-                IsStatic = true,
-                IsMaterial = true,
-                Name = "wall",
-            });
-            root.Add(new Ball
-            {
-                Location = new Frame3D(100, 0, 0),
-                Name = "place",
-            });
-            root.Add(new Ball
-            {
-                Location = new Frame3D(-100, 0, 0),
-                Name = "place",
-            });
-            root.GetSubtreeChildrenFirst().Where(a => a.Name == "place").OfType<Ball>().ToList().ForEach(a =>
-                {
-                    a.Radius = 15;
-                    a.Location = new Frame3D(a.Location.X, a.Location.Y, 10);
-                    a.DefaultColor = Color.Cyan;
-                    a.IsStatic = true;
-                    a.IsMaterial = true;
-                });
+
             CreateBorders(root);
-            CreateTreasure(root);
-             * */
+
             return root;
         }
         
