@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CVARC", "CVARC", "{BF5FD001
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVARC.Tutorial", "CVARC\CVARC.Tutorial\CVARC.Tutorial.csproj", "{46FD3D2B-D123-4B6C-8B26-7BC3764D34FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVARC.Network", "CVARC\CVARK.Network\CVARC.Network.csproj", "{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Physics", "Engine\Phisics\Physics.csproj", "{4FAD9255-3334-4C61-B8D8-97BA4F6E351B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoNetworkClient", "Competitions\DemoNetworkClient\DemoNetworkClient.csproj", "{CF9D98B7-134D-4B6A-A3A5-439819309BD0}"
@@ -26,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics.Plus", "Engine\Grapics.Plus\Graphics.Plus.csproj", "{4DC31792-DB9F-4A7E-9454-473A030076DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalNetworkClient", "Competitions\LocalNetworkClient\LocalNetworkClient.csproj", "{23904B32-952A-4EF4-AE16-3E40159599F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVARC.Network", "CVARC\CVARC.Network\CVARC.Network.csproj", "{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,16 +79,6 @@ Global
 		{46FD3D2B-D123-4B6C-8B26-7BC3764D34FE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{46FD3D2B-D123-4B6C-8B26-7BC3764D34FE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{46FD3D2B-D123-4B6C-8B26-7BC3764D34FE}.Release|x86.ActiveCfg = Release|Any CPU
-		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Release|x86.ActiveCfg = Release|Any CPU
 		{4FAD9255-3334-4C61-B8D8-97BA4F6E351B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4FAD9255-3334-4C61-B8D8-97BA4F6E351B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FAD9255-3334-4C61-B8D8-97BA4F6E351B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -141,6 +131,16 @@ Global
 		{23904B32-952A-4EF4-AE16-3E40159599F4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{23904B32-952A-4EF4-AE16-3E40159599F4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{23904B32-952A-4EF4-AE16-3E40159599F4}.Release|x86.ActiveCfg = Release|Any CPU
+		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
