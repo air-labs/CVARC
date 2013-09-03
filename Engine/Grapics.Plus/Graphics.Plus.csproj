@@ -73,9 +73,7 @@
     <Compile Include="DirectX\Tests\BrushConverterTests.cs" />
     <Compile Include="DirectX\Tests\ControlPlacementTests.cs" />
     <Compile Include="DirectX\Tests\ModelFactoryTests.cs" />
-    <Compile Include="DirectX\Tests\DrawerControlTests.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="DirectX\Tests\DrawerControlTests.cs" />
     <Compile Include="Utils\Converter.cs" />
     <Compile Include="DrawerFactoryBase.cs" />
     <Compile Include="DirectX\CameraSwitchControl.cs">
