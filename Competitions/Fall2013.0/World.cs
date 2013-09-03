@@ -14,7 +14,7 @@ namespace Gems
 
         public override int RobotCount
         {
-            get { return 1; }
+            get { return 2; }
         }
 
         public SceneSettings Settings { get; set; }
@@ -60,14 +60,29 @@ namespace Gems
             first.Body = new Box(20, 20, 20)
             {
                 Location = new Frame3D(-150+25-10, 100-25+10, 3),
-                DefaultColor = Color.Green,
+                DefaultColor = Color.DarkViolet,
                 IsMaterial = true,
                 Density = Density.Iron,
                 FrictionCoefficient = 8,
-                Back = new SolidColorBrush { Color = Color.YellowGreen }
+                Top = new SolidColorBrush { Color = Color.Red },
+                Name="R1"
+            };
+            var second = enumerable[1];
+            second.Body = new Box(20, 20, 20)
+            {
+                Location = new Frame3D(150 - 25 + 10, 100 - 25 + 10, 3, Angle.Zero, Angle.Pi, Angle.Zero),
+                DefaultColor = Color.DarkViolet,
+                IsMaterial = true,
+                Density = Density.Iron,
+                FrictionCoefficient = 8,
+                Top = new SolidColorBrush { Color = Color.Blue },
+                Name="R2"
             };
             root.Add(first.Body);
-            first.Body.Collision += body => first.AddScore(-1, "Столкновение");
+            root.Add(second.Body);
+            first.Body.Collision += body => { if (body == second.Body) first.AddScore(-30, "Столкновение"); };
+            second.Body.Collision += body => { if (body == first.Body) second.AddScore(-30, "Столкновение"); };
+            
             root.Add(new Box
             {
                 XSize = 300,

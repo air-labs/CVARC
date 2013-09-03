@@ -41,10 +41,17 @@ namespace Gems
                     yield return new Command { Move = -100, RobotId = 1 };
                     break;
                 case Keys.J:
-                    yield return new Command { Angle = Angle.FromGrad(45), RobotId = 1 };
+                    yield return new Command { Angle = Angle.FromGrad(90), RobotId = 1 };
                     break;
                 case Keys.L:
-                    yield return new Command { Angle = Angle.FromGrad(-45), RobotId = 1 };
+                    yield return new Command { Angle = Angle.FromGrad(-90), RobotId = 1 };
+                    break;
+
+                case Keys.P:
+                    yield return new Command { Cmd = "Grip", RobotId = 1 };
+                    break;
+                case Keys.OemSemicolon:
+                    yield return new Command { Cmd = "Release", RobotId = 1 };
                     break;
             }
         }
