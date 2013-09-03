@@ -40,26 +40,43 @@ namespace Gems
 
         private static void Release(Robot robot)
         {
-            var gripped = robot.Body.ToList();
-            if(!gripped.Any()) return;
-            var latestGripped = gripped.Last();
+            var latestGripped = robot.Body.Where(z => z.Name.StartsWith("D") && z.Name.Length==2).FirstOrDefault();
+            if (latestGripped == null) return;
 
             var absoluteLocation = latestGripped.GetAbsoluteLocation();
             robot.Body.Remove(latestGripped);
 
+            var targetColor = latestGripped.Name[1].ToString();
+
             latestGripped.Location = absoluteLocation;
             latestGripped.Velocity = robot.Body.Velocity;
-            var toAtt = robot.Body.TreeRoot.GetSubtreeChildrenFirst().OfType<Box>().Where(a => a != null).
-                              FirstOrDefault(a => !a.Any() && latestGripped != a && a != robot.Body && a.DefaultColor == Color.Cyan && Distance(latestGripped, a) < 30);
+            var toAtt = robot.Body.TreeRoot.GetSubtreeChildrenFirst()
+                            .Where(a =>
+                                    (a.Name == "VW" + targetColor || a.Name == "HW" + targetColor) &&
+                                    Distance(latestGripped, a) < 30)
+                            .OfType<Box>()
+                            .FirstOrDefault();
+
             if(toAtt != null)
             {
-                latestGripped.Velocity = new Frame3D();
-                latestGripped.Location = new Frame3D(0, 0, toAtt.GetSubtreeChildrenFirst().OfType<Box>().Where(a => a!=null).Sum(a => a.ZSize));
-                robot.AddScore(10);
-                toAtt.Add(latestGripped);
-            } else
+                robot.Body.TreeRoot.Remove(toAtt);
+                var wall = new Box
+                {
+                    Name = toAtt.Name.Substring(0, 2),
+                    XSize = toAtt.XSize,
+                    YSize = toAtt.YSize,
+                    ZSize = toAtt.ZSize,
+                    Location = toAtt.Location,
+                    DefaultColor = GemsWorld.WallColor,
+                    IsStatic = true,
+                    IsMaterial = true
+                };
+                robot.Body.TreeRoot.Add(wall);
+                robot.AddScore(10,"Repaired wall "+targetColor);
+            }
+            else
                 robot.Body.TreeRoot.Add(latestGripped);
-            gripped.RemoveRange(0, gripped.Count);
+          //  gripped.RemoveRange(0, gripped.Count);
         }
 
         private static void Grip(Robot robot)
@@ -125,6 +142,7 @@ namespace Gems
                 !body.IsStatic &&
                 !to.SubtreeContainsChild(body) &&
                 !to.ParentsContain(body) &&
+                body.Name.StartsWith("D") &&
                 Distance(body, to) < 30;
         }
         private static double Distance(Body from, Body to)

@@ -23,10 +23,10 @@ namespace Gems
                     yield return new Command { Move = -100, RobotId = 0 };
                     break;
                 case Keys.A:
-                    yield return new Command { Angle = Angle.FromGrad(45), RobotId = 0 };
+                    yield return new Command { Angle = Angle.FromGrad(90), RobotId = 0 };
                     break;
                 case Keys.D:
-                    yield return new Command { Angle = Angle.FromGrad(-45), RobotId = 0 };
+                    yield return new Command { Angle = Angle.FromGrad(-90), RobotId = 0 };
                     break;
                 case Keys.R:
                     yield return new Command { Cmd = "Grip", RobotId = 0 };
