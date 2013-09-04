@@ -52,6 +52,14 @@
       <Project>{af9c4d6b-a41f-46f2-8af8-af30163e1051}</Project>
       <Name>CVARC.Network</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Engine\CVARC.Basic\CVARC.Basic.csproj">
+      <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
+      <Name>CVARC.Basic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fall2013.0\Fall2013.0.csproj">
+      <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
+      <Name>Fall2013.0</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

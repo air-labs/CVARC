@@ -17,13 +17,19 @@ namespace CVARC.Basic
         public readonly World World;
         public readonly RobotBehaviour Behaviour;
         public readonly KeyboardController KeyboardController;
+        public readonly NetworkController NetworkController;
+        public double GameTimeLimit { get; protected set; }
+        public double NetworkTimeLimit { get; protected set; }
         public Body Root { get; private set; }
         public DrawerFactory DrawerFactory { get; private set; }
-        public Competitions(World world, RobotBehaviour behaviour, KeyboardController keyboard)
+        public Competitions(World world, RobotBehaviour behaviour, KeyboardController keyboard, NetworkController network)
         {
             World = world;
             Behaviour = behaviour;
             KeyboardController = keyboard;
+            NetworkController = network;
+            GameTimeLimit = 90;
+            NetworkTimeLimit = 1;
         }
 
         public static Competitions Load(string filename)

@@ -42,12 +42,15 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour.cs" />
     <Compile Include="Competitions2013_1.cs" />
     <Compile Include="KbController.cs" />
     <Compile Include="MapSensor.cs" />
+    <Compile Include="NetworkController.cs" />
     <Compile Include="SceneSettings.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
