@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 using CVARC.Basic;
 using CVARC.Basic.Controllers;
@@ -93,10 +94,12 @@ namespace CVARC.Tutorial
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             form = new TutorialForm(competitions.World, factory);
+            form.KeyPreview = true;
             form.KeyDown += form_KeyDown;
             form.KeyUp += form_KeyUp;
-         //   Application.Run(new TutorialForm(com., b, kb));
-        //    Application.Run(new TestForm());
+            new Thread(Process) { IsBackground = true }.Start();
+            Application.Run(form);
+
         }
 
        
