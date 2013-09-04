@@ -66,6 +66,10 @@ namespace CVARC.Basic
                 foreach (Body body in Root)
                     body.Update(1 / 60);
             }
+            if (CycleFinished != null)
+                CycleFinished(this, EventArgs.Empty);
         }
+
+        public event EventHandler CycleFinished;
     }
 }

@@ -73,7 +73,7 @@ namespace CVARC.Tutorial
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            form = new TutorialForm(competitions.World, competitions.DrawerFactory);
+            form = new TutorialForm(competitions);
             form.KeyPreview = true;
             form.KeyDown += form_KeyDown;
             form.KeyUp += form_KeyUp;

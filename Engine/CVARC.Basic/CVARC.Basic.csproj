@@ -60,6 +60,12 @@
     <Compile Include="Sensors\Sensor.cs" />
     <Compile Include="Sensors\ISensorFactory.cs" />
     <Compile Include="Sensors\SensorFactory.cs" />
+    <Compile Include="CompetitionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompetitionsForm.Designer.cs">
+      <DependentUpon>CompetitionsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>

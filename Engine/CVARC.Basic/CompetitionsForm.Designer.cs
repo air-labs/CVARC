@@ -1,6 +1,6 @@
 ﻿
 
-namespace CVARC.Tutorial
+namespace CVARC.Basic
 {
     partial class TutorialForm
     {
