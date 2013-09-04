@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace LocalNetworkClient
 {
@@ -25,30 +26,20 @@ namespace LocalNetworkClient
             var streamReader = new StreamReader(tcpClient.GetStream());
             var streamWriter = new StreamWriter(tcpClient.GetStream());
 
-            var writer = new StringBuilder();
-            for (int i = 0; i < 100000; i++) writer.Append('a');
 
-            streamWriter.WriteLine(writer.ToString());
+            streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Left</Side></Hello>");
             streamWriter.Flush();
-            streamWriter.Close();
-            Console.ReadKey();
-            p.Close();
-            return;
-
-
-            var team = streamReader.ReadLine();
-            streamWriter.WriteLine("key");
-            streamWriter.WriteLine("comp");
-            streamWriter.Flush();
+        
             var rand = new Random();
-            while (true)
+
+            for (int i=0;i<90;i++)
             {
-                streamWriter.WriteLine("<Command><Move>{0}</Move><Angle>{1}</Angle></Command>", rand.Next(-50, 100),
+                Console.WriteLine(streamReader.ReadLine());
+                var line=String.Format("<Command><LinearVelocity>{0}</LinearVelocity><AngularVelocity>{1}</AngularVelocity><Time>1</Time></Command>", rand.Next(-50, 100),
                                        180 * (rand.NextDouble() * Math.PI - Math.PI / 2) / Math.PI);
+                new Gems.GemsNetworkController().ParseRequest(line);
+                streamWriter.WriteLine(line);
                 streamWriter.Flush();
-                string str = streamReader.ReadLine();
-                Console.WriteLine(str);
-                if (str == "end") return;
             }
         }
     }
