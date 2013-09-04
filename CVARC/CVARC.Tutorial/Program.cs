@@ -1,15 +1,70 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 using CVARC.Basic;
 using CVARC.Basic.Controllers;
+using CVARC.Core;
+using CVARC.Graphics;
+using CVARC.Physics;
 
 namespace CVARC.Tutorial
 {
     static class Program
     {
+        static Body root;
+        static TutorialForm form;
+        static Competitions competitions;
+
+        static List<Keys> pressedKeys = new List<Keys>();
+        static void MakeCycle(double time, bool realtime)
+        {
+            double dt=1.0 / 10000;
+            for (double t = 0; t < time; t += dt)
+            {
+                PhysicalManager.MakeIteration(dt, root);
+                foreach (Body body in root)
+                    body.Update(1 / 60);
+            }
+            form.BeginInvoke(new Action(form.UpdateScores));
+        }
+
+        static void form_KeyUp(object sender, KeyEventArgs e)
+        {
+            lock (pressedKeys)
+            {
+                pressedKeys.Remove(e.KeyCode);
+            }
+        }
+
+        static void form_KeyDown(object sender, KeyEventArgs e)
+        {
+            lock (pressedKeys)
+            {
+                if (!pressedKeys.Contains(e.KeyCode)) pressedKeys.Add(e.KeyCode);
+            }
+        }
+
+        static void Process()
+        {
+            while (true)
+            {
+                List<Command> commands=null;
+                lock (pressedKeys)
+                {
+                    commands = pressedKeys.SelectMany(z => competitions.KeyboardController.GetCommand(z)).ToList();
+                }
+                foreach(var c in commands)
+                    competitions.Behaviour.ProcessCommand(competitions.World.Robots[c.RobotId], c);
+                MakeCycle(0.1, true);
+            }
+        }
+
+
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -21,27 +76,32 @@ namespace CVARC.Tutorial
                MessageBox.Show("Please specify the assembly with rules", "CVARC Tutorial", MessageBoxButtons.OK, MessageBoxIcon.Error);
                return;
            }
-           if (!File.Exists(args[0]))
-           {
-               MessageBox.Show("The assembly file you specified does not exist", "CVARC Tutorial", MessageBoxButtons.OK, MessageBoxIcon.Error); 
-               return;
-           }
 
-            var file = new FileInfo(args[0]);
-            var ass = Assembly.LoadFile(file.FullName);
-            var world = ass.GetExportedTypes().FirstOrDefault(a => a.IsSubclassOf(typeof(World)));
-            var beh = ass.GetExportedTypes().FirstOrDefault(a => a.IsSubclassOf(typeof(RobotBehaviour)))??typeof(RobotBehaviour);
-            var kb = ass.GetExportedTypes().FirstOrDefault(a => a.IsSubclassOf(typeof(KeyboardController))) ?? typeof(KeyboardController);
-            if(world == null) return;
-            var constrW = world.GetConstructor(new Type[0]);
-            var constrB = beh.GetConstructor(new Type[0]);
-            if(constrW == null) return;
-            var w = constrW.Invoke(new object[0]) as World;
-            var b = constrB == null?new RobotBehaviour() : constrB.Invoke(new object[0]) as RobotBehaviour;
+           competitions = Competitions.Load(args[0]);
+           root = competitions.World.Init();
+           PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, root);
+           var factory = new DrawerFactory(root);
+           competitions.Behaviour.InitSensors();
+           competitions.Behaviour.Sensors.ForEach(a =>
+           {
+               foreach (var robot in competitions.World.Robots)
+               {
+                   var sens = a.GetOne(robot, competitions.World, factory);
+                   robot.Sensors.Add(sens);
+               }
+           });
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TutorialForm(w, b, kb));
-        //    Application.Run(new TestForm());
+            form = new TutorialForm(competitions.World, factory);
+            form.KeyPreview = true;
+            form.KeyDown += form_KeyDown;
+            form.KeyUp += form_KeyUp;
+            new Thread(Process) { IsBackground = true }.Start();
+            Application.Run(form);
+
         }
+
+       
     }
 }
