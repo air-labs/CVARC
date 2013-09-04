@@ -15,22 +15,11 @@ namespace CVARC.Tutorial
 {
     static class Program
     {
-        static Body root;
         static TutorialForm form;
         static Competitions competitions;
 
         static List<Keys> pressedKeys = new List<Keys>();
-        static void MakeCycle(double time, bool realtime)
-        {
-            double dt=1.0 / 10000;
-            for (double t = 0; t < time; t += dt)
-            {
-                PhysicalManager.MakeIteration(dt, root);
-                foreach (Body body in root)
-                    body.Update(1 / 60);
-            }
-            form.BeginInvoke(new Action(form.UpdateScores));
-        }
+        
 
         static void form_KeyUp(object sender, KeyEventArgs e)
         {
@@ -59,7 +48,8 @@ namespace CVARC.Tutorial
                 }
                 foreach(var c in commands)
                     competitions.Behaviour.ProcessCommand(competitions.World.Robots[c.RobotId], c);
-                MakeCycle(0.1, true);
+                competitions.MakeCycle(0.1, true);
+                form.BeginInvoke(new Action(form.UpdateScores));
             }
         }
 
@@ -78,30 +68,17 @@ namespace CVARC.Tutorial
            }
 
            competitions = Competitions.Load(args[0]);
-           root = competitions.World.Init();
-           PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, root);
-           var factory = new DrawerFactory(root);
-           competitions.Behaviour.InitSensors();
-           competitions.Behaviour.Sensors.ForEach(a =>
-           {
-               foreach (var robot in competitions.World.Robots)
-               {
-                   var sens = a.GetOne(robot, competitions.World, factory);
-                   robot.Sensors.Add(sens);
-               }
-           });
+           competitions.Initialize();
+           
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            form = new TutorialForm(competitions.World, factory);
+            form = new TutorialForm(competitions.World, competitions.DrawerFactory);
             form.KeyPreview = true;
             form.KeyDown += form_KeyDown;
             form.KeyUp += form_KeyUp;
             new Thread(Process) { IsBackground = true }.Start();
             Application.Run(form);
-
         }
-
-       
     }
 }
