@@ -6,6 +6,7 @@ namespace CVARC.Basic.Controllers
 {
     public abstract class KeyboardController : Controller
     {
+        /*
         protected KeyboardController(Control control)
         {
             var form = (control.TopLevelControl as Form);
@@ -18,7 +19,8 @@ namespace CVARC.Basic.Controllers
         private void ProcessKey(object sender, KeyEventArgs keyEventArgs)
         {
             RaiseProcess(GetCommand(keyEventArgs.KeyData));
-        }
+        }*/
+
         public abstract IEnumerable<Command> GetCommand(Keys keyData);
     }
 }

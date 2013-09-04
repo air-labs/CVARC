@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour.cs" />
+    <Compile Include="Competitions2013_1.cs" />
     <Compile Include="KbController.cs" />
     <Compile Include="MapSensor.cs" />
     <Compile Include="SceneSettings.cs" />

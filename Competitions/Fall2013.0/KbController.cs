@@ -7,8 +7,7 @@ namespace Gems
 {
     public class KbController : KeyboardController
     {
-        public KbController(Control control)
-            : base(control)
+        public KbController()
         {
         }
 

@@ -21,26 +21,12 @@ namespace CVARC.Tutorial
                MessageBox.Show("Please specify the assembly with rules", "CVARC Tutorial", MessageBoxButtons.OK, MessageBoxIcon.Error);
                return;
            }
-           if (!File.Exists(args[0]))
-           {
-               MessageBox.Show("The assembly file you specified does not exist", "CVARC Tutorial", MessageBoxButtons.OK, MessageBoxIcon.Error); 
-               return;
-           }
 
-            var file = new FileInfo(args[0]);
-            var ass = Assembly.LoadFile(file.FullName);
-            var world = ass.GetExportedTypes().FirstOrDefault(a => a.IsSubclassOf(typeof(World)));
-            var beh = ass.GetExportedTypes().FirstOrDefault(a => a.IsSubclassOf(typeof(RobotBehaviour)))??typeof(RobotBehaviour);
-            var kb = ass.GetExportedTypes().FirstOrDefault(a => a.IsSubclassOf(typeof(KeyboardController))) ?? typeof(KeyboardController);
-            if(world == null) return;
-            var constrW = world.GetConstructor(new Type[0]);
-            var constrB = beh.GetConstructor(new Type[0]);
-            if(constrW == null) return;
-            var w = constrW.Invoke(new object[0]) as World;
-            var b = constrB == null?new RobotBehaviour() : constrB.Invoke(new object[0]) as RobotBehaviour;
+           var competitions = Competitions.Load(args[0]);
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TutorialForm(w, b, kb));
+         //   Application.Run(new TutorialForm(com., b, kb));
         //    Application.Run(new TestForm());
         }
     }
