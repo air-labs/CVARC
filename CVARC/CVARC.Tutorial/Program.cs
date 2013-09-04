@@ -51,13 +51,14 @@ namespace CVARC.Tutorial
         {
             while (true)
             {
+                List<Command> commands=null;
                 lock (pressedKeys)
                 {
-                    var commands = pressedKeys.SelectMany(z => competitions.KeyboardController.GetCommand(z)).ToList();
+                    commands = pressedKeys.SelectMany(z => competitions.KeyboardController.GetCommand(z)).ToList();
                 }
-
-
-
+                foreach(var c in commands)
+                    competitions.Behaviour.ProcessCommand(competitions.World.Robots[c.RobotId], c);
+                MakeCycle(0.1, true);
             }
         }
 
