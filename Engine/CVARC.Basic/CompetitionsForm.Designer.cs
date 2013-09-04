@@ -1,4 +1,6 @@
-﻿namespace CVARK.Network
+﻿
+
+namespace CVARC.Basic
 {
     partial class TutorialForm
     {
@@ -64,4 +66,3 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
-

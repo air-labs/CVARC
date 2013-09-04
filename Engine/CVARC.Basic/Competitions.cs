@@ -6,6 +6,9 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using CVARC.Basic.Controllers;
+using CVARC.Core;
+using CVARC.Graphics;
+using CVARC.Physics;
 
 namespace CVARC.Basic
 {
@@ -14,6 +17,8 @@ namespace CVARC.Basic
         public readonly World World;
         public readonly RobotBehaviour Behaviour;
         public readonly KeyboardController KeyboardController;
+        public Body Root { get; private set; }
+        public DrawerFactory DrawerFactory { get; private set; }
         public Competitions(World world, RobotBehaviour behaviour, KeyboardController keyboard)
         {
             World = world;
@@ -35,5 +40,36 @@ namespace CVARC.Basic
             var ctor = competitions.GetConstructor(new Type[] { });
             return ctor.Invoke(new object[] { }) as Competitions;
         }
+
+        public void Initialize()
+        {
+            Root = World.Init();
+            PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
+            DrawerFactory = new DrawerFactory(Root);
+            Behaviour.InitSensors();
+            Behaviour.Sensors.ForEach(a =>
+            {
+                foreach (var robot in World.Robots)
+                {
+                    var sens = a.GetOne(robot, World, DrawerFactory);
+                    robot.Sensors.Add(sens);
+                }
+            });
+        }
+
+        public void MakeCycle(double time, bool realtime)
+        {
+            double dt = 1.0 / 10000;
+            for (double t = 0; t < time; t += dt)
+            {
+                PhysicalManager.MakeIteration(dt, Root);
+                foreach (Body body in Root)
+                    body.Update(1 / 60);
+            }
+            if (CycleFinished != null)
+                CycleFinished(this, EventArgs.Empty);
+        }
+
+        public event EventHandler CycleFinished;
     }
 }

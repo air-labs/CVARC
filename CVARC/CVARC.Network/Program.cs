@@ -2,15 +2,35 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Linq;
 using CVARC.Basic;
 using CVARC.Basic.Controllers;
 
 namespace CVARK.Network
 {
+
+
     static class Program
     {
+
+        static Stream clientStream;
+
+        static void ReadPackage<T>()
+        {
+            var streamReader = new StreamReader(clientStream);
+            var line = streamReader.ReadLine();
+            Console.WriteLine(line.Length);
+            var document = XDocument.Load(clientStream);
+            Console.WriteLine(document.ToString());
+
+        }
+
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -22,31 +42,26 @@ namespace CVARK.Network
                 MessageBox.Show("Please specify the assembly with rules", "CVARC Tutorial", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (!File.Exists(args[0]))
-            {
-                MessageBox.Show("The assembly file you specified does not exist", "CVARC Tutorial", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            var file = new FileInfo(args[0]);
-            var ass = Assembly.LoadFile(file.FullName);
-            int port;
-            if (args.Length == 1 || !int.TryParse(args[1], out port))
-                port = 14000;
-            var world = ass.GetExportedTypes().FirstOrDefault(a => a.IsSubclassOf(typeof(World)));
-            var beh = ass.GetExportedTypes().FirstOrDefault(a => a.IsSubclassOf(typeof(RobotBehaviour))) ?? typeof(RobotBehaviour);
-            var kb = ass.GetExportedTypes().FirstOrDefault(a => a.IsSubclassOf(typeof(NetworkController))) ?? typeof(NetworkController);
-            if (world == null) return;
-            var constrW = world.GetConstructor(new Type[0]);
-            var constrB = beh.GetConstructor(new Type[0]);
-            if (constrW == null) return;
-            var w = constrW.Invoke(new object[0]) as World;
-            var b = constrB == null ? new RobotBehaviour() : constrB.Invoke(new object[0]) as RobotBehaviour;
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.ThreadException += (sender, eventArgs) => Application.Exit();
-            var frm = new TutorialForm(w, b, kb, port) {Opacity = 0, ShowInTaskbar = false};
-            frm.Closed += (sender, eventArgs) => Environment.Exit(0);
-            Application.Run(frm);
+
+            var competitions = Competitions.Load(args[0]);
+
+            Console.Write("Starting server... ");
+            var listener = new TcpListener(IPAddress.Any, 14000);
+            listener.Start();
+            Console.WriteLine("OK");
+            
+            
+            Console.Write("Waiting for client... ");
+            var client = listener.AcceptTcpClient();
+            clientStream = client.GetStream();
+            Console.WriteLine("OK");
+
+            Console.Write("Receiving hello package... ");
+            ReadPackage<string>();
+            Console.WriteLine("OK");
+
+            Console.ReadKey();
+            
         }
     }
 }

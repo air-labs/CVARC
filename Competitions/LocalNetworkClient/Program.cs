@@ -24,6 +24,18 @@ namespace LocalNetworkClient
             var tcpClient = new TcpClient("127.0.0.1", 14000);
             var streamReader = new StreamReader(tcpClient.GetStream());
             var streamWriter = new StreamWriter(tcpClient.GetStream());
+
+            var writer = new StringBuilder();
+            for (int i = 0; i < 100000; i++) writer.Append('a');
+
+            streamWriter.WriteLine(writer.ToString());
+            streamWriter.Flush();
+            streamWriter.Close();
+            Console.ReadKey();
+            p.Close();
+            return;
+
+
             var team = streamReader.ReadLine();
             streamWriter.WriteLine("key");
             streamWriter.WriteLine("comp");

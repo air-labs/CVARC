@@ -57,8 +57,11 @@ namespace Gems
             var root = new Body();
             var enumerable = robots as IList<Robot> ?? robots.ToList();
             var first = enumerable[0];
-            first.Body = new Box(20, 20, 20)
+            first.Body = new Cylinder
             {
+                Height = 20,
+                RTop = 10,
+                RBottom = 10,
                 Location = new Frame3D(-150+25-10, 100-25+10, 3),
                 DefaultColor = Color.DarkViolet,
                 IsMaterial = true,
@@ -68,8 +71,11 @@ namespace Gems
                 Name="R1"
             };
             var second = enumerable[1];
-            second.Body = new Box(20, 20, 20)
+            second.Body = new Cylinder
             {
+                Height=20,
+                RTop=10,
+                RBottom=10,
                 Location = new Frame3D(150 - 25 + 10, 100 - 25 + 10, 3, Angle.Zero, Angle.Pi, Angle.Zero),
                 DefaultColor = Color.DarkViolet,
                 IsMaterial = true,
