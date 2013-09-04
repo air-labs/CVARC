@@ -17,15 +17,12 @@ namespace CVARK.Network
 
     static class Program
     {
-
-        static Stream clientStream;
+        static StreamReader clientReader;
 
         static void ReadPackage<T>()
         {
-            var streamReader = new StreamReader(clientStream);
-            var line = streamReader.ReadLine();
-            Console.WriteLine(line.Length);
-            var document = XDocument.Load(clientStream);
+            var line = clientReader.ReadLine();
+            var document = XDocument.Load(line);
             Console.WriteLine(document.ToString());
 
         }
@@ -53,7 +50,7 @@ namespace CVARK.Network
             
             Console.Write("Waiting for client... ");
             var client = listener.AcceptTcpClient();
-            clientStream = client.GetStream();
+            clientReader = new StreamReader(client.GetStream());
             Console.WriteLine("OK");
 
             Console.Write("Receiving hello package... ");
