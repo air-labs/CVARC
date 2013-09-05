@@ -27,13 +27,20 @@ namespace CVARC.BotDemo
 
             var competitions = Competitions.Load(args[0]);
             competitions.Initialize();
-            var bot=competitions.CreateBot(args[1],0);
+            List<Bot> bots = new List<Bot>();
+            for (int i=0;i<competitions.World.RobotCount;i++)
+            {
+                if (i+1>=args.Length) break;
+                var botName=args[i+1];
+                if (botName=="None") continue;
+                bots.Add(competitions.CreateBot(args[i + 1], i));
+            }
 
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var form = new TutorialForm(competitions);
-            new Thread(()=>competitions.ProcessOneParticipant(bot,true)) { IsBackground = true }.Start();
+            new Thread(() => competitions.ProcessParticipants(true, bots.ToArray())) { IsBackground = true }.Start();
             Application.Run(form);
         }
     }

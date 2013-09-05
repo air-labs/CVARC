@@ -29,7 +29,7 @@ namespace CVARK.Network
 
         static void Process()
         {
-            competitions.ProcessOneParticipant(participant, true);
+            competitions.ProcessOneParticipant(true, participant);
         }
 
         /// <summary>

@@ -96,7 +96,7 @@ namespace CVARC.Basic
 
         public event EventHandler CycleFinished;
 
-        public void ProcessOneParticipant(IParticipant participant, bool realtime)
+        public void ProcessOneParticipant(bool realtime, IParticipant participant)
         {
             double time = GameTimeLimit;
             while (true)
@@ -105,6 +105,27 @@ namespace CVARC.Basic
                 Behaviour.ProcessCommand(World.Robots[command.RobotId], command);
                 MakeCycle(Math.Min(time, command.Time), realtime);
                 time -= command.Time;
+                if (time < 0) break;
+            }
+        }
+
+        public void ProcessParticipants(bool realTime, params IParticipant[] participants)
+        {
+            double time = GameTimeLimit;
+            Command[] states = participants.Select(z => new Command()).ToArray();
+            
+            while (true)
+            {
+                for(int i=0;i<participants.Length;i++)
+                    if (states[i].Time == 0)
+                    {
+                        states[i] = participants[i].MakeTurn();
+                        Behaviour.ProcessCommand(World.Robots[states[i].RobotId], states[i]);
+                    }
+                var minTime = Math.Min(time,states.Min(z => z.Time));
+                MakeCycle(minTime, realTime);
+                foreach (var e in states) e.Time -= minTime;
+                time -= minTime;
                 if (time < 0) break;
             }
         }
