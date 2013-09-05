@@ -31,9 +31,11 @@ namespace LocalNetworkClient
             streamWriter.Flush();
 
 
+            var line = streamReader.ReadLine();
             streamWriter.WriteLine("<Command><LinearVelocity>{0}</LinearVelocity><AngularVelocity>{1}</AngularVelocity><Time>{2}</Time></Command>", 0, -10, 9);
+            streamWriter.Flush();
+            line = streamReader.ReadLine(); 
             streamWriter.WriteLine("<Command><LinearVelocity>{0}</LinearVelocity><AngularVelocity>{1}</AngularVelocity><Time>{2}</Time></Command>", 10, 0, 5);
-
             streamWriter.Flush();
             Console.ReadKey();
             
