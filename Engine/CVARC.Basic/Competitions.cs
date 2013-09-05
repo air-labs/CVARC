@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using CVARC.Basic.Controllers;
 using CVARC.Core;
@@ -30,6 +31,11 @@ namespace CVARC.Basic
             NetworkController = network;
             GameTimeLimit = 90;
             NetworkTimeLimit = 1;
+        }
+
+        public void ApplyCommand(Command command)
+        {
+            Behaviour.ProcessCommand(World.Robots[command.RobotId], command);
         }
 
         public static Competitions Load(string filename)
@@ -65,12 +71,17 @@ namespace CVARC.Basic
 
         public void MakeCycle(double time, bool realtime)
         {
-            double dt = 1.0 / 10000;
+            double dt = 1.0 / 100;
+            int span=(int)(dt*1000);
             for (double t = 0; t < time; t += dt)
             {
+                foreach (var robot in World.Robots)
+                    robot.Body.Velocity = robot.RequestedSpeed;
                 PhysicalManager.MakeIteration(dt, Root);
                 foreach (Body body in Root)
                     body.Update(1 / 60);
+                if (realtime)
+                    Thread.Sleep(span);
             }
             if (CycleFinished != null)
                 CycleFinished(this, EventArgs.Empty);

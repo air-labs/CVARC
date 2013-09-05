@@ -8,7 +8,6 @@ namespace CVARC.Basic
 {
     public class RobotBehaviour
     {
-        public event Action<Robot, Frame3D> Move = (robot, d) => { };
         public event Action<Robot, Command> CommandRecieved = (robot, d) => { };
         public List<ISensorFactory> Sensors { get; set; }
         public void Add<T>() where T : ISensor, new()
@@ -18,14 +17,12 @@ namespace CVARC.Basic
         public RobotBehaviour()
         {
             Sensors = new List<ISensorFactory>();
-            Move += (robot, d) =>
-                    robot.Body.Velocity = d;
         }
 
         public void ProcessCommand(Robot robot, Command cmd)
         {
-            if(Math.Abs(cmd.Move) > 0 || Math.Abs(cmd.Angle.Grad) > 0)
-                Move(robot, new Frame3D(cmd.Move * Math.Cos(robot.Body.Location.Yaw.Radian), cmd.Move* Math.Sin(robot.Body.Location.Yaw.Radian), 0, Angle.Zero, cmd.Angle, Angle.Zero));
+            if (Math.Abs(cmd.Move) > 0 || Math.Abs(cmd.Angle.Grad) > 0)
+                robot.RequestedSpeed = new Frame3D(cmd.Move * Math.Cos(robot.Body.Location.Yaw.Radian), cmd.Move * Math.Sin(robot.Body.Location.Yaw.Radian), 0, Angle.Zero, cmd.Angle, Angle.Zero);
             CommandRecieved(robot, cmd);
         }
 

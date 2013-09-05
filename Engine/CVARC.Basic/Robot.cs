@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AIRLab.Mathematics;
 using CVARC.Basic.Sensors;
 using CVARC.Core;
 
@@ -13,6 +14,8 @@ namespace CVARC.Basic
         public Body Body { get; set; }
         [NonSerialized]
         public List<Sensor> Sensors = new List<Sensor>();
+
+        public Frame3D RequestedSpeed { get; set; }
 
         public Robot(World world)
         {

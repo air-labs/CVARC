@@ -46,8 +46,8 @@ namespace CVARC.Tutorial
                 {
                     commands = pressedKeys.SelectMany(z => competitions.KeyboardController.GetCommand(z)).ToList();
                 }
-                foreach(var c in commands)
-                    competitions.Behaviour.ProcessCommand(competitions.World.Robots[c.RobotId], c);
+                foreach (var c in commands)
+                    competitions.ApplyCommand(c);
                 competitions.MakeCycle(0.1, true);
                 form.BeginInvoke(new Action(form.UpdateScores));
             }

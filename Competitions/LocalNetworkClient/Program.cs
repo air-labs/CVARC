@@ -29,18 +29,14 @@ namespace LocalNetworkClient
 
             streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Left</Side></Hello>");
             streamWriter.Flush();
-        
-            var rand = new Random();
 
-            for (int i=0;i<90;i++)
-            {
-                Console.WriteLine(streamReader.ReadLine());
-                var line=String.Format("<Command><LinearVelocity>{0}</LinearVelocity><AngularVelocity>{1}</AngularVelocity><Time>1</Time></Command>", rand.Next(-50, 100),
-                                       180 * (rand.NextDouble() * Math.PI - Math.PI / 2) / Math.PI);
-                new Gems.GemsNetworkController().ParseRequest(line);
-                streamWriter.WriteLine(line);
-                streamWriter.Flush();
-            }
+
+            streamWriter.WriteLine("<Command><LinearVelocity>{0}</LinearVelocity><AngularVelocity>{1}</AngularVelocity><Time>{2}</Time></Command>", 0, -10, 9);
+            streamWriter.WriteLine("<Command><LinearVelocity>{0}</LinearVelocity><AngularVelocity>{1}</AngularVelocity><Time>{2}</Time></Command>", 10, 0, 5);
+
+            streamWriter.Flush();
+            Console.ReadKey();
+            
         }
     }
 }
