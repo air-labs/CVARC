@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -45,15 +46,23 @@ namespace CVARK.Network
             }
 
             competitions = Competitions.Load(args[0]);
-
+            var parts = new List<IParticipant>();
+            
             participant = new NetworkParticipant(competitions);
+            parts.Add(participant);
+
+            if (participant.HelloPackage.Opponent != null)
+            {
+                var botNumber = participant.HelloPackage.LeftSide ? 1 : 0;
+                parts.Add(competitions.CreateBot(participant.HelloPackage.Opponent, botNumber));
+            }
 
             competitions.Initialize();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var form = new TutorialForm(competitions);
 
-            new Thread(Process) { IsBackground = true }.Start();
+            new Thread(()=>competitions.ProcessParticipants(true,parts.ToArray())) { IsBackground = true }.Start();
 
             Application.Run(form);
             
