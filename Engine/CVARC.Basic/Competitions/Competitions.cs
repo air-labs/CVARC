@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
 using CVARC.Core;
 using CVARC.Graphics;
@@ -21,8 +22,11 @@ namespace CVARC.Basic
         public readonly NetworkController NetworkController;
         public double GameTimeLimit { get; protected set; }
         public double NetworkTimeLimit { get; protected set; }
+        public double LinearVelocityLimit { get; protected set; }
+        public Angle AngularVelocityLimit { get; protected set; }
         public Body Root { get; private set; }
         public DrawerFactory DrawerFactory { get; private set; }
+        public Dictionary<string, Type> AvailableBots { get; private set; }
         public Competitions(World world, RobotBehaviour behaviour, KeyboardController keyboard, NetworkController network)
         {
             World = world;
@@ -31,6 +35,9 @@ namespace CVARC.Basic
             NetworkController = network;
             GameTimeLimit = 90;
             NetworkTimeLimit = 1;
+            AngularVelocityLimit = Angle.FromGrad(20);
+            LinearVelocityLimit = 10;
+            AvailableBots = new Dictionary<string, Type>();
         }
 
         public void ApplyCommand(Command command)
@@ -94,12 +101,23 @@ namespace CVARC.Basic
             double time = GameTimeLimit;
             while (true)
             {
-                var command = participant.MakeMove();
+                var command = participant.MakeTurn();
                 Behaviour.ProcessCommand(World.Robots[command.RobotId], command);
-                MakeCycle(Math.Min(time, command.Time), false);
+                MakeCycle(Math.Min(time, command.Time), realtime);
                 time -= command.Time;
                 if (time < 0) break;
             }
+        }
+
+        public Bot CreateBot(string name, int controlledBot)
+        {
+            if (!AvailableBots.ContainsKey(name)) throw new Exception("Bot was not found");
+            var tp = AvailableBots[name];
+            var ctor = tp.GetConstructor(new Type[] { });
+            var bot = ctor.Invoke(new object[]{}) as Bot;
+            bot.Initialize(this, controlledBot);
+            return bot;
+
         }
 
     }

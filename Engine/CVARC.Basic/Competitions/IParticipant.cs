@@ -8,6 +8,6 @@ namespace CVARC.Basic
 {
     public interface IParticipant
     {
-        Command MakeMove();
+        Command MakeTurn();
     }
 }

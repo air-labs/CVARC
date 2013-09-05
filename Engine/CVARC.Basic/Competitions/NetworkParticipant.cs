@@ -43,7 +43,7 @@ namespace CVARC.Basic
             ControlledRobot = HelloPackage.LeftSide ? 0 : 1;
         }
 
-        public Controllers.Command MakeMove()
+        public Controllers.Command MakeTurn()
         {
             var reply = "<Sensors>";
             foreach (var e in competitions.World.Robots[ControlledRobot].Sensors)

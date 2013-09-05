@@ -10,6 +10,8 @@ namespace Gems
     {
         public Competitions2013_1()
             : base(new GemsWorld(), new Behaviour(), new KbController(), new GemsNetworkController())
-        { }
+        {
+            AvailableBots["Simple"] = typeof(SimpleBot);
+        }
     }
 }

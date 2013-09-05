@@ -43,6 +43,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Competitions\Bots\Bot.cs" />
+    <Compile Include="Competitions\Bots\FixedProgramBot.cs" />
     <Compile Include="Competitions\Competitions.cs" />
     <Compile Include="Competitions\HelloPackage.cs" />
     <Compile Include="Competitions\IParticipant.cs" />
