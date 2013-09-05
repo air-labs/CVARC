@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
 using CVARC.Core;
 using CVARC.Graphics;
@@ -21,8 +22,11 @@ namespace CVARC.Basic
         public readonly NetworkController NetworkController;
         public double GameTimeLimit { get; protected set; }
         public double NetworkTimeLimit { get; protected set; }
+        public double LinearVelocityLimit { get; protected set; }
+        public Angle AngularVelocityLimit { get; protected set; }
         public Body Root { get; private set; }
         public DrawerFactory DrawerFactory { get; private set; }
+        public Dictionary<string, Type> AvailableBots { get; private set; }
         public Competitions(World world, RobotBehaviour behaviour, KeyboardController keyboard, NetworkController network)
         {
             World = world;
@@ -31,6 +35,9 @@ namespace CVARC.Basic
             NetworkController = network;
             GameTimeLimit = 90;
             NetworkTimeLimit = 1;
+            AngularVelocityLimit = Angle.FromGrad(20);
+            LinearVelocityLimit = 10;
+            AvailableBots = new Dictionary<string, Type>();
         }
 
         public void ApplyCommand(Command command)
@@ -88,5 +95,51 @@ namespace CVARC.Basic
         }
 
         public event EventHandler CycleFinished;
+
+        public void ProcessOneParticipant(bool realtime, IParticipant participant)
+        {
+            double time = GameTimeLimit;
+            while (true)
+            {
+                var command = participant.MakeTurn();
+                Behaviour.ProcessCommand(World.Robots[command.RobotId], command);
+                MakeCycle(Math.Min(time, command.Time), realtime);
+                time -= command.Time;
+                if (time < 0) break;
+            }
+        }
+
+        public void ProcessParticipants(bool realTime, params IParticipant[] participants)
+        {
+            double time = GameTimeLimit;
+            Command[] states = participants.Select(z => new Command()).ToArray();
+            
+            while (true)
+            {
+                for(int i=0;i<participants.Length;i++)
+                    if (states[i].Time == 0)
+                    {
+                        states[i] = participants[i].MakeTurn();
+                        Behaviour.ProcessCommand(World.Robots[states[i].RobotId], states[i]);
+                    }
+                var minTime = Math.Min(time,states.Min(z => z.Time));
+                MakeCycle(minTime, realTime);
+                foreach (var e in states) e.Time -= minTime;
+                time -= minTime;
+                if (time < 0) break;
+            }
+        }
+
+        public Bot CreateBot(string name, int controlledBot)
+        {
+            if (!AvailableBots.ContainsKey(name)) throw new Exception("Bot was not found");
+            var tp = AvailableBots[name];
+            var ctor = tp.GetConstructor(new Type[] { });
+            var bot = ctor.Invoke(new object[]{}) as Bot;
+            bot.Initialize(this, controlledBot);
+            return bot;
+
+        }
+
     }
 }

@@ -66,7 +66,7 @@ namespace LocalNetworkClient
             streamWriter = new StreamWriter(tcpClient.GetStream());
 
 
-            streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Left</Side></Hello>");
+            streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Left</Side><Opponent>Simple</Opponent></Hello>");
             streamWriter.Flush();
 
 
@@ -75,12 +75,10 @@ namespace LocalNetworkClient
             ReadAndPrint();
             Mov(50);
             ReadAndPrint();
-            Cmd("Grip");
-            ReadAndPrint();
-            Mov(-50);
             Rot(90);
-            Mov(20);
-            Cmd("Release");
+            ReadAndPrint();
+            Mov(200);
+               
 
             Console.ReadKey();
         }

@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7969E0E7-00AF-4627-8D93-F6D022C99167}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{1D83CEF9-EB28-4938-8CB4-B83ADA4B65C6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gems</RootNamespace>
-    <AssemblyName>Fall2013.0</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>CVARC.BotDemo</RootNamespace>
+    <AssemblyName>CVARC.BotDemo</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,48 +32,50 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AIRLab, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\AIRLab.dll</HintPath>
-    </Reference>
-    <Reference Include="SlimDX, Version=4.0.11.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\libs\SlimDX.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.XML" />
-    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviour.cs" />
-    <Compile Include="Competitions2013_1.cs" />
-    <Compile Include="KbController.cs" />
-    <Compile Include="MapSensor.cs" />
-    <Compile Include="NetworkController.cs" />
-    <Compile Include="SceneSettings.cs" />
-    <Compile Include="SimpleBot.cs" />
-    <Compile Include="World.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Competitions\Fall2013.0\Fall2013.0.csproj">
+      <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
+      <Name>Fall2013.0</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Engine\CVARC.Basic\CVARC.Basic.csproj">
-      <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
+      <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
       <Name>CVARC.Basic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Engine\CVARC.Engine\CVARC.Engine.csproj">
-      <Project>{A316853C-7F60-4C7F-8FB5-6BAFBC417A68}</Project>
-      <Name>CVARC.Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Engine\Grapics.Plus\Graphics.Plus.csproj">
-      <Project>{4DC31792-DB9F-4A7E-9454-473A030076DB}</Project>
-      <Name>Graphics.Plus</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Engine\kinect\kinect.csproj">
-      <Project>{F3800797-250B-4DDB-96B5-2B89EC0DC24A}</Project>
-      <Name>kinect</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -43,7 +43,12 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Competitions.cs" />
+    <Compile Include="Competitions\Bots\Bot.cs" />
+    <Compile Include="Competitions\Bots\FixedProgramBot.cs" />
+    <Compile Include="Competitions\Competitions.cs" />
+    <Compile Include="Competitions\HelloPackage.cs" />
+    <Compile Include="Competitions\IParticipant.cs" />
+    <Compile Include="Competitions\NetworkParticipant.cs" />
     <Compile Include="Controllers\Command.cs" />
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\NetworkController.cs" />
@@ -63,10 +68,10 @@
     <Compile Include="Sensors\Core\Sensor.cs" />
     <Compile Include="Sensors\Core\ISensorFactory.cs" />
     <Compile Include="Sensors\Core\SensorFactory.cs" />
-    <Compile Include="CompetitionsForm.cs">
+    <Compile Include="Competitions\CompetitionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CompetitionsForm.Designer.cs">
+    <Compile Include="Competitions\CompetitionsForm.Designer.cs">
       <DependentUpon>CompetitionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="World.cs" />
