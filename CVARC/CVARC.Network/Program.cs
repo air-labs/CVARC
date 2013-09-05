@@ -51,7 +51,7 @@ namespace CVARK.Network
                 competitions.Behaviour.ProcessCommand(competitions.World.Robots[controlledRobot], command);
 
 
-                competitions.MakeCycle(Math.Min(time, command.Time), true);
+                competitions.MakeCycle(Math.Min(time, command.Time), false);
                 time -= command.Time;
                 if (time < 0) break;
                 

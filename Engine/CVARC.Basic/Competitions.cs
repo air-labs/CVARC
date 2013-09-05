@@ -76,7 +76,7 @@ namespace CVARC.Basic
             for (double t = 0; t < time; t += dt)
             {
                 foreach (var robot in World.Robots)
-                    robot.Body.Velocity = robot.RequestedSpeed;
+                    robot.SetVelocity(); 
                 PhysicalManager.MakeIteration(dt, Root);
                 foreach (Body body in Root)
                     body.Update(1 / 60);

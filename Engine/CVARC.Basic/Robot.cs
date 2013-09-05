@@ -25,5 +25,10 @@ namespace CVARC.Basic
         {
             _world.Score.AddPenalty(new Penalty{Message = msg, RobotNumber = Number, Value = cnt});
         }
+
+        public void SetVelocity()
+        {
+            Body.Velocity = RequestedSpeed;
+        }
     }
 }
