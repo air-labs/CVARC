@@ -88,5 +88,19 @@ namespace CVARC.Basic
         }
 
         public event EventHandler CycleFinished;
+
+        public void ProcessOneParticipant(IParticipant participant, bool realtime)
+        {
+            double time = GameTimeLimit;
+            while (true)
+            {
+                var command = participant.MakeMove();
+                Behaviour.ProcessCommand(World.Robots[command.RobotId], command);
+                MakeCycle(Math.Min(time, command.Time), false);
+                time -= command.Time;
+                if (time < 0) break;
+            }
+        }
+
     }
 }

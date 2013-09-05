@@ -66,7 +66,7 @@ namespace LocalNetworkClient
             streamWriter = new StreamWriter(tcpClient.GetStream());
 
 
-            streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Left</Side></Hello>");
+            streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Right</Side></Hello>");
             streamWriter.Flush();
 
 
