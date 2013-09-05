@@ -14,7 +14,7 @@ namespace CVARC.Basic.Sensors
 
         public string GetStringRepresentation()
         {
-            return string.Join("", _data.Select(a => "<data>"+a.GetStringRepresentation()+"</data>"));
+            return "<Robots>" + _data.Select(z => z.GetStringRepresentation()).Aggregate((a, b) => a + b) + "</Robots>";
         }
     }
 }

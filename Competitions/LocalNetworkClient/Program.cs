@@ -13,6 +13,45 @@ namespace LocalNetworkClient
 {
     class Program
     {
+        const double MaxLinearVelocity=10;
+        const double MaxAngularVelocity=10;
+
+
+        static StreamReader streamReader;
+        static StreamWriter streamWriter;
+
+        static void ReadAndPrint()
+        {
+            var line = streamReader.ReadLine();
+            var doc = XDocument.Parse(line);
+            Console.WriteLine(doc.ToString());
+
+        }
+
+        static void Mov(double distance)
+        {
+
+            streamWriter.WriteLine("<Command><LinearVelocity>{0}</LinearVelocity><Time>{1}</Time></Command>", 
+                    Math.Sign(distance)*MaxLinearVelocity, 
+                    Math.Abs(distance)/MaxLinearVelocity);
+            streamWriter.Flush();
+        }
+
+        static void Rot(double angle)
+        {
+              streamWriter.WriteLine("<Command><AngularVelocity>{0}</AngularVelocity><Time>{1}</Time></Command>", 
+                    Math.Sign(angle)*MaxAngularVelocity, 
+                    Math.Abs(angle)/MaxAngularVelocity);
+            streamWriter.Flush();
+        }
+
+        static void Cmd(string cmd)
+        {
+            streamWriter.WriteLine("<Command><Action>{0}</Action></Command>", 
+                    cmd);
+            streamWriter.Flush();
+        }
+
         static void Main(string[] args)
         {
             var p = new Process();
@@ -21,24 +60,29 @@ namespace LocalNetworkClient
             var file = new FileInfo(p.StartInfo.FileName);
             Console.WriteLine(file.FullName);
             p.Start();
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             var tcpClient = new TcpClient("127.0.0.1", 14000);
-            var streamReader = new StreamReader(tcpClient.GetStream());
-            var streamWriter = new StreamWriter(tcpClient.GetStream());
+            streamReader = new StreamReader(tcpClient.GetStream());
+            streamWriter = new StreamWriter(tcpClient.GetStream());
 
 
             streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Left</Side></Hello>");
             streamWriter.Flush();
 
 
-            var line = streamReader.ReadLine();
-            streamWriter.WriteLine("<Command><LinearVelocity>{0}</LinearVelocity><AngularVelocity>{1}</AngularVelocity><Time>{2}</Time></Command>", 0, -10, 9);
-            streamWriter.Flush();
-            line = streamReader.ReadLine(); 
-            streamWriter.WriteLine("<Command><LinearVelocity>{0}</LinearVelocity><AngularVelocity>{1}</AngularVelocity><Time>{2}</Time></Command>", 10, 0, 5);
-            streamWriter.Flush();
+            ReadAndPrint();
+            Rot(-90);
+            ReadAndPrint();
+            Mov(50);
+            ReadAndPrint();
+            Cmd("Grip");
+            ReadAndPrint();
+            Mov(-50);
+            Rot(90);
+            Mov(20);
+            Cmd("Release");
+
             Console.ReadKey();
-            
         }
     }
 }

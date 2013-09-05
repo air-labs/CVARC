@@ -9,7 +9,7 @@ namespace CVARC.Basic.Sensors
         public Frame3D Position;
         public string GetStringRepresentation()
         {
-            return string.Format("<RobotNumber>{0}</RobotNumber><Position>{1}</Position>", RobotNumber, new XML().WriteToString(Position));
+            return string.Format("<Robot><Number>{0}</Number><X>{1}</X><Y>{2}</Y><Angle>{3}</Angle></Robot>", RobotNumber, Position.X, Position.Y, Position.Yaw.Grad);
         }
     }
 }

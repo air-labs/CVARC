@@ -15,9 +15,8 @@ namespace Gems
     {
         public override void InitSensors()
         {
- 	         Add<PositionSensor>();
- 	         Add<RobotCamera>();
- 	         Add<Kinect>();
+ 	        // Add<RobotCamera>();
+ 	        // Add<Kinect>();
  	         Add<LightHouseSensor>();
  	         Add<MapSensor>();
         }

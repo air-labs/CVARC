@@ -77,7 +77,7 @@ namespace CVARC.Basic.Sensors
 
 	    public string GetStringRepresentation()
 	    {
-	        return Convert.ToBase64String(Bitmap);
+            return "<Camera>" + Convert.ToBase64String(Bitmap) + "</Camera>";
 	        //return Bitmap.MakeStringByte();
 	    }
 

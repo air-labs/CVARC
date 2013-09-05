@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms.VisualStyles;
 using AIRLab.Thornado;
 using CVARC.Basic;
@@ -26,27 +27,38 @@ namespace Gems
 
     public class MapSensorData : ISensorData
     {
-        private readonly List<Box> _walls;
-        private readonly List<Box> _parts;
-        private readonly List<Box> _places;
+        Body root;
 
         public MapSensorData(Body root)
         {
-            _walls = root.GetSubtreeChildrenFirst().Where(a => a.Name == "wall").OfType<Box>().ToList();
-            _parts = root.GetSubtreeChildrenFirst().Where(a => a.Name == "part").OfType<Box>().ToList();
-            _places = root.GetSubtreeChildrenFirst().Where(a => a.Name == "place").OfType<Box>().ToList();
+            this.root = root;
         }
 
         public string GetStringRepresentation()
         {
-            var str = "<walls>\r\n";
-            str += string.Join("", _walls.Select(a => string.Format("<data>{0}<width>{1}</width><depth>{2}</depth><height>{3}</height></data>", new XML().WriteToString(a.GetAbsoluteLocation()), a.XSize, a.YSize, a.ZSize)));
-            str += "\r\n</walls><parts>\r\n";
-            str += string.Join("", _parts.Select(a => string.Format("<data>{0}<width>{1}</width><depth>{2}</depth><height>{3}</height></data>", new XML().WriteToString(a.GetAbsoluteLocation()), a.XSize, a.YSize, a.ZSize)));
-            str += "\r\n</parts><places>\r\n";
-            str += string.Join("", _places.Select(a => string.Format("<data>{0}<width>{1}</width><depth>{2}</depth><height>{3}</height><free>{4}</free></data>", new XML().WriteToString(a.GetAbsoluteLocation()), a.XSize, a.YSize, a.ZSize, a.Any() ? 0 : 1)));
-            str += "\r\n</places>";
-            return str;
+            var result = "<Map>";
+            foreach (var e in root.GetSubtreeChildrenFirst())
+            {
+                string tag = null;
+                switch (e.Name)
+                {
+                    case "DR": tag = "RedDetail"; break;
+                    case "DB": tag = "BlueDetail"; break;
+                    case "DG": tag = "GreenDetail"; break;
+                    case "VW": tag = "VerticalWall"; break;
+                    case "VWR": tag = "VerticalRedSocket"; break;
+                    case "VWB": tag = "VerticalBlueSocket"; break;
+                    case "VWG": tag = "VerticalGreenSocket"; break;
+                    case "HW": tag = "HorizontalWall"; break;
+                    case "HWR": tag = "HorizontalRedSocket"; break;
+                    case "HWB": tag = "HorizontalBlueSocket"; break;
+                    case "HWG": tag = "HorizontalGreenSocket"; break;
+                }
+                if (tag == null) continue;
+                result += string.Format("<{0}><X>{1}</X><Y>{2}</Y></{0}>", tag, e.Location.X, e.Location.Y);
+            }
+            result += "</Map>";
+            return result;
         }
     }
 }
