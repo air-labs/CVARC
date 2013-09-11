@@ -24,13 +24,33 @@ namespace CVARK.Network
 
         static Competitions competitions;
         static NetworkParticipant participant;
+        static IParticipant[] participants;
         static Form form;
-
-
+        static Thread processThread;
+        static bool goodByeFlag = false;
 
         static void Process()
         {
-            competitions.ProcessOneParticipant(true, participant);
+            competitions.ProcessParticipants(false, participants);
+            GoodBye();
+        }
+
+        static void TimeLimit()
+        {
+            Thread.Sleep((int)(competitions.NetworkTimeLimit*1000));
+            if (processThread.IsAlive)
+            {
+                processThread.Abort();
+            }
+            GoodBye();
+        }
+
+        static void GoodBye()
+        {
+            if (goodByeFlag) return;
+            goodByeFlag = true;
+            competitions.SendPostReplay(participant.HelloPackage.AccessKey, 0, participant.ControlledRobot);
+            form.Close();
         }
 
         /// <summary>
@@ -56,13 +76,16 @@ namespace CVARK.Network
                 var botNumber = participant.HelloPackage.LeftSide ? 1 : 0;
                 parts.Add(competitions.CreateBot(participant.HelloPackage.Opponent, botNumber));
             }
-
+            participants = parts.ToArray();
             competitions.Initialize();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var form = new TutorialForm(competitions);
+            form = new TutorialForm(competitions);
 
-            new Thread(()=>competitions.ProcessParticipants(true,parts.ToArray())) { IsBackground = true }.Start();
+            processThread = new Thread(Process) { IsBackground = true };
+            var timerThread = new Thread(TimeLimit) { IsBackground = true };
+            processThread.Start();
+            timerThread.Start();
 
             Application.Run(form);
             

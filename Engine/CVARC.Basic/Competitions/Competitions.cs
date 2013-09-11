@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -9,6 +11,7 @@ using System.Windows.Forms;
 using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
 using CVARC.Core;
+using CVARC.Core.Replay;
 using CVARC.Graphics;
 using CVARC.Physics;
 
@@ -27,6 +30,8 @@ namespace CVARC.Basic
         public Body Root { get; private set; }
         public DrawerFactory DrawerFactory { get; private set; }
         public Dictionary<string, Type> AvailableBots { get; private set; }
+        public ReplayLogger Logger { get; private set; }
+
         public Competitions(World world, RobotBehaviour behaviour, KeyboardController keyboard, NetworkController network)
         {
             World = world;
@@ -74,6 +79,7 @@ namespace CVARC.Basic
                     robot.Sensors.Add(sens);
                 }
             });
+            Logger = new ReplayLogger(Root, 0.1);
         }
 
         public void MakeCycle(double time, bool realtime)
@@ -141,5 +147,34 @@ namespace CVARC.Basic
 
         }
 
+        public string SendPostReplay(string key, int competitionsId, int robotNumber)
+        {
+            try
+            {
+                using (var wb = new WebClient())
+                {
+                    var data = new NameValueCollection();
+                    data["key"] = key;
+                    data["competitions"] = competitionsId.ToString();
+                    data["robotNumber"] = robotNumber.ToString();
+                    data["results"] = "[" +
+                                      string.Join(",",
+                                                  Enumerable.Range(0, World.RobotCount)
+                                                            .Select(
+                                                                a =>
+                                                                "{num:" + a + ", score: " +
+                                                                World.Score.GetFullSumForRobot(a) + "}")) + "]";
+                    var replay = ConverterToJavaScript.Convert(Logger.SerializationRoot);
+                    data["log"] = replay;
+                    wb.UploadValues("http://air-labs.ru/match/save", "POST", data);
+                    return "???"; //TODO: where do I get id of the replay?
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return "";
+            }
+        }
     }
 }
