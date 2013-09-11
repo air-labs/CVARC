@@ -58,7 +58,6 @@ namespace LocalNetworkClient
             p.StartInfo.FileName = "..\\..\\..\\..\\CVARC\\CVARC.Network\\bin\\Debug\\CVARC.Network.exe";
             p.StartInfo.Arguments= "..\\..\\..\\..\\Competitions\\Fall2013.0\\bin\\Debug\\Fall2013.0.dll";
             var file = new FileInfo(p.StartInfo.FileName);
-            Console.WriteLine(file.FullName);
             p.Start();
             Thread.Sleep(1000);
             var tcpClient = new TcpClient("127.0.0.1", 14000);

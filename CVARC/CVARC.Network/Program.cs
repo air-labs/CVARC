@@ -21,7 +21,7 @@ namespace CVARK.Network
 
     static class Program
     {
-
+        static bool localServer = false;
         static Competitions competitions;
         static NetworkParticipant participant;
         static IParticipant[] participants;
@@ -31,12 +31,13 @@ namespace CVARK.Network
 
         static void Process()
         {
-            competitions.ProcessParticipants(false, participants);
+            competitions.ProcessParticipants(localServer, participants);
             GoodBye();
         }
 
         static void TimeLimit()
         {
+            if (localServer) return;
             Thread.Sleep((int)(competitions.NetworkTimeLimit * 1000));
             if (processThread.IsAlive)
             {
@@ -50,7 +51,8 @@ namespace CVARK.Network
         {
             if (goodByeFlag) return;
             goodByeFlag = true;
-            var replayId=competitions.SendPostReplay(participant.HelloPackage.AccessKey, 0, participant.ControlledRobot);
+            var replayId = "";
+            if (!localServer) competitions.SendPostReplay(participant.HelloPackage.AccessKey, 0, participant.ControlledRobot);
             participant.SendReplay(replayId);
             Application.Exit();
         }
@@ -83,6 +85,10 @@ namespace CVARK.Network
             }
 
             competitions = Competitions.Load(args[0]);
+
+            if (args.Length > 1)
+                localServer = args[0] == "-local";
+            
             var parts = new List<IParticipant>();
             
             participant = new NetworkParticipant(competitions);
