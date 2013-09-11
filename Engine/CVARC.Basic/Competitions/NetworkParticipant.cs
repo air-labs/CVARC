@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Xml.Linq;
+using CVARC.Basic.Controllers;
 using CVARC.Network;
 
 namespace CVARC.Basic
@@ -50,15 +51,55 @@ namespace CVARC.Basic
                 reply += e.Measure();
             reply += "</Sensors>";
             reply = reply.Replace("\r", "").Replace("\n", "");
-            clientWriter.WriteLine(reply);
-            clientWriter.Flush();
+            lock (clientWriter)
+            {
+                clientWriter.WriteLine(reply);
+                clientWriter.Flush();
+            }
 
             var request = clientReader.ReadLine();
             Console.WriteLine(request);
-            var command = competitions.NetworkController.ParseRequest(request);
+            Command command = null;
+            try
+            {
+                command = competitions.NetworkController.ParseRequest(request);
+            }
+            catch (Exception e)
+            {
+                throw new UserInputException(e);
+            }
             command.RobotId = ControlledRobot;
             return command;
+        }
 
+        public void SendError(Exception exception, bool blameParticipant)
+        {
+            string message = "";
+            while (exception != null)
+            {
+                message += exception.Message + "\n" + exception.StackTrace;
+                exception = exception.InnerException;
+            }
+            message = message.Replace("\n", "<br/>");
+            message = message.Replace("\r", "");
+
+            if (blameParticipant) message = "<UserError>" + message + "</UserError>";
+            else message = "<SystemError>" + message + "</SystemError>";
+            lock (clientWriter)
+            {
+                clientWriter.WriteLine(message);
+                clientWriter.Flush();
+            }
+            
+        }
+
+        public void SendReplay(string replayId)
+        {
+            lock (clientWriter)
+            {
+                clientWriter.WriteLine("<Replay>" + replayId + "</Replay>");
+                clientWriter.Flush();
+            }
         }
     }
 }

@@ -49,8 +49,17 @@ namespace CVARK.Network
         {
             if (goodByeFlag) return;
             goodByeFlag = true;
-            competitions.SendPostReplay(participant.HelloPackage.AccessKey, 0, participant.ControlledRobot);
-            form.Close();
+            var replayId=competitions.SendPostReplay(participant.HelloPackage.AccessKey, 0, participant.ControlledRobot);
+            participant.SendReplay(replayId);
+            Application.Exit();
+        }
+
+        static void SendError(Exception exception, bool blameParticipant)
+        {
+            if (participant == null) return;
+            participant.SendError(exception, blameParticipant);
+            Application.Exit();
+
         }
 
         /// <summary>

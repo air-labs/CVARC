@@ -78,7 +78,8 @@ namespace LocalNetworkClient
             Rot(90);
             ReadAndPrint();
             Mov(200);
-               
+            ReadAndPrint();
+            ReadAndPrint();
 
             Console.ReadKey();
         }
