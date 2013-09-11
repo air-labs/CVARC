@@ -37,12 +37,13 @@ namespace CVARK.Network
 
         static void TimeLimit()
         {
-            Thread.Sleep((int)(competitions.NetworkTimeLimit*1000));
+            Thread.Sleep((int)(competitions.NetworkTimeLimit * 1000));
             if (processThread.IsAlive)
             {
                 processThread.Abort();
             }
             GoodBye();
+            
         }
 
         static void GoodBye()
@@ -54,10 +55,17 @@ namespace CVARK.Network
             Application.Exit();
         }
 
-        static void SendError(Exception exception, bool blameParticipant)
+        static void SendError(Exception exception)
         {
-            if (participant == null) return;
-            participant.SendError(exception, blameParticipant);
+            try
+            {
+                if (participant == null) return;
+                if (exception is UserInputException)
+                    participant.SendError(exception.InnerException, true);
+                else
+                    participant.SendError(exception, false);
+            }
+            catch { }
             Application.Exit();
 
         }
@@ -93,11 +101,20 @@ namespace CVARK.Network
 
             processThread = new Thread(Process) { IsBackground = true };
             var timerThread = new Thread(TimeLimit) { IsBackground = true };
+
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
             processThread.Start();
             timerThread.Start();
 
+
             Application.Run(form);
             
+        }
+
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            SendError((Exception)e.ExceptionObject);
         }
     }
 }

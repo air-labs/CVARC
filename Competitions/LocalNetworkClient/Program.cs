@@ -71,6 +71,10 @@ namespace LocalNetworkClient
 
 
             ReadAndPrint();
+
+         //   streamWriter.WriteLine("<Command><AngularVelocity>xxx</AngularVelocity><Time>100</Time></Command>");
+            streamWriter.Flush();
+
             Rot(-90);
             ReadAndPrint();
             Mov(50);

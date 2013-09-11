@@ -34,12 +34,19 @@ namespace CVARC.Basic
             clientWriter = new StreamWriter(client.GetStream());
             Console.WriteLine("OK");
 
-            Console.Write("Receiving hello package... ");
-            var line = clientReader.ReadLine();
-            var document = XDocument.Parse(line);
-            HelloPackage = new HelloPackage();
-            HelloPackage.Parse(document);
-            Console.WriteLine("OK");
+            try
+            {
+                Console.Write("Receiving hello package... ");
+                var line = clientReader.ReadLine();
+                var document = XDocument.Parse(line);
+                HelloPackage = new HelloPackage();
+                HelloPackage.Parse(document);
+                Console.WriteLine("OK");
+            }
+            catch (Exception e)
+            {
+                throw new UserInputException(e);
+            }
 
             ControlledRobot = HelloPackage.LeftSide ? 0 : 1;
         }
@@ -80,6 +87,9 @@ namespace CVARC.Basic
                 message += exception.Message + "\n" + exception.StackTrace;
                 exception = exception.InnerException;
             }
+            message = message.Replace("&", "&amp;");
+            message = message.Replace("<", "&lt;");
+            message = message.Replace(">", "&gt;");
             message = message.Replace("\n", "<br/>");
             message = message.Replace("\r", "");
 
