@@ -28,6 +28,27 @@ namespace LocalNetworkClient
 
         }
 
+        static void ReadAngle()
+        {
+            var line = streamReader.ReadLine();
+            var doc = XDocument.Parse(line);
+            var angle = doc.Elements()
+                                .Where(z => z.Name == "Sensors")
+                                .FirstOrDefault().Elements()
+                                .Where(z => z.Name == "Robots")
+                                .FirstOrDefault()
+                                .Elements()
+                                .Where(z => z.Name == "Robot")
+                                .FirstOrDefault();
+                                //.Where(
+                                //    z => z.Elements().Where(x=>x.Name == "Number").FirstOrDefault().Value == "0"
+                                //        )
+                                //.FirstOrDefault();
+
+            Console.WriteLine(angle.ToString());
+
+        }
+
         static void Mov(double distance)
         {
 
@@ -56,7 +77,7 @@ namespace LocalNetworkClient
         {
             var p = new Process();
             p.StartInfo.FileName = "..\\..\\..\\..\\CVARC\\CVARC.Network\\bin\\Debug\\CVARC.Network.exe";
-            p.StartInfo.Arguments= "..\\..\\..\\..\\Competitions\\Fall2013.0\\bin\\Debug\\Fall2013.0.dll";
+            p.StartInfo.Arguments = "..\\..\\..\\..\\Competitions\\Fall2013.0\\bin\\Debug\\Fall2013.0.dll -local";
             var file = new FileInfo(p.StartInfo.FileName);
             p.Start();
             Thread.Sleep(1000);
@@ -69,20 +90,12 @@ namespace LocalNetworkClient
             streamWriter.Flush();
 
 
-            ReadAndPrint();
-
+            ReadAngle();
          //   streamWriter.WriteLine("<Command><AngularVelocity>xxx</AngularVelocity><Time>100</Time></Command>");
-            streamWriter.Flush();
-
             Rot(-90);
-            ReadAndPrint();
-            Mov(50);
-            ReadAndPrint();
-            Rot(90);
-            ReadAndPrint();
-            Mov(200);
-            ReadAndPrint();
-            ReadAndPrint();
+            ReadAngle();
+            Mov(10);
+            ReadAngle();
 
             Console.ReadKey();
         }

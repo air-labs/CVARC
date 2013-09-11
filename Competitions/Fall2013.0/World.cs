@@ -66,7 +66,7 @@ namespace Gems
                 DefaultColor = Color.DarkViolet,
                 IsMaterial = true,
                 Density = Density.Iron,
-                FrictionCoefficient = 8,
+                FrictionCoefficient = 0,
                 Top = new SolidColorBrush { Color = Color.Red },
                 Name="R1"
             };
@@ -80,7 +80,7 @@ namespace Gems
                 DefaultColor = Color.DarkViolet,
                 IsMaterial = true,
                 Density = Density.Iron,
-                FrictionCoefficient = 8,
+                FrictionCoefficient = 0,
                 Top = new SolidColorBrush { Color = Color.Blue },
                 Name="R2"
             };

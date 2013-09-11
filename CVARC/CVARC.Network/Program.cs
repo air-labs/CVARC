@@ -87,7 +87,7 @@ namespace CVARK.Network
             competitions = Competitions.Load(args[0]);
 
             if (args.Length > 1)
-                localServer = args[0] == "-local";
+                localServer = args[1] == "-local";
             
             var parts = new List<IParticipant>();
             
