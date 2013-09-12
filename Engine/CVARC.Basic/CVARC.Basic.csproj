@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Competitions\Bots\Bot.cs" />
+    <Compile Include="Competitions\Bots\EmptyBot.cs" />
     <Compile Include="Competitions\Bots\FixedProgramBot.cs" />
     <Compile Include="Competitions\Competitions.cs" />
     <Compile Include="Competitions\Exceptions.cs" />

@@ -86,16 +86,12 @@ namespace LocalNetworkClient
             streamWriter = new StreamWriter(tcpClient.GetStream());
 
 
-            streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Left</Side><Opponent>Simple</Opponent></Hello>");
+            streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Left</Side><Opponent>none</Opponent></Hello>");
             streamWriter.Flush();
 
 
-            ReadAngle();
-         //   streamWriter.WriteLine("<Command><AngularVelocity>xxx</AngularVelocity><Time>100</Time></Command>");
-            Rot(-90);
-            ReadAngle();
-            Mov(10);
-            ReadAngle();
+            streamWriter.WriteLine("<Command><AngularVelocity>xxx</AngularVelocity><Time>100</Time></Command>");
+            streamWriter.Flush();
 
             Console.ReadKey();
         }

@@ -119,16 +119,16 @@ namespace CVARC.Basic
         {
             double time = GameTimeLimit;
             Command[] states = participants.Select(z => new Command()).ToArray();
-            
+
             while (true)
             {
-                for(int i=0;i<participants.Length;i++)
+                for (int i = 0; i < participants.Length; i++)
                     if (states[i].Time == 0)
                     {
                         states[i] = participants[i].MakeTurn();
                         Behaviour.ProcessCommand(World.Robots[states[i].RobotId], states[i]);
                     }
-                var minTime = Math.Min(time,states.Min(z => z.Time));
+                var minTime = Math.Min(time, states.Min(z => z.Time));
                 MakeCycle(minTime, realTime);
                 foreach (var e in states) e.Time -= minTime;
                 time -= minTime;
@@ -136,9 +136,17 @@ namespace CVARC.Basic
             }
         }
 
+        public bool BotIsAvailable(string name)
+        {
+            if (name == "None") return true;
+            if (AvailableBots.ContainsKey(name)) return true;
+            return false;
+        }
+
         public Bot CreateBot(string name, int controlledBot)
         {
-            if (!AvailableBots.ContainsKey(name)) throw new Exception("Bot was not found");
+            if (!BotIsAvailable(name)) throw new Exception("Bot not found");
+            if (name == "None") return new EmptyBot();
             var tp = AvailableBots[name];
             var ctor = tp.GetConstructor(new Type[] { });
             var bot = ctor.Invoke(new object[]{}) as Bot;

@@ -66,11 +66,32 @@ namespace CVARK.Network
                     participant.SendError(exception.InnerException, true);
                 else
                     participant.SendError(exception, false);
+                participant = null;
             }
             catch { }
             Application.Exit();
 
         }
+
+
+        static void AcceptHelloPackage()
+        {
+            var parts = new List<IParticipant>();
+            participant = new NetworkParticipant(competitions);
+            parts.Add(participant);
+
+            var botNumber = participant.HelloPackage.LeftSide ? 1 : 0;
+            var botName = participant.HelloPackage.Opponent;
+            if (botName == null) botName = "None";
+            if (!competitions.BotIsAvailable(botName))
+                throw new UserInputException("The opponent's name is not valid");
+           
+            parts.Add(competitions.CreateBot(botName, botNumber));
+
+            participants = parts.ToArray();
+
+        }
+
 
         /// <summary>
         /// The main entry point for the application.
@@ -88,18 +109,19 @@ namespace CVARK.Network
 
             if (args.Length > 1)
                 localServer = args[1] == "-local";
-            
-            var parts = new List<IParticipant>();
-            
-            participant = new NetworkParticipant(competitions);
-            parts.Add(participant);
 
-            if (participant.HelloPackage.Opponent != null)
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
+            try
             {
-                var botNumber = participant.HelloPackage.LeftSide ? 1 : 0;
-                parts.Add(competitions.CreateBot(participant.HelloPackage.Opponent, botNumber));
+                AcceptHelloPackage(); //Why CurrentDomain.UnhandledException does not work for this one???
             }
-            participants = parts.ToArray();
+            catch (Exception e)
+            {
+                SendError(e);
+                return;
+            }
+
             competitions.Initialize();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -108,8 +130,7 @@ namespace CVARK.Network
             processThread = new Thread(Process) { IsBackground = true };
             var timerThread = new Thread(TimeLimit) { IsBackground = true };
 
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-
+          
             processThread.Start();
             timerThread.Start();
 
