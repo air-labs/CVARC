@@ -102,7 +102,7 @@ namespace CVARC.Basic
 
         public event EventHandler CycleFinished;
 
-        public void ProcessOneParticipant(bool realtime, IParticipant participant)
+        public void ProcessOneParticipant(bool realtime, Participant participant)
         {
             double time = GameTimeLimit;
             while (true)
@@ -115,26 +115,79 @@ namespace CVARC.Basic
             }
         }
 
-        public void ProcessParticipants(bool realTime, params IParticipant[] participants)
+
+        Tuple<Command, Exception> MakeTurn(Participant participant)
+        {
+            try
+            {
+                return new Tuple<Command, Exception>(participant.MakeTurn(), null);
+            }
+            catch (Exception e)
+            {
+                return new Tuple<Command, Exception>(null, e);
+            }
+        }
+
+        public void ProcessParticipants(bool realTime, int operationalMilliseconds, params Participant[] participants)
         {
             double time = GameTimeLimit;
-            Command[] states = participants.Select(z => new Command()).ToArray();
+            foreach(var e in participants) 
+            {
+                e.Active=true;
+                e.OperationalMilliseconds=0;
+                e.ExitReason= ExitReason.No;
+                e.WaitForNextCommandTime = 0;
+            }
 
             while (true)
             {
-                for (int i = 0; i < participants.Length; i++)
-                    if (states[i].Time == 0)
+                var parts = participants.Where(z => z.Active && z.WaitForNextCommandTime <= 0);
+                if (!parts.Any()) break;
+                foreach (var p in parts)
+                {
+                    var spentMilliseconds = p.OperationalMilliseconds;
+                    var @delegate = new Func<Participant, Tuple<Command, Exception>>(MakeTurn);
+
+                    //асинхронно запускаем операцию и проверяем, что не вылезли за лимиты
+                    var async = @delegate.BeginInvoke(p, null, null);
+                    while (spentMilliseconds < operationalMilliseconds)
                     {
-                        states[i] = participants[i].MakeTurn();
-                        Behaviour.ProcessCommand(World.Robots[states[i].RobotId], states[i]);
+                        if (async.IsCompleted) break;
+                        Thread.Sleep(1);
+                        spentMilliseconds++;
+                        Console.Write(spentMilliseconds+"\r");
                     }
-                var minTime = Math.Min(time, states.Min(z => z.Time));
+                    Tuple<Command, Exception> result = new Tuple<Command, Exception>(null, null);
+                    if (spentMilliseconds<operationalMilliseconds)
+                        result = @delegate.EndInvoke(async);
+                    
+                    p.OperationalMilliseconds = spentMilliseconds;
+
+                    //Проверяем ошибки и таймлимиты
+                    if (spentMilliseconds >= operationalMilliseconds)
+                        p.Exit(ExitReason.OperationalTimeLimit, GameTimeLimit - time, null);
+                    else if (result.Item2 != null) //выкинут Exception
+                        p.Exit(ExitReason.FormatException, GameTimeLimit - time, result.Item2);
+
+                    if (!p.Active) continue;
+
+                    //применяем полученную команду
+                    var cmd=result.Item1;
+                    Behaviour.ProcessCommand(World.Robots[cmd.RobotId], cmd);
+                    p.WaitForNextCommandTime = cmd.Time;
+                }
+                var minTime = Math.Min(time, participants.Min(z => z.WaitForNextCommandTime));
+                if (minTime == 0 || double.IsInfinity(minTime)) break;
                 MakeCycle(minTime, realTime);
-                foreach (var e in states) e.Time -= minTime;
+                foreach (var p in participants)
+                    p.WaitForNextCommandTime -= minTime;
                 time -= minTime;
-                if (time < 0) break;
+                if (time <= 0) break;
             }
         }
+
+
+
 
         public bool BotIsAvailable(string name)
         {

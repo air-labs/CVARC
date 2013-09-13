@@ -6,7 +6,7 @@ using CVARC.Basic.Controllers;
 
 namespace CVARC.Basic
 {
-    public abstract class Bot : IParticipant
+    public abstract class Bot : Participant
     {
         public Competitions Competitions { get; private set; }
         public int ControlledRobot { get; private set; }
@@ -15,6 +15,6 @@ namespace CVARC.Basic
             Competitions = competitions;
             ControlledRobot = controllerRobot;
         }
-        public abstract Command MakeTurn();
+        
     }
 }

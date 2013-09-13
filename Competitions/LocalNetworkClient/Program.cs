@@ -78,7 +78,7 @@ namespace LocalNetworkClient
         {
             var p = new Process();
             p.StartInfo.FileName = "..\\..\\..\\..\\CVARC\\CVARC.Network\\bin\\Debug\\CVARC.Network.exe";
-            p.StartInfo.Arguments = "..\\..\\..\\..\\Competitions\\Fall2013.0\\bin\\Debug\\Fall2013.0.dll -local";
+            p.StartInfo.Arguments = "..\\..\\..\\..\\Competitions\\Fall2013.0\\bin\\Debug\\Fall2013.0.dll";
             var file = new FileInfo(p.StartInfo.FileName);
             p.Start();
             Thread.Sleep(1000);
@@ -90,13 +90,8 @@ namespace LocalNetworkClient
             streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Random</Side><Opponent>Simple</Opponent></Hello>");
             streamWriter.Flush();
 
-            for (int i = 0; i < 100; i++)
-            {
-                Rot(90);
-                ReadAndPrint();
-                Mov(20);
-                ReadAndPrint();
-            }
+            ReadAndPrint();
+            ReadAndPrint();
 
             Console.ReadKey();
         }

@@ -49,7 +49,7 @@
     <Compile Include="Competitions\Competitions.cs" />
     <Compile Include="Competitions\Exceptions.cs" />
     <Compile Include="Competitions\HelloPackage.cs" />
-    <Compile Include="Competitions\IParticipant.cs" />
+    <Compile Include="Competitions\Participant.cs" />
     <Compile Include="Competitions\NetworkParticipant.cs" />
     <Compile Include="Controllers\Command.cs" />
     <Compile Include="Controllers\Controller.cs" />

@@ -11,7 +11,7 @@ using CVARC.Network;
 
 namespace CVARC.Basic
 {
-    public class NetworkParticipant: IParticipant
+    public class NetworkParticipant: Participant
     {
         Competitions competitions;
         public int ControlledRobot { get; private set; }
@@ -58,7 +58,8 @@ namespace CVARC.Basic
             }
         }
 
-        public Controllers.Command MakeTurn()
+
+        override public Controllers.Command MakeTurn()
         {
             var reply = "<Sensors>";
             foreach (var e in competitions.World.Robots[ControlledRobot].Sensors)
@@ -86,7 +87,7 @@ namespace CVARC.Basic
             return command;
         }
 
-        public void SendError(Exception exception, bool blameParticipant)
+        static string WrapException(Exception exception)
         {
             string message = "";
             while (exception != null)
@@ -99,7 +100,13 @@ namespace CVARC.Basic
             message = message.Replace(">", "&gt;");
             message = message.Replace("\n", "<br/>");
             message = message.Replace("\r", "");
+            return message;
 
+        }
+
+        public void SendError(Exception exception, bool blameParticipant)
+        {
+            var message = WrapException(exception);
             if (blameParticipant) message = "<UserError>" + message + "</UserError>";
             else message = "<SystemError>" + message + "</SystemError>";
             lock (clientWriter)
@@ -114,7 +121,15 @@ namespace CVARC.Basic
         {
             lock (clientWriter)
             {
-                clientWriter.WriteLine("<Replay>" + replayId + "</Replay>");
+                var message=string.Format("<Result><ExitedWithStatus>{0}</ExitedWithStatus><OperationalTime>{1}</OperationalTime><ExitTime>{2}</ExitTime>",
+                    ExitReason,
+                    OperationalMilliseconds,
+                    ExitTime);
+                if (Exception != null)
+                    message+="<Exception>" + WrapException(Exception) + "</Exception>";
+                if (replayId!=null) message+="<Replay>" + replayId + "</Replay>";
+                message += "</Result>";
+                clientWriter.WriteLine(message);
                 clientWriter.Flush();
             }
         }

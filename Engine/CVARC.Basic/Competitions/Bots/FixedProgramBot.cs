@@ -37,7 +37,8 @@ namespace CVARC.Basic
             Program.Add(new Command
             {
                  Cmd=cmd,
-                 RobotId=ControlledRobot
+                 RobotId=ControlledRobot,
+                 Time=1
             });
         }
 
