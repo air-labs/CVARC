@@ -56,7 +56,7 @@ namespace DemoNetworkClient
             streamWriter = new StreamWriter(tcpClient.GetStream());
 
 
-            streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Left</Side><Opponent>Simple</Opponent></Hello>");
+            streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Left</Side><Opponent>MolagBal</Opponent></Hello>");
             streamWriter.Flush();
             ReadAndPrint();
             Rot(-90);

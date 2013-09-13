@@ -99,7 +99,7 @@ namespace CVARK.Network
                 if (args[1]=="-local") localServer=true;
                 if (args[1] == "-debug")
                 {
-                    localServer = false;
+                    localServer = true;
                     var p = new System.Diagnostics.Process(); 
                     p.StartInfo.FileName = "..\\..\\..\\..\\Competitions\\DemoNetworkClient\\bin\\Debug\\DemoNetworkClient.exe";
                     p.Start();

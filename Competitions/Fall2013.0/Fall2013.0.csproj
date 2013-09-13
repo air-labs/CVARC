@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour.cs" />
+    <Compile Include="Bots\MolagBal.cs" />
     <Compile Include="Bots\Sanguine.cs" />
     <Compile Include="Competitions2013_1.cs" />
     <Compile Include="KbController.cs" />

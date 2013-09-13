@@ -88,7 +88,7 @@ namespace LocalNetworkClient
             streamWriter = new StreamWriter(tcpClient.GetStream());
 
 
-            streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Random</Side><Opponent>Sanguine</Opponent></Hello>");
+            streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Random</Side><Opponent>MolagBal</Opponent></Hello>");
             streamWriter.Flush();
 
             ReadAndPrint();

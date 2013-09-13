@@ -25,8 +25,8 @@ namespace CVARC.Basic
         public readonly NetworkController NetworkController;
         public double GameTimeLimit { get; protected set; }
         public double NetworkTimeLimit { get; protected set; }
-        public double LinearVelocityLimit { get; protected set; }
-        public Angle AngularVelocityLimit { get; protected set; }
+        public virtual double LinearVelocityLimit { get { return 10; } }
+        public virtual Angle AngularVelocityLimit { get { return Angle.FromGrad(30); } }
         public Body Root { get; private set; }
         public DrawerFactory DrawerFactory { get; private set; }
         public Dictionary<string, Type> AvailableBots { get; private set; }
@@ -40,8 +40,6 @@ namespace CVARC.Basic
             NetworkController = network;
             GameTimeLimit = 90;
             NetworkTimeLimit = 1;
-            AngularVelocityLimit = Angle.FromGrad(20);
-            LinearVelocityLimit = 10;
             AvailableBots = new Dictionary<string, Type>();
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
 
 namespace CVARC.Basic
@@ -14,22 +15,29 @@ namespace CVARC.Basic
 
         protected void Mov(double distance)
         {
-            Program.Add(new Command
+            MulAdd(new Command
             {
                  Move = Math.Sign(distance)*Competitions.LinearVelocityLimit,
                  Time = Math.Abs(distance)/Competitions.LinearVelocityLimit,
-                 RobotId=base.ControlledRobot
+                
             });
         }
 
         protected void Rot(double angleGrad)
         {
-            Program.Add(new Command
+            MulAdd(new Command
             {
                 Angle=Math.Sign(angleGrad)*Competitions.AngularVelocityLimit*(MirrorBot?-1:1),
                 Time=Math.Abs(angleGrad)/Competitions.AngularVelocityLimit.Grad,
-                RobotId=base.ControlledRobot
+               
             });
+        }
+
+        void MulAdd(Command cmd)
+        {
+            int parts = 10;
+            for (int i = 0; i < parts; i++)
+                Program.Add(new Command { Move = cmd.Move, Angle = cmd.Angle, Time = cmd.Time / parts });
         }
 
         protected void Cmd(string cmd)
@@ -37,7 +45,6 @@ namespace CVARC.Basic
             Program.Add(new Command
             {
                  Cmd=cmd,
-                 RobotId=ControlledRobot,
                  Time=1
             });
         }
@@ -53,6 +60,13 @@ namespace CVARC.Basic
 
         public override Command MakeTurn()
         {
+            var dst=Angem.Distance(
+                Competitions.World.Robots[0].Body.Location.ToPoint3D(),
+                Competitions.World.Robots[1].Body.Location.ToPoint3D())
+                ;
+            if ( dst   < 50) return new Command { Move=0, Angle=Angle.FromGrad(0), Time = 1 };  
+
+
             if (iterator < Program.Count)
             {
                 iterator++;
