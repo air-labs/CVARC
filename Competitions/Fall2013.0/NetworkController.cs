@@ -11,6 +11,8 @@ namespace Gems
 {
     public class GemsNetworkController : NetworkController
     {
+        public const double MaxLinearVelocity = 30;
+        public const double MaxAngularVelocity = 30;
 
         override public Command ParseRequest(string request)
         {
@@ -27,12 +29,12 @@ namespace Gems
             if (Time < 0) Time = 0;
             var command = new Command { Time = Time };
 
-            if (Math.Abs(LinearVelocity) > 10) LinearVelocity = Math.Sign(LinearVelocity) * 10;
+            if (Math.Abs(LinearVelocity) > MaxLinearVelocity) LinearVelocity = Math.Sign(LinearVelocity) * MaxLinearVelocity;
             if (LinearVelocity != 0)
                 command.Move = LinearVelocity;
             else
             {
-                if (Math.Abs(AngularVelocity) > 20)  AngularVelocity = Math.Sign(AngularVelocity) * 20;
+                if (Math.Abs(AngularVelocity) > MaxAngularVelocity) AngularVelocity = Math.Sign(AngularVelocity) * MaxAngularVelocity;
                 if (AngularVelocity != 0)
                     command.Angle = Angle.FromGrad(AngularVelocity);
                 else

@@ -17,8 +17,10 @@ namespace Gems
         {
  	        // Add<RobotCamera>();
  	        // Add<Kinect>();
- 	         Add<LightHouseSensor>();
+            Add<RobotIdSensor>();
+            Add<LightHouseSensor>();
  	         Add<MapSensor>();
+            
         }
         public Behaviour()
         {

@@ -66,6 +66,7 @@
     <Compile Include="Sensors\Positions\ManyPositionData.cs" />
     <Compile Include="Sensors\Positions\PositionData.cs" />
     <Compile Include="Sensors\Positions\PositionSensor.cs" />
+    <Compile Include="Sensors\Positions\RobotIdSensor.cs" />
     <Compile Include="Sensors\RobotCamera.cs" />
     <Compile Include="Sensors\Core\Sensor.cs" />
     <Compile Include="Sensors\Core\ISensorFactory.cs" />

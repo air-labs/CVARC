@@ -21,6 +21,8 @@ namespace CVARC.Basic
 
         public NetworkParticipant(Competitions competitions)
         {
+            Random rnd = new Random();
+
             this.competitions = competitions;
             Console.Write("Starting server... ");
             var listener = new TcpListener(IPAddress.Any, 14000);
@@ -48,7 +50,12 @@ namespace CVARC.Basic
                 throw new UserInputException(e);
             }
 
-            ControlledRobot = HelloPackage.LeftSide ? 0 : 1;
+            switch (HelloPackage.Side)
+            {
+                case Side.Left: ControlledRobot = 0; break;
+                case Side.Right: ControlledRobot = 1; break;
+                case Side.Random: ControlledRobot = rnd.Next(2); break;
+            }
         }
 
         public Controllers.Command MakeTurn()

@@ -76,19 +76,20 @@ namespace CVARK.Network
 
         static void AcceptHelloPackage()
         {
+            participants = new IParticipant[2];
             var parts = new List<IParticipant>();
             participant = new NetworkParticipant(competitions);
-            parts.Add(participant);
+            participants[participant.ControlledRobot] = participant;
+            Console.WriteLine(participant.HelloPackage.Side.ToString());
 
-            var botNumber = participant.HelloPackage.LeftSide ? 1 : 0;
+            var botNumber = participant.ControlledRobot==0 ? 1 : 0;
             var botName = participant.HelloPackage.Opponent;
             if (botName == null) botName = "None";
             if (!competitions.BotIsAvailable(botName))
                 throw new UserInputException("The opponent's name is not valid");
            
-            parts.Add(competitions.CreateBot(botName, botNumber));
+            participants[botNumber]=competitions.CreateBot(botName, botNumber);
 
-            participants = parts.ToArray();
 
         }
 

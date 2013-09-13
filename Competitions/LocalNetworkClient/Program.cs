@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gems;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -13,8 +14,8 @@ namespace LocalNetworkClient
 {
     class Program
     {
-        const double MaxLinearVelocity=10;
-        const double MaxAngularVelocity=10;
+        static double MaxLinearVelocity { get { return GemsNetworkController.MaxLinearVelocity; } }
+        static double MaxAngularVelocity { get { return GemsNetworkController.MaxAngularVelocity; } }
 
 
         static StreamReader streamReader;
@@ -86,12 +87,16 @@ namespace LocalNetworkClient
             streamWriter = new StreamWriter(tcpClient.GetStream());
 
 
-            streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Left</Side><Opponent>none</Opponent></Hello>");
+            streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Random</Side><Opponent>Simple</Opponent></Hello>");
             streamWriter.Flush();
 
-
-            streamWriter.WriteLine("<Command><AngularVelocity>xxx</AngularVelocity><Time>100</Time></Command>");
-            streamWriter.Flush();
+            for (int i = 0; i < 100; i++)
+            {
+                Rot(90);
+                ReadAndPrint();
+                Mov(20);
+                ReadAndPrint();
+            }
 
             Console.ReadKey();
         }
