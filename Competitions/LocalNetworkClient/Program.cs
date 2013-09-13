@@ -1,4 +1,4 @@
-﻿using Gems;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,13 +9,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using StarshipRepair;
 
 namespace LocalNetworkClient
 {
     class Program
     {
-        static double MaxLinearVelocity { get { return GemsNetworkController.MaxLinearVelocity; } }
-        static double MaxAngularVelocity { get { return GemsNetworkController.MaxAngularVelocity; } }
+        static double MaxLinearVelocity { get { return SRCompetitions.MaxLinearVelocity; } }
+        static double MaxAngularVelocity { get { return SRCompetitions.MaxAngularVelocity; } }
 
 
         static StreamReader streamReader;
@@ -78,7 +79,7 @@ namespace LocalNetworkClient
         {
             var p = new Process();
             p.StartInfo.FileName = "..\\..\\..\\..\\CVARC\\CVARC.Network\\bin\\Debug\\CVARC.Network.exe";
-            p.StartInfo.Arguments = "..\\..\\..\\..\\Competitions\\Fall2013.0\\bin\\Debug\\Fall2013.0.dll";
+            p.StartInfo.Arguments = "..\\..\\..\\..\\Competitions\\Fall2013.0\\bin\\Debug\\Fall2013.0.dll -local";
             var file = new FileInfo(p.StartInfo.FileName);
             p.Start();
             Thread.Sleep(1000);
@@ -87,7 +88,7 @@ namespace LocalNetworkClient
             streamWriter = new StreamWriter(tcpClient.GetStream());
 
 
-            streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Random</Side><Opponent>Simple</Opponent></Hello>");
+            streamWriter.WriteLine("<Hello><AccessKey>1234</AccessKey><Side>Random</Side><Opponent>Sanguine</Opponent></Hello>");
             streamWriter.Flush();
 
             ReadAndPrint();

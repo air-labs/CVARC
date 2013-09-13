@@ -21,6 +21,7 @@ namespace CVARC.Basic
         public double ExitTime { get; set; }
         public Exception Exception { get; set; }
         public double WaitForNextCommandTime { get; set; }
+        public int ControlledRobot { get; set; }
         public void Exit(ExitReason reason, double exitTime, Exception exception)
         {
             Active = false;

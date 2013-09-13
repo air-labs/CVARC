@@ -7,13 +7,11 @@ using AIRLab.Mathematics;
 using CVARC.Basic;
 using CVARC.Basic.Controllers;
 
-namespace Gems
+namespace StarshipRepair
 {
-    public class GemsNetworkController : NetworkController
+    public class SRNetworkController : NetworkController
     {
-        public const double MaxLinearVelocity = 30;
-        public const double MaxAngularVelocity = 30;
-
+        
         override public Command ParseRequest(string request)
         {
             var doc = XDocument.Parse(request);
@@ -29,12 +27,12 @@ namespace Gems
             if (Time < 0) Time = 0;
             var command = new Command { Time = Time };
 
-            if (Math.Abs(LinearVelocity) > MaxLinearVelocity) LinearVelocity = Math.Sign(LinearVelocity) * MaxLinearVelocity;
+            if (Math.Abs(LinearVelocity) > SRCompetitions.MaxLinearVelocity) LinearVelocity = Math.Sign(LinearVelocity) * SRCompetitions.MaxLinearVelocity;
             if (LinearVelocity != 0)
                 command.Move = LinearVelocity;
             else
             {
-                if (Math.Abs(AngularVelocity) > MaxAngularVelocity) AngularVelocity = Math.Sign(AngularVelocity) * MaxAngularVelocity;
+                if (Math.Abs(AngularVelocity) > SRCompetitions.MaxAngularVelocity) AngularVelocity = Math.Sign(AngularVelocity) * SRCompetitions.MaxAngularVelocity;
                 if (AngularVelocity != 0)
                     command.Angle = Angle.FromGrad(AngularVelocity);
                 else

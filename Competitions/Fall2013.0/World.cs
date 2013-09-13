@@ -6,7 +6,7 @@ using AIRLab.Mathematics;
 using CVARC.Basic;
 using CVARC.Core;
 
-namespace Gems
+namespace StarshipRepair
 {
     public class GemsWorld : World
     {

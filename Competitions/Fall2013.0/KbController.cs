@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
 
-namespace Gems
+namespace StarshipRepair
 {
     public class KbController : KeyboardController
     {

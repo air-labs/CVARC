@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using CVARC.Basic;
 
-namespace Gems
+namespace StarshipRepair
 {
     public class SimpleBot : FixedProgramBot
     {

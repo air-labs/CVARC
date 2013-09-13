@@ -14,7 +14,6 @@ namespace CVARC.Basic
     public class NetworkParticipant: Participant
     {
         Competitions competitions;
-        public int ControlledRobot { get; private set; }
         public HelloPackage HelloPackage { get; private set; }
         StreamReader clientReader;
         StreamWriter clientWriter;

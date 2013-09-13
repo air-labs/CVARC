@@ -173,7 +173,8 @@ namespace CVARC.Basic
 
                     //применяем полученную команду
                     var cmd=result.Item1;
-                    Behaviour.ProcessCommand(World.Robots[cmd.RobotId], cmd);
+                    cmd.RobotId = p.ControlledRobot;
+                    Behaviour.ProcessCommand(World.Robots[p.ControlledRobot], cmd);
                     p.WaitForNextCommandTime = cmd.Time;
                 }
                 var minTime = Math.Min(time, participants.Min(z => z.WaitForNextCommandTime));
@@ -203,7 +204,8 @@ namespace CVARC.Basic
             var tp = AvailableBots[name];
             var ctor = tp.GetConstructor(new Type[] { });
             var bot = ctor.Invoke(new object[]{}) as Bot;
-            bot.Initialize(this, controlledBot);
+            bot.ControlledRobot = controlledBot;
+            bot.Initialize(this);
             return bot;
 
         }

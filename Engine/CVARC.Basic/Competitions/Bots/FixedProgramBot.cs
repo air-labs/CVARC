@@ -44,10 +44,10 @@ namespace CVARC.Basic
 
         public abstract void DefineProgram();
 
-        override public void Initialize(Competitions competitions, int controlledRobot)
+        override public void Initialize(Competitions competitions)
         {
-            base.Initialize(competitions, controlledRobot);
-            MirrorBot = controlledRobot != 0;
+            base.Initialize(competitions);
+            MirrorBot = ControlledRobot != 0;
             DefineProgram();
         }
 

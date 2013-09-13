@@ -9,7 +9,7 @@ using CVARC.Basic.Sensors;
 using CVARC.Core;
 using kinect.Integration;
 
-namespace Gems
+namespace StarshipRepair
 {
     public class Behaviour : RobotBehaviour
     {

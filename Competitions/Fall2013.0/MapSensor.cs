@@ -8,7 +8,7 @@ using CVARC.Basic.Sensors;
 using CVARC.Core;
 using CVARC.Graphics;
 
-namespace Gems
+namespace StarshipRepair
 {
     public class MapSensor : ISensor
     {

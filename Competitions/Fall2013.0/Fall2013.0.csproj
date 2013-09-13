@@ -47,12 +47,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour.cs" />
+    <Compile Include="Bots\Sanguine.cs" />
     <Compile Include="Competitions2013_1.cs" />
     <Compile Include="KbController.cs" />
     <Compile Include="MapSensor.cs" />
     <Compile Include="NetworkController.cs" />
     <Compile Include="SceneSettings.cs" />
-    <Compile Include="SimpleBot.cs" />
+    <Compile Include="Bots\SimpleBot.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
