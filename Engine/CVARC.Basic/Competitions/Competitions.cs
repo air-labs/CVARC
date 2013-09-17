@@ -223,8 +223,8 @@ namespace CVARC.Basic
                                                   Enumerable.Range(0, World.RobotCount)
                                                             .Select(
                                                                 a =>
-                                                                "{num:" + a + ", score: " +
-                                                                World.Score.GetFullSumForRobot(a) + "}")) + "]";
+                                                                "{\"num\":\"" + a + "\", \"score\": \"" +
+                                                                World.Score.GetFullSumForRobot(a) + "\"}")) + "]";
                     var replay = ConverterToJavaScript.Convert(Logger.SerializationRoot);
                     data["log"] = replay;
                     wb.UploadValues("http://air-labs.ru/match/save", "POST", data);
