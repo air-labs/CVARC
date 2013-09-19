@@ -17,16 +17,21 @@ namespace CVARC.Graphics
 			new LightSettings
 			{
                ColorString = "White",
-               Direction = new Point3D(-1, 2, -3),
+               Direction = new Point3D(0,0, -1),
                Type = LightSettings.MyLightType.Directional
+			},
+            new LightSettings
+			{
+               ColorString = "White",
+               Type = LightSettings.MyLightType.Ambient
 			}
 		};
 
 		public const int VideoHeight = 600;
 		public const int VideoWidth = 800;
 		public static int Framerate = 50;
-		public const bool EnableShadows = true;
-		public const bool EnableSpecularHighlights = true;
+		public const bool EnableShadows = false;
+		public const bool EnableSpecularHighlights = false;
 
 		public const float NearClipDistance = 1;
 		public const float FarClipDistance = 800;

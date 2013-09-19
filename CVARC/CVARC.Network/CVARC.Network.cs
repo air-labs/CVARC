@@ -33,12 +33,10 @@ namespace CVARK.Network
         {
             competitions.ProcessParticipants(localServer, 1000, participants);
             var replayId = "";
-            //if (!localServer) competitions.SendPostReplay(participant.HelloPackage.AccessKey, 0, participant.ControlledRobot);
+            if (!localServer) replayId = competitions.SendPostReplay(participant.HelloPackage.AccessKey, participant.ControlledRobot);
             participant.SendReplay(replayId);
             Application.Exit();
         }
-
-
 
         static void SendError(Exception exception)
         {

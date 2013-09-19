@@ -86,6 +86,7 @@ namespace CVARC.Basic
             int span=(int)(dt*1000);
             for (double t = 0; t < time; t += dt)
             {
+                Logger.LogBodies();
                 foreach (var robot in World.Robots)
                     robot.SetVelocity(); 
                 PhysicalManager.MakeIteration(dt, Root);
@@ -208,7 +209,7 @@ namespace CVARC.Basic
 
         }
 
-        public string SendPostReplay(string key, int competitionsId, int robotNumber)
+        public string SendPostReplay(string key, int robotNumber)
         {
             try
             {
@@ -216,21 +217,22 @@ namespace CVARC.Basic
                 {
                     var data = new NameValueCollection();
                     data["key"] = key;
-                    data["competitions"] = competitionsId.ToString();
+                    data["competitions"] = World.CompetitionId.ToString();
                     data["robotNumber"] = robotNumber.ToString();
                     data["results"] = "[" +
                                       string.Join(",",
                                                   Enumerable.Range(0, World.RobotCount)
                                                             .Select(
                                                                 a =>
-                                                                "{\"num\":\"" + a + "\", \"score\": \"" +
+                                                                "{\"num\":\"" + a + "\", \"score\": \"" +   
                                                                 World.Score.GetFullSumForRobot(a) + "\"}")) + "]";
                     var replay = ConverterToJavaScript.Convert(Logger.SerializationRoot);
                     data["log"] = replay;
-                    wb.UploadValues("http://air-labs.ru/match/save", "POST", data);
-                    return "???"; //TODO: where do I get id of the replay?
+                    var res = wb.UploadValues("http://air-labs.ru/index.php/match/save", "POST", data);
+                    var str = Encoding.UTF8.GetString(res);
+                    return str; 
                 }
-            }
+            } 
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);

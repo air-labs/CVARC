@@ -16,7 +16,7 @@ namespace StarshipRepair
         {
             get { return 2; }
         }
-
+        public override int CompetitionId { get { return 5; } }
         public SceneSettings Settings { get; set; }
 
 
@@ -63,11 +63,11 @@ namespace StarshipRepair
                 RTop = 10,
                 RBottom = 10,
                 Location = new Frame3D(-150+25-10, 100-25+10, 3),
-                DefaultColor = Color.DarkViolet,
+                DefaultColor = Color.Red,
                 IsMaterial = true,
                 Density = Density.Iron,
                 FrictionCoefficient = 0,
-                Top = new SolidColorBrush { Color = Color.Red },
+                Top = new PlaneImageBrush { FilePath = "red.png" },
                 Name="R1"
             };
             var second = enumerable[1];
@@ -77,18 +77,39 @@ namespace StarshipRepair
                 RTop=10,
                 RBottom=10,
                 Location = new Frame3D(150 - 25 + 10, 100 - 25 + 10, 3, Angle.Zero, Angle.Pi, Angle.Zero),
-                DefaultColor = Color.DarkViolet,
+                DefaultColor = Color.Blue,
                 IsMaterial = true,
                 Density = Density.Iron,
                 FrictionCoefficient = 0,
-                Top = new SolidColorBrush { Color = Color.Blue },
+                Top = new PlaneImageBrush { FilePath = "blue.png"},
                 Name="R2"
             };
             root.Add(first.Body);
             root.Add(second.Body);
-            first.Body.Collision += body => { if (body == second.Body) first.AddScore(-30, "Столкновение"); };
-            second.Body.Collision += body => { if (body == first.Body) second.AddScore(-30, "Столкновение"); };
-            
+            var dt = 1000;
+            var collisionTimes = new Dictionary<int, DateTime>
+                                                            {
+                                                                {first.Body.Id,new DateTime()},
+                                                                {second.Body.Id,new DateTime()}
+                                                            };
+            Func<Body, Body, bool> isFault = (robot, opponent) =>
+                                                 {
+                                                     var vec = opponent.GetAbsoluteLocation() - robot.GetAbsoluteLocation();
+                                                     var sc = vec.X*robot.Velocity.X + vec.Y*robot.Velocity.Y;
+                                                     return sc > 0;
+                                                 };
+            Func<Robot, Robot, Action<Body>> subscribeToCollision = (robot, opponent) =>
+                body =>
+                    {
+                        if (body == opponent.Body && isFault(robot.Body, body) &&
+                            (DateTime.Now - collisionTimes[robot.Body.Id]).TotalMilliseconds > dt)
+                        {
+                            robot.AddScore(-30, "Collision");
+                            collisionTimes[robot.Body.Id] = DateTime.Now;
+                        }
+                    };
+            first.Body.Collision += subscribeToCollision(first, second);
+            second.Body.Collision += subscribeToCollision(second, first);
             root.Add(new Box
             {
                 XSize = 300,
@@ -118,9 +139,10 @@ namespace StarshipRepair
                     ZSize=15,
                     Location=new Frame3D(-150+25+detail.Location.X*50,100-25-50*detail.Location.Y,0),
                     DefaultColor= color,
-                     Name= name,
-                     IsMaterial=true,
-                     IsStatic=false
+                    Name= name,
+                    IsMaterial=true,
+                    IsStatic=false,
+                    FrictionCoefficient = 8
             });
             }
 

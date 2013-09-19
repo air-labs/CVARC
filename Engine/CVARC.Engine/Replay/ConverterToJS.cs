@@ -50,8 +50,10 @@ namespace CVARC.Core.Replay
                     replayPlayer.Update();
                     result.Add(iter);
                 }
-
-                return (new JavaScriptSerializer()).Serialize(result);
+                var res = (new JavaScriptSerializer()).Serialize(result);
+                //replace id of root body to 0
+                res = res.Replace(","+rootBody.Id+",", ",0,");
+                return res;
             }
 
             private static void BodyAdded(Body body)

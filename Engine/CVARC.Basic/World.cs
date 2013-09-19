@@ -18,6 +18,9 @@ namespace CVARC.Basic
         public List<Robot> Robots { get; private set; }
 
         public virtual int RobotCount { get { return 2; } }
+
+        public virtual int CompetitionId { get { return 1; } }
+
         public abstract Body CreateWorld(IEnumerable<Robot> robots);
     }
 }
