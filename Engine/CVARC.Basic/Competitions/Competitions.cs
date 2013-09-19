@@ -228,6 +228,8 @@ namespace CVARC.Basic
                                                                 World.Score.GetFullSumForRobot(a) + "\"}")) + "]";
                     var replay = ConverterToJavaScript.Convert(Logger.SerializationRoot);
                     data["log"] = replay;
+                    wb.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36");
+                    wb.Headers.Add(HttpRequestHeader.Accept, "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
                     var res = wb.UploadValues("http://air-labs.ru/index.php/match/save", "POST", data);
                     var str = Encoding.UTF8.GetString(res);
                     return str; 
