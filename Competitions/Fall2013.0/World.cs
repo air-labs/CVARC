@@ -53,7 +53,7 @@ namespace StarshipRepair
 
         public override Body CreateWorld(IEnumerable<Robot> robots)
         {
-            Settings = SceneSettings.GetDefaulSettings();
+            Settings = SceneSettings.GetRandomMap(HelloPackage.RandomMapSeed);
             var root = new Body();
             var enumerable = robots as IList<Robot> ?? robots.ToList();
             var first = enumerable[0];
@@ -63,7 +63,7 @@ namespace StarshipRepair
                 RTop = 10,
                 RBottom = 10,
                 Location = new Frame3D(-150+25-10, 100-25+10, 3),
-                DefaultColor = Color.Red,
+                DefaultColor = Color.DarkViolet,
                 IsMaterial = true,
                 Density = Density.Iron,
                 FrictionCoefficient = 0,
@@ -77,7 +77,7 @@ namespace StarshipRepair
                 RTop=10,
                 RBottom=10,
                 Location = new Frame3D(150 - 25 + 10, 100 - 25 + 10, 3, Angle.Zero, Angle.Pi, Angle.Zero),
-                DefaultColor = Color.Blue,
+                DefaultColor = Color.DarkViolet,
                 IsMaterial = true,
                 Density = Density.Iron,
                 FrictionCoefficient = 0,

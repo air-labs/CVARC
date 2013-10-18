@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CVARC.Core;
+using CVARC.Network;
 
 namespace CVARC.Basic
 {
     public abstract class World
     {
+        public HelloPackage HelloPackage = new HelloPackage();
         public ScoreCollection Score { get; private set; }
         public Body Init()
         {

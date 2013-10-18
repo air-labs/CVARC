@@ -9,6 +9,7 @@ using CVARC.Basic;
 using CVARC.Basic.Controllers;
 using CVARC.Core;
 using CVARC.Graphics;
+using CVARC.Network;
 using CVARC.Physics;
 
 namespace CVARC.Tutorial
@@ -68,6 +69,16 @@ namespace CVARC.Tutorial
            }
 
            competitions = Competitions.Load(args[0]);
+            if (args.Length > 2)
+            {
+                if (args[1] == "--map")
+                {
+                    int map;
+                    if (!int.TryParse(args[2], out map))
+                        map = -1;
+                    competitions.World.HelloPackage = new HelloPackage {RandomMapSeed = map};
+                }
+            }
            competitions.Initialize();
            
 

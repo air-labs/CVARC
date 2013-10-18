@@ -51,8 +51,10 @@
     <Compile Include="Bots\Sanguine.cs" />
     <Compile Include="Competitions2013_1.cs" />
     <Compile Include="KbController.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="MapSensor.cs" />
     <Compile Include="NetworkController.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="SceneSettings.cs" />
     <Compile Include="Bots\SimpleBot.cs" />
     <Compile Include="World.cs" />

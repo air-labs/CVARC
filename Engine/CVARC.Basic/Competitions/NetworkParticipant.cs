@@ -42,6 +42,7 @@ namespace CVARC.Basic
                 var document = XDocument.Parse(line);
                 HelloPackage = new HelloPackage();
                 HelloPackage.Parse(document);
+                competitions.World.HelloPackage = HelloPackage;
                 Console.WriteLine("OK");
             }
             catch (Exception e)
