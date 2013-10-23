@@ -9,12 +9,17 @@ namespace StarshipRepair
     {
         private WallSettings[,] _wallsV;
         private WallSettings[,] _wallsH;
-        private List<Node> _nodes = new List<Node>();
+        public List<Node> Nodes { get; private set; }
+        public Node this[int x, int y]
+        {
+            get { return Nodes.FirstOrDefault(a => a.X == x && a.Y == y); }
+        }
         public void Init(SceneSettings settings)
         {
+            Nodes = new List<Node>();
             _wallsV = settings.VerticalWalls;
             _wallsH = settings.HorizontalWalls;
-            _nodes.Clear();
+            Nodes.Clear();
             Add(new Node(0, 0));
         }
 
@@ -49,6 +54,7 @@ namespace StarshipRepair
                 var @new = Add(new Node(i, j+1));
                 currentNode.Link(@new);
             }
+            return;
             if (left && top && nextLeft && nextTop)
             {
                 var @new = Add(new Node(i - 1, j - 1));
@@ -72,8 +78,8 @@ namespace StarshipRepair
         }
         public List<Node> FindPath(int fromX, int fromY, int toX, int toY)
         {
-            var from = _nodes.FirstOrDefault(a => a.X == fromX && a.Y == fromY);
-            var to = _nodes.FirstOrDefault(a => a.X == toX && a.Y == toY);
+            var from = Nodes.FirstOrDefault(a => a.X == fromX && a.Y == fromY);
+            var to = Nodes.FirstOrDefault(a => a.X == toX && a.Y == toY);
             return FindPath(from, to, new List<Node>());
         }
         private List<Node> FindPath(Node from, Node to, List<Node> visited)
@@ -92,11 +98,11 @@ namespace StarshipRepair
         }
         private Node Add(Node node)
         {
-            var was = _nodes.FirstOrDefault(a => a.X == node.X && a.Y == node.Y);
+            var was = Nodes.FirstOrDefault(a => a.X == node.X && a.Y == node.Y);
             if (was == null)
             {
                 was = node;
-                _nodes.Add(was);
+                Nodes.Add(was);
                 GenerateMap(was);
             }
             return was;
@@ -104,7 +110,7 @@ namespace StarshipRepair
 
         public bool IsValid()
         {
-            return _nodes.Count == _wallsH.GetLength(0)*_wallsV.GetLength(1);
+            return Nodes.Count == _wallsH.GetLength(0)*_wallsV.GetLength(1);
         }
     }
 }

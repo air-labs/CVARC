@@ -99,11 +99,10 @@ namespace StarshipRepair
                         {
                             var x = rand.Next(3);
                             var y = rand.Next(setts.VerticalWalls.GetLength(1));
-                            if (wall != WallSettings.Wall && x == 3) continue;
+                            if (wall != WallSettings.Wall && x == 2) continue;
                             if (setts.VerticalWalls[x, y] == WallSettings.NoWall)
                             {
                                 setts.VerticalWalls[x, y] = wall;
-                                if (x == 3) break;
                                 setts.VerticalWalls[setts.VerticalWalls.GetLength(0) - x-1, y] = wall ==
                                                                                                    WallSettings
                                                                                                        .RedSocket
