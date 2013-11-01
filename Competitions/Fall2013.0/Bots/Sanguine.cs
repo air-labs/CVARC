@@ -8,19 +8,21 @@ using CVARC.Basic.Controllers;
 
 namespace StarshipRepair.Bots
 {
-    public class Sanguine : Bot
+    public class Sanguine : RunnedBot
     {
-        Random rnd = new Random();
-        double MoveTime = 50 / SRCompetitions.MaxLinearVelocity;
-        double RotTime = 90 / SRCompetitions.MaxAngularVelocity;
-
-        public override CVARC.Basic.Controllers.Command MakeTurn()
+        public override void DefineProgram()
         {
-            var direction = rnd.Next(100) < 50 ? -1 : 1;
-            if (rnd.Next(100) < 50)
-                return new Command { Move = SRCompetitions.MaxLinearVelocity*direction, Time = MoveTime };
-            else
-                return new Command { Angle = Angle.FromGrad(SRCompetitions.MaxAngularVelocity * direction), Time = RotTime };
+            base.DefineProgram();
+            var rand = new Random();
+            int cnt = 0;
+            while (cnt < 100)
+            {
+                var neigh = currentPosition.Neighbors;
+                var next = neigh[rand.Next(neigh.Count)];
+                if (next.X != currentPosition.X && next.Y != currentPosition.Y) continue;
+                GoTo(next);
+                cnt++;
+            }
         }
     }
 }

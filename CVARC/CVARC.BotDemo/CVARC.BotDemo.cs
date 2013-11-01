@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CVARC.Basic;
+using CVARC.Network;
 
 namespace CVARC.BotDemo
 {
@@ -26,6 +27,10 @@ namespace CVARC.BotDemo
             }
 
             var competitions = Competitions.Load(args[0]);
+            competitions.World.HelloPackage = new HelloPackage
+                                                  {
+                                                      RandomMapSeed = -1
+                                                  };
             competitions.Initialize();
             List<Bot> bots = new List<Bot>();
             for (int i=0;i<competitions.World.RobotCount;i++)

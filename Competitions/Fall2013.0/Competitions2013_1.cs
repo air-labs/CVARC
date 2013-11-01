@@ -35,7 +35,10 @@ namespace StarshipRepair
         {
             AvailableBots["Simple"] = typeof(SimpleBot);
             AvailableBots["Sanguine"] = typeof(Sanguine);
+            AvailableBots["Perythe"] = typeof(PerytheBot);
+            AvailableBots["Vaermina"] = typeof(Vaermina);
             AvailableBots["MolagBal"] = typeof(MolagBal);
+            AvailableBots["Namira"] = typeof(NamiraBot);
         }
     }
 }

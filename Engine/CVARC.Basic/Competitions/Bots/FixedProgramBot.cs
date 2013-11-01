@@ -10,8 +10,8 @@ namespace CVARC.Basic
     public abstract class FixedProgramBot : Bot
     {
         bool MirrorBot;
-        List<Command> Program=new List<Command>();
-        int iterator = 0;
+        protected List<Command> Program=new List<Command>();
+        protected int iterator = 0;
 
         protected void Mov(double distance)
         {
@@ -25,6 +25,7 @@ namespace CVARC.Basic
 
         protected void Rot(double angleGrad)
         {
+            if (angleGrad == 0) return;
             MulAdd(new Command
             {
                 Angle=Math.Sign(angleGrad)*Competitions.AngularVelocityLimit*(MirrorBot?-1:1),
@@ -64,7 +65,7 @@ namespace CVARC.Basic
                 Competitions.World.Robots[0].Body.Location.ToPoint3D(),
                 Competitions.World.Robots[1].Body.Location.ToPoint3D())
                 ;
-            if ( dst   < 50) return new Command { Move=0, Angle=Angle.FromGrad(0), Time = 1 };  
+            if ( dst   < 30) return new Command { Move=0, Angle=Angle.FromGrad(0), Time = 1 };  
 
 
             if (iterator < Program.Count)
