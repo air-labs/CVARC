@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>..\..\..\..\Competitions\Fall2013.0\bin\Debug\Fall2013.0.dll  Simple Simple</StartArguments>
+    <StartArguments>..\..\..\..\Competitions\Fall2013.0\bin\Debug\Fall2013.0.dll  Sanguine Namira</StartArguments>
   </PropertyGroup>
 </Project>

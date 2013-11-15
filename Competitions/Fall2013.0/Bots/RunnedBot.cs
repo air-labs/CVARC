@@ -14,11 +14,24 @@ namespace StarshipRepair.Bots
 
         public override void DefineProgram()
         {
-            map = (Competitions.World as GemsWorld).Settings.Map;
-            lookAt = -180 * ControlledRobot;
-            currentPosition = map[5 * ControlledRobot, 0];
+            Init(Competitions);
         }
-
+        protected void Init(Competitions competitions)
+        {
+            if (map == null)
+            {
+                try
+                {
+                    map = (competitions.World as GemsWorld).Settings.Map;
+                    lookAt = -180*ControlledRobot;
+                    currentPosition = map[5*ControlledRobot, 0];
+                }
+                catch (Exception e)
+                {
+                    
+                }
+            }
+        }
         public void GoTo(Node to)
         {
             var pth = map.FindPath(currentPosition.X, currentPosition.Y, to.X, to.Y);

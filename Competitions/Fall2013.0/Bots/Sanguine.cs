@@ -13,6 +13,7 @@ namespace StarshipRepair.Bots
         public override void DefineProgram()
         {
             base.DefineProgram();
+            Init(Competitions);
             var rand = new Random();
             int cnt = 0;
             while (cnt < 100)

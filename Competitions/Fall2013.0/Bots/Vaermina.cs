@@ -11,6 +11,7 @@ namespace StarshipRepair.Bots
     {
         public override Command MakeTurn()
         {
+            Init(Competitions);
             var dst = Angem.Distance(
                 Competitions.World.Robots[0].Body.Location.ToPoint3D(),
                 Competitions.World.Robots[1].Body.Location.ToPoint3D())
