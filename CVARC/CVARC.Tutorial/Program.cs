@@ -1,28 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using CVARC.Basic;
 using CVARC.Basic.Controllers;
-using CVARC.Core;
-using CVARC.Graphics;
 using CVARC.Network;
-using CVARC.Physics;
 
 namespace CVARC.Tutorial
 {
-    static class Program
+    internal static class Program
     {
-        static TutorialForm form;
-        static Competitions competitions;
+        private static TutorialForm form;
+        private static Competitions competitions;
+        private static List<Keys> pressedKeys = new List<Keys>();
 
-        static List<Keys> pressedKeys = new List<Keys>();
-        
-
-        static void form_KeyUp(object sender, KeyEventArgs e)
+        private static void form_KeyUp(object sender, KeyEventArgs e)
         {
             lock (pressedKeys)
             {
@@ -30,7 +23,7 @@ namespace CVARC.Tutorial
             }
         }
 
-        static void form_KeyDown(object sender, KeyEventArgs e)
+        private static void form_KeyDown(object sender, KeyEventArgs e)
         {
             lock (pressedKeys)
             {
@@ -38,11 +31,11 @@ namespace CVARC.Tutorial
             }
         }
 
-        static void Process()
+        private static void Process()
         {
             while (true)
             {
-                List<Command> commands=null;
+                List<Command> commands = null;
                 lock (pressedKeys)
                 {
                     commands = pressedKeys.SelectMany(z => competitions.KeyboardController.GetCommand(z)).ToList();
@@ -54,33 +47,25 @@ namespace CVARC.Tutorial
             }
         }
 
-
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
-       {
-           if (args.Length == 0)
-           {
-               MessageBox.Show("Please specify the assembly with rules", "CVARC Tutorial", MessageBoxButtons.OK, MessageBoxIcon.Error);
-               return;
-           }
-
-           competitions = Competitions.Load(args[0]);
-            if (args.Length > 2)
+        private static void Main()
+        {
+            try
             {
-                if (args[1] == "--map")
-                {
-                    int map;
-                    if (!int.TryParse(args[2], out map))
-                        map = -1;
-                    competitions.World.HelloPackage = new HelloPackage {RandomMapSeed = map};
-                }
+                var settings = new TutorialSettings();
+                competitions = Competitions.Load(settings);
+                if (settings.HasMap)
+                    competitions.World.HelloPackage = new HelloPackage { RandomMapSeed = settings.MapSeed };
+                competitions.Initialize();
             }
-           competitions.Initialize();
-           
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "CVARC Tutorial", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -88,7 +73,7 @@ namespace CVARC.Tutorial
             form.KeyPreview = true;
             form.KeyDown += form_KeyDown;
             form.KeyUp += form_KeyUp;
-            new Thread(Process) { IsBackground = true }.Start();
+            new Thread(Process) {IsBackground = true}.Start();
             Application.Run(form);
         }
     }

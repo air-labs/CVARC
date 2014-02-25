@@ -1,27 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Linq;
-using AIRLab.Mathematics;
 using CVARC.Basic;
-using CVARC.Basic.Controllers;
-using CVARC.Network;
 
 namespace CVARK.Network
 {
-
-
     static class Program
     {
-        static bool localServer = false;
+        static bool isLocalServer = false;
         static Competitions competitions;
         static NetworkParticipant participant;
         static Participant[] participants;
@@ -31,9 +17,9 @@ namespace CVARK.Network
 
         static void Process()
         {
-            competitions.ProcessParticipants(localServer, 1000, participants);
+            competitions.ProcessParticipants(isLocalServer, 1000, participants);
             var replayId = "";
-            if (!localServer) replayId = competitions.SendPostReplay(participant.HelloPackage.AccessKey, participant.ControlledRobot);
+            if (!isLocalServer) replayId = competitions.SendPostReplay(participant.HelloPackage.AccessKey, participant.ControlledRobot);
             participant.SendReplay(replayId);
             Application.Exit();
         }
@@ -54,7 +40,6 @@ namespace CVARK.Network
 
         }
 
-
         static void AcceptHelloPackage()
         {
             participants = new Participant[2];
@@ -69,8 +54,6 @@ namespace CVARK.Network
                 throw new UserInputException("The opponent's name is not valid");
            
             participants[botNumber]=competitions.CreateBot(botName, botNumber);
-
-
         }
 
 
@@ -78,34 +61,23 @@ namespace CVARK.Network
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        static void Main()
         {
-
-
-          
-
-            if (args.Length == 0)
+            try
             {
-                MessageBox.Show("Please specify the assembly with rules", "CVARC Tutorial", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var settings = new NetworkSettings();
+                competitions = Competitions.Load(settings);
+                isLocalServer = settings.IsLocalServer;
+                if (!isLocalServer)
+                    StartDebugServer();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "CVARC Network", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            competitions = Competitions.Load(args[0]);
-
-            if (args.Length > 1)
-            {
-                if (args[1]=="-local") localServer=true;
-                if (args[1] == "-debug")
-                {
-                    localServer = false;
-                    var p = new System.Diagnostics.Process(); 
-                    p.StartInfo.FileName = "..\\..\\..\\..\\Competitions\\DemoNetworkClient\\bin\\Debug\\DemoNetworkClient.exe";
-                    p.Start();
-                }
-            }
-
+            
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-
             try
             {
                 AcceptHelloPackage(); //Why CurrentDomain.UnhandledException does not work for this one???
@@ -123,10 +95,16 @@ namespace CVARK.Network
 
             processThread = new Thread(Process) { IsBackground = true };
 
-
             processThread.Start();
             Application.Run(form);
             
+        }
+
+        private static void StartDebugServer()
+        {
+            var p = new System.Diagnostics.Process();
+            p.StartInfo.FileName = "..\\..\\..\\..\\Competitions\\DemoNetworkClient\\bin\\Debug\\DemoNetworkClient.exe";
+            p.Start();
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

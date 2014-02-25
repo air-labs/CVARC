@@ -7,7 +7,6 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading;
-using System.Windows.Forms;
 using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
 using CVARC.Core;
@@ -48,19 +47,18 @@ namespace CVARC.Basic
             Behaviour.ProcessCommand(World.Robots[command.RobotId], command);
         }
 
-        public static Competitions Load(string filename)
+        public static Competitions Load(CompetitionsSettings settings)
         {
-            if (!File.Exists(filename))
-            {
-                MessageBox.Show("The assembly file you specified does not exist", "CVARC Tutorial", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
-            }
-
-            var file = new FileInfo(filename);
+            if (string.IsNullOrEmpty(settings.CompetitionsName) || !File.Exists(settings.CompetitionsName))
+                throw new Exception(string.Format("Файл соревнований {0} не был найден. Проверьте правильность пути CompetitionsName в файле настроек: {1}.", settings.CompetitionsName, settings.SettingsFileName));
+            
+            var file = new FileInfo(settings.CompetitionsName);
             var ass = Assembly.LoadFile(file.FullName);
-            var competitions = ass.GetExportedTypes().FirstOrDefault(a => a.IsSubclassOf(typeof(Competitions)));
-            var ctor = competitions.GetConstructor(new Type[] { });
-            return ctor.Invoke(new object[] { }) as Competitions;
+            var competitions = ass.GetExportedTypes().SingleOrDefault(a => a.IsSubclassOf(typeof(Competitions)) && a.Name == settings.LevelName);
+            if (competitions == null)
+                throw new Exception(string.Format("Уровень {0} не был найден в {1}", settings.LevelName, settings.CompetitionsName));
+            var ctor = competitions.GetConstructor(new Type[] {});
+            return ctor.Invoke(new object[] {}) as Competitions;
         }
 
         public void Initialize()

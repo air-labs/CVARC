@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using CVARC.Basic;
 using CVARC.Network;
@@ -11,41 +9,39 @@ namespace CVARC.BotDemo
 {
     static class Program
     {
-
-        
+        private static Competitions competitions;
 
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        static void Main()
         {
-            if (args.Length < 2 )
+            var settings = new BotDemoSettings();
+            try
             {
-                MessageBox.Show("Please specify the assembly with rules, and then bots' names (at least one)", "CVARC BotDemo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                competitions = Competitions.Load(settings);
+                competitions.World.HelloPackage = new HelloPackage { RandomMapSeed = -1 };
+                competitions.Initialize();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "CVARC BotDemo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            var competitions = Competitions.Load(args[0]);
-            competitions.World.HelloPackage = new HelloPackage
-                                                  {
-                                                      RandomMapSeed = -1
-                                                  };
-            competitions.Initialize();
             List<Bot> bots = new List<Bot>();
-            for (int i=0;i<competitions.World.RobotCount;i++)
+            for (int i = 0; i < competitions.World.RobotCount; i++)
             {
-                if (i+1>=args.Length) break;
-                var botName=args[i+1];
-                if (botName=="None") continue;
-                bots.Add(competitions.CreateBot(args[i + 1], i));
+                if (i + 1 >= settings.BotNames.Length) break;
+                if (settings.BotNames[i] == "None") continue;
+                bots.Add(competitions.CreateBot(settings.BotNames[i], i));
             }
-
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var form = new TutorialForm(competitions);
-            new Thread(() => competitions.ProcessParticipants(true, int.MaxValue,  bots.ToArray())) { IsBackground = true }.Start();
+            new Thread(() => competitions.ProcessParticipants(true, int.MaxValue, bots.ToArray())) { IsBackground = true }.Start();
             Application.Run(form);
         }
     }
