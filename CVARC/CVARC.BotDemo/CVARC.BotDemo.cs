@@ -33,7 +33,7 @@ namespace CVARC.BotDemo
             List<Bot> bots = new List<Bot>();
             for (int i = 0; i < competitions.World.RobotCount; i++)
             {
-                if (i + 1 >= settings.BotNames.Length) break;
+                if (i == settings.BotNames.Length) break;
                 if (settings.BotNames[i] == "None") continue;
                 bots.Add(competitions.CreateBot(settings.BotNames[i], i));
             }
