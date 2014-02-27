@@ -39,10 +39,7 @@ namespace CVARC.Basic
             {
                 Console.Write("Receiving hello package... ");
                 var line = clientReader.ReadLine();
-                var document = XDocument.Parse(line);
-                HelloPackage = new HelloPackage();
-                HelloPackage.Parse(document);
-                competitions.World.HelloPackage = HelloPackage;
+                competitions.World.HelloPackage = new HelloPackage().Deserialize(line);
                 Console.WriteLine("OK");
             }
             catch (Exception e)

@@ -53,7 +53,7 @@ namespace StarshipRepair
 
         public override Body CreateWorld(IEnumerable<Robot> robots)
         {
-            Settings = SceneSettings.GetRandomMap(HelloPackage.RandomMapSeed);
+            Settings = SceneSettings.GetRandomMap(HelloPackage.MapSeed);
             var root = new Body();
             var enumerable = robots as IList<Robot> ?? robots.ToList();
             var first = enumerable[0];

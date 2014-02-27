@@ -21,7 +21,7 @@ namespace CVARC.BotDemo
             try
             {
                 competitions = Competitions.Load(settings);
-                competitions.World.HelloPackage = new HelloPackage { RandomMapSeed = -1 };
+                competitions.World.HelloPackage = new HelloPackage { MapSeed = -1 };
                 competitions.Initialize();
             }
             catch (Exception e)

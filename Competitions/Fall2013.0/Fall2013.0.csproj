@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="AIRLab, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\AIRLab.dll</HintPath>
+      <HintPath>..\..\libs\AIRLab.dll</HintPath>
     </Reference>
     <Reference Include="SlimDX, Version=4.0.11.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>

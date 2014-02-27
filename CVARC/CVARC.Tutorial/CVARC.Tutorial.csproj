@@ -62,36 +62,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\libs\AIRLab.dll</HintPath>
     </Reference>
+    <Reference Include="CVARC.Basic">
+      <HintPath>..\..\libs\CVARC.Basic.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Competitions\Fall2013.0\Fall2013.0.csproj">
-      <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
-      <Name>Fall2013.0</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Engine\CVARC.Engine\CVARC.Engine.csproj">
-      <Project>{a316853c-7f60-4c7f-8fb5-6bafbc417a68}</Project>
-      <Name>CVARC.Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Engine\CVARC.Basic\CVARC.Basic.csproj">
-      <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
-      <Name>CVARC.Basic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Engine\Grapics.Plus\Graphics.Plus.csproj">
-      <Project>{4DC31792-DB9F-4A7E-9454-473A030076DB}</Project>
-      <Name>Graphics.Plus</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Engine\kinect\kinect.csproj">
-      <Project>{f3800797-250b-4ddb-96b5-2b89ec0dc24a}</Project>
-      <Name>kinect</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Engine\Phisics\Physics.csproj">
-      <Project>{4fad9255-3334-4c61-b8d8-97ba4f6e351b}</Project>
-      <Name>Physics</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

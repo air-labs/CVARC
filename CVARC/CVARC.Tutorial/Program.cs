@@ -58,7 +58,7 @@ namespace CVARC.Tutorial
                 var settings = new TutorialSettings();
                 competitions = Competitions.Load(settings);
                 if (settings.HasMap)
-                    competitions.World.HelloPackage = new HelloPackage { RandomMapSeed = settings.MapSeed };
+                    competitions.World.HelloPackage = new HelloPackage { MapSeed = settings.MapSeed };
                 competitions.Initialize();
             }
             catch (Exception e)

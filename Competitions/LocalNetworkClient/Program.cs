@@ -1,22 +1,17 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Xml.Linq;
-using StarshipRepair;
 
 namespace LocalNetworkClient
 {
     class Program
     {
-        static double MaxLinearVelocity { get { return SRCompetitions.MaxLinearVelocity; } }
-        static double MaxAngularVelocity { get { return SRCompetitions.MaxAngularVelocity; } }
+        static double MaxLinearVelocity { get { return 50; } }
+        static double MaxAngularVelocity { get { return 50; } }
 
 
         static StreamReader streamReader;
