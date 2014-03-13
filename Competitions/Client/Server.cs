@@ -2,12 +2,15 @@
 using System.IO;
 using System.Net.Sockets;
 using CVARC.Basic.Controllers;
+using CVARC.Basic.Core;
+using CVARC.Basic.Core.Serialization;
 using CVARC.Network;
 
 namespace Client
 {
     class Server
     {
+        private readonly ISerializer serializer = new JsonSerializer();
         private readonly StreamReader streamReader;
         private readonly StreamWriter streamWriter;
         private int? robotId;
@@ -21,9 +24,8 @@ namespace Client
 
         public void Run(HelloPackage helloPackage)
         {
-            streamWriter.Write(helloPackage.Serialize());
+            streamWriter.BaseStream.Write(serializer.Serialize(helloPackage));
             streamWriter.Flush();
-            Console.WriteLine("Send " + helloPackage.Serialize());
             Console.WriteLine(streamReader.ReadLine());
         }
 

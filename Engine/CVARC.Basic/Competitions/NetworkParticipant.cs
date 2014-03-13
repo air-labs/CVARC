@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Xml.Linq;
 using CVARC.Basic.Controllers;
+using CVARC.Basic.Core;
+using CVARC.Basic.Core.Serialization;
 using CVARC.Network;
 
 namespace CVARC.Basic
@@ -17,30 +16,30 @@ namespace CVARC.Basic
         public HelloPackage HelloPackage { get; private set; }
         StreamReader clientReader;
         StreamWriter clientWriter;
+        private ISerializer serializer = new JsonSerializer();
+        private NetworkStream stream;
 
         public NetworkParticipant(Competitions competitions)
         {
-            Random rnd = new Random();
-
             this.competitions = competitions;
             Console.Write("Starting server... ");
             var listener = new TcpListener(IPAddress.Any, 14000);
             listener.Start();
             Console.WriteLine("OK");
 
-
             Console.Write("Waiting for client... ");
             var client = listener.AcceptTcpClient();
-            clientReader = new StreamReader(client.GetStream());
-            clientWriter = new StreamWriter(client.GetStream());
+            stream = client.GetStream();
+            clientReader = new StreamReader(stream);
+            clientWriter = new StreamWriter(stream);
             Console.WriteLine("OK");
 
             try
             {
-                Console.Write("Receiving hello package... ");
-                var line = clientReader.ReadLine();
-                competitions.World.HelloPackage = new HelloPackage().Deserialize(line);
-                Console.WriteLine("OK");
+                var package = stream.ReadBytes();
+                Console.Write("Receiving hello package... {0}", Encoding.UTF8.GetString(package));
+                HelloPackage = serializer.Deserialize<HelloPackage>(package);
+                competitions.World.HelloPackage = HelloPackage;
             }
             catch (Exception e)
             {
@@ -51,7 +50,7 @@ namespace CVARC.Basic
             {
                 case Side.Left: ControlledRobot = 0; break;
                 case Side.Right: ControlledRobot = 1; break;
-                case Side.Random: ControlledRobot = rnd.Next(2); break;
+                case Side.Random: ControlledRobot = new Random().Next(2); break;
             }
         }
 
