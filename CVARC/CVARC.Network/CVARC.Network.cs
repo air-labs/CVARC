@@ -24,36 +24,30 @@ namespace CVARK.Network
             Application.Exit();
         }
 
-        static void SendError(Exception exception)
+        private static void SendError(Exception exception)
         {
-            try
-            {
-                if (participant == null) return;
-                if (exception is UserInputException)
-                    participant.SendError(exception.InnerException, true);
-                else
-                    participant.SendError(exception, false);
-                participant = null;
-            }
-            catch { }
-            Application.Exit();
-
+            if (participant == null) return;
+            if (exception is UserInputException)
+                participant.SendError(exception.InnerException, true);
+            else
+                participant.SendError(exception, false);
+            participant = null;
         }
 
-        static void AcceptHelloPackage()
+        private static void AcceptHelloPackage()
         {
             participants = new Participant[2];
             participant = new NetworkParticipant(competitions);
             participants[participant.ControlledRobot] = participant;
             Console.WriteLine(participant.HelloPackage.Side.ToString());
 
-            var botNumber = participant.ControlledRobot==0 ? 1 : 0;
+            var botNumber = participant.ControlledRobot == 0 ? 1 : 0;
             var botName = participant.HelloPackage.Opponent;
             if (botName == null) botName = "None";
             if (!competitions.BotIsAvailable(botName))
                 throw new UserInputException("The opponent's name is not valid");
-           
-            participants[botNumber]=competitions.CreateBot(botName, botNumber);
+
+            participants[botNumber] = competitions.CreateBot(botName, botNumber);
         }
 
 
@@ -78,15 +72,15 @@ namespace CVARK.Network
             }
             
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            try
-            {
+//            try
+//            {
                 AcceptHelloPackage(); //Why CurrentDomain.UnhandledException does not work for this one???
-            }
-            catch (Exception e)
-            {
-                SendError(e);
-                return;
-            }
+//            }
+//            catch (Exception e)
+//            {
+//                SendError(e);
+//                return;
+//            }
 
             competitions.Initialize();
             Application.EnableVisualStyles();

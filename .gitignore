@@ -4,4 +4,4 @@ bin
 /TestResults
 deploy
 deploy.rar
-libs/*.pdb
+build

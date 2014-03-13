@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CVARC.Basic">
-      <HintPath>..\..\libs\CVARC.Basic.dll</HintPath>
+      <HintPath>..\..\build\CVARC.Basic.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -54,6 +54,7 @@
   <ItemGroup>
     <None Include="Client.exe.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

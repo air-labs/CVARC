@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\libs\</OutputPath>
+    <OutputPath>..\..\build\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -38,6 +38,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
@@ -51,6 +52,9 @@
     <Compile Include="Competitions\CompetitionsSettings.cs" />
     <Compile Include="Competitions\Exceptions.cs" />
     <Compile Include="Competitions\HelloPackage.cs" />
+    <Compile Include="Core\HelpExtensions.cs" />
+    <Compile Include="Core\Serialization\JsonSerializer.cs" />
+    <Compile Include="Core\Serialization\ISerializer.cs" />
     <Compile Include="Competitions\Participant.cs" />
     <Compile Include="Competitions\NetworkParticipant.cs" />
     <Compile Include="Controllers\Command.cs" />
