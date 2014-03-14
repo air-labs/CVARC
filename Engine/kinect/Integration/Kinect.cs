@@ -10,63 +10,72 @@ using CVARC.Basic;
 using CVARC.Basic.Sensors;
 using CVARC.Core;
 using CVARC.Graphics;
-using NUnit.Framework;
 
 namespace kinect.Integration
 {
-    public class Kinect:ISensor
-	{
+    public class Kinect : ISensor<ImageSensorData>
+    {
         private Body _worldRoot;
         private KinectSettings _settings;
         private Robot _robot;
+
         private Frame3D GetCameraLocation(Robot a)
         {
-            return new Frame3D(a.Body.Location.X + movementDistance * Math.Cos(a.Body.Location.Yaw.Radian), a.Body.Location.Y + movementDistance * Math.Sin(a.Body.Location.Yaw.Radian), a.Body.Location.Z + 30, a.Body.Location.Pitch.AddGrad(45), a.Body.Location.Yaw, a.Body.Location.Roll);
+            return new Frame3D(a.Body.Location.X + movementDistance*Math.Cos(a.Body.Location.Yaw.Radian),
+                               a.Body.Location.Y + movementDistance*Math.Sin(a.Body.Location.Yaw.Radian),
+                               a.Body.Location.Z + 30, a.Body.Location.Pitch.AddGrad(45), a.Body.Location.Yaw,
+                               a.Body.Location.Roll);
         }
-        const int movementDistance = 30;
-        const int size = 50;
+
+        private const int movementDistance = 30;
+        private const int size = 50;
+
         public void Init(Robot robot, World wrld, DrawerFactory factory)
         {
             _worldRoot = robot.Body.TreeRoot;
             _robot = robot;
-            _settings = new KinectSettings(Angle.FromGrad(120), Angle.FromGrad(120 / 1.35), size, (int)(size / 1.35), 200.0);
+            _settings = new KinectSettings(Angle.FromGrad(120), Angle.FromGrad(120/1.35), size, (int) (size/1.35), 200.0);
         }
 
-        public ISensorData Measure()
-	    {
+        public ImageSensorData Measure()
+        {
             var tmpLocation = GetCameraLocation(_robot);
-	        var result = new KinectData(_settings.VerticalResolution, _settings.HorisontalResolution);
-	        var horisontalAngle = -_settings.HorisontalViewAngle/2.0;
-	        var verticalAngle = -_settings.VerticalViewAngle/2.0;
+            var result = new KinectData(_settings.VerticalResolution, _settings.HorisontalResolution);
+            var horisontalAngle = -_settings.HorisontalViewAngle/2.0;
+            var verticalAngle = -_settings.VerticalViewAngle/2.0;
             for (int i = 0; i < _settings.VerticalResolution; i++)
             {
                 Frame3D mediateDirection = SensorRotation.VerticalFrameRotation(tmpLocation, -verticalAngle);
-                horisontalAngle = -_settings.HorisontalViewAngle / 2.0;
+                horisontalAngle = -_settings.HorisontalViewAngle/2.0;
                 for (int j = 0; j < _settings.HorisontalResolution; j++)
                 {
                     Frame3D direction = SensorRotation.HorisontalFrameRotation(mediateDirection, horisontalAngle);
                     Ray ray = new Ray(tmpLocation.ToPoint3D(), SensorRotation.GetFrontDirection(direction));
-	                var dist = double.PositiveInfinity;
-	                foreach (var body in _worldRoot.GetSubtreeChildrenFirst())
-	                    if(_settings.Exclude.All(a => a != body))
-	                    {
-	                        var inter = Intersector.Intersect(body, ray);
-	                        dist = Math.Min(dist, inter);
-	                    }
+                    var dist = double.PositiveInfinity;
+                    foreach (var body in _worldRoot.GetSubtreeChildrenFirst())
+                        if (_settings.Exclude.All(a => a != body))
+                        {
+                            var inter = Intersector.Intersect(body, ray);
+                            dist = Math.Min(dist, inter);
+                        }
                     result.Depth[i, j] = dist;
-	                
+
                     //verticalAngle += _settings.VStep;
                     horisontalAngle += _settings.HStep;
-	            }
+                }
                 verticalAngle += _settings.VStep;
-	    }
-	return result;
-		}
-	}
+            }
+            return new ImageSensorData
+                {
+                    Base64Picture = result.GetStringRepresentation()
+                };
+        }
+    }
 
     public class KinectData : IImageSensorData
 	{
 	    public double[,] Depth;
+
         public KinectData(int i, int j)
         {
             Depth = new double[i,j];

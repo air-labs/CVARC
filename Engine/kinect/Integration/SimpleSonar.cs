@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+using System.Runtime.Serialization;
 using AIRLab.Mathematics;
 using CVARC.Basic;
 using CVARC.Basic.Sensors;
@@ -11,20 +10,15 @@ using NUnit.Framework;
 
 namespace kinect.Integration
 {
-	public class SimpleSonar:ISensor
+	public class SimpleSonar:ISensor<SonarData>
 	{
-		public SimpleSonar()
-		{
-			
-		}
-
 	    public void Init(Robot robot, World wrld, DrawerFactory factory)
 	    {
             _worldRoot = robot.Body.TreeRoot;
 			_settings = new SimpleSonarSettings(robot.Body.GetAbsoluteLocation(), Angle.FromGrad(90), 400);
 	    }
 
-	    public ISensorData Measure()
+        public SonarData Measure()
 		{
 		    var result = new List<double>();
 		    var angle = -_settings.ViewAngle/2.0;
@@ -39,25 +33,22 @@ namespace kinect.Integration
                 angle += _settings.Step;
             }
                 
-			return new SonarData(result);
+			return new SonarData(result.ToArray());
 		}
         
 		private Body _worldRoot;
 		private SimpleSonarSettings _settings;
 	}
 
+    [DataContract]
     public class SonarData : ISensorData
     {
-        private readonly List<double> _result;
+        [DataMember]
+        public double[] Data { get; set; }
 
-        public SonarData(List<double> result)
+        public SonarData(double[] result)
         {
-            _result = result;
-        }
-
-        public string GetStringRepresentation()
-        {
-            return string.Join(",", _result);
+            Data = result;
         }
     }
 

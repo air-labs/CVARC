@@ -1,25 +1,17 @@
-﻿using CVARC.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Runtime.Serialization;
+using CVARC.Graphics;
 
 namespace CVARC.Basic.Sensors
 {
-
+    [DataContract]
     public class RobotIdSensorData : ISensorData
     {
+        [DataMember]
         public int Id { get; set; }
-
-
-        public string GetStringRepresentation()
-        {
-            return "<YourRobotId>" + Id + "</YourRobotId>";
-        }
     }
 
 
-    public class RobotIdSensor : ISensor
+    public class RobotIdSensor : ISensor<RobotIdSensorData>
     {
         int Id;
         public void Init(Robot robot, World wrld, DrawerFactory factory)
@@ -27,7 +19,7 @@ namespace CVARC.Basic.Sensors
             Id = robot.Number;
         }
 
-        public ISensorData Measure()
+        public RobotIdSensorData Measure()
         {
             return new RobotIdSensorData { Id = Id };
         }

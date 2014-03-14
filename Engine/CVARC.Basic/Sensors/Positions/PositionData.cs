@@ -1,15 +1,28 @@
-﻿using AIRLab.Mathematics;
-using AIRLab.Thornado;
+﻿using System.Runtime.Serialization;
+using AIRLab.Mathematics;
 
 namespace CVARC.Basic.Sensors
 {
+    [DataContract]
     public class PositionData : ISensorData
     {
+        [DataMember]
         public int RobotNumber;
-        public Frame3D Position;
-        public string GetStringRepresentation()
+
+        [DataMember]
+        public double X { get; set; }
+
+        [DataMember]
+        public double Y { get; set; }
+
+        [DataMember]
+        public double Angle { get; set; }
+
+        public PositionData(Frame3D position)
         {
-            return string.Format("<Robot><Number>{0}</Number><X>{1}</X><Y>{2}</Y><Angle>{3}</Angle></Robot>", RobotNumber, Position.X, Position.Y, Position.Yaw.Grad);
+            X = position.X;
+            Y = position.Y;
+            Angle = position.Yaw.Grad;
         }
     }
 }

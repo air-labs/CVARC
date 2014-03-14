@@ -2,17 +2,18 @@
 
 namespace CVARC.Basic.Sensors
 {
-    public class PositionSensor: ISensor
+    public class PositionSensor : ISensor<PositionData>
     {
         private Robot _robot;
+
         public void Init(Robot robot, World wrld, DrawerFactory factory)
         {
             _robot = robot;
         }
 
-        public ISensorData Measure()
+        public PositionData Measure()
         {
-            return new PositionData{Position = _robot.Body.GetAbsoluteLocation(), RobotNumber = _robot.Number};
+            return new PositionData(_robot.Body.GetAbsoluteLocation()) {RobotNumber = _robot.Number};
         }
     }
 }

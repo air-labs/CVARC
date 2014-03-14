@@ -3,7 +3,7 @@
 namespace CVARC.Basic.Sensors
 {
     public class SensorFactory<TSensor> : ISensorFactory
-        where TSensor: ISensor
+        where TSensor: ISensor<ISensorData>
     {
         public Sensor GetOne(Robot robot, World wrld, DrawerFactory factory)
         {

@@ -1,20 +1,16 @@
-using System.Collections.Generic;
-using System.Linq;
+using System.Runtime.Serialization;
 
 namespace CVARC.Basic.Sensors
 {
+    [DataContract]
     public class ManyPositionData : ISensorData
     {
-        private readonly List<PositionData> _data;
+        [DataMember]
+        public PositionData[] PositionsData { get; set; }
 
-        public ManyPositionData(List<PositionData> data)
+        public ManyPositionData(PositionData[] data)
         {
-            _data = data;
-        }
-
-        public string GetStringRepresentation()
-        {
-            return "<Robots>" + _data.Select(z => z.GetStringRepresentation()).Aggregate((a, b) => a + b) + "</Robots>";
+            PositionsData = data;
         }
     }
 }

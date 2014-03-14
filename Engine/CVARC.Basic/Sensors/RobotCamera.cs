@@ -10,7 +10,7 @@ using CVARC.Graphics.DirectX;
 
 namespace CVARC.Basic.Sensors
 {
-	public class RobotCamera : ISensor, IDisposable
+	public class RobotCamera : ISensor<ImageSensorData>, IDisposable
 	{
 	    private Body _robot;
 
@@ -39,14 +39,17 @@ namespace CVARC.Basic.Sensors
 		/// Снимает изображение с камеры и возвращает объект с данными камеры. 
 		/// </summary>
 		/// <returns></returns>
-		public ISensorData Measure()
+        public ImageSensorData Measure()
 		{
 		    Settings.Location = _robot.GetAbsoluteLocation();
 			var data = new RobotCameraData();
 			bool result = _drawer.TryGetImage(_camera, out data.Bitmap);
 			if (Settings.WriteToFile && result)
 				WriteToFile(data.Bitmap);
-			return data;
+			return new ImageSensorData
+			    {
+			        Base64Picture = data.GetStringRepresentation()
+			    };
 		}
 
 		public const int DefaultHeight = 600;
@@ -77,8 +80,7 @@ namespace CVARC.Basic.Sensors
 
 	    public string GetStringRepresentation()
 	    {
-            return "<Camera>" + Convert.ToBase64String(Bitmap) + "</Camera>";
-	        //return Bitmap.MakeStringByte();
+            return Convert.ToBase64String(Bitmap);
 	    }
 
 	    public Bitmap GetImage()
@@ -86,7 +88,7 @@ namespace CVARC.Basic.Sensors
 	        return new Bitmap(FastBitmap.FromBMPStream(new MemoryStream(Bitmap)).ToBitmap());
 	    }
 	}
-	
+
 	[Serializable]
 	public class RobotCameraSettings
 	{

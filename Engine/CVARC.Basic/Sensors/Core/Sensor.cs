@@ -22,13 +22,13 @@ namespace CVARC.Basic.Sensors
                     });
             _meas = @from.GetMethod("Measure");
         }
-        public string Measure()
+        public T Measure<T>()
         {
-            var r = _meas.Invoke(_sens, new object[0]);
-            if (r == null) return "";
-            if (r.GetType().GetInterface("ISensorData") != null)
-                return r.GetType().GetMethod("GetStringRepresentation").Invoke(r, new object[0]).ToString();
-            return "";
+//            var r = _meas.Invoke(_sens, new object[0]);
+//            if (r == null) return null;
+//            if (r.GetType().GetInterface("ISensorData") != null)
+//                return r.GetType().GetMethod("Measure").Invoke(r, new object[0]).ToString();
+            return (T) _meas.Invoke(_sens, new object[0]);
         }
     }
 }

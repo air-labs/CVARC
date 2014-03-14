@@ -138,12 +138,6 @@
     <Compile Include="Winforms\WinformsScene.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CVARC.Engine\CVARC.Engine.csproj">
-      <Project>{A316853C-7F60-4C7F-8FB5-6BAFBC417A68}</Project>
-      <Name>CVARC.Engine</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="DirectX\CameraSwitchControl.resx">
       <DependentUpon>CameraSwitchControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -191,7 +185,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Models\testtexture.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CVARC.Engine\CVARC.Engine.csproj">
+      <Project>{a316853c-7f60-4c7f-8fb5-6bafbc417a68}</Project>
+      <Name>CVARC.Engine</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -10,7 +10,7 @@ namespace CVARC.Basic
     {
         public event Action<Robot, Command> CommandRecieved = (robot, d) => { };
         public List<ISensorFactory> Sensors { get; set; }
-        public void Add<T>() where T : ISensor, new()
+        public void Add<T>() where T : ISensor<ISensorData>, new()
         {
             Sensors.Add(new SensorFactory<T>());
         }

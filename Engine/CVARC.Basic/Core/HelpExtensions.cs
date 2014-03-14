@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net.Sockets;
 
 namespace CVARC.Basic.Core
@@ -36,6 +37,19 @@ namespace CVARC.Basic.Core
         public static void Write(this Stream stream, byte[] bytes)
         {
             stream.Write(bytes, 0, bytes.Length);
+        }
+
+        public static T ParseEnum<T>(this string value)
+        {
+            return (T)Enum.Parse(typeof (T), value);
+        }
+
+        public static int SafeParseInt(this string value, int defaultValue = 0)
+        {
+            int i;
+            if (int.TryParse(value, out i))
+                return i;
+            return defaultValue;
         }
     }
 }

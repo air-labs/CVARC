@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CVARC.Basic">
-      <HintPath>..\..\build\CVARC.Basic.dll</HintPath>
+      <HintPath>..\..\Engine\CVARC.Basic\obj\Debug\CVARC.Basic.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -56,6 +56,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CVARC\CVARC.Network\CVARC.Network.csproj">
+      <Project>{af9c4d6b-a41f-46f2-8af8-af30163e1051}</Project>
+      <Name>CVARC.Network</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

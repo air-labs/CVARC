@@ -71,7 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CVARC.Engine\CVARC.Engine.csproj">
-      <Project>{A316853C-7F60-4C7F-8FB5-6BAFBC417A68}</Project>
+      <Project>{a316853c-7f60-4c7f-8fb5-6bafbc417a68}</Project>
       <Name>CVARC.Engine</Name>
     </ProjectReference>
   </ItemGroup>

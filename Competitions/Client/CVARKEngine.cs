@@ -5,12 +5,13 @@ namespace Client
 {
     class CVARKEngine
     {
+        private readonly ClientSettings settings;
         private const string LocalServerFile = "Network";
         private const string TutorailFile = "Tutorial";
-        private readonly ClientSettings settings = new ClientSettings();
 
-        public CVARKEngine(string[] args)
+        public CVARKEngine(string[] args, ClientSettings settings)
         {
+            this.settings = settings;
             string relativePath = args.Length == 0 ? "Server\\" : args[0];
             if (settings.Mode == Mode.Tutorial)
             {

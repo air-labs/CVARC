@@ -54,31 +54,18 @@ namespace CVARC.Basic
             }
         }
 
-
-        override public Controllers.Command MakeTurn()
+        override public Command MakeTurn()
         {
-            var reply = "<Sensors>";
-            foreach (var e in competitions.World.Robots[ControlledRobot].Sensors)
-                reply += e.Measure();
-            reply += "</Sensors>";
-            reply = reply.Replace("\r", "").Replace("\n", "");
+            var sensorsData = competitions.World.Robots[ControlledRobot].GetSensorsData();
             lock (clientWriter)
             {
-                clientWriter.WriteLine(reply);
-                clientWriter.Flush();
+                stream.Write(serializer.Serialize(sensorsData));
+                stream.Flush();
             }
 
             var request = clientReader.ReadLine();
             Console.WriteLine(request);
-            Command command = null;
-            try
-            {
-                command = competitions.NetworkController.ParseRequest(request);
-            }
-            catch (Exception e)
-            {
-                throw new UserInputException(e);
-            }
+            Command command = competitions.NetworkController.ParseRequest(request);
             command.RobotId = ControlledRobot;
             return command;
         }
@@ -97,7 +84,6 @@ namespace CVARC.Basic
             message = message.Replace("\n", "<br/>");
             message = message.Replace("\r", "");
             return message;
-
         }
 
         public void SendError(Exception exception, bool blameParticipant)
@@ -110,7 +96,6 @@ namespace CVARC.Basic
                 clientWriter.WriteLine(message);
                 clientWriter.Flush();
             }
-            
         }
 
         public void SendReplay(string replayId)

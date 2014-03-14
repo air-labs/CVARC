@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using System.Linq;
 using AIRLab.Mathematics;
 using CVARC.Basic;
 using CVARC.Basic.Controllers;
 using CVARC.Basic.Sensors;
 using CVARC.Core;
-using kinect.Integration;
 
 namespace StarshipRepair
 {
@@ -15,13 +11,13 @@ namespace StarshipRepair
     {
         public override void InitSensors()
         {
- 	        // Add<RobotCamera>();
- 	        // Add<Kinect>();
+            // Add<RobotCamera>();
+            // Add<Kinect>();
             Add<RobotIdSensor>();
             Add<LightHouseSensor>();
- 	         Add<MapSensor>();
-            
+            Add<MapSensor>();
         }
+
         public Behaviour()
         {
             CommandRecieved += OnCommandRecieved;
@@ -29,11 +25,11 @@ namespace StarshipRepair
 
         private void OnCommandRecieved(Robot robot, Command command)
         {
-            if(command.Cmd == "Grip")
+            if (command.Cmd == "Grip")
             {
                 Grip(robot);
             }
-            if(command.Cmd == "Release")
+            if (command.Cmd == "Release")
             {
                 Release(robot);
             }

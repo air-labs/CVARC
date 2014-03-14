@@ -4,17 +4,21 @@ using CVARC.Graphics;
 
 namespace CVARC.Basic.Sensors
 {
-    public class LightHouseSensor : ISensor
+    public class LightHouseSensor : ISensor<ManyPositionData>
     {
-        private List<Robot> _robots;
+        private List<Robot> robots;
+
         public void Init(Robot robot, World wrld, DrawerFactory factory)
         {
-            _robots = wrld.Robots;
+            robots = wrld.Robots;
         }
 
-        public ISensorData Measure()
+        public ManyPositionData Measure()
         {
-            var data = _robots.Select(a => new PositionData {Position = a.Body.GetAbsoluteLocation(), RobotNumber = a.Number}).ToList();
+            var data = robots.Select(a => new PositionData(a.Body.GetAbsoluteLocation())
+                {
+                    RobotNumber = a.Number
+                }).ToArray();
             return new ManyPositionData(data);
         }
     }

@@ -2,6 +2,5 @@
 {
     public interface ISensorData
     {
-        string GetStringRepresentation();
     }
 }

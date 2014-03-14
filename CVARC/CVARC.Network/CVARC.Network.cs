@@ -91,7 +91,6 @@ namespace CVARK.Network
 
             processThread.Start();
             Application.Run(form);
-            
         }
 
         private static void StartDebugServer()
