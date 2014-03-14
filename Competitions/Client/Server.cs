@@ -10,7 +10,7 @@ using CVARC.Network;
 
 namespace Client
 {
-    class Server
+    class Server<TSensorsData>
     {
         private readonly ISerializer serializer = new JsonSerializer();
         private readonly StreamReader streamReader;
@@ -26,11 +26,11 @@ namespace Client
             streamWriter = new StreamWriter(stream);
         }
 
-        public SensorsData Run(HelloPackage helloPackage)
+        public TSensorsData Run(HelloPackage helloPackage)
         {
             streamWriter.BaseStream.Write(serializer.Serialize(helloPackage));
             streamWriter.Flush();
-            return serializer.Deserialize<SensorsData>(stream.ReadBytes());
+            return serializer.Deserialize<TSensorsData>(stream.ReadBytes());
         }
 
         public string GetSensorData(Command command = null)

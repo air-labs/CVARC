@@ -5,6 +5,7 @@ using System.Linq;
 using AIRLab.Mathematics;
 using CVARC.Basic;
 using CVARC.Core;
+using Gems;
 
 namespace StarshipRepair
 {
@@ -265,6 +266,11 @@ namespace StarshipRepair
                     });
                 }
             }
+        }
+
+        public override Robot CreateRobot(int robotNumber)
+        {
+            return new GemsRobot(this) { Number = robotNumber };
         }
     }
 }

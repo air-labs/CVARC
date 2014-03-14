@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CVARC.Basic;
+using System;
 using System.Diagnostics;
 
 namespace Client
@@ -22,9 +23,9 @@ namespace Client
                 StartProcess(relativePath, LocalServerFile);
         }
 
-        public Server GetServer()
+        public Server<SensorsData> GetServer()
         {
-            return new Server(settings.Ip, settings.Port);
+            return new Server<SensorsData>(settings.Ip, settings.Port);
         }
 
         private void StartProcess(string path, string fileName)

@@ -19,7 +19,7 @@ namespace CVARC.Basic
     public class Competitions
     {
         public readonly World World;
-        public readonly RobotBehaviour Behaviour;
+     //   public readonly RobotBehaviour Behaviour;
         public readonly KeyboardController KeyboardController;
         public readonly NetworkController NetworkController;
         public double GameTimeLimit { get; protected set; }
@@ -31,10 +31,9 @@ namespace CVARC.Basic
         public Dictionary<string, Type> AvailableBots { get; private set; }
         public ReplayLogger Logger { get; private set; }
 
-        public Competitions(World world, RobotBehaviour behaviour, KeyboardController keyboard, NetworkController network)
+        public Competitions(World world, KeyboardController keyboard, NetworkController network)
         {
             World = world;
-            Behaviour = behaviour;
             KeyboardController = keyboard;
             NetworkController = network;
             GameTimeLimit = 90;
@@ -44,7 +43,7 @@ namespace CVARC.Basic
 
         public void ApplyCommand(Command command)
         {
-            Behaviour.ProcessCommand(World.Robots[command.RobotId], command);
+            World.Robots[command.RobotId].ProcessCommand(command);
         }
 
         public static Competitions Load(CompetitionsSettings settings)
@@ -66,15 +65,8 @@ namespace CVARC.Basic
             Root = World.Init();
             PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
             DrawerFactory = new DrawerFactory(Root);
-            Behaviour.InitSensors();
-            Behaviour.Sensors.ForEach(a =>
-            {
-                foreach (var robot in World.Robots)
-                {
-                    var sens = a.GetOne(robot, World, DrawerFactory);
-                    robot.Sensors.Add(sens);
-                }
-            });
+     
+
             Logger = new ReplayLogger(Root, 0.1);
         }
 
@@ -105,7 +97,7 @@ namespace CVARC.Basic
             while (true)
             {
                 var command = participant.MakeTurn();
-                Behaviour.ProcessCommand(World.Robots[command.RobotId], command);
+                World.Robots[command.RobotId].ProcessCommand( command);
                 MakeCycle(Math.Min(time, command.Time), realtime);
                 time -= command.Time;
                 if (time < 0) break;
@@ -171,7 +163,7 @@ namespace CVARC.Basic
                     //применяем полученную команду
                     var cmd=result.Item1;
                     cmd.RobotId = p.ControlledRobot;
-                    Behaviour.ProcessCommand(World.Robots[p.ControlledRobot], cmd);
+                    World.Robots[p.ControlledRobot].ProcessCommand( cmd);
                     p.WaitForNextCommandTime = cmd.Time;
                 }
                 var minTime = Math.Min(time, participants.Min(z => z.WaitForNextCommandTime));

@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
@@ -56,10 +57,13 @@
     <Compile Include="Competitions2013_1.cs" />
     <Compile Include="KbController.cs" />
     <Compile Include="Map.cs" />
+    <Compile Include="MapSensor.cs" />
     <Compile Include="NetworkController.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="Robot.cs" />
     <Compile Include="SceneSettings.cs" />
     <Compile Include="Bots\SimpleBot.cs" />
+    <Compile Include="SensorsData.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

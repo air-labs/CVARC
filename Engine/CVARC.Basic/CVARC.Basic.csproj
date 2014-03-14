@@ -52,7 +52,6 @@
     <Compile Include="Competitions\CompetitionsSettings.cs" />
     <Compile Include="Competitions\Exceptions.cs" />
     <Compile Include="Competitions\HelloPackage.cs" />
-    <Compile Include="Competitions\SensorsData.cs" />
     <Compile Include="Core\HelpExtensions.cs" />
     <Compile Include="Core\Serialization\JsonSerializer.cs" />
     <Compile Include="Core\Serialization\ISerializer.cs" />
@@ -67,7 +66,6 @@
     <Compile Include="Robot.cs" />
     <Compile Include="RobotBehaviour.cs" />
     <Compile Include="Sensors\ImageSensorData.cs" />
-    <Compile Include="Sensors\MapSensor.cs" />
     <Compile Include="Sensors\Positions\LighthouseSensor.cs" />
     <Compile Include="Sensors\Core\IImageSensorData.cs" />
     <Compile Include="Sensors\Core\ISensor.cs" />

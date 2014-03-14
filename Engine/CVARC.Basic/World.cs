@@ -11,7 +11,7 @@ namespace CVARC.Basic
         public ScoreCollection Score { get; private set; }
         public Body Init()
         {
-            Robots = Enumerable.Range(0, RobotCount).Select(a => new Robot(this) {Number = a}).ToList();
+            Robots = Enumerable.Range(0, RobotCount).Select(a => CreateRobot(a)).ToList();
             Score = new ScoreCollection(RobotCount);
             var root = CreateWorld(Robots);
             return root;
@@ -24,5 +24,7 @@ namespace CVARC.Basic
         public virtual int CompetitionId { get { return 1; } }
 
         public abstract Body CreateWorld(IEnumerable<Robot> robots);
+
+        public abstract Robot CreateRobot(int robotNumber);
     }
 }

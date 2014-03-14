@@ -31,7 +31,7 @@ namespace StarshipRepair
         }
 
         public SRCompetitions()
-            : base(new GemsWorld(), new Behaviour(), new KbController(), new SRNetworkController())
+            : base(new GemsWorld(), new KbController(), new SRNetworkController())
         {
             AvailableBots["Simple"] = typeof(SimpleBot);
             AvailableBots["Sanguine"] = typeof(Sanguine);
