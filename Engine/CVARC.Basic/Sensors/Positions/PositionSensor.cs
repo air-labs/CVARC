@@ -1,19 +1,17 @@
 ﻿using CVARC.Graphics;
 
-namespace CVARC.Basic.Sensors
+namespace CVARC.Basic.Sensors.Positions
 {
-    public class PositionSensor : ISensor<PositionData>
+    public class PositionSensor : Sensor<PositionData>
     {
-        private Robot _robot;
-
-        public void Init(Robot robot, World wrld, DrawerFactory factory)
+        public PositionSensor(Robot robot, World world, DrawerFactory factory) 
+            : base(robot, world, factory)
         {
-            _robot = robot;
         }
 
-        public PositionData Measure()
+        public override PositionData Measure()
         {
-            return new PositionData(_robot.Body.GetAbsoluteLocation()) {RobotNumber = _robot.Number};
+            return new PositionData(Robot.Body.GetAbsoluteLocation()) { RobotNumber = Robot.Number };
         }
     }
 }

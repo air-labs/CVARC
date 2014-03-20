@@ -1,34 +1,21 @@
-﻿using System;
-using System.Reflection;
+﻿using CVARC.Basic.Sensors.Core;
 using CVARC.Graphics;
 
 namespace CVARC.Basic.Sensors
 {
-    public class Sensor
+    public abstract class Sensor<T> : ISensor<T> where T : ISensorData
     {
-        private readonly MethodInfo _meas;
-        private readonly object _sens;
-        public string Name { get; set; }
-        public Sensor(Type @from, Robot robot, World root, DrawerFactory factory)
+        protected World World;
+        protected readonly Robot Robot;
+        protected readonly DrawerFactory Factory;
+
+        protected Sensor(Robot robot, World world, DrawerFactory factory)
         {
-            var constr = @from.GetConstructor(new Type[0]);
-                if (constr == null) return;
-                var init = @from.GetMethod("Init");
-                if (init == null) return;
-            _sens = constr.Invoke(new object[0]);
-            init.Invoke(_sens, new object[]
-                    {
-                        robot, root, factory
-                    });
-            _meas = @from.GetMethod("Measure");
+            World = world;
+            Robot = robot;
+            Factory = factory;
         }
-        public T Measure<T>()
-        {
-//            var r = _meas.Invoke(_sens, new object[0]);
-//            if (r == null) return null;
-//            if (r.GetType().GetInterface("ISensorData") != null)
-//                return r.GetType().GetMethod("Measure").Invoke(r, new object[0]).ToString();
-            return (T) _meas.Invoke(_sens, new object[0]);
-        }
+
+        public abstract T Measure();
     }
 }

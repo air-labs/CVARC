@@ -1,8 +1,5 @@
 ﻿using System;
-using System.IO;
 using System.Net.Sockets;
-using System.Text;
-using CVARC.Basic;
 using CVARC.Basic.Controllers;
 using CVARC.Basic.Core;
 using CVARC.Basic.Core.Serialization;
@@ -13,31 +10,27 @@ namespace Client
     class Server<TSensorsData>
     {
         private readonly ISerializer serializer = new JsonSerializer();
-        private readonly StreamReader streamReader;
-        private readonly StreamWriter streamWriter;
-        private NetworkStream stream;
+        private readonly NetworkStream stream;
         private int? robotId;
 
         public Server(string ip, int port)
         {
             var tcpClient = new TcpClient(ip, port);
             stream = tcpClient.GetStream();
-            streamReader = new StreamReader(stream);
-            streamWriter = new StreamWriter(stream);
         }
 
         public TSensorsData Run(HelloPackage helloPackage)
         {
-            streamWriter.BaseStream.Write(serializer.Serialize(helloPackage));
-            streamWriter.Flush();
+            stream.Write(serializer.Serialize(helloPackage));
+            stream.Flush();
             return serializer.Deserialize<TSensorsData>(stream.ReadBytes());
         }
 
-        public string GetSensorData(Command command = null)
+        public TSensorsData GetSensorData(Command command = null)
         {
             if (command != null)
                 SendCommand(command);
-            return streamReader.ReadLine();
+            return serializer.Deserialize<TSensorsData>(stream.ReadBytes());
         }
 
         private void SendCommand(Command command)
@@ -45,8 +38,8 @@ namespace Client
             if (robotId == null)
                 throw new Exception("Сервер не ининциализирован. Воспользуйтесь методом Run.");
             command.RobotId = robotId.Value;
-            streamWriter.Write(command.Serialize());
-            streamWriter.Flush();
+            stream.Write(serializer.Serialize(command));
+            stream.Flush();
         }
     }
 }

@@ -14,8 +14,8 @@ namespace Client
             var sensorsData = server.Run(GetHelloPackage());
             while (true)
             {
-                var data = server.GetSensorData();
-                Console.WriteLine(data);
+                Console.WriteLine(sensorsData);
+                sensorsData = server.GetSensorData();
             }
         }
 

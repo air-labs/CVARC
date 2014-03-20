@@ -56,7 +56,7 @@ namespace CVARC.Basic
 
         override public Command MakeTurn()
         {
-            var sensorsData = competitions.World.Robots[ControlledRobot].GetSensorsData();
+            var sensorsData = competitions.GetSensorsData(ControlledRobot);
             lock (clientWriter)
             {
                 stream.Write(serializer.Serialize(sensorsData));

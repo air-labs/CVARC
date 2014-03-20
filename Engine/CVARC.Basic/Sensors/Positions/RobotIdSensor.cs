@@ -9,17 +9,17 @@ namespace CVARC.Basic.Sensors
         [DataMember]
         public int Id { get; set; }
     }
-
-
-    public class RobotIdSensor : ISensor<RobotIdSensorData>
+    
+    public class RobotIdSensor : Sensor<RobotIdSensorData>
     {
         int Id;
-        public void Init(Robot robot, World wrld, DrawerFactory factory)
+
+        public RobotIdSensor(Robot robot, World world, DrawerFactory factory) : base(robot, world, factory)
         {
             Id = robot.Number;
         }
 
-        public RobotIdSensorData Measure()
+        public override RobotIdSensorData Measure()
         {
             return new RobotIdSensorData { Id = Id };
         }

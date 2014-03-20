@@ -9,10 +9,5 @@ namespace CVARC.Basic.Controllers
         public Angle Angle { get; set; }
         public string Cmd { get; set; }
         public double Time { get; set; }
-
-        public string Serialize()
-        {
-            return null;
-        }
     }
 }

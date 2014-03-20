@@ -19,15 +19,14 @@ namespace CVARC.Basic
     public class Competitions
     {
         public readonly World World;
-     //   public readonly RobotBehaviour Behaviour;
         public readonly KeyboardController KeyboardController;
         public readonly NetworkController NetworkController;
         public double GameTimeLimit { get; protected set; }
         public double NetworkTimeLimit { get; protected set; }
         public virtual double LinearVelocityLimit { get { return 10; } }
         public virtual Angle AngularVelocityLimit { get { return Angle.FromGrad(30); } }
-        public Body Root { get; private set; }
-        public DrawerFactory DrawerFactory { get; private set; }
+        public Body Root { get { return World.Root; } }
+        public DrawerFactory DrawerFactory { get { return World.DrawerFactory; }}
         public Dictionary<string, Type> AvailableBots { get; private set; }
         public ReplayLogger Logger { get; private set; }
 
@@ -39,6 +38,11 @@ namespace CVARC.Basic
             GameTimeLimit = 90;
             NetworkTimeLimit = 1;
             AvailableBots = new Dictionary<string, Type>();
+        }
+
+        public ISensorsData GetSensorsData(int robotId)
+        {
+            return World.Robots[robotId].GetSensorsData();
         }
 
         public void ApplyCommand(Command command)
@@ -62,11 +66,8 @@ namespace CVARC.Basic
 
         public void Initialize()
         {
-            Root = World.Init();
+            World.Init();            
             PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
-            DrawerFactory = new DrawerFactory(Root);
-     
-
             Logger = new ReplayLogger(Root, 0.1);
         }
 
@@ -103,7 +104,6 @@ namespace CVARC.Basic
                 if (time < 0) break;
             }
         }
-
 
         Tuple<Command, Exception> MakeTurn(Participant participant)
         {
@@ -163,7 +163,7 @@ namespace CVARC.Basic
                     //применяем полученную команду
                     var cmd=result.Item1;
                     cmd.RobotId = p.ControlledRobot;
-                    World.Robots[p.ControlledRobot].ProcessCommand( cmd);
+                    World.Robots[p.ControlledRobot].ProcessCommand(cmd);
                     p.WaitForNextCommandTime = cmd.Time;
                 }
                 var minTime = Math.Min(time, participants.Min(z => z.WaitForNextCommandTime));
@@ -175,10 +175,7 @@ namespace CVARC.Basic
                 if (time <= 0) break;
             }
         }
-
-
-
-
+        
         public bool BotIsAvailable(string name)
         {
             if (name == "None") return true;
@@ -196,7 +193,6 @@ namespace CVARC.Basic
             bot.ControlledRobot = controlledBot;
             bot.Initialize(this);
             return bot;
-
         }
 
         public string SendPostReplay(string key, int robotNumber)

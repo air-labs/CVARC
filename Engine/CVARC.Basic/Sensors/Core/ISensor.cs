@@ -1,17 +1,7 @@
-﻿using CVARC.Graphics;
-
-namespace CVARC.Basic.Sensors
+﻿namespace CVARC.Basic.Sensors.Core
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	public interface ISensor<out T> where T : ISensorData
-	{
-	    void Init(Robot robot, World wrld, DrawerFactory factory);
-		/// <summary>
-		/// Метод производит измерение и возвращает данные, снятые с сенсора.
-		/// </summary>
-		/// <returns></returns>
-		T Measure();
-	}
+    public interface ISensor<out T> where T : ISensorData
+    {
+        T Measure();
+    }
 }

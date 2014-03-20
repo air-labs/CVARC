@@ -10,15 +10,16 @@ using NUnit.Framework;
 
 namespace kinect.Integration
 {
-	public class SimpleSonar:ISensor<SonarData>
+	public class SimpleSonar: Sensor<SonarData>
 	{
-	    public void Init(Robot robot, World wrld, DrawerFactory factory)
+	    public SimpleSonar(Robot robot, World world, DrawerFactory factory) 
+            : base(robot, world, factory)
 	    {
             _worldRoot = robot.Body.TreeRoot;
-			_settings = new SimpleSonarSettings(robot.Body.GetAbsoluteLocation(), Angle.FromGrad(90), 400);
+            _settings = new SimpleSonarSettings(robot.Body.GetAbsoluteLocation(), Angle.FromGrad(90), 400);
 	    }
 
-        public SonarData Measure()
+        public override SonarData Measure()
 		{
 		    var result = new List<double>();
 		    var angle = -_settings.ViewAngle/2.0;

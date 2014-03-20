@@ -2,18 +2,19 @@
 using System.Linq;
 using CVARC.Graphics;
 
-namespace CVARC.Basic.Sensors
+namespace CVARC.Basic.Sensors.Positions
 {
-    public class LightHouseSensor : ISensor<ManyPositionData>
+    public class LightHouseSensor : Sensor<ManyPositionData>
     {
-        private List<Robot> robots;
+        private readonly List<Robot> robots;
 
-        public void Init(Robot robot, World wrld, DrawerFactory factory)
+        public LightHouseSensor(Robot robot, World world, DrawerFactory factory) 
+            : base(robot, world, factory)
         {
-            robots = wrld.Robots;
+            robots = world.Robots;
         }
 
-        public ManyPositionData Measure()
+        public override ManyPositionData Measure()
         {
             var data = robots.Select(a => new PositionData(a.Body.GetAbsoluteLocation())
                 {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CVARC.Core;
+using CVARC.Graphics;
 using CVARC.Network;
 
 namespace CVARC.Basic
@@ -9,12 +10,16 @@ namespace CVARC.Basic
     {
         public HelloPackage HelloPackage = new HelloPackage();
         public ScoreCollection Score { get; private set; }
-        public Body Init()
+        public DrawerFactory DrawerFactory { get; private set; }
+        public Body Root { get; set; }
+
+        public void Init()
         {
-            Robots = Enumerable.Range(0, RobotCount).Select(a => CreateRobot(a)).ToList();
+            Robots = Enumerable.Range(0, RobotCount).Select(CreateRobot).ToList();
             Score = new ScoreCollection(RobotCount);
-            var root = CreateWorld(Robots);
-            return root;
+            Root = CreateWorld(Robots);
+            DrawerFactory = new DrawerFactory(Root);
+            Robots.ForEach(x => x.Init());
         }
 
         public List<Robot> Robots { get; private set; }

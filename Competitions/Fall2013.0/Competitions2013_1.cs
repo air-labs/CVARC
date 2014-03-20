@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AIRLab.Mathematics;
+﻿using AIRLab.Mathematics;
 using CVARC.Basic;
+using Gems;
 using StarshipRepair.Bots;
 
 namespace StarshipRepair
@@ -13,8 +10,7 @@ namespace StarshipRepair
         public const double MaxLinearVelocity = 50;
         public const double MaxAngularVelocity = 50;
 
-
-        public override AIRLab.Mathematics.Angle AngularVelocityLimit
+        public override Angle AngularVelocityLimit
         {
             get
             {

@@ -6,6 +6,7 @@ using System.Text;
 using AIRLab.Mathematics;
 using CVARC.Basic;
 using CVARC.Basic.Controllers;
+using Gems.Sensors;
 
 namespace StarshipRepair.Bots
 {

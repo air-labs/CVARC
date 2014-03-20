@@ -10,11 +10,23 @@ using CVARC.Graphics.DirectX;
 
 namespace CVARC.Basic.Sensors
 {
-	public class RobotCamera : ISensor<ImageSensorData>, IDisposable
+	public class RobotCamera : Sensor<ImageSensorData>, IDisposable
 	{
-	    private Body _robot;
+	    private readonly Body robot;
 
-		public RobotCameraSettings Settings { get; private set; }
+	    public RobotCamera(Robot robot, World world, DrawerFactory factory) 
+            : base(robot, world, factory)
+	    {
+            Settings = new RobotCameraSettings();
+            this.robot = robot.Body;
+            Angle viewAngle = Settings.ViewAngle;
+            _camera = new FirstPersonCamera(this.robot, Settings.Location,
+                                            viewAngle, DefaultWidth / (double)DefaultHeight);
+            _drawer = new OffscreenDirectXDrawer(factory.GetDirectXScene(), DefaultWidth,
+                                                 DefaultHeight);
+	    }
+
+	    public RobotCameraSettings Settings { get; private set; }
 
 		/// <summary>
 		/// Освобождает unmanaged ресурсы, используемые камерой.
@@ -24,24 +36,13 @@ namespace CVARC.Basic.Sensors
 			_drawer.Dispose();
 		}
 
-	    public void Init(Robot robot, World wrld, DrawerFactory factory)
-	    {
-            Settings = new RobotCameraSettings();
-            _robot = robot.Body;
-            Angle viewAngle = Settings.ViewAngle;
-            _camera = new FirstPersonCamera(_robot, Settings.Location,
-                                            viewAngle, DefaultWidth / (double)DefaultHeight);
-            _drawer = new OffscreenDirectXDrawer(factory.GetDirectXScene(), DefaultWidth,
-                                                 DefaultHeight);
-	    }
-
 	    /// <summary>
 		/// Снимает изображение с камеры и возвращает объект с данными камеры. 
 		/// </summary>
 		/// <returns></returns>
-        public ImageSensorData Measure()
+        public override ImageSensorData Measure()
 		{
-		    Settings.Location = _robot.GetAbsoluteLocation();
+		    Settings.Location = robot.GetAbsoluteLocation();
 			var data = new RobotCameraData();
 			bool result = _drawer.TryGetImage(_camera, out data.Bitmap);
 			if (Settings.WriteToFile && result)

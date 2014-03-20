@@ -13,7 +13,7 @@ using CVARC.Graphics;
 
 namespace kinect.Integration
 {
-    public class Kinect : ISensor<ImageSensorData>
+    public class Kinect : Sensor<ImageSensorData>
     {
         private Body _worldRoot;
         private KinectSettings _settings;
@@ -30,14 +30,14 @@ namespace kinect.Integration
         private const int movementDistance = 30;
         private const int size = 50;
 
-        public void Init(Robot robot, World wrld, DrawerFactory factory)
+        public Kinect(Robot robot, World world, DrawerFactory factory) 
+            : base(robot, world, factory)
         {
             _worldRoot = robot.Body.TreeRoot;
-            _robot = robot;
             _settings = new KinectSettings(Angle.FromGrad(120), Angle.FromGrad(120/1.35), size, (int) (size/1.35), 200.0);
         }
 
-        public ImageSensorData Measure()
+        public override ImageSensorData Measure()
         {
             var tmpLocation = GetCameraLocation(_robot);
             var result = new KinectData(_settings.VerticalResolution, _settings.HorisontalResolution);
