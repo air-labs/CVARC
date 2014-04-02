@@ -1,32 +1,28 @@
 ﻿using System;
 using CVARC.Network;
+using ClientBase;
+using Gems.Sensors;
 
 namespace Client
 {
     internal class Program
     {
-        readonly static ClientSettings Settings = new ClientSettings();
+        private static readonly ClientSettings Settings = new ClientSettings
+            {
+                MapSeed = 1,
+                BotName = Bots.None,
+                Side = Side.Left
+            };
 
-        //Зайдите в файл SimpleClient.exe.config, чтобы поменять настройки.
         private static void Main(string[] args)
         {
-            var server = new CVARKEngine(args, Settings).GetServer();
-            var sensorsData = server.Run(GetHelloPackage());
+            var server = new CVARKEngine(args, Settings).GetServer<SensorsData>();
+            var sensorsData = server.Run();
             while (true)
             {
                 Console.WriteLine(sensorsData);
                 sensorsData = server.GetSensorData();
             }
-        }
-
-        private static HelloPackage GetHelloPackage()
-        {
-            return new HelloPackage
-                {
-                    MapSeed = Settings.MapSeed,
-                    Opponent = Settings.BotName,
-                    Side = Side.Left
-                };
         }
     }
 }

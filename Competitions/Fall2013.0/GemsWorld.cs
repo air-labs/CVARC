@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using AIRLab.Mathematics;
 using CVARC.Basic;
@@ -50,6 +51,11 @@ namespace StarshipRepair
                 }
         }
 
+        private Stream GetResourceStream(string resourceName)
+        {
+            return GetType().Assembly.GetManifestResourceStream("Gems.Resources." + resourceName);
+        }
+
         public override Body CreateWorld(IEnumerable<Robot> robots)
         {
             Settings = SceneSettings.GetRandomMap(HelloPackage.MapSeed);
@@ -66,7 +72,7 @@ namespace StarshipRepair
                 IsMaterial = true,
                 Density = Density.Iron,
                 FrictionCoefficient = 0,
-                Top = new PlaneImageBrush { FilePath = "red.png" },
+                Top = new PlaneImageBrush { Image = new Bitmap(GetResourceStream("red.png")) },
                 Name="R1"
             };
             var second = list[1];
@@ -80,7 +86,7 @@ namespace StarshipRepair
                 IsMaterial = true,
                 Density = Density.Iron,
                 FrictionCoefficient = 0,
-                Top = new PlaneImageBrush { FilePath = "blue.png"},
+                Top = new PlaneImageBrush { Image = new Bitmap(GetResourceStream("blue.png")) },
                 Name="R2"
             };
             root.Add(first.Body);

@@ -1,29 +1,42 @@
 ﻿using System;
 using System.Net.Sockets;
+using CVARC.Basic;
 using CVARC.Basic.Controllers;
 using CVARC.Basic.Core;
 using CVARC.Basic.Core.Serialization;
 using CVARC.Network;
 
-namespace Client
+namespace ClientBase
 {
-    class Server<TSensorsData>
+    public class Server<TSensorsData> where TSensorsData : ISensorsData
     {
+        private readonly ClientSettings settings;
         private readonly ISerializer serializer = new JsonSerializer();
         private readonly NetworkStream stream;
         private int? robotId;
 
-        public Server(string ip, int port)
+        public Server(ClientSettings settings)
         {
-            var tcpClient = new TcpClient(ip, port);
+            this.settings = settings;
+            var tcpClient = new TcpClient(settings.Ip, settings.Port);
             stream = tcpClient.GetStream();
         }
 
-        public TSensorsData Run(HelloPackage helloPackage)
+        public TSensorsData Run()
         {
-            stream.Write(serializer.Serialize(helloPackage));
+            stream.Write(serializer.Serialize(GetHelloPackage()));
             stream.Flush();
             return serializer.Deserialize<TSensorsData>(stream.ReadBytes());
+        }
+
+        private HelloPackage GetHelloPackage()
+        {
+            return new HelloPackage
+            {
+                MapSeed = settings.MapSeed,
+                Opponent = settings.BotName.ToString(),
+                Side = settings.Side
+            };
         }
 
         public TSensorsData GetSensorData(Command command = null)

@@ -31,7 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <OutputPath>..\..\libs\</OutputPath>
+    <OutputPath>..\..\Competitions\build\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AIRLab, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

@@ -22,7 +22,7 @@ namespace CVARC.Tutorial
                 pressedKeys.Remove(e.KeyCode);
             }
         }
-
+         
         private static void form_KeyDown(object sender, KeyEventArgs e)
         {
             lock (pressedKeys)
@@ -53,19 +53,19 @@ namespace CVARC.Tutorial
         [STAThread]
         private static void Main()
         {
-//            try
-//            {
+            try
+            {
                 var settings = new TutorialSettings();
                 competitions = Competitions.Load(settings);
                 if (settings.HasMap)
                     competitions.World.HelloPackage = new HelloPackage { MapSeed = settings.MapSeed };
                 competitions.Initialize();
-//            }
-//            catch (Exception e)
-//            {
-//                MessageBox.Show(e.Message, "CVARC Tutorial", MessageBoxButtons.OK, MessageBoxIcon.Error);
-//                return;
-//            }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "CVARC Tutorial", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

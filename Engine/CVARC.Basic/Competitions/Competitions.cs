@@ -54,9 +54,8 @@ namespace CVARC.Basic
         {
             if (string.IsNullOrEmpty(settings.CompetitionsName) || !File.Exists(settings.CompetitionsName))
                 throw new Exception(string.Format("Файл соревнований {0} не был найден. Проверьте правильность пути CompetitionsName в файле настроек: {1}.", settings.CompetitionsName, settings.SettingsFileName));
-            
-            var file = new FileInfo(settings.CompetitionsName);
-            var ass = Assembly.LoadFile(file.FullName);
+
+            var ass = Assembly.LoadFrom(settings.CompetitionsName);
             var competitions = ass.GetExportedTypes().SingleOrDefault(a => a.IsSubclassOf(typeof(Competitions)) && a.Name == settings.LevelName);
             if (competitions == null)
                 throw new Exception(string.Format("Уровень {0} не был найден в {1}", settings.LevelName, settings.CompetitionsName));
