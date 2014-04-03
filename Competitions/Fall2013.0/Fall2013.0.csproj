@@ -57,7 +57,6 @@
     <Compile Include="KbController.cs" />
     <Compile Include="Sensors\Map.cs" />
     <Compile Include="Sensors\MapSensor.cs" />
-    <Compile Include="NetworkController.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="GemsRobot.cs" />
     <Compile Include="SceneSettings.cs" />

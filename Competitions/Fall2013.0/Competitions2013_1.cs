@@ -1,6 +1,5 @@
 ﻿using AIRLab.Mathematics;
 using CVARC.Basic;
-using Gems;
 using StarshipRepair.Bots;
 
 namespace StarshipRepair
@@ -26,8 +25,7 @@ namespace StarshipRepair
             }
         }
 
-        public SRCompetitions()
-            : base(new GemsWorld(), new KbController(), new SRNetworkController())
+        public SRCompetitions() : base(new GemsWorld(), new KbController())
         {
             AvailableBots["Simple"] = typeof(SimpleBot);
             AvailableBots["Sanguine"] = typeof(Sanguine);

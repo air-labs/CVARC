@@ -60,7 +60,6 @@
     <Compile Include="Competitions\NetworkParticipant.cs" />
     <Compile Include="Controllers\Command.cs" />
     <Compile Include="Controllers\Controller.cs" />
-    <Compile Include="Controllers\NetworkController.cs" />
     <Compile Include="Controllers\KeyboardController.cs" />
     <Compile Include="Controllers\OBSOLETE NetworkController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,9 +83,7 @@
     </Compile>
     <Compile Include="World.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\CVARC.Engine\CVARC.Engine.csproj">
       <Project>{a316853c-7f60-4c7f-8fb5-6bafbc417a68}</Project>

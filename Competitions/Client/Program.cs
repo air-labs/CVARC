@@ -1,4 +1,6 @@
 ﻿using System;
+using AIRLab.Mathematics;
+using CVARC.Basic.Controllers;
 using CVARC.Network;
 using ClientBase;
 using Gems.Sensors;
@@ -21,7 +23,12 @@ namespace Client
             while (true)
             {
                 Console.WriteLine(sensorsData);
-                sensorsData = server.GetSensorData();
+                sensorsData = server.GetSensorData(new Command
+                    {
+//                        Angle = Angle.FromGrad(40),
+                        Move = 10,
+                        Time = 4
+                    });
             }
         }
     }

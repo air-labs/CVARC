@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AIRLab, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\build\AIRLab.dll</HintPath>
+    </Reference>
     <Reference Include="ClientBase">
       <HintPath>..\build\ClientBase.dll</HintPath>
     </Reference>

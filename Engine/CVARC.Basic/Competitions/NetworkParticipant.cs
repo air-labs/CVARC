@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -12,12 +11,10 @@ namespace CVARC.Basic
 {
     public class NetworkParticipant: Participant
     {
-        Competitions competitions;
+        private readonly Competitions competitions;
         public HelloPackage HelloPackage { get; private set; }
-        StreamReader clientReader;
-        StreamWriter clientWriter;
-        private ISerializer serializer = new JsonSerializer();
-        private NetworkStream stream;
+        private readonly ISerializer serializer = new JsonSerializer();
+        private readonly NetworkStream stream;
 
         public NetworkParticipant(Competitions competitions)
         {
@@ -30,8 +27,6 @@ namespace CVARC.Basic
             Console.Write("Waiting for client... ");
             var client = listener.AcceptTcpClient();
             stream = client.GetStream();
-            clientReader = new StreamReader(stream);
-            clientWriter = new StreamWriter(stream);
             Console.WriteLine("OK");
 
             try
@@ -54,65 +49,44 @@ namespace CVARC.Basic
             }
         }
 
-        override public Command MakeTurn()
+        public override Command MakeTurn()
         {
             var sensorsData = competitions.GetSensorsData(ControlledRobot);
-            lock (clientWriter)
-            {
-                stream.Write(serializer.Serialize(sensorsData));
-                stream.Flush();
-            }
+            stream.Write(serializer.Serialize(sensorsData));
+            stream.Flush();
 
-            var request = clientReader.ReadLine();
-            Console.WriteLine(request);
-            Command command = competitions.NetworkController.ParseRequest(request);
+            var command = serializer.Deserialize<Command>(stream.ReadBytes());
             command.RobotId = ControlledRobot;
             return command;
         }
 
-        static string WrapException(Exception exception)
-        {
-            string message = "";
-            while (exception != null)
-            {
-                message += exception.Message + "\n" + exception.StackTrace;
-                exception = exception.InnerException;
-            }
-            message = message.Replace("&", "&amp;");
-            message = message.Replace("<", "&lt;");
-            message = message.Replace(">", "&gt;");
-            message = message.Replace("\n", "<br/>");
-            message = message.Replace("\r", "");
-            return message;
-        }
-
         public void SendError(Exception exception, bool blameParticipant)
         {
-            var message = WrapException(exception);
-            if (blameParticipant) message = "<UserError>" + message + "</UserError>";
-            else message = "<SystemError>" + message + "</SystemError>";
-            lock (clientWriter)
-            {
-                clientWriter.WriteLine(message);
-                clientWriter.Flush();
-            }
+//            var message = WrapException(exception);
+//            if (blameParticipant) message = "<UserError>" + message + "</UserError>";
+//            else message = "<SystemError>" + message + "</SystemError>";
+//            lock (clientWriter)
+//            {
+//                clientWriter.WriteLine(message);
+//                clientWriter.Flush();
+//            }
         }
 
         public void SendReplay(string replayId)
         {
-            lock (clientWriter)
-            {
-                var message=string.Format("<Result><ExitedWithStatus>{0}</ExitedWithStatus><OperationalTime>{1}</OperationalTime><ExitTime>{2}</ExitTime>",
-                    ExitReason,
-                    OperationalMilliseconds,
-                    ExitTime);
-                if (Exception != null)
-                    message+="<Exception>" + WrapException(Exception) + "</Exception>";
-                if (replayId!=null) message+="<Replay>" + replayId + "</Replay>";
-                message += "</Result>";
-                clientWriter.WriteLine(message);
-                clientWriter.Flush();
-            }
+//            lock (clientWriter)
+//            {
+//                var message=string.Format("<Result><ExitedWithStatus>{0}</ExitedWithStatus><OperationalTime>{1}</OperationalTime><ExitTime>{2}</ExitTime>",
+//                    ExitReason,
+//                    OperationalMilliseconds,
+//                    ExitTime);
+//                if (Exception != null)
+//                    message+="<Exception>" + WrapException(Exception) + "</Exception>";
+//                if (replayId!=null) message+="<Replay>" + replayId + "</Replay>";
+//                message += "</Result>";
+//                clientWriter.WriteLine(message);
+//                clientWriter.Flush();
+//            }
         }
     }
 }

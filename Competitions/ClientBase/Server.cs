@@ -48,9 +48,9 @@ namespace ClientBase
 
         private void SendCommand(Command command)
         {
-            if (robotId == null)
-                throw new Exception("Сервер не ининциализирован. Воспользуйтесь методом Run.");
-            command.RobotId = robotId.Value;
+//            if (robotId == null)
+//                throw new Exception("Сервер не ининциализирован. Воспользуйтесь методом Run.");
+//            command.RobotId = robotId.Value;
             stream.Write(serializer.Serialize(command));
             stream.Flush();
         }

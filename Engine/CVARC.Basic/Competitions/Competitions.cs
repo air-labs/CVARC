@@ -20,7 +20,6 @@ namespace CVARC.Basic
     {
         public readonly World World;
         public readonly KeyboardController KeyboardController;
-        public readonly NetworkController NetworkController;
         public double GameTimeLimit { get; protected set; }
         public double NetworkTimeLimit { get; protected set; }
         public virtual double LinearVelocityLimit { get { return 10; } }
@@ -30,11 +29,10 @@ namespace CVARC.Basic
         public Dictionary<string, Type> AvailableBots { get; private set; }
         public ReplayLogger Logger { get; private set; }
 
-        public Competitions(World world, KeyboardController keyboard, NetworkController network)
+        public Competitions(World world, KeyboardController keyboard)
         {
             World = world;
             KeyboardController = keyboard;
-            NetworkController = network;
             GameTimeLimit = 90;
             NetworkTimeLimit = 1;
             AvailableBots = new Dictionary<string, Type>();
@@ -104,16 +102,14 @@ namespace CVARC.Basic
             }
         }
 
-        Tuple<Command, Exception> MakeTurn(Participant participant)
+//        Command MakeTurn(Participant participant)
+//        {
+//            return participant.MakeTurn();
+//        }
+
+        Tuple<Command,Exception> MakeTurn(Participant participant)
         {
-            try
-            {
-                return new Tuple<Command, Exception>(participant.MakeTurn(), null);
-            }
-            catch (Exception e)
-            {
-                return new Tuple<Command, Exception>(null, e);
-            }
+            return new Tuple<Command, Exception>(participant.MakeTurn(), null);
         }
 
         public void ProcessParticipants(bool realTime, int operationalMilliseconds, params Participant[] participants)
@@ -130,7 +126,23 @@ namespace CVARC.Basic
             while (true)
             {
                 var parts = participants.Where(z => z.Active && z.WaitForNextCommandTime <= 0);
-                if (!parts.Any()) break;
+//                foreach (var participant in parts)
+//                {
+//                    participant.WaitForNextCommandTime = 1;
+//                    Participant participant1 = participant;
+//                    Task.Factory.StartNew(() =>
+//                    {
+//                        var timeNow = DateTime.Now;
+//                        var command = MakeTurn(participant1);
+//                        command.RobotId = participant.ControlledRobot;
+//                        World.Robots[participant.ControlledRobot].ProcessCommand(command);
+//                        var timeForSleep = command.Time - (DateTime.Now - timeNow).TotalMilliseconds;
+//                        if (timeForSleep > 0)
+//                            Thread.Sleep((int)timeForSleep);
+//                        participant.WaitForNextCommandTime = 0;
+//                    });
+//                }
+
                 foreach (var p in parts)
                 {
                     var spentMilliseconds = p.OperationalMilliseconds;
@@ -169,7 +181,11 @@ namespace CVARC.Basic
                 if (minTime == 0 || double.IsInfinity(minTime)) break;
                 MakeCycle(minTime, realTime);
                 foreach (var p in participants)
+                {
                     p.WaitForNextCommandTime -= minTime;
+                    Console.WriteLine(p.WaitForNextCommandTime);                    
+                }
+
                 time -= minTime;
                 if (time <= 0) break;
             }
