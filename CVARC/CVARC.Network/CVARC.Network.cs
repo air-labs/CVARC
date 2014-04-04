@@ -5,7 +5,7 @@ using CVARC.Basic;
 
 namespace CVARK.Network
 {
-    static class Program
+    public static class Program
     {
         static bool isLocalServer = false;
         static Competitions competitions;
@@ -103,6 +103,7 @@ namespace CVARK.Network
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             SendError((Exception)e.ExceptionObject);
+            
         }
     }
 }

@@ -10,7 +10,24 @@ using Gems;
 
 namespace StarshipRepair
 {
-    public class GemsWorld : World
+    public class GemsWorldV0 : GemsWorld
+    {
+        protected override SceneSettings GetScene(int seed)
+        {
+            return SceneSettings.GetDefaulSettings();
+        }
+    }
+
+    public class GemsWorldV1 : GemsWorld
+    {
+        protected override SceneSettings GetScene(int seed)
+        {
+            return SceneSettings.GetRandomMap(seed);
+        }
+    }
+
+
+    public abstract class GemsWorld : World
     {
         public static readonly Color WallColor=Color.LightGray;
 
@@ -56,9 +73,12 @@ namespace StarshipRepair
             return GetType().Assembly.GetManifestResourceStream("Gems.Resources." + resourceName);
         }
 
+
+        protected abstract SceneSettings GetScene(int seed);
+
         public override Body CreateWorld(IEnumerable<Robot> robots)
         {
-            Settings = SceneSettings.GetRandomMap(HelloPackage.MapSeed);
+            Settings = GetScene(HelloPackage.MapSeed);
             var root = new Body();
             var list = robots as IList<Robot> ?? robots.ToList();
             var first = list[0];

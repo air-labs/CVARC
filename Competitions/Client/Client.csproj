@@ -32,19 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AIRLab, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\build\AIRLab.dll</HintPath>
-    </Reference>
-    <Reference Include="ClientBase">
-      <HintPath>..\build\ClientBase.dll</HintPath>
-    </Reference>
-    <Reference Include="CVARC.Basic">
-      <HintPath>..\build\CVARC.Basic.dll</HintPath>
-    </Reference>
-    <Reference Include="Fall2013.0">
-      <HintPath>..\build\Fall2013.0.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -57,6 +44,40 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CVARC\CVARC.BotDemo\CVARC.BotDemo.csproj">
+      <Project>{1d83cef9-eb28-4938-8cb4-b83ada4b65c6}</Project>
+      <Name>CVARC.BotDemo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CVARC\CVARC.Network\CVARC.Network.csproj">
+      <Project>{af9c4d6b-a41f-46f2-8af8-af30163e1051}</Project>
+      <Name>CVARC.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CVARC\CVARC.Tutorial\CVARC.Tutorial.csproj">
+      <Project>{46fd3d2b-d123-4b6c-8b26-7bc3764d34fe}</Project>
+      <Name>CVARC.Tutorial</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Engine\CVARC.Basic\CVARC.Basic.csproj">
+      <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
+      <Name>CVARC.Basic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Engine\CVARC.Engine\CVARC.Engine.csproj">
+      <Project>{a316853c-7f60-4c7f-8fb5-6bafbc417a68}</Project>
+      <Name>CVARC.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Engine\Grapics.Plus\Graphics.Plus.csproj">
+      <Project>{4dc31792-db9f-4a7e-9454-473a030076db}</Project>
+      <Name>Graphics.Plus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClientBase\ClientBase.csproj">
+      <Project>{5177f2a5-6ba0-4eb6-91da-5c4cab84dcf8}</Project>
+      <Name>ClientBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fall2013.0\Fall2013.0.csproj">
+      <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
+      <Name>Fall2013.0</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -47,6 +47,10 @@
     <Compile Include="Server.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CVARC\CVARC.Network\CVARC.Network.csproj">
+      <Project>{af9c4d6b-a41f-46f2-8af8-af30163e1051}</Project>
+      <Name>CVARC.Network</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Engine\CVARC.Basic\CVARC.Basic.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
       <Name>CVARC.Basic</Name>

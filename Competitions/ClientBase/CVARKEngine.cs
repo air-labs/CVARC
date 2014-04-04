@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using CVARC.Basic;
+using System;
 
 namespace ClientBase
 {
@@ -12,6 +13,7 @@ namespace ClientBase
             this.settings = settings;
             string relativePath = args.Length == 0 ? "" : args[0];
             StartServer(relativePath);
+
         }
 
         public Server<TSensorsData> GetServer<TSensorsData>() where TSensorsData : ISensorsData

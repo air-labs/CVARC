@@ -5,6 +5,7 @@ using CVARC.Basic.Controllers;
 using CVARC.Basic.Core;
 using CVARC.Basic.Core.Serialization;
 using CVARC.Network;
+using System.Text;
 
 namespace ClientBase
 {
@@ -51,6 +52,7 @@ namespace ClientBase
 //            if (robotId == null)
 //                throw new Exception("Сервер не ининциализирован. Воспользуйтесь методом Run.");
 //            command.RobotId = robotId.Value;
+    //        var str = new string(Encoding.UTF8.GetChars(serializer.Serialize(command)));
             stream.Write(serializer.Serialize(command));
             stream.Flush();
         }

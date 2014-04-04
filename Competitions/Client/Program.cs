@@ -1,5 +1,4 @@
 ﻿using System;
-using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
 using CVARC.Network;
 using ClientBase;
@@ -11,7 +10,7 @@ namespace Client
     {
         private static readonly ClientSettings Settings = new ClientSettings
             {
-                MapSeed = 1,
+                MapSeed = 2,
                 BotName = Bots.None,
                 Side = Side.Left
             };
@@ -27,7 +26,7 @@ namespace Client
                     {
 //                        Angle = Angle.FromGrad(40),
                         Move = 10,
-                        Time = 4
+                        Time = 1
                     });
             }
         }

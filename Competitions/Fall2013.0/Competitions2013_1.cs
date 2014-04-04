@@ -4,7 +4,24 @@ using StarshipRepair.Bots;
 
 namespace StarshipRepair
 {
-    public class SRCompetitions : Competitions
+
+    public class Level1 : SRCompetitions
+    {
+        public Level1() : base(new GemsWorldV0())    
+    {
+    }
+    };
+
+    public class Level2 : SRCompetitions
+    {
+        public Level2()
+            : base(new GemsWorldV1())
+        {
+        }
+    };
+
+
+    public abstract class SRCompetitions : Competitions
     {
         public const double MaxLinearVelocity = 50;
         public const double MaxAngularVelocity = 50;
@@ -25,7 +42,7 @@ namespace StarshipRepair
             }
         }
 
-        public SRCompetitions() : base(new GemsWorld(), new KbController())
+        public SRCompetitions(GemsWorld world) : base(world, new KbController())
         {
             AvailableBots["Simple"] = typeof(SimpleBot);
             AvailableBots["Sanguine"] = typeof(Sanguine);

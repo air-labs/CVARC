@@ -16,16 +16,16 @@ namespace StarshipRepair
             switch(keyData)
             {
                 case Keys.W:
-                    yield return new Command{ Move = 100, RobotId = 0};
+                    yield return new Command{ Time=10, Move = 100, RobotId = 0};
                     break;
                 case Keys.S:
-                    yield return new Command { Move = -100, RobotId = 0 };
+                    yield return new Command { Time = 10, Move = -100, RobotId = 0 };
                     break;
                 case Keys.A:
-                    yield return new Command { Angle = Angle.FromGrad(90), RobotId = 0 };
+                    yield return new Command { Time = 10, Angle = Angle.FromGrad(90), RobotId = 0 };
                     break;
                 case Keys.D:
-                    yield return new Command { Angle = Angle.FromGrad(-90), RobotId = 0 };
+                    yield return new Command { Time = 10, Angle = Angle.FromGrad(-90), RobotId = 0 };
                     break;
                 case Keys.R:
                     yield return new Command { Cmd = "Grip", RobotId = 0 };
