@@ -53,6 +53,7 @@
     <Compile Include="Competitions\Exceptions.cs" />
     <Compile Include="Competitions\HelloPackage.cs" />
     <Compile Include="Competitions\ISensorsData.cs" />
+    <Compile Include="Controllers\Cmd.cs" />
     <Compile Include="Core\HelpExtensions.cs" />
     <Compile Include="Core\Serialization\JsonSerializer.cs" />
     <Compile Include="Core\Serialization\ISerializer.cs" />

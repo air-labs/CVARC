@@ -44,10 +44,10 @@ namespace Gems
             RequestedSpeed = GetRequestedSpeed(cmd);
             switch (cmd.Cmd)
             {
-                case "Grip":
+                case Cmd.Grip:
                     Grip();
                     break;
-                case "Release":
+                case Cmd.Release:
                     Release();
                     break;
                 case null:

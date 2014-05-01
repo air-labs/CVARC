@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CVARC.Basic;
+﻿using CVARC.Basic;
+using CVARC.Basic.Controllers;
 
 namespace StarshipRepair
 {
@@ -12,11 +9,11 @@ namespace StarshipRepair
         {
  	        Rot(-90);
             Mov(50);
-            Cmd("Grip");
+            Command(Cmd.Grip);
             Mov(-50);
             Rot(90);
             Mov(20);
-            Cmd("Release");
+            Command(Cmd.Release);
         }
     }
 }

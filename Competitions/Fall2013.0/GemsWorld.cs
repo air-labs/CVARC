@@ -14,7 +14,7 @@ namespace StarshipRepair
     {
         protected override SceneSettings GetScene(int seed)
         {
-            return SceneSettings.GetDefaulSettings();
+            return SceneSettings.GetRandomMap(0);
         }
     }
 
@@ -25,7 +25,6 @@ namespace StarshipRepair
             return SceneSettings.GetRandomMap(seed);
         }
     }
-
 
     public abstract class GemsWorld : World
     {

@@ -7,7 +7,7 @@ namespace CVARC.Basic.Controllers
         public int RobotId { get; set; }
         public double Move { get; set; }
         public Angle Angle { get; set; }
-        public string Cmd { get; set; }
+        public Cmd? Cmd { get; set; }
         public double Time { get; set; }
 
         public override string ToString()

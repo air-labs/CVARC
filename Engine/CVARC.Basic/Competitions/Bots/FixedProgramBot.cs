@@ -41,7 +41,7 @@ namespace CVARC.Basic
                 Program.Add(new Command { Move = cmd.Move, Angle = cmd.Angle, Time = cmd.Time / parts });
         }
 
-        protected void Cmd(string cmd)
+        protected void Command(Cmd cmd)
         {
             Program.Add(new Command
             {
