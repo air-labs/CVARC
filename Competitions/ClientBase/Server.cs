@@ -1,11 +1,9 @@
-﻿using System;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using CVARC.Basic;
 using CVARC.Basic.Controllers;
 using CVARC.Basic.Core;
 using CVARC.Basic.Core.Serialization;
 using CVARC.Network;
-using System.Text;
 
 namespace ClientBase
 {
@@ -36,7 +34,8 @@ namespace ClientBase
             {
                 MapSeed = settings.MapSeed,
                 Opponent = settings.BotName.ToString(),
-                Side = settings.Side
+                Side = settings.Side,
+                LevelName = settings.LevelName
             };
         }
 

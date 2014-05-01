@@ -56,7 +56,7 @@ namespace CVARC.Tutorial
             try
             {
                 var settings = new TutorialSettings();
-                competitions = Competitions.Load(settings);
+                competitions = Competitions.Load(settings.CompetitionsName, "Level1");
                 if (settings.HasMap)
                     competitions.World.HelloPackage = new HelloPackage { MapSeed = settings.MapSeed };
                 competitions.Initialize();

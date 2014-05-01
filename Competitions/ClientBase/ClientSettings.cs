@@ -7,7 +7,7 @@ namespace ClientBase
         public string Ip { get { return "127.0.0.1"; }}
         public int Port { get { return 14000; } }
         public Side Side { get; set; }
-        
+
         /// <summary>
         /// ѕринимает целое число дл€ генерации карты. -1 - дл€ случайной карты.
         /// </summary>
@@ -17,5 +17,7 @@ namespace ClientBase
         /// ѕротивник. None - игра без противника.
         /// </summary>
         public Bots BotName { get; set; }
+
+        public string LevelName { get; set; }
     }
 }

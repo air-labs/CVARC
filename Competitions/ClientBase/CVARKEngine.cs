@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System.Threading;
 using CVARC.Basic;
-using System;
+using CVARC.Network;
 
 namespace ClientBase
 {
@@ -13,7 +13,6 @@ namespace ClientBase
             this.settings = settings;
             string relativePath = args.Length == 0 ? "" : args[0];
             StartServer(relativePath);
-
         }
 
         public Server<TSensorsData> GetServer<TSensorsData>() where TSensorsData : ISensorsData
@@ -23,10 +22,14 @@ namespace ClientBase
 
         private void StartServer(string path)
         {
-            Process.Start(new ProcessStartInfo("CVARC.Network.exe")
+            ThreadPool.QueueUserWorkItem(o => Program.DebugMain(new NetworkSettings
                 {
-                    WorkingDirectory = path
-                });
+                    CompetitionsName = "Fall2013.0.dll"
+                }));
+//            Process.Start(new ProcessStartInfo("CVARC.Network.exe")
+//                {
+//                    WorkingDirectory = path
+//                });
         }
     }
 }

@@ -23,5 +23,8 @@ namespace CVARC.Network
         
         [DataMember]
         public int MapSeed { get; set; }
+
+        [DataMember]
+        public string LevelName { get; set; }
     }
 }

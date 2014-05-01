@@ -11,14 +11,13 @@ namespace CVARC.Basic
 {
     public class NetworkParticipant: Participant
     {
-        private readonly Competitions competitions;
+        public Competitions Competitions { get; private set; }
         public HelloPackage HelloPackage { get; private set; }
         private readonly ISerializer serializer = new JsonSerializer();
         private readonly NetworkStream stream;
 
-        public NetworkParticipant(Competitions competitions)
+        public NetworkParticipant(string competitionsName)
         {
-            this.competitions = competitions;
             Console.Write("Starting server... ");
             var listener = new TcpListener(IPAddress.Any, 14000);
             listener.Start();
@@ -34,7 +33,8 @@ namespace CVARC.Basic
                 var package = stream.ReadBytes();
                 Console.Write("Receiving hello package... {0}", Encoding.UTF8.GetString(package));
                 HelloPackage = serializer.Deserialize<HelloPackage>(package);
-                competitions.World.HelloPackage = HelloPackage;
+                Competitions = Competitions.Load(competitionsName, HelloPackage.LevelName);
+                Competitions.World.HelloPackage = HelloPackage;
             }
             catch (Exception e)
             {
@@ -51,42 +51,13 @@ namespace CVARC.Basic
 
         public override Command MakeTurn()
         {
-            var sensorsData = competitions.GetSensorsData(ControlledRobot);
+            var sensorsData = Competitions.GetSensorsData(ControlledRobot);
             stream.Write(serializer.Serialize(sensorsData));
             stream.Flush();
 
             var command = serializer.Deserialize<Command>(stream.ReadBytes());
             command.RobotId = ControlledRobot;
             return command;
-        }
-
-        public void SendError(Exception exception, bool blameParticipant)
-        {
-//            var message = WrapException(exception);
-//            if (blameParticipant) message = "<UserError>" + message + "</UserError>";
-//            else message = "<SystemError>" + message + "</SystemError>";
-//            lock (clientWriter)
-//            {
-//                clientWriter.WriteLine(message);
-//                clientWriter.Flush();
-//            }
-        }
-
-        public void SendReplay(string replayId)
-        {
-//            lock (clientWriter)
-//            {
-//                var message=string.Format("<Result><ExitedWithStatus>{0}</ExitedWithStatus><OperationalTime>{1}</OperationalTime><ExitTime>{2}</ExitTime>",
-//                    ExitReason,
-//                    OperationalMilliseconds,
-//                    ExitTime);
-//                if (Exception != null)
-//                    message+="<Exception>" + WrapException(Exception) + "</Exception>";
-//                if (replayId!=null) message+="<Replay>" + replayId + "</Replay>";
-//                message += "</Result>";
-//                clientWriter.WriteLine(message);
-//                clientWriter.Flush();
-//            }
         }
     }
 }

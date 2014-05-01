@@ -20,7 +20,7 @@ namespace CVARC.BotDemo
             var settings = new BotDemoSettings();
             try
             {
-                competitions = Competitions.Load(settings);
+                competitions = Competitions.Load(settings.CompetitionsName, "Level1");
                 competitions.World.HelloPackage = new HelloPackage { MapSeed = -1 };
                 competitions.Initialize();
             }

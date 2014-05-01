@@ -12,7 +12,8 @@ namespace Client
             {
                 MapSeed = 2,
                 BotName = Bots.None,
-                Side = Side.Left
+                Side = Side.Left,
+                LevelName = "Level1"
             };
 
         private static void Main(string[] args)
