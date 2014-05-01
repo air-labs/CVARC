@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -13,33 +15,31 @@ namespace CVARC.Tutorial
     {
         private static TutorialForm form;
         private static Competitions competitions;
-        private static List<Keys> pressedKeys = new List<Keys>();
+        private static readonly ConcurrentDictionary<Keys, IEnumerable<Command>> PressedKeys = new ConcurrentDictionary<Keys, IEnumerable<Command>>();
 
         private static void form_KeyUp(object sender, KeyEventArgs e)
         {
-            lock (pressedKeys)
-            {
-                pressedKeys.Remove(e.KeyCode);
-            }
+            IEnumerable<Command> commands;
+            if (PressedKeys.TryRemove(e.KeyCode, out commands))
+                competitions.ApplyCommand(new Command
+                    {
+                        Time = 1,
+                        RobotId = commands.First().RobotId
+                    });
         }
          
         private static void form_KeyDown(object sender, KeyEventArgs e)
         {
-            lock (pressedKeys)
-            {
-                if (!pressedKeys.Contains(e.KeyCode)) pressedKeys.Add(e.KeyCode);
-            }
+            PressedKeys.TryAdd(e.KeyCode, competitions.KeyboardController.GetCommand(e.KeyCode));
         }
 
         private static void Process()
         {
             while (true)
             {
-                List<Command> commands = null;
-                lock (pressedKeys)
-                {
-                    commands = pressedKeys.SelectMany(z => competitions.KeyboardController.GetCommand(z)).ToList();
-                }
+                var commands = PressedKeys.SelectMany(z => z.Value).ToList();
+                Console.WriteLine(commands.Count);
+                Debug.WriteLine(commands.Count);
                 foreach (var c in commands)
                     competitions.ApplyCommand(c);
                 competitions.MakeCycle(0.1, true);

@@ -27,29 +27,28 @@ namespace StarshipRepair
                 case Keys.D:
                     yield return new Command { Time = 10, Angle = Angle.FromGrad(-90), RobotId = 0 };
                     break;
-                case Keys.R:
+                case Keys.Q:
                     yield return new Command { Cmd = Cmd.Grip, RobotId = 0 };
                     break;
-                case Keys.F:
+                case Keys.E:
                     yield return new Command { Cmd = Cmd.Release, RobotId = 0 };
                     break;
-                case Keys.I:
+                case Keys.NumPad8:
                     yield return new Command { Move = 100, RobotId = 1 };
                     break;
-                case Keys.K:
+                case Keys.NumPad5:
                     yield return new Command { Move = -100, RobotId = 1 };
                     break;
-                case Keys.J:
+                case Keys.NumPad4:
                     yield return new Command { Angle = Angle.FromGrad(90), RobotId = 1 };
                     break;
-                case Keys.L:
+                case Keys.NumPad6:
                     yield return new Command { Angle = Angle.FromGrad(-90), RobotId = 1 };
                     break;
-
-                case Keys.P:
+                case Keys.NumPad7:
                     yield return new Command { Cmd = Cmd.Grip, RobotId = 1 };
                     break;
-                case Keys.OemSemicolon:
+                case Keys.NumPad9:
                     yield return new Command { Cmd = Cmd.Release, RobotId = 1 };
                     break;
             }
