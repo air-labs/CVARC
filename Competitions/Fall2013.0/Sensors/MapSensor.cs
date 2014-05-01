@@ -73,5 +73,10 @@ namespace Gems.Sensors
             X = body.Location.X;
             Y = body.Location.Y;
         }
+
+        public override string ToString()
+        {
+            return string.Format("Tag: {0} X:{1} Y:{2}", Tag, X, Y);
+        }
     }
 }
