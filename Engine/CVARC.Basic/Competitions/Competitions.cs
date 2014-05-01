@@ -201,7 +201,10 @@ namespace CVARC.Basic
         public Bot CreateBot(string name, int controlledBot)
         {
             if (!BotIsAvailable(name)) throw new Exception("Bot not found");
-            if (name == "None") return new EmptyBot();
+            if (name == "None") return new EmptyBot
+                    {
+                        ControlledRobot = controlledBot
+                    };
             var tp = AvailableBots[name];
             var ctor = tp.GetConstructor(new Type[] { });
             var bot = ctor.Invoke(new object[]{}) as Bot;
