@@ -10,8 +10,8 @@ namespace Client
     {
         private static readonly ClientSettings Settings = new ClientSettings
             {
-                BotName = Bots.None,
-                Side = Side.Left,
+                BotName = Bots.MolagBal,
+                Side = Side.Right,
                 LevelName = "Level1"
             };
 
@@ -25,6 +25,7 @@ namespace Client
             server.GetSensorData(new Command { Move = -50, Time = 1 });
             server.GetSensorData(new Command { Angle = Angle.FromGrad(90), Time = 1 });
             server.GetSensorData(new Command { Cmd = Cmd.Release, Time = 1 });
+            server.GetSensorData(new Command { Time = 10000 }); //TODO: сделать метод server.WaitForExit вот с таким телом. 
         }
     }
 }

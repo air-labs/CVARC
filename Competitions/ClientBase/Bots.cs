@@ -3,11 +3,11 @@
     public enum Bots
     {
         None,
-        Vaermina,
-        Simple,
+        Vaermina, //tries to stand ahead of player
+        Simple, 
         Namira,
-        MolagBal,
-        Sanguine,
+        MolagBal, //hits the player
+        Sanguine, //walks the labitynth randomly (as a graph)
         Perythe
     }
 }

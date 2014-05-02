@@ -14,7 +14,7 @@ namespace StarshipRepair
     {
         protected override SceneSettings GetScene(int seed)
         {
-            return SceneSettings.GetRandomMap(0);
+            return SceneSettings.GetRandomMap(-1);
         }
     }
 

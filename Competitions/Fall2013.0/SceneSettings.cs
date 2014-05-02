@@ -46,11 +46,10 @@ namespace StarshipRepair
 
         public static SceneSettings GetRandomMap(int seed = -1)
         {
-            var rand = new Random();
-            if (seed == 0)
+            if (seed == -1)
                 return GetDefaulSettings();
-            if (seed > 0)
-                rand = new Random(seed);
+         
+            Random rand = new Random(seed);
             SceneSettings setts;
             do
             {

@@ -21,11 +21,16 @@ namespace CVARC.Tutorial
         {
             IEnumerable<Command> commands;
             if (PressedKeys.TryRemove(e.KeyCode, out commands))
-                competitions.ApplyCommand(new Command
-                    {
-                        Time = 1,
-                        RobotId = commands.First().RobotId
-                    });
+            {
+                if (commands.Any())
+                {
+                    competitions.ApplyCommand(new Command
+                        {
+                            Time = 1,
+                            RobotId = commands.First().RobotId
+                        });
+                }
+            }
         }
          
         private static void form_KeyDown(object sender, KeyEventArgs e)
