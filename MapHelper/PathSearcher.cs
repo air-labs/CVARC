@@ -1,0 +1,111 @@
+﻿using System;
+using System.Collections.Generic;
+using CVARC.Basic.Core;
+
+namespace MapHelper
+{
+    public class PathSearcher
+    {
+        private static Dictionary<InternalPoint, InternalPoint> parents;
+        private static HashSet<InternalPoint> handled;
+        private static Queue<InternalPoint> queue;
+
+        public static Direction[] FindPath(Map map, Point from, Point to)
+        {
+            Bfs(map, from, to);
+            var directions = new List<Direction>();
+            InternalPoint currentPoint = parents[new InternalPoint(to.X, to.Y, Direction.No)];
+            while (parents.ContainsKey(currentPoint))
+            {
+                directions.Add(currentPoint.Direction);
+                currentPoint = parents[currentPoint];
+            }
+            directions.Reverse();
+            return directions.ToArray();
+        }
+
+        private static void Bfs(Map map, Point from, Point to)
+        {
+            queue = new Queue<InternalPoint>();
+            parents = new Dictionary<InternalPoint, InternalPoint>();
+            handled = new HashSet<InternalPoint>();
+            AddPoint(new InternalPoint(from.X, from.Y, Direction.No));
+
+            while (queue.Count > 0)
+            {
+                var position = queue.Dequeue();
+                if (position.X == to.X && position.Y == to.Y)
+                    return;
+                TryAddPosition(map, Direction.Down, position, 0, 1);
+                TryAddPosition(map, Direction.Up, position, 0, -1);
+                TryAddPosition(map, Direction.Left, position, -1, 0);
+                TryAddPosition(map, Direction.Right, position, 1, 0);
+            }
+            throw new Exception("Path not found.");
+        }
+
+        private static void AddPoint(InternalPoint point)
+        {
+            queue.Enqueue(point);
+            handled.Add(point);
+        }
+
+        private static void TryAddPosition(Map map, Direction direction, InternalPoint position, int xOffset, int yOffset)
+        {
+            var availableDirections = map.BitArray[position.X, position.Y];
+            var point = new InternalPoint(position.X + xOffset, position.Y + yOffset, direction);
+            if (availableDirections.HasFlag(direction) && !handled.Contains(point))
+            {
+                AddPoint(point);
+                parents.SafeAdd(point, position);
+            }
+        }
+    }
+
+    public class Point
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+
+        public Point(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+    }
+
+    class InternalPoint 
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public Direction Direction { get; set; }
+
+        public InternalPoint(int x, int y, Direction direction)
+        {
+            Direction = direction;
+            X = x;
+            Y = y;
+        }
+
+        protected bool Equals(InternalPoint other)
+        {
+            return X == other.X && Y == other.Y;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((InternalPoint) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (X*397) ^ Y;
+            }
+        }
+    }
+}

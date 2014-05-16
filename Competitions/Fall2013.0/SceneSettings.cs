@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using CVARC.Graphics;
 using Gems.Sensors;
 
 namespace StarshipRepair
@@ -48,7 +49,7 @@ namespace StarshipRepair
         {
             if (seed == -1)
                 return GetDefaulSettings();
-         
+
             Random rand = new Random(seed);
             SceneSettings setts;
             do
@@ -62,7 +63,7 @@ namespace StarshipRepair
                 toAdd[4] = WallSettings.Wall;
                 toAdd[5] = WallSettings.Wall;
                 toAdd[6] = WallSettings.Wall;
-                
+
                 while (toAdd.Any())
                 {
                     var ind = rand.Next(toAdd.Count);
@@ -78,17 +79,7 @@ namespace StarshipRepair
                             if (setts.HorizontalWalls[x, y] == WallSettings.NoWall)
                             {
                                 setts.HorizontalWalls[x, y] = wall;
-                                setts.HorizontalWalls[setts.HorizontalWalls.GetLength(0) - x-1, y] = wall ==
-                                                                                                   WallSettings
-                                                                                                       .RedSocket
-                                                                                                       ? WallSettings
-                                                                                                             .BlueSocket
-                                                                                                       : wall ==
-                                                                                                         WallSettings
-                                                                                                             .BlueSocket
-                                                                                                             ? WallSettings
-                                                                                                                   .RedSocket
-                                                                                                             : wall;
+                                setts.HorizontalWalls[setts.HorizontalWalls.GetLength(0) - x - 1, y] = GetWallSettings(wall);
                                 break;
                             }
                         }
@@ -103,17 +94,7 @@ namespace StarshipRepair
                             if (setts.VerticalWalls[x, y] == WallSettings.NoWall)
                             {
                                 setts.VerticalWalls[x, y] = wall;
-                                setts.VerticalWalls[setts.VerticalWalls.GetLength(0) - x-1, y] = wall ==
-                                                                                                   WallSettings
-                                                                                                       .RedSocket
-                                                                                                       ? WallSettings
-                                                                                                             .BlueSocket
-                                                                                                       : wall ==
-                                                                                                         WallSettings
-                                                                                                             .BlueSocket
-                                                                                                             ? WallSettings
-                                                                                                                   .RedSocket
-                                                                                                             : wall;
+                                setts.VerticalWalls[setts.VerticalWalls.GetLength(0) - x - 1, y] = GetWallSettings(wall);
                                 break;
                             }
                         }
@@ -125,20 +106,29 @@ namespace StarshipRepair
             return setts;
         }
 
-        public static SceneSettings GetDefaulSettings()
+        private static WallSettings GetWallSettings(WallSettings wall)
         {
-            var settings=new SceneSettings();
+            if (wall == WallSettings.RedSocket)
+                return WallSettings.BlueSocket;
+            if (wall == WallSettings.BlueSocket)
+                return WallSettings.RedSocket;
+            return wall;
+        }
+
+        private static SceneSettings GetDefaulSettings()
+        {
+            var settings = new SceneSettings();
             settings.VerticalWalls[0, 0] = WallSettings.RedSocket;
             settings.VerticalWalls[4, 0] = WallSettings.BlueSocket;
-            
+
             settings.VerticalWalls[2, 1] = WallSettings.Wall;
-            
-            settings.HorizontalWalls[1, 0] = 
-            settings.HorizontalWalls[4, 0] = 
+
+            settings.HorizontalWalls[1, 0] =
+            settings.HorizontalWalls[4, 0] =
                 WallSettings.Wall;
-            
-            settings.HorizontalWalls[0, 1] = 
-            settings.HorizontalWalls[5, 1] = 
+
+            settings.HorizontalWalls[0, 1] =
+            settings.HorizontalWalls[5, 1] =
                 WallSettings.Wall;
 
             settings.HorizontalWalls[2, 2] =

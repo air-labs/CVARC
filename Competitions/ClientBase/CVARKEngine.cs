@@ -22,10 +22,7 @@ namespace ClientBase
 
         private void StartServer(string path)
         {
-            ThreadPool.QueueUserWorkItem(o => Program.DebugMain(new NetworkSettings
-                {
-                    CompetitionsName = "Fall2013.0.dll"
-                }));
+            ThreadPool.QueueUserWorkItem(o => Program.DebugMain(new NetworkSettings{CompetitionsName = "Fall2013.0.dll"}));
 //            Process.Start(new ProcessStartInfo("CVARC.Network.exe")
 //                {
 //                    WorkingDirectory = path

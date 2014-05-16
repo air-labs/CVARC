@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 
 namespace CVARC.Basic.Core
@@ -50,6 +52,39 @@ namespace CVARC.Basic.Core
             if (int.TryParse(value, out i))
                 return i;
             return defaultValue;
+        }
+
+        public static void SafeAdd<K, V>(this Dictionary<K, V> dictionary, K key, V value)
+        {
+            if (dictionary.ContainsKey(key))
+                dictionary[key] = value;
+            else
+                dictionary.Add(key, value);
+        }
+
+        public static string PrintArray<T>(this T[,] array)
+        {
+            var offsetsByColumns = new int[array.GetLength(0)];
+            for (int i = 0; i < array.GetLength(0); i++)
+                offsetsByColumns[i] = array.GetColumn(i).Max(x => x.ToString().Length) + 1;
+
+            var s = "";
+            for (int i = 0; i < array.GetLength(1); i++)
+            {
+                for (int j = 0; j < array.GetLength(0); j++)
+                    s += array[j, i].ToString().PadRight(offsetsByColumns[j]);
+                s += "\r\n";
+            }
+            return s;
+        }
+
+        public static T[] GetColumn<T>(this T[,] array, int columnNum)
+        {
+            var length = array.GetLength(1);
+            var column = new T[length];
+            for (int i = 0; i < length; i++)
+                column[i] = array[columnNum, i];
+            return column;
         }
     }
 }
