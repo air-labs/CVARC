@@ -8,17 +8,18 @@ namespace CVARC.Basic
 {
     public abstract class World
     {
-        public HelloPackage HelloPackage = new HelloPackage();
+        public IEngine Engine { get; private set; }
         public ScoreCollection Score { get; private set; }
-        public DrawerFactory DrawerFactory { get; private set; }
-        public Body Root { get; set; }
-
-        public void Init()
+        public ISceneSettings Settings { get; private set; }
+        public HelloPackage HelloPackage { get; set; }
+      
+        public void Init(IEngine engine)
         {
+            Engine = engine;
+            Settings = ParseSettings(HelloPackage);
             Robots = Enumerable.Range(0, RobotCount).Select(CreateRobot).ToList();
             Score = new ScoreCollection(RobotCount);
-            Root = CreateWorld(Robots);
-            DrawerFactory = new DrawerFactory(Root);
+            Engine.Initialize(Settings);
             Robots.ForEach(x => x.Init());
         }
 
@@ -28,7 +29,7 @@ namespace CVARC.Basic
 
         public virtual int CompetitionId { get { return 1; } }
 
-        public abstract Body CreateWorld(IEnumerable<Robot> robots);
+        public abstract ISceneSettings ParseSettings(HelloPackage helloPackage);
 
         public abstract Robot CreateRobot(int robotNumber);
     }

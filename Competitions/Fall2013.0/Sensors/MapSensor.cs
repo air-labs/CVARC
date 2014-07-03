@@ -4,6 +4,7 @@ using CVARC.Basic.Sensors;
 using CVARC.Core;
 using CVARC.Graphics;
 using System.Linq;
+using AIRLab.Mathematics;
 
 namespace Gems.Sensors
 {
@@ -11,29 +12,26 @@ namespace Gems.Sensors
     {
         private readonly Body root;
 
-        public MapSensor(Robot robot, World world, DrawerFactory factory) 
-            : base(robot, world, factory)
+        public MapSensor(Robot robot, World world) 
+            : base(robot, world)
         {
-            root = robot.Body.TreeRoot;
-
+           
         }
 
         public override MapSensorData Measure()
         {
-            return new MapSensorData(root);
+            return new MapSensorData(World.Engine);
         }
     }
 
     [DataContract]
     public class MapSensorData : ISensorData
     {
-        private readonly Body root;
-
-        public MapSensorData(Body root)
+        public MapSensorData(IEngine engine)
         {
-            this.root = root;
-            MapItems = root.GetSubtreeChildrenFirst()
-                           .Select(e => new MapItem(e))
+        
+            MapItems = engine.GetAllObjects()
+                           .Select(e => new MapItem(e,engine.GetAbsoluteLocation(e)))
                            .Where(x => x.Tag != null)
                            .ToArray();
         }
@@ -54,9 +52,9 @@ namespace Gems.Sensors
         [DataMember]
         public double Y { get; set; }
 
-        public MapItem(Body body)
+        public MapItem(string name, Frame3D Location)
         {
-            switch (body.Name)
+            switch (name)
             {
                 case "DR": Tag = "RedDetail"; break;
                 case "DB": Tag = "BlueDetail"; break;
@@ -70,8 +68,8 @@ namespace Gems.Sensors
                 case "HWB": Tag = "HorizontalBlueSocket"; break;
                 case "HWG": Tag = "HorizontalGreenSocket"; break;
             }
-            X = body.Location.X;
-            Y = body.Location.Y;
+            X = Location.X;
+            Y = Location.Y;
         }
 
         public override string ToString()

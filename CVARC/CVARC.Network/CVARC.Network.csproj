@@ -95,10 +95,6 @@
       <Project>{4DC31792-DB9F-4A7E-9454-473A030076DB}</Project>
       <Name>Graphics.Plus</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Engine\kinect\kinect.csproj">
-      <Project>{f3800797-250b-4ddb-96b5-2b89ec0dc24a}</Project>
-      <Name>kinect</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Engine\Phisics\Physics.csproj">
       <Project>{4FAD9255-3334-4C61-B8D8-97BA4F6E351B}</Project>
       <Name>Physics</Name>

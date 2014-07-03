@@ -54,6 +54,7 @@
     <Compile Include="Bots\Sanguine.cs" />
     <Compile Include="Bots\Vaermina.cs" />
     <Compile Include="Competitions2013_1.cs" />
+    <Compile Include="GemsEngine.cs" />
     <Compile Include="KbController.cs" />
     <Compile Include="Sensors\Map.cs" />
     <Compile Include="Sensors\MapSensor.cs" />
@@ -77,10 +78,6 @@
     <ProjectReference Include="..\..\Engine\Grapics.Plus\Graphics.Plus.csproj">
       <Project>{4DC31792-DB9F-4A7E-9454-473A030076DB}</Project>
       <Name>Graphics.Plus</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Engine\kinect\kinect.csproj">
-      <Project>{F3800797-250B-4DDB-96B5-2B89EC0DC24A}</Project>
-      <Name>kinect</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using CVARC.Basic;
 using CVARC.Graphics;
 using Gems.Sensors;
 
@@ -30,7 +31,7 @@ namespace StarshipRepair
         public Point Location { get; set; }
     }
 
-    public class SceneSettings
+    public class SceneSettings : ISceneSettings
     {
         public readonly WallSettings[,] VerticalWalls;
         public readonly WallSettings[,] HorizontalWalls;

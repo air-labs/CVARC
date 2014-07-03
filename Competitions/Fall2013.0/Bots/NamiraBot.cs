@@ -21,11 +21,11 @@ namespace StarshipRepair.Bots
         {
             base.Initialize(competitions);
             world = competitions.World as GemsWorld;
-            map = world.Settings.Map;
+            map = (world.Settings as SceneSettings).Map;
         }
         private IEnumerable<Socket> GetSockets()
         {
-            var setts = (Competitions.World as GemsWorld).Settings;
+            var setts = Competitions.World.Settings as SceneSettings;
             for (var i = 0; i < setts.HorizontalWalls.GetLength(0); ++i)
                 for (var j = 0; j < setts.HorizontalWalls.GetLength(1); ++j)
                 {
@@ -59,8 +59,8 @@ namespace StarshipRepair.Bots
         public override Command MakeTurn()
         {
             var dst = Angem.Distance(
-                Competitions.World.Robots[0].Body.Location.ToPoint3D(),
-                Competitions.World.Robots[1].Body.Location.ToPoint3D())
+                Competitions.World.Robots[0].GetAbsoluteLocation().ToPoint3D(),
+                Competitions.World.Robots[1].GetAbsoluteLocation().ToPoint3D())
                 ;
             if (dst < 30) return new Command { Move = 0, Angle = Angle.FromGrad(0), Time = 1 };
             if (NeedCenter(Competitions.World.Robots[ControlledRobot]))
@@ -81,13 +81,13 @@ namespace StarshipRepair.Bots
         private Command Center(Robot r)
         {
             var cmd = new Command();
-            var pos = GetPositionOnWorld(GetPositionOnMap(r.Body.GetAbsoluteLocation()));
-            var dx = pos.X - r.Body.Location.X;
-            var dy = pos.Y - r.Body.Location.Y;
+            var pos = GetPositionOnWorld(GetPositionOnMap(r.GetAbsoluteLocation()));
+            var dx = pos.X - r.GetAbsoluteLocation().X;
+            var dy = pos.Y - r.GetAbsoluteLocation().Y;
             var angle = Angle.FromRad(Math.Atan2(dy, dx));
-            if (Math.Abs(r.Body.Location.Yaw.Grad%360 - angle.Grad%360) > 10)
+            if (Math.Abs(r.GetAbsoluteLocation().Yaw.Grad%360 - angle.Grad%360) > 10)
             {
-                var angleGrad = angle.Grad%360 - r.Body.Location.Yaw.Grad%360;
+                var angleGrad = angle.Grad%360 - r.GetAbsoluteLocation().Yaw.Grad%360;
                 return new Command
                            {
                                Angle = Math.Sign(angleGrad)*Competitions.AngularVelocityLimit,
@@ -117,8 +117,8 @@ namespace StarshipRepair.Bots
 
         private bool NeedCenter(Robot robot)
         {
-            var pos = GetPositionOnWorld(GetPositionOnMap(robot.Body.GetAbsoluteLocation()));
-            return Math.Abs(pos.X - robot.Body.Location.X) > 20 || Math.Abs(pos.Y - robot.Body.Location.Y) > 20;
+            var pos = GetPositionOnWorld(GetPositionOnMap(robot.GetAbsoluteLocation()));
+            return Math.Abs(pos.X - robot.GetAbsoluteLocation().X) > 20 || Math.Abs(pos.Y - robot.GetAbsoluteLocation().Y) > 20;
         }
     }
 

@@ -18,19 +18,19 @@ namespace CVARC.Basic
 {
     public class Competitions
     {
+        public readonly IEngine Engine;
         public readonly World World;
         public readonly KeyboardController KeyboardController;
         public double GameTimeLimit { get; protected set; }
         public double NetworkTimeLimit { get; protected set; }
         public virtual double LinearVelocityLimit { get { return 10; } }
         public virtual Angle AngularVelocityLimit { get { return Angle.FromGrad(30); } }
-        public Body Root { get { return World.Root; } }
-        public DrawerFactory DrawerFactory { get { return World.DrawerFactory; }}
         public Dictionary<string, Type> AvailableBots { get; private set; }
-        public ReplayLogger Logger { get; private set; }
+        
 
-        public Competitions(World world, KeyboardController keyboard)
+        public Competitions(IEngine engine, World world, KeyboardController keyboard)
         {
+            Engine = engine;
             World = world;
             KeyboardController = keyboard;
             GameTimeLimit = 90;
@@ -63,26 +63,13 @@ namespace CVARC.Basic
 
         public void Initialize()
         {
-            World.Init();            
-            PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
-            Logger = new ReplayLogger(Root, 0.1);
+            World.Init(Engine);            
+            
         }
 
         public void MakeCycle(double time, bool realtime)
         {
-            double dt = 1.0 / 100;
-            int span=(int)(dt*1000);
-            for (double t = 0; t < time; t += dt)
-            {
-                Logger.LogBodies();
-                foreach (var robot in World.Robots)
-                    robot.SetVelocity(); 
-                PhysicalManager.MakeIteration(dt, Root);
-                foreach (Body body in Root)
-                    body.Update(1 / 60);
-                if (realtime)
-                    Thread.Sleep(span);
-            }
+            World.Engine.RunEngine(time, realtime);
             if (CycleFinished != null)
                 CycleFinished(this, EventArgs.Empty);
         }
@@ -230,7 +217,7 @@ namespace CVARC.Basic
                                                                 a =>
                                                                 "{\"num\":\"" + a + "\", \"score\": \"" +   
                                                                 World.Score.GetFullSumForRobot(a) + "\"}")) + "]";
-                    var replay = ConverterToJavaScript.Convert(Logger.SerializationRoot);
+                    var replay = World.Engine.GetReplay();
                     data["log"] = replay;
                     wb.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36");
                     wb.Headers.Add(HttpRequestHeader.Accept, "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");

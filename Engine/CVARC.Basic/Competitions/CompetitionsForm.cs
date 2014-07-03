@@ -28,15 +28,16 @@ namespace CVARC.Basic
 
         public TutorialForm(Competitions competitions)
         {
+            var engine = competitions.World.Engine as CVARCEngine;
             InitializeComponent();
             ClientSize = new Size(800, 600);
             ScoreDisplayControl = new ScoreDisplayControl{Scores = competitions.World.Score};
-            tableLayoutPanel1.Controls.Add(new DrawerControl(new DirectXFormDrawer(competitions.DrawerFactory.GetDirectXScene(), new DrawerSettings { ViewMode = ViewModes.Top })), 1, 0);
+            tableLayoutPanel1.Controls.Add(new DrawerControl(new DirectXFormDrawer(engine.DrawerFactory.GetDirectXScene(), new DrawerSettings { ViewMode = ViewModes.Top })), 1, 0);
             for (int i = 0; i < competitions.World.RobotCount; ++i)
-                tableLayoutPanel1.Controls.Add(new DrawerControl(new DirectXFormDrawer(competitions.DrawerFactory.GetDirectXScene(), new DrawerSettings
+                tableLayoutPanel1.Controls.Add(new DrawerControl(new DirectXFormDrawer(engine.DrawerFactory.GetDirectXScene(), new DrawerSettings
                 {
                     BodyCameraLocation = new Frame3D(30, 0, 30, Angle.FromGrad(-45), Angle.Zero, Angle.Zero),
-                    Robot = competitions.World.Robots[i].Body,
+                    Robot = engine.GetBody(competitions.World.Robots[i].Name),
                     ViewMode = ViewModes.FirstPerson
                 })), 0, 0);
             tableLayoutPanel1.Controls.Add(ScoreDisplayControl, 1, 1);

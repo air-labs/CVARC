@@ -12,18 +12,13 @@ namespace CVARC.Basic.Sensors
 {
 	public class RobotCamera : Sensor<ImageSensorData>, IDisposable
 	{
-	    private readonly Body robot;
+        public readonly string CameraName;
 
-	    public RobotCamera(Robot robot, World world, DrawerFactory factory) 
-            : base(robot, world, factory)
+	    public RobotCamera(Robot robot, World world) 
+            : base(robot, world)
 	    {
-            Settings = new RobotCameraSettings();
-            this.robot = robot.Body;
-            Angle viewAngle = Settings.ViewAngle;
-            _camera = new FirstPersonCamera(this.robot, Settings.Location,
-                                            viewAngle, DefaultWidth / (double)DefaultHeight);
-            _drawer = new OffscreenDirectXDrawer(factory.GetDirectXScene(), DefaultWidth,
-                                                 DefaultHeight);
+            CameraName=robot.Name + "Camera";
+            world.Engine.DefineCamera(CameraName, robot.Name, new RobotCameraSettings());
 	    }
 
 	    public RobotCameraSettings Settings { get; private set; }
@@ -42,11 +37,8 @@ namespace CVARC.Basic.Sensors
 		/// <returns></returns>
         public override ImageSensorData Measure()
 		{
-		    Settings.Location = robot.GetAbsoluteLocation();
-			var data = new RobotCameraData();
-			bool result = _drawer.TryGetImage(_camera, out data.Bitmap);
-			if (Settings.WriteToFile && result)
-				WriteToFile(data.Bitmap);
+            var data = new RobotCameraData();
+            data.Bitmap = Engine.GetImageFromCamera(CameraName);
 			return new ImageSensorData
 			    {
 			        Base64Picture = data.GetStringRepresentation()

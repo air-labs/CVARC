@@ -8,15 +8,15 @@ namespace CVARC.Basic.Sensors.Positions
     {
         private readonly List<Robot> robots;
 
-        public LightHouseSensor(Robot robot, World world, DrawerFactory factory) 
-            : base(robot, world, factory)
+        public LightHouseSensor(Robot robot, World world) 
+            : base(robot, world)
         {
             robots = world.Robots;
         }
 
         public override ManyPositionData Measure()
         {
-            var data = robots.Select(a => new PositionData(a.Body.GetAbsoluteLocation())
+            var data = robots.Select(a => new PositionData(a.GetAbsoluteLocation())
                 {
                     RobotNumber = a.Number
                 }).ToArray();

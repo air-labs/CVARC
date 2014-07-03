@@ -7,13 +7,13 @@ namespace CVARC.Basic.Sensors
     {
         protected World World;
         protected readonly Robot Robot;
-        protected readonly DrawerFactory Factory;
+        protected readonly IEngine Engine;
 
-        protected Sensor(Robot robot, World world, DrawerFactory factory)
+        protected Sensor(Robot robot, World world)
         {
             World = world;
             Robot = robot;
-            Factory = factory;
+            Engine = World.Engine;
         }
 
         public abstract T Measure();
