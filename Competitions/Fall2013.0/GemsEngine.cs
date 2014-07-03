@@ -110,16 +110,16 @@ namespace StarshipRepair
             //        };
             //first.Body.Collision += subscribeToCollision(first, second);
             //second.Body.Collision += subscribeToCollision(second, first);
-            //root.Add(new Box
-            //{
-            //    XSize = 300,
-            //    YSize = 200,
-            //    ZSize = 3,
-            //    DefaultColor = Color.White,
-            //    Top = new SolidColorBrush{Color = Color.Yellow},
-            //    IsStatic = true,
-            //    Name = "floor",
-            //});
+            root.Add(new Box
+            {
+                XSize = 300,
+                YSize = 200,
+                ZSize = 3,
+                DefaultColor = Color.White,
+                Top = new SolidColorBrush { Color = Color.Yellow },
+                IsStatic = true,
+                Name = "floor",
+            });
 
             foreach (var detail in Settings.Details)
             {

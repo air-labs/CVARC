@@ -11,8 +11,8 @@ namespace Client
     {
         private static readonly ClientSettings Settings = new ClientSettings
             {
-                BotName = Bots.MolagBal,
-                Side = Side.Right,
+                BotName = Bots.None,
+                Side = Side.Left,
                 LevelName = "Level1"
             };
 

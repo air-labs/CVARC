@@ -45,7 +45,7 @@ namespace CVARC.Basic
 
         public Body GetBody(string name)
         {
-            return Root.GetSubtreeChildrenFirst().Where(z => z.Name == name).First();
+            return Root.Where(z => z.Name == name).First();
         }
 
         public Frame3D GetAbsoluteLocation(string name)
