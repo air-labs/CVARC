@@ -9,7 +9,7 @@ namespace CVARC.Basic
     public abstract class Robot 
     {
         public string Name { get { return "Robot" + Number.ToString(); } }
-        public readonly Competitions World;
+        public readonly Competitions Competitions;
         public readonly int Number;
         
         public abstract ISensorsData GetSensorsData();
@@ -17,23 +17,23 @@ namespace CVARC.Basic
 
         protected Robot(Competitions competitions, int number)
         {
-            World = competitions;
+            Competitions = competitions;
             Number = number;
         }
 
         public void AddScore(int cnt, string msg = "")
         {
-            World.Score.AddPenalty(new Penalty {Message = msg, RobotNumber = Number, Value = cnt});
+            Competitions.Score.AddPenalty(new Penalty {Message = msg, RobotNumber = Number, Value = cnt});
         }
 
         public Frame3D GetAbsoluteLocation()
         {
-            return World.Engine.GetAbsoluteLocation(Name);
+            return Competitions.Engine.GetAbsoluteLocation(Name);
         }
 
         public void ProcessCommand(Command cmd)
         {
-            World.Engine.ProcessCommand(Name, cmd);
+            Competitions.Engine.ProcessCommand(Name, cmd);
         }
 
     }

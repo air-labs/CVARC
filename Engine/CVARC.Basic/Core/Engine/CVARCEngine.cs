@@ -18,14 +18,12 @@ namespace CVARC.Basic
     {
        public  DrawerFactory DrawerFactory { get; private set; }
         Body Root { get; set; }
-        //Dictionary<string, Body> Robots = new Dictionary<string, Body>();
         Dictionary<string, Frame3D> RequestedSpeeds = new Dictionary<string, Frame3D>();
         Dictionary<string, CVARCEngineCamera> Cameras = new Dictionary<string, CVARCEngineCamera>();
         Dictionary<string, Kinect> Kinects = new Dictionary<string, Kinect>();
         public ReplayLogger Logger { get; private set; }
 
         public abstract Body CreateWorld(ISceneSettings settings);
-        //public abstract IEnumerable<Body> CreateRobots(Body root, ISceneSettings settings);
         public abstract void PerformAction(string actor, string action);
 
         public void SetSpeed(string obj, Frame3D velocity)
@@ -36,8 +34,6 @@ namespace CVARC.Basic
         public void Initialize(ISceneSettings settings)
         {
             Root = CreateWorld(settings);
-            //foreach (var e in CreateRobots(Root, settings))
-            //    Robots[e.Name] = e;
             DrawerFactory = new DrawerFactory(Root);
             PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
             Logger = new ReplayLogger(Root, 0.1);

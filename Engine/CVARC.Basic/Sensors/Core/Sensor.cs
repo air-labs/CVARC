@@ -12,7 +12,7 @@ namespace CVARC.Basic.Sensors
         protected Sensor(Robot robot)
         {
             Robot = robot;
-            World = robot.World;
+            World = robot.Competitions;
             Engine = World.Engine;
            
             
