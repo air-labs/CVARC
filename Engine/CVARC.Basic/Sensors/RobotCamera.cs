@@ -5,8 +5,6 @@ using AIRLab.Drawing;
 using AIRLab.Mathematics;
 using AIRLab.Thornado;
 using CVARC.Core;
-using CVARC.Graphics;
-using CVARC.Graphics.DirectX;
 
 namespace CVARC.Basic.Sensors
 {

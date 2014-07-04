@@ -1,4 +1,4 @@
-﻿using CVARC.Graphics;
+﻿
 
 namespace CVARC.Basic.Sensors.Positions
 {

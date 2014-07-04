@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CVARC.Graphics;
 
 namespace CVARC.Basic.Sensors.Positions
 {

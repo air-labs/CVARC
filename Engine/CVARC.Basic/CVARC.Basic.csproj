@@ -59,21 +59,6 @@
     <Compile Include="Core\HelloPackage.cs" />
     <Compile Include="Core\ISensorsData.cs" />
     <Compile Include="Controllers\Cmd.cs" />
-    <Compile Include="Migration\CVARCEngine.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCEngineCamera.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\Kinect.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\KinectSensor.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\SensorRotation.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\SimpleSonar.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\BallIntersection.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Tests\BodyIntersectionTests.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\BoxIntersection.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\CylinderIntersection.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\Intersector.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\PlaneIntersection.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\QuadEquation.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\Ray.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Tests\SimpleSonarTests.cs" />
     <Compile Include="Core\ICvarcEngine.cs" />
     <Compile Include="Core\ICvarcRules.cs" />
     <Compile Include="Core\IEngine.cs" />
@@ -100,26 +85,12 @@
     <Compile Include="Sensors\Positions\RobotIdSensor.cs" />
     <Compile Include="Sensors\RobotCamera.cs" />
     <Compile Include="Sensors\Core\Sensor.cs" />
-    <Compile Include="Migration\CompetitionsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Migration\CompetitionsForm.Designer.cs">
-      <DependentUpon>CompetitionsForm.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\CVARC.Engine\Bodies.csproj">
       <Project>{a316853c-7f60-4c7f-8fb5-6bafbc417a68}</Project>
       <Name>Bodies</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Grapics.Plus\Graphics.csproj">
-      <Project>{4dc31792-db9f-4a7e-9454-473a030076db}</Project>
-      <Name>Graphics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Phisics\Physics.csproj">
-      <Project>{4fad9255-3334-4c61-b8d8-97ba4f6e351b}</Project>
-      <Name>Physics</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

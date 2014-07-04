@@ -11,9 +11,7 @@ using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
 using CVARC.Core;
 using CVARC.Core.Replay;
-using CVARC.Graphics;
 using CVARC.Network;
-using CVARC.Physics;
 
 namespace CVARC.Basic
 {

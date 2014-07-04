@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{475BD26B-2456-4DB4-8DC5-BA9D05088FCB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EndEngine1</RootNamespace>
+    <AssemblyName>EndEngine1</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AIRLab">
+      <HintPath>..\libs\AIRLab.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\libs\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Migration\CompetitionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Migration\CompetitionsForm.Designer.cs">
+      <DependentUpon>CompetitionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migration\CVARCEngine.cs" />
+    <Compile Include="Migration\CVARKDevices\CVARCEngineCamera.cs" />
+    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\Kinect.cs" />
+    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\KinectSensor.cs" />
+    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\SensorRotation.cs" />
+    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\SimpleSonar.cs" />
+    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\BallIntersection.cs" />
+    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\BoxIntersection.cs" />
+    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\CylinderIntersection.cs" />
+    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\Intersector.cs" />
+    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\PlaneIntersection.cs" />
+    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\QuadEquation.cs" />
+    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\Ray.cs" />
+    <Compile Include="Migration\CVARKDevices\CVARCKinect\Tests\BodyIntersectionTests.cs" />
+    <Compile Include="Migration\CVARKDevices\CVARCKinect\Tests\SimpleSonarTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Engine\CVARC.Basic\CVARC.Basic.csproj">
+      <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
+      <Name>CVARC.Basic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine\CVARC.Engine\Bodies.csproj">
+      <Project>{a316853c-7f60-4c7f-8fb5-6bafbc417a68}</Project>
+      <Name>Bodies</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine\Grapics.Plus\Graphics.csproj">
+      <Project>{4dc31792-db9f-4a7e-9454-473a030076db}</Project>
+      <Name>Graphics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine\Phisics\Physics.csproj">
+      <Project>{4fad9255-3334-4c61-b8d8-97ba4f6e351b}</Project>
+      <Name>Physics</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

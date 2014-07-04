@@ -1,5 +1,5 @@
 ﻿using System.Runtime.Serialization;
-using CVARC.Graphics;
+
 
 namespace CVARC.Basic.Sensors
 {
