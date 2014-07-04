@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</ProjectGuid>
+    <ProjectGuid>{CA2FA0EB-DB94-4DF5-9B56-7462984FADFD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CVARC.Basic</RootNamespace>
@@ -50,62 +50,22 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Bots\Bot.cs" />
-    <Compile Include="Core\Bots\EmptyBot.cs" />
-    <Compile Include="Core\Bots\FixedProgramBot.cs" />
-    <Compile Include="Core\Competitions.cs" />
-    <Compile Include="Core\CompetitionsSettings.cs" />
-    <Compile Include="Core\Exceptions.cs" />
-    <Compile Include="Core\HelloPackage.cs" />
-    <Compile Include="Core\ISensorsData.cs" />
-    <Compile Include="Controllers\Cmd.cs" />
-    <Compile Include="Migration\CVARCEngine.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCEngineCamera.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\Kinect.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\KinectSensor.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\SensorRotation.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\SimpleSonar.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\BallIntersection.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Tests\BodyIntersectionTests.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\BoxIntersection.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\CylinderIntersection.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\Intersector.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\PlaneIntersection.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\QuadEquation.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\Ray.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Tests\SimpleSonarTests.cs" />
-    <Compile Include="Core\ICvarcEngine.cs" />
-    <Compile Include="Core\ICvarcRules.cs" />
-    <Compile Include="Core\IEngine.cs" />
-    <Compile Include="Core\ISceneSettings.cs" />
-    <Compile Include="IO\HelpExtensions.cs" />
-    <Compile Include="IO\Serialization\JsonSerializer.cs" />
-    <Compile Include="IO\Serialization\ISerializer.cs" />
-    <Compile Include="Core\Participants\Participant.cs" />
-    <Compile Include="Core\Participants\NetworkParticipant.cs" />
-    <Compile Include="Controllers\Command.cs" />
-    <Compile Include="Controllers\Controller.cs" />
-    <Compile Include="Controllers\KeyboardController.cs" />
-    <Compile Include="Controllers\OBSOLETE NetworkController.cs" />
+    <Compile Include="CVARCEngine.cs" />
+    <Compile Include="CVARKDevices\CVARCEngineCamera.cs" />
+    <Compile Include="CVARKDevices\CVARCKinect\Integration\Kinect.cs" />
+    <Compile Include="CVARKDevices\CVARCKinect\Integration\KinectSensor.cs" />
+    <Compile Include="CVARKDevices\CVARCKinect\Integration\SensorRotation.cs" />
+    <Compile Include="CVARKDevices\CVARCKinect\Integration\SimpleSonar.cs" />
+    <Compile Include="CVARKDevices\CVARCKinect\Intersections\BallIntersection.cs" />
+    <Compile Include="CVARKDevices\CVARCKinect\Tests\BodyIntersectionTests.cs" />
+    <Compile Include="CVARKDevices\CVARCKinect\Intersections\BoxIntersection.cs" />
+    <Compile Include="CVARKDevices\CVARCKinect\Intersections\CylinderIntersection.cs" />
+    <Compile Include="CVARKDevices\CVARCKinect\Intersections\Intersector.cs" />
+    <Compile Include="CVARKDevices\CVARCKinect\Intersections\PlaneIntersection.cs" />
+    <Compile Include="CVARKDevices\CVARCKinect\Intersections\QuadEquation.cs" />
+    <Compile Include="CVARKDevices\CVARCKinect\Intersections\Ray.cs" />
+    <Compile Include="CVARKDevices\CVARCKinect\Tests\SimpleSonarTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Core\Robot.cs" />
-    <Compile Include="Sensors\ImageSensorData.cs" />
-    <Compile Include="Sensors\Positions\LighthouseSensor.cs" />
-    <Compile Include="Sensors\Core\IImageSensorData.cs" />
-    <Compile Include="Sensors\Core\ISensor.cs" />
-    <Compile Include="Sensors\Core\ISensorData.cs" />
-    <Compile Include="Sensors\Positions\ManyPositionData.cs" />
-    <Compile Include="Sensors\Positions\PositionData.cs" />
-    <Compile Include="Sensors\Positions\PositionSensor.cs" />
-    <Compile Include="Sensors\Positions\RobotIdSensor.cs" />
-    <Compile Include="Sensors\RobotCamera.cs" />
-    <Compile Include="Sensors\Core\Sensor.cs" />
-    <Compile Include="Migration\CompetitionsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Migration\CompetitionsForm.Designer.cs">
-      <DependentUpon>CompetitionsForm.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
