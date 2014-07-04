@@ -308,7 +308,7 @@ namespace StarshipRepair
                     YSize = toAtt.YSize,
                     ZSize = toAtt.ZSize,
                     Location = toAtt.Location,
-                    DefaultColor = GemsWorld.WallColor,
+                    DefaultColor = SRCompetitions.WallColor,
                     IsStatic = true,
                     IsMaterial = true
                 };

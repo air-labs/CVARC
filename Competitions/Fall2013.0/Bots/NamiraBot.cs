@@ -12,7 +12,7 @@ namespace StarshipRepair.Bots
 {
     public class NamiraBot : Bot
     {
-        private GemsWorld world;
+        private SRCompetitions competitions;
         private Map map;
         private DetailData? detail;
         private bool first = true;
@@ -20,12 +20,12 @@ namespace StarshipRepair.Bots
         public override void Initialize(Competitions competitions)
         {
             base.Initialize(competitions);
-            world = competitions.World as GemsWorld;
-            map = (world.Settings as SceneSettings).Map;
+            competitions = competitions as SRCompetitions;
+            map = (competitions.Settings as SceneSettings).Map;
         }
         private IEnumerable<Socket> GetSockets()
         {
-            var setts = Competitions.World.Settings as SceneSettings;
+            var setts = Competitions.Settings as SceneSettings;
             for (var i = 0; i < setts.HorizontalWalls.GetLength(0); ++i)
                 for (var j = 0; j < setts.HorizontalWalls.GetLength(1); ++j)
                 {
@@ -59,12 +59,12 @@ namespace StarshipRepair.Bots
         public override Command MakeTurn()
         {
             var dst = Angem.Distance(
-                Competitions.World.Robots[0].GetAbsoluteLocation().ToPoint3D(),
-                Competitions.World.Robots[1].GetAbsoluteLocation().ToPoint3D())
+                Competitions.Robots[0].GetAbsoluteLocation().ToPoint3D(),
+                Competitions.Robots[1].GetAbsoluteLocation().ToPoint3D())
                 ;
             if (dst < 30) return new Command { Move = 0, Angle = Angle.FromGrad(0), Time = 1 };
-            if (NeedCenter(Competitions.World.Robots[ControlledRobot]))
-                return Center(Competitions.World.Robots[ControlledRobot]);
+            if (NeedCenter(Competitions.Robots[ControlledRobot]))
+                return Center(Competitions.Robots[ControlledRobot]);
             if (detail == null)
             {
                 //var details = 

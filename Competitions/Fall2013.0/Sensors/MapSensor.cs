@@ -10,17 +10,16 @@ namespace Gems.Sensors
 {
     public class MapSensor : Sensor<MapSensorData>
     {
-        private readonly Body root;
-
-        public MapSensor(Robot robot, World world) 
-            : base(robot, world)
+       
+        public MapSensor(Robot robot) 
+            : base(robot)
         {
            
         }
 
         public override MapSensorData Measure()
         {
-            return new MapSensorData(World.Engine);
+            return new MapSensorData(Engine);
         }
     }
 

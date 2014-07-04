@@ -23,7 +23,7 @@ namespace StarshipRepair.Bots
             {
                 try
                 {
-                    map = (competitions.World.Settings  as SceneSettings).Map;
+                    map = (competitions.Settings  as SceneSettings).Map;
                     lookAt = -180*ControlledRobot;
                     currentPosition = map[5*ControlledRobot, 0];
                 }

@@ -1,5 +1,7 @@
-﻿using AIRLab.Mathematics;
+﻿using System.Drawing;
+using AIRLab.Mathematics;
 using CVARC.Basic;
+using Gems;
 using StarshipRepair.Bots;
 
 namespace StarshipRepair
@@ -7,16 +9,17 @@ namespace StarshipRepair
 
     public class Level1 : SRCompetitions
     {
-        public Level1() : base(new GemsWorldV0())    
-    {
-    }
+        public override ISceneSettings ParseSettings(CVARC.Network.HelloPackage helloPackage)
+        {
+            return SceneSettings.GetRandomMap(-1);
+        }
     };
 
     public class Level2 : SRCompetitions
     {
-        public Level2()
-            : base(new GemsWorldV1())
+        public override ISceneSettings ParseSettings(CVARC.Network.HelloPackage helloPackage)
         {
+            return SceneSettings.GetRandomMap(helloPackage.MapSeed);
         }
     };
 
@@ -25,6 +28,23 @@ namespace StarshipRepair
     {
         public const double MaxLinearVelocity = 50;
         public const double MaxAngularVelocity = 50;
+
+
+        public static string GripAction = "Grip";
+        public static string ReleaseAction = "Release";
+
+        public static readonly Color WallColor = Color.LightGray;
+
+        public override int RobotCount
+        {
+            get { return 2; }
+        }
+        public override int CompetitionId { get { return 5; } }
+
+        public override Robot CreateRobot(int robotNumber)
+        {
+            return new GemsRobot(this, robotNumber);
+        }
 
         public override Angle AngularVelocityLimit
         {
@@ -42,7 +62,7 @@ namespace StarshipRepair
             }
         }
 
-        public SRCompetitions(GemsWorld world) : base( new GemsEngine(), world, new KbController())
+        public SRCompetitions() : base( new GemsEngine(), new KbController())
         {
             AvailableBots["Simple"] = typeof(SimpleBot);
             AvailableBots["Sanguine"] = typeof(Sanguine);

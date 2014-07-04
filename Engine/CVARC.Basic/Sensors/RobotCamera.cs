@@ -14,11 +14,11 @@ namespace CVARC.Basic.Sensors
 	{
         public readonly string CameraName;
 
-	    public RobotCamera(Robot robot, World world) 
-            : base(robot, world)
+	    public RobotCamera(Robot robot) 
+            : base(robot)
 	    {
             CameraName=robot.Name + "Camera";
-            world.Engine.DefineCamera(CameraName, robot.Name, new RobotCameraSettings());
+            Engine.DefineCamera(CameraName, robot.Name, new RobotCameraSettings());
 	    }
 
 	    public RobotCameraSettings Settings { get; private set; }

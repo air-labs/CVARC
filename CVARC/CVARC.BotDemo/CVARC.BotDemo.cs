@@ -21,7 +21,7 @@ namespace CVARC.BotDemo
             try
             {
                 competitions = Competitions.Load(settings.CompetitionsName, "Level1");
-                competitions.World.HelloPackage = new HelloPackage { MapSeed = -1 };
+                competitions.HelloPackage = new HelloPackage { MapSeed = -1 };
                 competitions.Initialize();
             }
             catch (Exception e)
@@ -31,7 +31,7 @@ namespace CVARC.BotDemo
             }
 
             List<Bot> bots = new List<Bot>();
-            for (int i = 0; i < competitions.World.RobotCount; i++)
+            for (int i = 0; i < competitions.RobotCount; i++)
             {
                 if (i == settings.BotNames.Length) break;
                 if (settings.BotNames[i] == "None") continue;

@@ -9,15 +9,15 @@ namespace CVARC.Basic
     public abstract class Robot 
     {
         public string Name { get { return "Robot" + Number.ToString(); } }
-        public readonly World World;
+        public readonly Competitions World;
         public readonly int Number;
         
         public abstract ISensorsData GetSensorsData();
         public abstract void Init();
 
-        protected Robot(World world, int number)
+        protected Robot(Competitions competitions, int number)
         {
-            World = world;
+            World = competitions;
             Number = number;
         }
 

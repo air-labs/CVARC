@@ -103,7 +103,6 @@
     <Compile Include="Competitions\CompetitionsForm.Designer.cs">
       <DependentUpon>CompetitionsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Model\World.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -11,18 +11,18 @@ namespace CVARC.Basic.Core
     {
         string KinectName;
 
-        public KinectSensor(Robot robot, World world)
-            : base(robot, world)
+        public KinectSensor(Robot robot)
+            : base(robot)
         {
             KinectName=robot.Name+"Kinect";
-            world.Engine.DefineKinect(KinectName, robot.Name);
+            Engine.DefineKinect(KinectName, robot.Name);
         }
 
 
 
         public override ImageSensorData Measure()
         {
-            return World.Engine.GetImageFromKinect(KinectName);
+            return Engine.GetImageFromKinect(KinectName);
         }
     }
 }

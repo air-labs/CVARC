@@ -62,8 +62,8 @@ namespace CVARC.Basic
         public override Command MakeTurn()
         {
             var dst=Angem.Distance(
-                Competitions.World.Robots[0].GetAbsoluteLocation().ToPoint3D(),
-                Competitions.World.Robots[1].GetAbsoluteLocation().ToPoint3D())
+                Competitions.Robots[0].GetAbsoluteLocation().ToPoint3D(),
+                Competitions.Robots[1].GetAbsoluteLocation().ToPoint3D())
                 ;
             if ( dst   < 30) return new Command { Move=0, Angle=Angle.FromGrad(0), Time = 1 };  
 

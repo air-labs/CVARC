@@ -14,7 +14,7 @@ namespace CVARC.Basic.Sensors
     {
         int Id;
 
-        public RobotIdSensor(Robot robot, World world) : base(robot, world)
+        public RobotIdSensor(Robot robot) : base(robot)
         {
             Id = robot.Number;
         }

@@ -4,8 +4,8 @@ namespace CVARC.Basic.Sensors.Positions
 {
     public class PositionSensor : Sensor<PositionData>
     {
-        public PositionSensor(Robot robot, World world) 
-            : base(robot, world)
+        public PositionSensor(Robot robot) 
+            : base(robot)
         {
         }
 

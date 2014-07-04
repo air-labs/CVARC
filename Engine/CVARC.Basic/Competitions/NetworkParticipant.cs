@@ -34,7 +34,7 @@ namespace CVARC.Basic
                 Console.Write("Receiving hello package... {0}", Encoding.UTF8.GetString(package));
                 HelloPackage = serializer.Deserialize<HelloPackage>(package);
                 Competitions = Competitions.Load(competitionsName, HelloPackage.LevelName);
-                Competitions.World.HelloPackage = HelloPackage;
+                Competitions.HelloPackage = HelloPackage;
             }
             catch (Exception e)
             {

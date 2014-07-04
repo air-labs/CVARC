@@ -12,26 +12,35 @@ using CVARC.Basic.Controllers;
 using CVARC.Core;
 using CVARC.Core.Replay;
 using CVARC.Graphics;
+using CVARC.Network;
 using CVARC.Physics;
 
 namespace CVARC.Basic
 {
-    public class Competitions
+    public abstract class Competitions
     {
         public readonly IEngine Engine;
-        public readonly World World;
         public readonly KeyboardController KeyboardController;
         public double GameTimeLimit { get; protected set; }
         public double NetworkTimeLimit { get; protected set; }
         public virtual double LinearVelocityLimit { get { return 10; } }
         public virtual Angle AngularVelocityLimit { get { return Angle.FromGrad(30); } }
         public Dictionary<string, Type> AvailableBots { get; private set; }
-        
 
-        public Competitions(IEngine engine, World world, KeyboardController keyboard)
+        //from World class
+        public ScoreCollection Score { get; private set; }
+        public ISceneSettings Settings { get; private set; }
+        public HelloPackage HelloPackage { get; set; }
+        public abstract ISceneSettings ParseSettings(HelloPackage helloPackage);
+        public abstract Robot CreateRobot(int robotNumber);
+        public List<Robot> Robots { get; private set; }
+        public virtual int RobotCount { get { return 2; } }
+        public virtual int CompetitionId { get { return 1; } }
+
+
+        public Competitions(IEngine engine, KeyboardController keyboard)
         {
             Engine = engine;
-            World = world;
             KeyboardController = keyboard;
             GameTimeLimit = 90;
             NetworkTimeLimit = 1;
@@ -40,12 +49,12 @@ namespace CVARC.Basic
 
         public ISensorsData GetSensorsData(int robotId)
         {
-            return World.Robots[robotId].GetSensorsData();
+            return Robots[robotId].GetSensorsData();
         }
 
         public void ApplyCommand(Command command)
         {
-            World.Robots[command.RobotId].ProcessCommand(command);
+            Robots[command.RobotId].ProcessCommand(command);
         }
 
         public static Competitions Load(string competitionsName, string levelName)
@@ -63,13 +72,17 @@ namespace CVARC.Basic
 
         public void Initialize()
         {
-            World.Init(Engine);            
+            Settings = ParseSettings(HelloPackage);
+            Robots = Enumerable.Range(0, RobotCount).Select(CreateRobot).ToList();
+            Score = new ScoreCollection(RobotCount);
+            Engine.Initialize(Settings);
+            Robots.ForEach(x => x.Init());
             
         }
 
         public void MakeCycle(double time, bool realtime)
         {
-            World.Engine.RunEngine(time, realtime);
+            Engine.RunEngine(time, realtime);
             if (CycleFinished != null)
                 CycleFinished(this, EventArgs.Empty);
         }
@@ -82,7 +95,7 @@ namespace CVARC.Basic
             while (true)
             {
                 var command = participant.MakeTurn();
-                World.Robots[command.RobotId].ProcessCommand( command);
+                Robots[command.RobotId].ProcessCommand( command);
                 MakeCycle(Math.Min(time, command.Time), realtime);
                 time -= command.Time;
                 if (time < 0) break;
@@ -161,7 +174,7 @@ namespace CVARC.Basic
                     //применяем полученную команду
                     var cmd=result.Item1;
                     cmd.RobotId = p.ControlledRobot;
-                    World.Robots[p.ControlledRobot].ProcessCommand(cmd);
+                    Robots[p.ControlledRobot].ProcessCommand(cmd);
                     p.WaitForNextCommandTime = cmd.Time;
                 }
                 var minTime = Math.Min(time, participants.Min(z => z.WaitForNextCommandTime));
@@ -208,16 +221,16 @@ namespace CVARC.Basic
                 {
                     var data = new NameValueCollection();
                     data["key"] = key;
-                    data["competitions"] = World.CompetitionId.ToString();
+                    data["competitions"] = CompetitionId.ToString();
                     data["robotNumber"] = robotNumber.ToString();
                     data["results"] = "[" +
                                       string.Join(",",
-                                                  Enumerable.Range(0, World.RobotCount)
+                                                  Enumerable.Range(0, RobotCount)
                                                             .Select(
                                                                 a =>
                                                                 "{\"num\":\"" + a + "\", \"score\": \"" +   
-                                                                World.Score.GetFullSumForRobot(a) + "\"}")) + "]";
-                    var replay = World.Engine.GetReplay();
+                                                                Score.GetFullSumForRobot(a) + "\"}")) + "]";
+                    var replay = Engine.GetReplay();
                     data["log"] = replay;
                     wb.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36");
                     wb.Headers.Add(HttpRequestHeader.Accept, "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");

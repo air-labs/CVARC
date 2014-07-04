@@ -17,16 +17,16 @@ namespace Gems
         private MapSensor mapSensor;
         private LightHouseSensor lightHouseSensor;
 
-        public GemsRobot(GemsWorld world, int number)
-            : base(world, number)
+        public GemsRobot(SRCompetitions competitions, int number)
+            : base(competitions, number)
         {
         }
 
         public override void Init()
         {
-            robotIdSensor = new RobotIdSensor(this, World);
-            mapSensor = new MapSensor(this, World);
-            lightHouseSensor = new LightHouseSensor(this, World);
+            robotIdSensor = new RobotIdSensor(this);
+            mapSensor = new MapSensor(this);
+            lightHouseSensor = new LightHouseSensor(this);
         }
 
         public override ISensorsData GetSensorsData()
