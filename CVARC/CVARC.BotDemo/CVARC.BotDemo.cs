@@ -22,7 +22,7 @@ namespace CVARC.BotDemo
             {
                 competitions = Competitions.Load(settings.CompetitionsName, "Level1");
                 competitions.HelloPackage = new HelloPackage { MapSeed = -1 };
-                competitions.Initialize();
+                competitions.Initialize(new CVARCEngine(competitions.CvarcRules));
             }
             catch (Exception e)
             {

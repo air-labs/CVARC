@@ -64,7 +64,7 @@ namespace CVARC.Tutorial
                 competitions = Competitions.Load(settings.CompetitionsName, "Level1");
                 if (settings.HasMap)
                     competitions.HelloPackage = new HelloPackage { MapSeed = settings.MapSeed };
-                competitions.Initialize();
+                competitions.Initialize(new CVARCEngine(competitions.CvarcRules));
             }
             catch (Exception e)
             {

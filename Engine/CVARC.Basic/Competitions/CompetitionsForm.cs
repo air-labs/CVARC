@@ -43,7 +43,14 @@ namespace CVARC.Basic
             tableLayoutPanel1.Controls.Add(ScoreDisplayControl, 1, 1);
             foreach (Control control in tableLayoutPanel1.Controls)
                 control.Anchor = AnchorAll;
-            competitions.CycleFinished += (s, a) => BeginInvoke(new Action(UpdateScores));
+            competitions.CycleFinished += (s, a) =>
+                {
+                    try
+                    {
+                        BeginInvoke(new Action(UpdateScores));
+                    }
+                    catch { }
+                };
         }
     }
 }

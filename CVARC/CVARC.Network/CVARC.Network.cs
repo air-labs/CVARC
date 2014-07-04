@@ -46,7 +46,8 @@ namespace CVARC.Network
             if (!participant.Competitions.BotIsAvailable(botName))
                 throw new UserInputException("The opponent's name is not valid");
             participants[botNumber] = participant.Competitions.CreateBot(botName, botNumber);
-            participant.Competitions.Initialize();
+
+            participant.Competitions.Initialize(new CVARCEngine(participant.Competitions.CvarcRules));
             if (settings.StartClient)
                 StartClient();
         }

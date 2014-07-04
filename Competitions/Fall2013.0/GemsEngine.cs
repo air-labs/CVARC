@@ -10,7 +10,7 @@ using CVARC.Core;
 
 namespace StarshipRepair
 {
-    public class GemsEngine : CVARCEngine
+    public class GemsRules : ICvarcRules
     {
         SceneSettings Settings;
 
@@ -51,7 +51,7 @@ namespace StarshipRepair
         }
 
 
-        public override Body CreateWorld(ISceneSettings _settings)
+        public Body CreateWorld(ISceneSettings _settings)
         {
             Settings = (SceneSettings)_settings;
             var root = new Body();
@@ -271,15 +271,15 @@ namespace StarshipRepair
 
         #region World manipulation
 
-        public override void PerformAction(string actor, string action)
+        public void PerformAction(CVARCEngine engine, string actor, string action)
         {
-            var robotBody = GetBody(actor);
-            if (action == "Grip") Grip(robotBody);
-            if (action == "Release") Release(robotBody);
+            var robotBody = engine.GetBody(actor);
+            if (action == "Grip") Grip(engine, robotBody);
+            if (action == "Release") Release(engine, robotBody);
         }
 
 
-        private void Release(Body Body)
+        private void Release(CVARCEngine engine, Body Body)
         {
             var latestGripped = Body.FirstOrDefault(z => z.Name.StartsWith("D") && z.Name.Length == 2);
             if (latestGripped == null) return;
@@ -322,7 +322,7 @@ namespace StarshipRepair
             //  gripped.RemoveRange(0, gripped.Count);
         }
 
-        private void Grip(Body Body)
+        private void Grip(CVARCEngine engine, Body Body)
         {
             var gripped = Body.ToList();
             if (gripped.Any()) return;

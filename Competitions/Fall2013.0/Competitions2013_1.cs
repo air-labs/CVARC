@@ -62,7 +62,7 @@ namespace StarshipRepair
             }
         }
 
-        public SRCompetitions() : base( new GemsEngine(), new KbController())
+        public SRCompetitions() : base( new GemsRules(), new KbController())
         {
             AvailableBots["Simple"] = typeof(SimpleBot);
             AvailableBots["Sanguine"] = typeof(Sanguine);

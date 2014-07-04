@@ -19,15 +19,17 @@ namespace CVARC.Basic
 {
     public abstract class Competitions
     {
-        public readonly IEngine Engine;
         public readonly KeyboardController KeyboardController;
+        public readonly ICvarcRules CvarcRules;
+        public IEngine Engine { get; private set; }
+
+
         public double GameTimeLimit { get; protected set; }
         public double NetworkTimeLimit { get; protected set; }
         public virtual double LinearVelocityLimit { get { return 10; } }
         public virtual Angle AngularVelocityLimit { get { return Angle.FromGrad(30); } }
         public Dictionary<string, Type> AvailableBots { get; private set; }
 
-        //from World class
         public ScoreCollection Score { get; private set; }
         public ISceneSettings Settings { get; private set; }
         public HelloPackage HelloPackage { get; set; }
@@ -38,9 +40,9 @@ namespace CVARC.Basic
         public virtual int CompetitionId { get { return 1; } }
 
 
-        public Competitions(IEngine engine, KeyboardController keyboard)
+        public Competitions(ICvarcRules rules, KeyboardController keyboard)
         {
-            Engine = engine;
+            CvarcRules=rules;
             KeyboardController = keyboard;
             GameTimeLimit = 90;
             NetworkTimeLimit = 1;
@@ -70,8 +72,9 @@ namespace CVARC.Basic
             return ctor.Invoke(new object[] {}) as Competitions;
         }
 
-        public void Initialize()
+        public void Initialize(IEngine engine)
         {
+            Engine = engine;
             Settings = ParseSettings(HelloPackage);
             Robots = Enumerable.Range(0, RobotCount).Select(CreateRobot).ToList();
             Score = new ScoreCollection(RobotCount);

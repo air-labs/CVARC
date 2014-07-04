@@ -14,17 +14,21 @@ using kinect.Integration;
 
 namespace CVARC.Basic
 {
-    public abstract class CVARCEngine : IEngine
+    public class CVARCEngine : IEngine
     {
-       public  DrawerFactory DrawerFactory { get; private set; }
+        public  DrawerFactory DrawerFactory { get; private set; }
         Body Root { get; set; }
         Dictionary<string, Frame3D> RequestedSpeeds = new Dictionary<string, Frame3D>();
         Dictionary<string, CVARCEngineCamera> Cameras = new Dictionary<string, CVARCEngineCamera>();
         Dictionary<string, Kinect> Kinects = new Dictionary<string, Kinect>();
         public ReplayLogger Logger { get; private set; }
+        public ICvarcRules Rules { get; internal set; }
 
-        public abstract Body CreateWorld(ISceneSettings settings);
-        public abstract void PerformAction(string actor, string action);
+        public CVARCEngine(ICvarcRules rules)
+        {
+            Rules = rules;
+        }
+
 
         public void SetSpeed(string obj, Frame3D velocity)
         {
@@ -33,7 +37,7 @@ namespace CVARC.Basic
 
         public void Initialize(ISceneSettings settings)
         {
-            Root = CreateWorld(settings);
+            Root = Rules.CreateWorld(settings);
             DrawerFactory = new DrawerFactory(Root);
             PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
             Logger = new ReplayLogger(Root, 0.1);
@@ -101,6 +105,12 @@ namespace CVARC.Basic
         public IEnumerable<string> GetAllObjects()
         {
             return Root.Select(z => z.Name);
+        }
+
+
+        public void PerformAction(string name, string action)
+        {
+            Rules.PerformAction(this, name, action);
         }
     }
 }
