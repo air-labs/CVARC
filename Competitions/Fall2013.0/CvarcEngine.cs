@@ -271,7 +271,7 @@ namespace RepairTheStarship
 
         #region World manipulation
 
-        public void PerformAction(CVARCEngine engine, string actor, string action)
+        public void PerformAction(ICvarcEngine engine, string actor, string action)
         {
             var robotBody = engine.GetBody(actor);
             if (action == "Grip") Grip(engine, robotBody);
@@ -279,7 +279,7 @@ namespace RepairTheStarship
         }
 
 
-        private void Release(CVARCEngine engine, Body Body)
+        private void Release(ICvarcEngine engine, Body Body)
         {
             var latestGripped = Body.FirstOrDefault(z => z.Name.StartsWith("D") && z.Name.Length == 2);
             if (latestGripped == null) return;
@@ -322,7 +322,7 @@ namespace RepairTheStarship
             //  gripped.RemoveRange(0, gripped.Count);
         }
 
-        private void Grip(CVARCEngine engine, Body Body)
+        private void Grip(ICvarcEngine engine, Body Body)
         {
             var gripped = Body.ToList();
             if (gripped.Any()) return;

@@ -14,7 +14,7 @@ using kinect.Integration;
 
 namespace CVARC.Basic
 {
-    public class CVARCEngine : IEngine
+    public class CVARCEngine : IEngine, ICvarcEngine
     {
         public  DrawerFactory DrawerFactory { get; private set; }
         Body Root { get; set; }

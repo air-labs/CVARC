@@ -73,6 +73,7 @@
     <Compile Include="Core\Engine\CVARKDevices\CVARCKinect\Intersections\QuadEquation.cs" />
     <Compile Include="Core\Engine\CVARKDevices\CVARCKinect\Intersections\Ray.cs" />
     <Compile Include="Core\Engine\CVARKDevices\CVARCKinect\Tests\SimpleSonarTests.cs" />
+    <Compile Include="Core\Engine\ICvarcEngine.cs" />
     <Compile Include="Core\Engine\ICvarcRules.cs" />
     <Compile Include="Core\Engine\IEngine.cs" />
     <Compile Include="Core\Engine\ISceneSettings.cs" />
