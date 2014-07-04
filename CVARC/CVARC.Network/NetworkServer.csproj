@@ -83,13 +83,13 @@
       <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
       <Name>RepairTheStarship %28Competitions\RepairTheStarship\RepairTheStarship%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\EndEngine1\EndEngine1.csproj">
+    <ProjectReference Include="..\..\EndEngine1\Engine.csproj">
       <Project>{475bd26b-2456-4db4-8dc5-ba9d05088fcb}</Project>
-      <Name>EndEngine1</Name>
+      <Name>Engine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Engine\CVARC.Basic\CVARC.Basic.csproj">
+    <ProjectReference Include="..\..\Engine\CVARC.Basic\Basic.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
-      <Name>CVARC.Basic</Name>
+      <Name>Basic</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Engine\CVARC.Engine\Bodies.csproj">
       <Project>{A316853C-7F60-4C7F-8FB5-6BAFBC417A68}</Project>

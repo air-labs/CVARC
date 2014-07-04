@@ -67,9 +67,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Engine\CVARC.Basic\CVARC.Basic.csproj">
+    <ProjectReference Include="..\..\Engine\CVARC.Basic\Basic.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
-      <Name>CVARC.Basic</Name>
+      <Name>Basic</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Engine\CVARC.Engine\Bodies.csproj">
       <Project>{A316853C-7F60-4C7F-8FB5-6BAFBC417A68}</Project>

@@ -53,9 +53,9 @@
       <Project>{7969E0E7-00AF-4627-8D93-F6D022C99167}</Project>
       <Name>RepairTheStarship %28Competitions\RepairTheStarship\RepairTheStarship%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Engine\CVARC.Basic\CVARC.Basic.csproj">
+    <ProjectReference Include="..\Engine\CVARC.Basic\Basic.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
-      <Name>CVARC.Basic</Name>
+      <Name>Basic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

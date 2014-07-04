@@ -52,17 +52,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Competitions\ClientBase\CVARC.Client.csproj">
+    <ProjectReference Include="..\Competitions\ClientBase\Client.csproj">
       <Project>{5177F2A5-6BA0-4EB6-91DA-5C4CAB84DCF8}</Project>
-      <Name>CVARC.Client</Name>
+      <Name>Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\Competitions\Fall2013.0\RepairTheStarship.csproj">
       <Project>{7969E0E7-00AF-4627-8D93-F6D022C99167}</Project>
       <Name>RepairTheStarship %28Competitions\RepairTheStarship\RepairTheStarship%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Engine\CVARC.Basic\CVARC.Basic.csproj">
+    <ProjectReference Include="..\Engine\CVARC.Basic\Basic.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
-      <Name>CVARC.Basic</Name>
+      <Name>Basic</Name>
     </ProjectReference>
     <ProjectReference Include="..\MapHelper\MapHelper.csproj">
       <Project>{D19AFC65-6B6E-4EE5-B22A-6C147A9E2763}</Project>
