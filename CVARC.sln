@@ -35,8 +35,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkServer", "CVARC\Netw
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial", "CVARC\Tutorial\Tutorial.csproj", "{46FD3D2B-D123-4B6C-8B26-7BC3764D34FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harmonizer.Run", "Harmonizer.Run\Harmonizer.Run.csproj", "{1F5CDED5-4061-4623-80AA-A3378352AB36}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -181,16 +179,6 @@ Global
 		{46FD3D2B-D123-4B6C-8B26-7BC3764D34FE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{46FD3D2B-D123-4B6C-8B26-7BC3764D34FE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{46FD3D2B-D123-4B6C-8B26-7BC3764D34FE}.Release|x86.ActiveCfg = Release|Any CPU
-		{1F5CDED5-4061-4623-80AA-A3378352AB36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F5CDED5-4061-4623-80AA-A3378352AB36}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F5CDED5-4061-4623-80AA-A3378352AB36}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{1F5CDED5-4061-4623-80AA-A3378352AB36}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{1F5CDED5-4061-4623-80AA-A3378352AB36}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1F5CDED5-4061-4623-80AA-A3378352AB36}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F5CDED5-4061-4623-80AA-A3378352AB36}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1F5CDED5-4061-4623-80AA-A3378352AB36}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1F5CDED5-4061-4623-80AA-A3378352AB36}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{1F5CDED5-4061-4623-80AA-A3378352AB36}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
