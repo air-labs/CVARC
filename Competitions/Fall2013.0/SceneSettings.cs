@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using CVARC.Basic;
 using CVARC.Graphics;
-using Gems.Sensors;
+using RepairTheStarship.Sensors;
 
-namespace StarshipRepair
+namespace RepairTheStarship
 {
     public enum WallSettings
     {

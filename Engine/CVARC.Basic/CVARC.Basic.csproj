@@ -107,13 +107,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\CVARC.Engine\CVARC.Engine.csproj">
+    <ProjectReference Include="..\CVARC.Engine\Bodies.csproj">
       <Project>{a316853c-7f60-4c7f-8fb5-6bafbc417a68}</Project>
-      <Name>CVARC.Engine</Name>
+      <Name>Bodies</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Grapics.Plus\Graphics.Plus.csproj">
+    <ProjectReference Include="..\Grapics.Plus\Graphics.csproj">
       <Project>{4dc31792-db9f-4a7e-9454-473a030076db}</Project>
-      <Name>Graphics.Plus</Name>
+      <Name>Graphics</Name>
     </ProjectReference>
     <ProjectReference Include="..\Phisics\Physics.csproj">
       <Project>{4fad9255-3334-4c61-b8d8-97ba4f6e351b}</Project>

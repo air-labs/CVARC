@@ -2,8 +2,8 @@
 using CVARC.Basic.Controllers;
 using CVARC.Network;
 using ClientBase;
-using Gems.Sensors;
-using StarshipRepair;
+using RepairTheStarship.Sensors;
+using RepairTheStarship;
 
 namespace Client
 {
@@ -18,7 +18,7 @@ namespace Client
 
         private static void Main(string[] args)
         {
-            var server = new CVARKEngine(args, Settings).GetServer<SensorsData>();
+            var server = new CvarcClient(args, Settings).GetServer<SensorsData>();
             server.Run();
             server.GetSensorData(new Command { Angle = Angle.FromGrad(-90), Time = 1});
             server.GetSensorData(new Command { Move = 50, Time = 1 });

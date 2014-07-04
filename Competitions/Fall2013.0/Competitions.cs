@@ -1,10 +1,10 @@
 ﻿using System.Drawing;
 using AIRLab.Mathematics;
 using CVARC.Basic;
-using Gems;
-using StarshipRepair.Bots;
+using RepairTheStarship;
+using RepairTheStarship.Bots;
 
-namespace StarshipRepair
+namespace RepairTheStarship
 {
 
     public class Level1 : SRCompetitions

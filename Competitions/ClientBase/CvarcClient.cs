@@ -4,11 +4,11 @@ using CVARC.Network;
 
 namespace ClientBase
 {
-    public class CVARKEngine
+    public class CvarcClient
     {
         private readonly ClientSettings settings;
 
-        public CVARKEngine(string[] args, ClientSettings settings)
+        public CvarcClient(string[] args, ClientSettings settings)
         {
             this.settings = settings;
             string relativePath = args.Length == 0 ? "" : args[0];

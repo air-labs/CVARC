@@ -186,9 +186,9 @@
     <EmbeddedResource Include="Models\testtexture.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CVARC.Engine\CVARC.Engine.csproj">
+    <ProjectReference Include="..\CVARC.Engine\Bodies.csproj">
       <Project>{a316853c-7f60-4c7f-8fb5-6bafbc417a68}</Project>
-      <Name>CVARC.Engine</Name>
+      <Name>Bodies</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

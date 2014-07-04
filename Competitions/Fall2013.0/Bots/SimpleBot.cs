@@ -1,7 +1,7 @@
 ﻿using CVARC.Basic;
 using CVARC.Basic.Controllers;
 
-namespace StarshipRepair
+namespace RepairTheStarship
 {
     public class SimpleBot : FixedProgramBot
     {

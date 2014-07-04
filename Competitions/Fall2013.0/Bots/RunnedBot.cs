@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CVARC.Basic;
-using Gems.Sensors;
+using RepairTheStarship.Sensors;
 
-namespace StarshipRepair.Bots
+namespace RepairTheStarship.Bots
 {
     public class RunnedBot : FixedProgramBot
     {

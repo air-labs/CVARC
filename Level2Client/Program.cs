@@ -5,7 +5,7 @@ using CVARC.Basic.Controllers;
 using CVARC.Basic.Sensors;
 using CVARC.Network;
 using ClientBase;
-using Gems.Sensors;
+using RepairTheStarship.Sensors;
 using MapHelper;
 
 namespace Level2Client
@@ -24,7 +24,7 @@ namespace Level2Client
 
         private static void Main(string[] args)
         {
-            var server = new CVARKEngine(args, Settings).GetServer<SensorsData>();
+            var server = new CvarcClient(args, Settings).GetServer<SensorsData>();
             var sensorData = server.Run();
             var robotId = sensorData.RobotIdSensor.Id;
             var staticMap = new MapBuilder().BuildStaticMap(sensorData.MapSensor.MapItems);

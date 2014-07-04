@@ -4,12 +4,12 @@ using CVARC.Basic.Controllers;
 using CVARC.Basic.Sensors;
 using CVARC.Basic.Sensors.Positions;
 using CVARC.Core;
-using Gems.Sensors;
-using StarshipRepair;
+using RepairTheStarship.Sensors;
+using RepairTheStarship;
 using System;
 using System.Linq;
 
-namespace Gems
+namespace RepairTheStarship
 {
     public class GemsRobot : Robot
     {

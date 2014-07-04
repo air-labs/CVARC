@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Gems.Sensors;
+using RepairTheStarship.Sensors;
 
 namespace MapHelper
 {

@@ -79,21 +79,21 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Competitions\Fall2013.0\Fall2013.0.csproj">
+    <ProjectReference Include="..\..\Competitions\Fall2013.0\RepairTheStarship.csproj">
       <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
-      <Name>Fall2013.0</Name>
+      <Name>RepairTheStarship %28Competitions\RepairTheStarship\RepairTheStarship%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Engine\CVARC.Basic\CVARC.Basic.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
       <Name>CVARC.Basic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Engine\CVARC.Engine\CVARC.Engine.csproj">
+    <ProjectReference Include="..\..\Engine\CVARC.Engine\Bodies.csproj">
       <Project>{A316853C-7F60-4C7F-8FB5-6BAFBC417A68}</Project>
-      <Name>CVARC.Engine</Name>
+      <Name>Bodies</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Engine\Grapics.Plus\Graphics.Plus.csproj">
+    <ProjectReference Include="..\..\Engine\Grapics.Plus\Graphics.csproj">
       <Project>{4DC31792-DB9F-4A7E-9454-473A030076DB}</Project>
-      <Name>Graphics.Plus</Name>
+      <Name>Graphics</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Engine\Phisics\Physics.csproj">
       <Project>{4FAD9255-3334-4C61-B8D8-97BA4F6E351B}</Project>

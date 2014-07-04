@@ -6,7 +6,7 @@ using AIRLab.Mathematics;
 using CVARC.Basic;
 using CVARC.Basic.Controllers;
 
-namespace StarshipRepair.Bots
+namespace RepairTheStarship.Bots
 {
     public class Sanguine : RunnedBot
     {

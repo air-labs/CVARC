@@ -75,9 +75,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Competitions\Fall2013.0\Fall2013.0.csproj">
+    <ProjectReference Include="..\..\Competitions\Fall2013.0\RepairTheStarship.csproj">
       <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
-      <Name>Fall2013.0</Name>
+      <Name>RepairTheStarship %28Competitions\RepairTheStarship\RepairTheStarship%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Engine\CVARC.Basic\CVARC.Basic.csproj">
       <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>

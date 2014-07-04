@@ -5,7 +5,7 @@ using System.Text;
 using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
 
-namespace StarshipRepair.Bots
+namespace RepairTheStarship.Bots
 {
     public class Vaermina : RunnedBot
     {

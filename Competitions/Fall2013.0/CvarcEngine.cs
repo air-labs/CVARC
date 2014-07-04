@@ -8,7 +8,7 @@ using AIRLab.Mathematics;
 using CVARC.Basic;
 using CVARC.Core;
 
-namespace StarshipRepair
+namespace RepairTheStarship
 {
     public class GemsRules : ICvarcRules
     {

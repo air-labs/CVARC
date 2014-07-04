@@ -47,9 +47,9 @@
     <Compile Include="Wall.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Competitions\Fall2013.0\Fall2013.0.csproj">
+    <ProjectReference Include="..\Competitions\Fall2013.0\RepairTheStarship.csproj">
       <Project>{7969E0E7-00AF-4627-8D93-F6D022C99167}</Project>
-      <Name>Fall2013.0</Name>
+      <Name>RepairTheStarship %28Competitions\RepairTheStarship\RepairTheStarship%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\Engine\CVARC.Basic\CVARC.Basic.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>

@@ -6,7 +6,7 @@ using CVARC.Graphics;
 using System.Linq;
 using AIRLab.Mathematics;
 
-namespace Gems.Sensors
+namespace RepairTheStarship.Sensors
 {
     public class MapSensor : Sensor<MapSensorData>
     {

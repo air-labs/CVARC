@@ -2,7 +2,7 @@
 using CVARC.Basic;
 using CVARC.Basic.Sensors;
 
-namespace Gems.Sensors
+namespace RepairTheStarship.Sensors
 {
     [DataContract]
     public class SensorsData : ISensorsData

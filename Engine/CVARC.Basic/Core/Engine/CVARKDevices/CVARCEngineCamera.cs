@@ -6,6 +6,7 @@ using System.Text;
 using AIRLab.Mathematics;
 using CVARC.Basic.Sensors;
 using CVARC.Core;
+using CVARC.Graphics;
 using CVARC.Graphics.DirectX;
 
 namespace CVARC.Basic.Engine
@@ -15,14 +16,14 @@ namespace CVARC.Basic.Engine
         private readonly Body robot;
         public RobotCameraSettings Settings { get; private set; }
 
-        public CVARCEngineCamera(Body body, CVARCEngine engine, RobotCameraSettings settings)
+        public CVARCEngineCamera(Body body, DrawerFactory factory, RobotCameraSettings settings)
         {
             Settings = settings;
             this.robot = body;
             Angle viewAngle = Settings.ViewAngle;
             _camera = new FirstPersonCamera(this.robot, Settings.Location,
                                             viewAngle, DefaultWidth / (double)DefaultHeight);
-            _drawer = new OffscreenDirectXDrawer(engine.DrawerFactory.GetDirectXScene(), DefaultWidth,
+            _drawer = new OffscreenDirectXDrawer(factory.GetDirectXScene(), DefaultWidth,
                                                  DefaultHeight);
         }
 

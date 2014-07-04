@@ -6,9 +6,9 @@ using System.Text;
 using AIRLab.Mathematics;
 using CVARC.Basic;
 using CVARC.Basic.Controllers;
-using Gems.Sensors;
+using RepairTheStarship.Sensors;
 
-namespace StarshipRepair.Bots
+namespace RepairTheStarship.Bots
 {
     public class NamiraBot : Bot
     {
