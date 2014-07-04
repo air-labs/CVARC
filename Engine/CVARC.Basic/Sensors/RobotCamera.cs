@@ -10,7 +10,7 @@ using CVARC.Graphics.DirectX;
 
 namespace CVARC.Basic.Sensors
 {
-	public class RobotCamera : Sensor<ImageSensorData>, IDisposable
+	public class RobotCamera : Sensor<ImageSensorData>
 	{
         public readonly string CameraName;
 
@@ -23,13 +23,7 @@ namespace CVARC.Basic.Sensors
 
 	    public RobotCameraSettings Settings { get; private set; }
 
-		/// <summary>
-		/// Освобождает unmanaged ресурсы, используемые камерой.
-		/// </summary>
-		public void Dispose()
-		{
-			_drawer.Dispose();
-		}
+
 
 	    /// <summary>
 		/// Снимает изображение с камеры и возвращает объект с данными камеры. 
@@ -59,8 +53,6 @@ namespace CVARC.Basic.Sensors
 			File.WriteAllBytes(path, bitmap);
 		}
 
-		private OffscreenDirectXDrawer _drawer;
-		private FirstPersonCamera _camera;
 	}
 	
 	[Serializable]
