@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AIRLab">
-      <HintPath>..\Competitions\Fall2013.0\bin\Debug\AIRLab.dll</HintPath>
+      <HintPath>..\..\..\libs\AIRLab.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
