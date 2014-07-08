@@ -33,10 +33,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AIRLab">
-      <HintPath>..\libs\AIRLab.dll</HintPath>
+      <HintPath>..\..\libs\AIRLab.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\libs\nunit.framework.dll</HintPath>
+      <HintPath>..\..\libs\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
