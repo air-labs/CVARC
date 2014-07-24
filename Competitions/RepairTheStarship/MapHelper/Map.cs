@@ -5,8 +5,8 @@ namespace MapHelper
 {
     public class Map
     {
-        public List<Wall> Walls { get; set; }
-        public Direction[,] BitArray { get; set; }
+        public Wall[] Walls { get; set; }
+        public Direction[,] AvailableDirectionsByCoordinates { get; set; }
 
         public void Update(MapItem[] mapItems)
         {

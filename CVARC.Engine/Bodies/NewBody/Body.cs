@@ -217,7 +217,12 @@ namespace CVARC.Core
 
 		public int Id { get { return _id; } }
 
-		#region IEnumerable members
+	    public string UniqueId
+	    {
+	        get { return Name + "_" + (Id - 1); }//нумеруем с нуля
+	    }
+
+	    #region IEnumerable members
 
 		public IEnumerator<Body> GetEnumerator()
 		{
@@ -259,7 +264,7 @@ namespace CVARC.Core
 
 		public Model Model { get { return _model; } set { SetField(ref _model, value, ModelPropertyName); } }
 
-		public const string NamePropertyName = "Name";
+	    public const string NamePropertyName = "Name";
 		public const string DensityPropertyName = "Density";
 		public const string IsStaticPropertyName = "IsStatic";
 		public const string FrictionPropertyName = "FrictionCoefficient";

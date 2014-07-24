@@ -28,7 +28,6 @@ namespace RepairTheStarship.Sensors
     {
         public MapSensorData(IEngine engine)
         {
-        
             MapItems = engine.GetAllObjects()
                            .Select(e => new MapItem(e,engine.GetAbsoluteLocation(e)))
                            .Where(x => x.Tag != null)
@@ -51,8 +50,9 @@ namespace RepairTheStarship.Sensors
         [DataMember]
         public double Y { get; set; }
 
-        public MapItem(string name, Frame3D Location)
+        public MapItem(string id, Frame3D Location)
         {
+            var name = id.Split('_').First();
             switch (name)
             {
                 case "DR": Tag = "RedDetail"; break;

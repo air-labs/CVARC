@@ -8,7 +8,7 @@ namespace CVARC.Basic
     [Serializable]
     public abstract class Robot 
     {
-        public string Name { get { return "Robot" + Number.ToString(); } }
+        public string Name { get { return "Robot_" + Number; } }
         public readonly Competitions Competitions;
         public readonly int Number;
         

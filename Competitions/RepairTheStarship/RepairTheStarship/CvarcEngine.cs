@@ -67,7 +67,7 @@ namespace RepairTheStarship
                 Density = Density.Iron,
                 FrictionCoefficient = 0,
                 Top = new PlaneImageBrush { Image = new Bitmap(GetResourceStream("red.png")) },
-                Name = "Robot0"
+                Name = "Robot"
             };
             var second = new Cylinder
             {
@@ -80,7 +80,7 @@ namespace RepairTheStarship
                 Density = Density.Iron,
                 FrictionCoefficient = 0,
                 Top = new PlaneImageBrush { Image = new Bitmap(GetResourceStream("blue.png")) },
-                Name = "Robot1"
+                Name = "Robot"
             };
             root.Add(first);
             root.Add(second);

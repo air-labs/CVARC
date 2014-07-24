@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CVARC.Core;
+﻿using CVARC.Core;
 
 namespace CVARC.Basic
 {

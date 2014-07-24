@@ -52,7 +52,7 @@ namespace MapHelper
 
         private static void TryAddPosition(Map map, Direction direction, InternalPoint position, int xOffset, int yOffset)
         {
-            var availableDirections = map.BitArray[position.X, position.Y];
+            var availableDirections = map.AvailableDirectionsByCoordinates[position.X, position.Y];
             var point = new InternalPoint(position.X + xOffset, position.Y + yOffset, direction);
             if (availableDirections.HasFlag(direction) && !handled.Contains(point))
             {
@@ -72,6 +72,11 @@ namespace MapHelper
             X = x;
             Y = y;
         }
+
+        public override string ToString()
+        {
+            return string.Format("X: {0}, Y: {1}", X, Y);
+        }
     }
 
     class InternalPoint 
@@ -90,6 +95,11 @@ namespace MapHelper
         protected bool Equals(InternalPoint other)
         {
             return X == other.X && Y == other.Y;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("X: {0}, Y: {1}, Direction: {2}", X, Y, Direction);
         }
 
         public override bool Equals(object obj)

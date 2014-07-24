@@ -1,13 +1,7 @@
-﻿using AIRLab.Mathematics;
-using CVARC.Basic;
-using CVARC.Basic.Controllers;
+﻿using CVARC.Basic;
 using CVARC.Basic.Sensors;
 using CVARC.Basic.Sensors.Positions;
-using CVARC.Core;
 using RepairTheStarship.Sensors;
-using RepairTheStarship;
-using System;
-using System.Linq;
 
 namespace RepairTheStarship
 {
@@ -38,8 +32,5 @@ namespace RepairTheStarship
                     MapSensor = mapSensor.Measure()
                 };
         }
-
-
-
     }
 }

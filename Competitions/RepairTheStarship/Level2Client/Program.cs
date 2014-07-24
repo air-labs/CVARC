@@ -1,8 +1,5 @@
-﻿using System;
-using System.Linq;
-using AIRLab.Mathematics;
+﻿using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
-using CVARC.Basic.Sensors;
 using CVARC.Network;
 using ClientBase;
 using RepairTheStarship.Sensors;

@@ -12,34 +12,49 @@ namespace MapHelper
 
         public Map BuildStaticMap(IEnumerable<MapItem> mapItems)
         {
-            var bitArray = CreateArray(MapWidth / CellSize + 2, MapHeight / CellSize + 2);
-            var originalWalls = mapItems.Where(x => x.Tag.Contains("Socket") || x.Tag.Contains("Wall"));
-            List<Wall> walls = new List<Wall>();
-            foreach (var originalWall in originalWalls)
-            {
-                int x = (int)((originalWall.X + MapWidth / 2) / CellSize) + 1;
-                int y = (int)((originalWall.Y - MapHeight / 2) / CellSize) * -1 + 1;
-                var wall = new Wall(x, y, originalWall.Tag, originalWall.X, originalWall.Y);
-                if (originalWall.Tag.Contains("Vertical"))
-                {
-                    bitArray[x, y] &= ~Direction.Left;
-                    bitArray[x - 1, y] &= ~Direction.Right;
-                }
-                else if (originalWall.Tag.Contains("Horizontal"))
-                {
-                    bitArray[x, y] &= ~Direction.Up;
-                    bitArray[x, y - 1] &= ~Direction.Down;
-                }
-                walls.Add(wall);
-            }
+            var availableDirections = RemoveDirectionsContactingWithBorder(MapWidth / CellSize + 2, MapHeight / CellSize + 2);
+            var walls = GetWallsWithDiscreteCoordinates(mapItems);
+            UpdateAvailableDirections(walls, availableDirections);
             return new Map
             {
-                BitArray = bitArray,
+                AvailableDirectionsByCoordinates = availableDirections,
                 Walls = walls
             };
         }
 
-        private Direction[,] CreateArray(int x, int y)
+        private void UpdateAvailableDirections(Wall[] walls, Direction[,] availableDirections)
+        {
+            foreach (var wall in walls)
+            {
+                if (wall.Type.Contains("Vertical"))
+                {
+                    availableDirections[wall.X, wall.Y] &= ~Direction.Left;
+                    availableDirections[wall.X - 1, wall.Y] &= ~Direction.Right;
+                }
+                else if (wall.Type.Contains("Horizontal"))
+                {
+                    availableDirections[wall.X, wall.Y] &= ~Direction.Up;
+                    availableDirections[wall.X, wall.Y - 1] &= ~Direction.Down;
+                }
+            }
+        }
+
+        private Wall[] GetWallsWithDiscreteCoordinates(IEnumerable<MapItem> mapItems)
+        {
+            return mapItems.Where(IsWall).Select(w =>
+            {
+                int x = (int)((w.X + MapWidth / 2) / CellSize) + 1;
+                int y = (int)((w.Y - MapHeight / 2) / CellSize) * -1 + 1;
+                return new Wall(x, y, w.Tag, w.X, w.Y);
+            }).ToArray();
+        }
+
+        private bool IsWall(MapItem mapItem)
+        {
+            return mapItem.Tag.Contains("Socket") || mapItem.Tag.Contains("Wall");
+        }
+
+        private Direction[,] RemoveDirectionsContactingWithBorder(int x, int y)
         {
             var bitArray = new Direction[x, y];
             for (int i = 0; i < x; i++)

@@ -3,7 +3,6 @@ using CVARC.Basic.Controllers;
 using CVARC.Network;
 using ClientBase;
 using RepairTheStarship.Sensors;
-using RepairTheStarship;
 
 namespace Client
 {

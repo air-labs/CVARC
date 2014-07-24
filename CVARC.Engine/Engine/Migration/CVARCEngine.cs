@@ -45,14 +45,13 @@ namespace CVARC.Basic
 
         public Body GetBody(string name)
         {
-            return Root.Where(z => z.Name == name).First();
+            return Root.First(z => z.UniqueId == name);
         }
 
         public Frame3D GetAbsoluteLocation(string name)
         {
             return GetBody(name).Location;
         }
-
 
         public void DefineCamera(string cameraName, string host, RobotCameraSettings settings)
         {
@@ -104,7 +103,7 @@ namespace CVARC.Basic
 
         public IEnumerable<string> GetAllObjects()
         {
-            return Root.Select(z => z.Name);
+            return Root.Select(z => z.UniqueId);
         }
 
 
