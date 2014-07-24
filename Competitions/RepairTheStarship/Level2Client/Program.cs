@@ -1,4 +1,6 @@
-﻿using AIRLab.Mathematics;
+﻿using System;
+using System.Collections.Generic;
+using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
 using CVARC.Network;
 using ClientBase;
@@ -9,6 +11,8 @@ namespace Level2Client
 {
     internal class Program
     {
+        private static Direction currentDirection = Direction.Right;
+        private static double currentRobotAngle = DirectionToAngle(currentDirection);
         private static readonly ClientSettings Settings = new ClientSettings
             {
                 BotName = Bots.MolagBal,
@@ -16,55 +20,46 @@ namespace Level2Client
                 LevelName = "Level1"
             };
 
-        private static int currentCommand = 0;
-        private static Direction currentDirection = Direction.Right;
-
         private static void Main(string[] args)
         {
             var server = new CvarcClient(args, Settings).GetServer<SensorsData>();
             var sensorData = server.Run();
-            var robotId = sensorData.RobotIdSensor.Id;
-            var staticMap = new MapBuilder().BuildStaticMap(sensorData.MapSensor.MapItems);
-            var path = PathSearcher.FindPath(staticMap, new Point(1, 1), new Point(4, 4));
+            var map = new MapBuilder().BuildStaticMap(sensorData);
+            var path = PathSearcher.FindPath(map, new Point(1, 1), new Point(4, 4));
 
-            while (true)
+            foreach (var command in GetNextCommand(path))
             {
-                sensorData = server.GetSensorData(GetCommandByDirection(path));
-                staticMap.Update(sensorData.MapSensor.MapItems);
+                sensorData = server.GetSensorData(command);
+                map.Update(sensorData);
+                currentRobotAngle = map.CurrentRobotAngle;
+            }
+            server.GetSensorData(new Command { Time = 10000 });
+        }
+
+        private static IEnumerable<Command> GetNextCommand(Direction[] path)
+        {
+            foreach (var nextDirection in path)
+            {
+                var currentDirectionAngle = DirectionToAngle(currentDirection);
+                var angle = currentDirectionAngle - DirectionToAngle(nextDirection);
+                var angleError = currentDirectionAngle - currentRobotAngle;
+                currentDirection = nextDirection;
+                yield return new Command { Angle = Angle.FromGrad(-angle + angleError), Time = 1 };
+                yield return new Command { Move = 50, Time = 1};
             }
         }
 
-        private static Command GetCommandByDirection(Direction[] path)
+        private static int DirectionToAngle(Direction direction)
         {
-            var distance = 50;
-            if (path.Length == currentCommand)
-                return new Command {Time = 1};
-            if (path[currentCommand] != currentDirection)
-            {
-                var command =  ChangeDirection(path[currentCommand]);
-                currentDirection = path[currentCommand];
-                return command;
-            }
-            currentCommand++;
-            return new Command(){Move = distance, Time = 1};
-        }
-
-        private static Command ChangeDirection(Direction needDirection)
-        {
-            int angle;
-            if ((needDirection == Direction.Left && currentDirection == Direction.Right) ||
-                (needDirection == Direction.Right && currentDirection == Direction.Left) ||
-                (needDirection == Direction.Up && currentDirection == Direction.Down) ||
-                (needDirection == Direction.Down && currentDirection == Direction.Up))
-                angle = 180;
-            else if ((needDirection == Direction.Left && currentDirection == Direction.Down) ||
-                     (needDirection == Direction.Down && currentDirection == Direction.Right) ||
-                     (needDirection == Direction.Right && currentDirection == Direction.Up) ||
-                     (needDirection == Direction.Up && currentDirection == Direction.Left))
-                angle = -90;
-            else
-                angle = 90;
-            return new Command() {Angle = Angle.FromGrad(angle), Time = 1};
+            if (direction == Direction.Up)
+                return -270;
+            if (direction == Direction.Right)
+                return 0;
+            if (direction == Direction.Down)
+                return -90;
+            if (direction == Direction.Left)
+                return -180;
+            throw new ArgumentOutOfRangeException();
         }
     }
 }

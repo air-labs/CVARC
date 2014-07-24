@@ -10,15 +10,15 @@ namespace MapHelper
         private const int MapHeight = 200;
         private const int CellSize = 50;
 
-        public Map BuildStaticMap(IEnumerable<MapItem> mapItems)
+        public Map BuildStaticMap(SensorsData sensorsData)
         {
             var availableDirections = RemoveDirectionsContactingWithBorder(MapWidth / CellSize + 2, MapHeight / CellSize + 2);
-            var walls = GetWallsWithDiscreteCoordinates(mapItems);
+            var walls = GetWallsWithDiscreteCoordinates(sensorsData.MapSensor.MapItems);
             UpdateAvailableDirections(walls, availableDirections);
-            return new Map
+            return new Map(sensorsData)
             {
                 AvailableDirectionsByCoordinates = availableDirections,
-                Walls = walls
+                Walls = walls,
             };
         }
 
