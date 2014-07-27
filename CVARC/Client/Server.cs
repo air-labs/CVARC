@@ -39,14 +39,14 @@ namespace ClientBase
             };
         }
 
-        public TSensorsData GetSensorData(Command command = null)
+        public TSensorsData SendCommand(Command command = null)
         {
             if (command != null)
-                SendCommand(command);
+                SendCommandInternal(command);
             return serializer.Deserialize<TSensorsData>(stream.ReadBytes());
         }
 
-        private void SendCommand(Command command)
+        private void SendCommandInternal(Command command)
         {
 //            if (robotId == null)
 //                throw new Exception("Сервер не ининциализирован. Воспользуйтесь методом Run.");

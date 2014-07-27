@@ -12,7 +12,9 @@ namespace Level2Client
     internal class Program
     {
         private static Direction currentDirection = Direction.Right;
-        private static double currentRobotAngle = DirectionToAngle(currentDirection);
+        private static double realRobotAngle = DirectionToAngle(currentDirection);
+        private static double availableRobotAngle = realRobotAngle;
+
         private static readonly ClientSettings Settings = new ClientSettings
             {
                 BotName = Bots.MolagBal,
@@ -25,28 +27,35 @@ namespace Level2Client
             var server = new CvarcClient(args, Settings).GetServer<SensorsData>();
             var sensorData = server.Run();
             var map = new MapBuilder().BuildStaticMap(sensorData);
-            var path = PathSearcher.FindPath(map, new Point(1, 1), new Point(4, 4));
+            var path = PathSearcher.FindPath(map, new Point(1, 1), new Point(2, 1));
 
             foreach (var command in GetNextCommand(path))
             {
-                sensorData = server.GetSensorData(command);
+                sensorData = server.SendCommand(command);
                 map.Update(sensorData);
-                currentRobotAngle = map.CurrentRobotAngle;
+                realRobotAngle = map.CurrentRobotAngle;
             }
-            server.GetSensorData(new Command { Time = 10000 });
+            server.SendCommand(new Command { Time = 10000 });
         }
 
         private static IEnumerable<Command> GetNextCommand(Direction[] path)
         {
             foreach (var nextDirection in path)
             {
-                var currentDirectionAngle = DirectionToAngle(currentDirection);
-                var angle = currentDirectionAngle - DirectionToAngle(nextDirection);
-                var angleError = currentDirectionAngle - currentRobotAngle;
+                var angle = availableRobotAngle - DirectionToAngle(nextDirection);
                 currentDirection = nextDirection;
-                yield return new Command { Angle = Angle.FromGrad(-angle + angleError), Time = 1 };
+                yield return CorrectRobotPosition();
+                yield return new Command { Angle = Angle.FromGrad(-angle), Time = 1 };
+                availableRobotAngle = DirectionToAngle(currentDirection);
+                yield return CorrectRobotPosition();
                 yield return new Command { Move = 50, Time = 1};
             }
+        }
+
+        private static Command CorrectRobotPosition()
+        {
+            var angleError = availableRobotAngle - realRobotAngle;
+            return new Command { Angle = Angle.FromGrad(angleError), Time = 1 }; 
         }
 
         private static int DirectionToAngle(Direction direction)

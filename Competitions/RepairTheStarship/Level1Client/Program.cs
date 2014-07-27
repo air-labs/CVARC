@@ -19,13 +19,13 @@ namespace Client
         {
             var server = new CvarcClient(args, Settings).GetServer<SensorsData>();
             server.Run();
-            server.GetSensorData(new Command { Angle = Angle.FromGrad(-90), Time = 1});
-            server.GetSensorData(new Command { Move = 50, Time = 1 });
-            server.GetSensorData(new Command { Action = "Grip", Time = 1 });
-            server.GetSensorData(new Command { Move = -50, Time = 1 });
-            server.GetSensorData(new Command { Angle = Angle.FromGrad(90), Time = 1 });
-            server.GetSensorData(new Command { Action = "Release", Time = 1 });
-            server.GetSensorData(new Command { Time = 10000 }); //TODO: сделать метод server.WaitForExit вот с таким телом. 
+            server.SendCommand(new Command { Angle = Angle.FromGrad(-90), Time = 1});
+            server.SendCommand(new Command { Move = 50, Time = 1 });
+            server.SendCommand(new Command { Action = "Grip", Time = 1 });
+            server.SendCommand(new Command { Move = -50, Time = 1 });
+            server.SendCommand(new Command { Angle = Angle.FromGrad(90), Time = 1 });
+            server.SendCommand(new Command { Action = "Release", Time = 1 });
+            server.SendCommand(new Command { Time = 10000 }); //TODO: сделать метод server.WaitForExit вот с таким телом. 
         }
     }
 }

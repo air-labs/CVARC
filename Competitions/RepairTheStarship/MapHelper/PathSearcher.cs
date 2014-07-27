@@ -12,9 +12,9 @@ namespace MapHelper
 
         public static Direction[] FindPath(Map map, Point from, Point to)
         {
-            Bfs(map, from, to);
+            var lastDirection = Bfs(map, from, to);
             var directions = new List<Direction>();
-            InternalPoint currentPoint = parents[new InternalPoint(to.X, to.Y, Direction.No)];
+            var currentPoint = new InternalPoint(to.X, to.Y, lastDirection);
             while (parents.ContainsKey(currentPoint))
             {
                 directions.Add(currentPoint.Direction);
@@ -24,7 +24,7 @@ namespace MapHelper
             return directions.ToArray();
         }
 
-        private static void Bfs(Map map, Point from, Point to)
+        private static Direction Bfs(Map map, Point from, Point to)
         {
             queue = new Queue<InternalPoint>();
             parents = new Dictionary<InternalPoint, InternalPoint>();
@@ -35,7 +35,7 @@ namespace MapHelper
             {
                 var position = queue.Dequeue();
                 if (position.X == to.X && position.Y == to.Y)
-                    return;
+                    return position.Direction;
                 TryAddPosition(map, Direction.Down, position, 0, 1);
                 TryAddPosition(map, Direction.Up, position, 0, -1);
                 TryAddPosition(map, Direction.Left, position, -1, 0);
@@ -106,7 +106,7 @@ namespace MapHelper
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((InternalPoint) obj);
         }
 
