@@ -21,10 +21,10 @@ namespace Client
             server.Run();
             server.SendCommand(new Command { Angle = Angle.FromGrad(-90), Time = 1});
             server.SendCommand(new Command { Move = 50, Time = 1 });
-            server.SendCommand(new Command { Action = "Grip", Time = 1 });
+            server.SendCommand(new Command { Action = CommandAction.Grip, Time = 1 });
             server.SendCommand(new Command { Move = -50, Time = 1 });
             server.SendCommand(new Command { Angle = Angle.FromGrad(90), Time = 1 });
-            server.SendCommand(new Command { Action = "Release", Time = 1 });
+            server.SendCommand(new Command { Action = CommandAction.Release, Time = 1 });
             server.SendCommand(new Command { Time = 10000 }); //TODO: сделать метод server.WaitForExit вот с таким телом. 
         }
     }

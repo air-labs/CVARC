@@ -10,7 +10,6 @@ using System.Threading;
 using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
 using CVARC.Core;
-using CVARC.Core.Replay;
 using CVARC.Network;
 
 namespace CVARC.Basic
@@ -47,9 +46,9 @@ namespace CVARC.Basic
             AvailableBots = new Dictionary<string, Type>();
         }
 
-        public ISensorsData GetSensorsData(int robotId)
+        public T GetSensorsData<T>(int robotId) where T : class, ISensorsData
         {
-            return Robots[robotId].GetSensorsData();
+            return Robots[robotId].GetSensorsData<T>();
         }
 
         public void ApplyCommand(Command command)
@@ -78,7 +77,6 @@ namespace CVARC.Basic
             Score = new ScoreCollection(RobotCount);
             Engine.Initialize(Settings);
             Robots.ForEach(x => x.Init());
-            
         }
 
         public void MakeCycle(double time, bool realtime)

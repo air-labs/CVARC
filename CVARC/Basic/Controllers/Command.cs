@@ -7,8 +7,18 @@ namespace CVARC.Basic.Controllers
         public int RobotId { get; set; }
         public double Move { get; set; }
         public Angle Angle { get; set; }
-        public string Action { get; set; }
+        public CommandAction Action { get; set; }
         public double Time { get; set; }
+
+        public static Command Mov(double distance)
+        {
+            return new Command {Move = distance, Time = 1};
+        }
+
+        public static Command Rot(double angle)
+        {
+            return new Command { Angle = Angle.FromGrad(angle), Time = 1 }; 
+        }
 
         public override string ToString()
         {

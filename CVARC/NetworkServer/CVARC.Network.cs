@@ -41,13 +41,10 @@ namespace CVARC.Network
             participants = new Participant[2];
             participant = new NetworkParticipant(settings.CompetitionsName);
             participants[participant.ControlledRobot] = participant;
+            participant.Competitions.Initialize(new CVARCEngine(participant.Competitions.CvarcRules));
             var botNumber = participant.ControlledRobot == 0 ? 1 : 0;
             var botName = participant.HelloPackage.Opponent ?? "None";
-            if (!participant.Competitions.BotIsAvailable(botName))
-                throw new UserInputException("The opponent's name is not valid");
             participants[botNumber] = participant.Competitions.CreateBot(botName, botNumber);
-
-            participant.Competitions.Initialize(new CVARCEngine(participant.Competitions.CvarcRules));
             if (settings.StartClient)
                 StartClient();
         }

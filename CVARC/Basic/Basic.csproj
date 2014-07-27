@@ -50,6 +50,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CommandAction.cs" />
     <Compile Include="Core\Bots\Bot.cs" />
     <Compile Include="Core\Bots\EmptyBot.cs" />
     <Compile Include="Core\Bots\FixedProgramBot.cs" />
@@ -58,7 +59,6 @@
     <Compile Include="Core\Exceptions.cs" />
     <Compile Include="Core\HelloPackage.cs" />
     <Compile Include="Core\ISensorsData.cs" />
-    <Compile Include="Controllers\Cmd.cs" />
     <Compile Include="Core\ICvarcEngine.cs" />
     <Compile Include="Core\ICvarcRules.cs" />
     <Compile Include="Core\IEngine.cs" />

@@ -56,6 +56,10 @@
       <Project>{5177F2A5-6BA0-4EB6-91DA-5C4CAB84DCF8}</Project>
       <Name>Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\RepairTheStarship.Common\RepairTheStarship.Common.csproj">
+      <Project>{6B20B01B-360B-410C-95F3-0AC88E907281}</Project>
+      <Name>RepairTheStarship.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RepairTheStarship\RepairTheStarship.csproj">
       <Project>{7969E0E7-00AF-4627-8D93-F6D022C99167}</Project>
       <Name>RepairTheStarship %28Competitions\RepairTheStarship\RepairTheStarship%29</Name>

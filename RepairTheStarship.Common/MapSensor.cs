@@ -1,8 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using CVARC.Basic;
 using CVARC.Basic.Sensors;
-using CVARC.Core;
-using CVARC.Graphics;
 using System.Linq;
 using AIRLab.Mathematics;
 
@@ -10,7 +8,6 @@ namespace RepairTheStarship.Sensors
 {
     public class MapSensor : Sensor<MapSensorData>
     {
-       
         public MapSensor(Robot robot) 
             : base(robot)
         {

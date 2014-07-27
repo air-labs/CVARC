@@ -1,12 +1,10 @@
 ﻿using System.Drawing;
 using AIRLab.Mathematics;
 using CVARC.Basic;
-using RepairTheStarship;
 using RepairTheStarship.Bots;
 
 namespace RepairTheStarship
 {
-
     public class Level1 : SRCompetitions
     {
         public override ISceneSettings ParseSettings(CVARC.Network.HelloPackage helloPackage)
@@ -22,7 +20,6 @@ namespace RepairTheStarship
             return SceneSettings.GetRandomMap(helloPackage.MapSeed);
         }
     };
-
 
     public abstract class SRCompetitions : Competitions
     {

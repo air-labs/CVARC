@@ -6,13 +6,13 @@ using CVARC.Basic.Controllers;
 namespace CVARC.Basic
 {
     [Serializable]
-    public abstract class Robot 
+    public abstract class Robot
     {
         public string Name { get { return "Robot_" + Number; } }
         public readonly Competitions Competitions;
         public readonly int Number;
         
-        public abstract ISensorsData GetSensorsData();
+        public abstract T GetSensorsData<T>() where T : class , ISensorsData;
         public abstract void Init();
 
         protected Robot(Competitions competitions, int number)
@@ -35,6 +35,5 @@ namespace CVARC.Basic
         {
             Competitions.Engine.ProcessCommand(Name, cmd);
         }
-
     }
 }

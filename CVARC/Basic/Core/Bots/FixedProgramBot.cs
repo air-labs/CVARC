@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
 
@@ -41,11 +39,11 @@ namespace CVARC.Basic
                 Program.Add(new Command { Move = cmd.Move, Angle = cmd.Angle, Time = cmd.Time / parts });
         }
 
-        protected void Command(Cmd cmd)
+        protected void Command(CommandAction cmd)
         {
             Program.Add(new Command
             {
-                 Action=cmd.ToString(),
+                 Action = cmd,
                  Time=1
             });
         }

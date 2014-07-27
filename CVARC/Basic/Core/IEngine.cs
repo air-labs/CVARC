@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
 using CVARC.Basic.Sensors;
@@ -18,8 +16,8 @@ namespace CVARC.Basic
                                cmd.Move * Math.Sin(Location.Yaw.Radian), 0, Angle.Zero, cmd.Angle,
                                Angle.Zero);
             engine.SetSpeed(actor, speed);
-            if (cmd.Action != null)
-                engine.PerformAction(actor, cmd.Action);
+            if (cmd.Action != CommandAction.None)
+                engine.PerformAction(actor, cmd.Action.ToString());
 
         }
     }

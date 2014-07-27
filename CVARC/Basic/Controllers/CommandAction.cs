@@ -1,7 +1,8 @@
 ﻿namespace CVARC.Basic.Controllers
 {
-    public enum Cmd
+    public enum CommandAction
     {
+        None,
         Grip,
         Release
     }

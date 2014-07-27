@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{16FA1ED5-6AE6-4347-91EE-C52E7F22BBC9}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{6B20B01B-360B-410C-95F3-0AC88E907281}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Client</RootNamespace>
-    <AssemblyName>Client</AssemblyName>
+    <RootNamespace>RepairTheStarship.Common</RootNamespace>
+    <AssemblyName>RepairTheStarship.Common</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,11 +32,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AIRLab">
-      <HintPath>..\..\..\libs\AIRLab.dll</HintPath>
+      <HintPath>..\libs\AIRLab.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,49 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="KbController.cs" />
+    <Compile Include="MapSensor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SensorsData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\CVARC\BotDemo\BotDemo.csproj">
-      <Project>{1d83cef9-eb28-4938-8cb4-b83ada4b65c6}</Project>
-      <Name>BotDemo</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\CVARC\NetworkServer\NetworkServer.csproj">
-      <Project>{af9c4d6b-a41f-46f2-8af8-af30163e1051}</Project>
-      <Name>NetworkServer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\CVARC\Tutorial\Tutorial.csproj">
-      <Project>{46fd3d2b-d123-4b6c-8b26-7bc3764d34fe}</Project>
-      <Name>Tutorial</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\CVARC\Basic\Basic.csproj">
+    <ProjectReference Include="..\CVARC\Basic\Basic.csproj">
       <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
       <Name>Basic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\CVARC.Engine\Bodies\Bodies.csproj">
-      <Project>{a316853c-7f60-4c7f-8fb5-6bafbc417a68}</Project>
-      <Name>Bodies</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\CVARC.Engine\Graphics\Graphics.csproj">
-      <Project>{4dc31792-db9f-4a7e-9454-473a030076db}</Project>
-      <Name>Graphics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\CVARC\Client\Client.csproj">
-      <Project>{5177f2a5-6ba0-4eb6-91da-5c4cab84dcf8}</Project>
-      <Name>Client</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\RepairTheStarship.Common\RepairTheStarship.Common.csproj">
-      <Project>{6B20B01B-360B-410C-95F3-0AC88E907281}</Project>
-      <Name>RepairTheStarship.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RepairTheStarship\RepairTheStarship.csproj">
-      <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
-      <Name>RepairTheStarship %28Competitions\RepairTheStarship\RepairTheStarship%29</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

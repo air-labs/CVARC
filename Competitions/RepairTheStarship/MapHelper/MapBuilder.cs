@@ -4,13 +4,13 @@ using RepairTheStarship.Sensors;
 
 namespace MapHelper
 {
-    public class MapBuilder
+    public static class MapBuilder
     {
         private const int MapWidth = 300;
         private const int MapHeight = 200;
         private const int CellSize = 50;
 
-        public Map BuildStaticMap(SensorsData sensorsData)
+        public static Map BuildStaticMap(this SensorsData sensorsData)
         {
             var availableDirections = RemoveDirectionsContactingWithBorder(MapWidth / CellSize + 2, MapHeight / CellSize + 2);
             var walls = GetWallsWithDiscreteCoordinates(sensorsData.MapSensor.MapItems);
@@ -22,7 +22,7 @@ namespace MapHelper
             };
         }
 
-        private void UpdateAvailableDirections(Wall[] walls, Direction[,] availableDirections)
+        private static void UpdateAvailableDirections(Wall[] walls, Direction[,] availableDirections)
         {
             foreach (var wall in walls)
             {
@@ -39,7 +39,7 @@ namespace MapHelper
             }
         }
 
-        private Wall[] GetWallsWithDiscreteCoordinates(IEnumerable<MapItem> mapItems)
+        private static Wall[] GetWallsWithDiscreteCoordinates(IEnumerable<MapItem> mapItems)
         {
             return mapItems.Where(IsWall).Select(w =>
             {
@@ -49,12 +49,12 @@ namespace MapHelper
             }).ToArray();
         }
 
-        private bool IsWall(MapItem mapItem)
+        private static bool IsWall(MapItem mapItem)
         {
             return mapItem.Tag.Contains("Socket") || mapItem.Tag.Contains("Wall");
         }
 
-        private Direction[,] RemoveDirectionsContactingWithBorder(int x, int y)
+        private static Direction[,] RemoveDirectionsContactingWithBorder(int x, int y)
         {
             var bitArray = new Direction[x, y];
             for (int i = 0; i < x; i++)

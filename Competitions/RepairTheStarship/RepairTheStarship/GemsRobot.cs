@@ -16,21 +16,21 @@ namespace RepairTheStarship
         {
         }
 
-        public override void Init()
-        {
-            robotIdSensor = new RobotIdSensor(this);
-            mapSensor = new MapSensor(this);
-            lightHouseSensor = new LightHouseSensor(this);
-        }
-
-        public override ISensorsData GetSensorsData()
+        public override T GetSensorsData<T>()
         {
             return new SensorsData
                 {
                     RobotIdSensor = robotIdSensor.Measure(),
                     LightHouseSensor = lightHouseSensor.Measure(),
                     MapSensor = mapSensor.Measure()
-                };
+                } as T;
+        }
+
+        public override void Init()
+        {
+            robotIdSensor = new RobotIdSensor(this);
+            mapSensor = new MapSensor(this);
+            lightHouseSensor = new LightHouseSensor(this);
         }
     }
 }

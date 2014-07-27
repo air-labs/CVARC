@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using CVARC.Basic.Controllers;
 
 namespace CVARC.Basic
@@ -12,6 +9,7 @@ namespace CVARC.Basic
         FormatException,
         OperationalTimeLimit
     }
+
     public abstract class Participant
     {
         public abstract Command MakeTurn();
@@ -30,6 +28,5 @@ namespace CVARC.Basic
             Exception = exception;
             WaitForNextCommandTime = double.PositiveInfinity;
         }
-
     }
 }
