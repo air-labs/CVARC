@@ -28,24 +28,30 @@ namespace MapHelper
             {
                 if (wall.Type.Contains("Vertical"))
                 {
-                    availableDirections[wall.X, wall.Y] &= ~Direction.Left;
-                    availableDirections[wall.X - 1, wall.Y] &= ~Direction.Right;
+                    availableDirections[wall.DiscreteCoordinate.X, wall.DiscreteCoordinate.Y] &= ~Direction.Left;
+                    availableDirections[wall.DiscreteCoordinate.X - 1, wall.DiscreteCoordinate.Y] &= ~Direction.Right;
                 }
                 else if (wall.Type.Contains("Horizontal"))
                 {
-                    availableDirections[wall.X, wall.Y] &= ~Direction.Up;
-                    availableDirections[wall.X, wall.Y - 1] &= ~Direction.Down;
+                    availableDirections[wall.DiscreteCoordinate.X, wall.DiscreteCoordinate.Y] &= ~Direction.Up;
+                    availableDirections[wall.DiscreteCoordinate.X, wall.DiscreteCoordinate.Y - 1] &= ~Direction.Down;
                 }
             }
+        }
+
+        public static Point AbsoluteCoordinateToDiscrete(Point absolute)
+        {
+            int x = (absolute.X + MapWidth / 2) / CellSize + 1;
+            int y = (absolute.Y - MapHeight / 2) / CellSize * -1 + 1;
+            return new Point(x, y);
         }
 
         private static Wall[] GetWallsWithDiscreteCoordinates(IEnumerable<MapItem> mapItems)
         {
             return mapItems.Where(IsWall).Select(w =>
             {
-                int x = (int)((w.X + MapWidth / 2) / CellSize) + 1;
-                int y = (int)((w.Y - MapHeight / 2) / CellSize) * -1 + 1;
-                return new Wall(x, y, w.Tag, w.X, w.Y);
+                var point = new Point((int) w.X, (int) w.Y);
+                return new Wall(AbsoluteCoordinateToDiscrete(point), point, w.Tag);
             }).ToArray();
         }
 

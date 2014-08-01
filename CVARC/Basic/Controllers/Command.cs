@@ -20,6 +20,11 @@ namespace CVARC.Basic.Controllers
             return new Command { Angle = Angle.FromGrad(angle), Time = 1 }; 
         }
 
+        public static Command Sleep(int time = 1)
+        {
+            return new Command { Time = time };
+        }
+
         public override string ToString()
         {
             return string.Format("RobotId: {0} Move: {1} Angle: {2} Cmd: {3} Time: {4}", RobotId, Move, Angle, Action, Time);

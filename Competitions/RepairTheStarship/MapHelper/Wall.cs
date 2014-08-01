@@ -2,24 +2,20 @@
 {
     public class Wall
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public Point DiscreteCoordinate{ get; set; }
+        public Point AbsoluteCoordinate{ get; set; }
         public string Type { get; set; }
-        public double RealX { get; set; }
-        public double RealY { get; set; }
 
-        public Wall(int x, int y, string type, double realX, double realY)
+        public Wall(Point discreteCoordinate, Point absoluteCoordinate, string type)
         {
-            X = x;
-            Y = y;
+            DiscreteCoordinate = discreteCoordinate;
+            AbsoluteCoordinate = absoluteCoordinate;
             Type = type;
-            RealX = realX;
-            RealY = realY;
         }
 
         public override string ToString()
         {
-            return string.Format("X: {0}, Y: {1}, Type: {2}, RealX: {3}, RealY: {4}", X, Y, Type, RealX, RealY);
+            return string.Format("DiscreteCoordinate: {0}, AbsoluteCoordinate: {1}, Type: {2}", DiscreteCoordinate, AbsoluteCoordinate, Type);
         }
     }
 }

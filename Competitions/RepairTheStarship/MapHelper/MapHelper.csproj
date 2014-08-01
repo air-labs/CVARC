@@ -45,7 +45,9 @@
     <Compile Include="MapBuilder.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="PathSearcher.cs" />
+    <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RobotLocator.cs" />
     <Compile Include="Wall.cs" />
   </ItemGroup>
   <ItemGroup>

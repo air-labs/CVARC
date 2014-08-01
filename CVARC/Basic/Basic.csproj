@@ -53,7 +53,6 @@
     <Compile Include="Controllers\CommandAction.cs" />
     <Compile Include="Core\Bots\Bot.cs" />
     <Compile Include="Core\Bots\EmptyBot.cs" />
-    <Compile Include="Core\Bots\FixedProgramBot.cs" />
     <Compile Include="Core\Competitions.cs" />
     <Compile Include="Core\CompetitionsSettings.cs" />
     <Compile Include="Core\Exceptions.cs" />

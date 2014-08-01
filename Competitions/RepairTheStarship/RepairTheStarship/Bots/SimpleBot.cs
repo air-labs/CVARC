@@ -9,11 +9,14 @@ namespace RepairTheStarship
         {
  	        Rot(-90);
             Mov(50);
-            Command(CommandAction.Grip);
             Mov(-50);
             Rot(90);
             Mov(20);
-            Command(CommandAction.Release);
+        }
+
+        public override Command MakeTurn()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

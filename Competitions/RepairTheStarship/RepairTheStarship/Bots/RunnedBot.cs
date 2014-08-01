@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CVARC.Basic;
+using CVARC.Basic.Controllers;
 using RepairTheStarship.Sensors;
 
 namespace RepairTheStarship.Bots
@@ -51,6 +52,11 @@ namespace RepairTheStarship.Bots
                 Mov(50);
                 currentPosition = next;
             }
+        }
+
+        public override Command MakeTurn()
+        {
+            throw new NotImplementedException();
         }
     }
 }

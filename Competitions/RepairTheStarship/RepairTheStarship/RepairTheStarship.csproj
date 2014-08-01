@@ -47,6 +47,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bots\FixedProgramBot.cs" />
     <Compile Include="Bots\MolagBal.cs" />
     <Compile Include="Bots\NamiraBot.cs" />
     <Compile Include="Bots\PerytheBot.cs" />

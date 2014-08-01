@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
+using MapHelper;
 
 namespace CVARC.Basic
 {
@@ -38,17 +39,20 @@ namespace CVARC.Basic
             for (int i = 0; i < parts; i++)
                 Program.Add(new Command { Move = cmd.Move, Angle = cmd.Angle, Time = cmd.Time / parts });
         }
+//
+//        protected void Command(CommandAction cmd)
+//        {
+//            Program.Add(new Command
+//            {
+//                 Action = cmd,
+//                 Time=1
+//            });
+//        }
 
-        protected void Command(CommandAction cmd)
+        public virtual void DefineProgram()
         {
-            Program.Add(new Command
-            {
-                 Action = cmd,
-                 Time=1
-            });
+            
         }
-
-        public abstract void DefineProgram();
 
         override public void Initialize(Competitions competitions)
         {
@@ -57,28 +61,28 @@ namespace CVARC.Basic
             DefineProgram();
         }
 
-        public override Command MakeTurn()
-        {
-            var dst=Angem.Distance(
-                Competitions.Robots[0].GetAbsoluteLocation().ToPoint3D(),
-                Competitions.Robots[1].GetAbsoluteLocation().ToPoint3D())
-                ;
-            if ( dst   < 30) return new Command { Move=0, Angle=Angle.FromGrad(0), Time = 1 };  
-
-
-            if (iterator < Program.Count)
-            {
-                iterator++;
-                return Program[iterator - 1];
-            }
-            else
-            {
-                return new Command
-                {
-                    Time = 1
-                };
-            }
-
-        }
+//        public override Command MakeTurn()
+//        {
+//            var dst=Angem.Distance(
+//                Competitions.Robots[0].GetAbsoluteLocation().ToPoint3D(),
+//                Competitions.Robots[1].GetAbsoluteLocation().ToPoint3D())
+//                ;
+//            if ( dst   < 30) return new Command { Move=0, Angle=Angle.FromGrad(0), Time = 1 };  
+//
+//
+//            if (iterator < Program.Count)
+//            {
+//                iterator++;
+//                return Program[iterator - 1];
+//            }
+//            else
+//            {
+//                return new Command
+//                {
+//                    Time = 1
+//                };
+//            }
+//
+//        }
     }
 }
