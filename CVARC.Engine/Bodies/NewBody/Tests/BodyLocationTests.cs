@@ -105,7 +105,7 @@ namespace CVARC.Core
 						Frame3D.DoPitch(pitch),
 						new Frame3D(4,0, 0),
 					});
-			CheckFrameIsWithin(new Frame3D(4*Angem.Cos(pitch),0,-4*Angem.Sin(pitch)), child.GetAbsoluteLocation());
+			CheckFrameIsWithin(new Frame3D(4*Geometry.Cos(pitch),0,-4*Geometry.Sin(pitch)), child.GetAbsoluteLocation());
 			child = GetTreeChildForTopDownLocations(
 				new[]
 					{
@@ -129,7 +129,7 @@ namespace CVARC.Core
 		}
 		private static void CheckFrameIsWithin(Frame3D expected, Frame3D actual, double epsilon = 0.01)
 		{
-			Assert.Less(Angem.Hypot(expected-actual),epsilon, "Expected {0} but was {1}", expected,actual);	
+			Assert.Less(Geometry.Hypot(expected-actual),epsilon, "Expected {0} but was {1}", expected,actual);	
 		}
 	}
 }
