@@ -105,7 +105,8 @@ namespace CVARC.Core.Replay
                 if (count < 2) // idшник будет всегда
                     return null;
                 else
-                    return string.Join(",", array.GetRange(0, count));
+                    //TODO: было так: string.Join(",", array.GetRange(0, count)); - я не знаю, эквивалентно ли это
+                    return string.Join(",", array.GetRange(0, count).Select(z=>z.ToString()).ToArray()); 
             }
 
     }

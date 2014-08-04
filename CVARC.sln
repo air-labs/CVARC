@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial", "CVARC\Tutorial\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepairTheStarship.Common", "RepairTheStarship.Common\RepairTheStarship.Common.csproj", "{6B20B01B-360B-410C-95F3-0AC88E907281}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIRLabs", "airlabs-cope\AIRLabs.csproj", "{B1953D7F-0F62-400D-A77A-FF1CE4474A41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -191,6 +193,16 @@ Global
 		{6B20B01B-360B-410C-95F3-0AC88E907281}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6B20B01B-360B-410C-95F3-0AC88E907281}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6B20B01B-360B-410C-95F3-0AC88E907281}.Release|x86.ActiveCfg = Release|Any CPU
+		{B1953D7F-0F62-400D-A77A-FF1CE4474A41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1953D7F-0F62-400D-A77A-FF1CE4474A41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1953D7F-0F62-400D-A77A-FF1CE4474A41}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B1953D7F-0F62-400D-A77A-FF1CE4474A41}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B1953D7F-0F62-400D-A77A-FF1CE4474A41}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B1953D7F-0F62-400D-A77A-FF1CE4474A41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1953D7F-0F62-400D-A77A-FF1CE4474A41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1953D7F-0F62-400D-A77A-FF1CE4474A41}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B1953D7F-0F62-400D-A77A-FF1CE4474A41}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B1953D7F-0F62-400D-A77A-FF1CE4474A41}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

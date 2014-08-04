@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B1953D7F-0F62-400D-A77A-FF1CE4474A41}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>airlabs_cope</RootNamespace>
+    <AssemblyName>airlabs-cope</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Mathematics\Angem\Structuries\Angle.cs" />
+    <Compile Include="Mathematics\Angem\Structuries\Circle2D.cs" />
+    <Compile Include="Mathematics\Angem\Structuries\Frame2D.cs" />
+    <Compile Include="Mathematics\Angem\Structuries\Frame3D.cs" />
+    <Compile Include="Mathematics\Angem\Structuries\Line2D.cs" />
+    <Compile Include="Mathematics\Angem\Structuries\Line3D.cs" />
+    <Compile Include="Mathematics\Angem\Structuries\Matrix.cs" />
+    <Compile Include="Mathematics\Angem\Structuries\Plane.cs" />
+    <Compile Include="Mathematics\Angem\Structuries\Point2D.cs" />
+    <Compile Include="Mathematics\Angem\Structuries\Point3D.cs" />
+    <Compile Include="Mathematics\Angem\Structuries\PolarPoint2D.cs" />
+    <Compile Include="Mathematics\Angem\Structuries\Quat.cs" />
+    <Compile Include="Mathematics\Angem\Structuries\Segment2D.cs" />
+    <Compile Include="Mathematics\Angem\Structuries\Triangle2D.cs" />
+    <Compile Include="Mathematics\ArythmeticProgressionFunctions.cs" />
+    <Compile Include="Mathematics\CalcResearch\MathFunction.cs" />
+    <Compile Include="Mathematics\CommonFunctions.cs" />
+    <Compile Include="Mathematics\Common\Geometry.cs" />
+    <Compile Include="Mathematics\Common\GeometryFunctions.cs" />
+    <Compile Include="Mathematics\Common\Mechanics.cs" />
+    <Compile Include="Mathematics\Common\TestGeometry.cs" />
+    <Compile Include="Mathematics\Common\Trigonometry.cs" />
+    <Compile Include="Mathematics\Common\Vectors.cs" />
+    <Compile Include="Mathematics\RandomExtensions.cs" />
+    <Compile Include="Mathematics\Vectors\Implementation\ArrayEnumerator.cs" />
+    <Compile Include="Mathematics\Vectors\Implementation\HashVector.cs" />
+    <Compile Include="Mathematics\Vectors\Implementation\Linearizer.cs" />
+    <Compile Include="Mathematics\Vectors\Implementation\RealVector.cs" />
+    <Compile Include="Mathematics\Vectors\VectorBase\Locked.cs" />
+    <Compile Include="Mathematics\Vectors\VectorBase\ReadOnlyVector.cs" />
+    <Compile Include="Mathematics\Vectors\VectorBase\Unlocked.cs" />
+    <Compile Include="Mathematics\Vectors\VectorBase\Vector.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tuple.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
