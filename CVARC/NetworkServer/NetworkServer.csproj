@@ -35,10 +35,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AIRLab, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\libs\AIRLab.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -79,6 +75,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\airlabs-cope\AIRLabs.csproj">
+      <Project>{b1953d7f-0f62-400d-a77a-ff1ce4474a41}</Project>
+      <Name>AIRLabs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Competitions\RepairTheStarship\RepairTheStarship\RepairTheStarship.csproj">
       <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
       <Name>RepairTheStarship %28Competitions\RepairTheStarship\RepairTheStarship%29</Name>

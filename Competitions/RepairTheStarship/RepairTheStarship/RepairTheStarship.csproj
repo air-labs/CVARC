@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AIRLab">
-      <HintPath>..\..\..\libs\AIRLab.dll</HintPath>
-    </Reference>
     <Reference Include="SlimDX, Version=4.0.11.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\libs\SlimDX.dll</HintPath>
@@ -69,6 +66,10 @@
     <Compile Include="Robots\ImageGemsRobot.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\airlabs-cope\AIRLabs.csproj">
+      <Project>{b1953d7f-0f62-400d-a77a-ff1ce4474a41}</Project>
+      <Name>AIRLabs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\CVARC\Basic\Basic.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
       <Name>Basic</Name>

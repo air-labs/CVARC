@@ -23,7 +23,7 @@ namespace CVARC.Graphics.DirectX
 			EventSource = eventSource;
 			Vector3 tempLoc = cameraLocation.ToDirectXVector();
 			_cameraLocation = new Vector3(Math.Abs(tempLoc.X), 0, tempLoc.Z);
-			Angle ang = Angem.Atan2(tempLoc.Y, tempLoc.X);
+            Angle ang = Geometry.Atan2(tempLoc.Y, tempLoc.X);
 			_rotationMatrix = Matrix.RotationZ(-(float) ang.Radian);
 			_radius = _cameraLocation.Length();
 			Scale = 1;

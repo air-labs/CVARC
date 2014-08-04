@@ -91,7 +91,7 @@ namespace kinect
                     Point2D v1 = ProjectPoint(i, p1);
                     Point2D v2 = ProjectPoint(i, p2);
                     Point2D[] regionPoints = new Point2D[] {v0, v2, v1};
-                    return Angem.IsFromRegion(point, regionPoints) ? point1 : null;
+                    return Geometry.IsFromRegion(point, regionPoints) ? point1 : null;
                 }
             }
         }

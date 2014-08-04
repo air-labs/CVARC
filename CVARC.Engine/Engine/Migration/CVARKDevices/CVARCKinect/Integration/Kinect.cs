@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using AIRLab.Drawing;
 using AIRLab.Mathematics;
 using CVARC.Basic.Sensors;
 using CVARC.Core;
@@ -88,17 +87,32 @@ namespace kinect.Integration
 
         public Bitmap GetImage()
         {
-            var img = new FastBitmap(Depth.GetLength(1), Depth.GetLength(0));
+            //TODO: вернуть FastBitmap?
+
+            //var img = new FastBitmap(Depth.GetLength(1), Depth.GetLength(0));
+            //for (int i = 0; i < img.Width; ++i)
+            //    for (int j = 0; j < img.Height; ++j)
+            //    {
+            //        var clr = (int)(Depth[img.Height - j - 1, img.Width - i - 1]);
+            //        if (clr > 255) clr = 255;
+            //        if (clr < 0) clr = 255;
+            //        img[i, j] = Color.FromArgb(clr, clr, clr);
+            //    }
+            //var bmp = img.ToBitmap();
+            //return bmp;
+
+            var img = new Bitmap(Depth.GetLength(1), Depth.GetLength(0));
             for (int i = 0; i < img.Width; ++i)
                 for (int j = 0; j < img.Height; ++j)
                 {
                     var clr = (int)(Depth[img.Height - j - 1, img.Width - i - 1]);
                     if (clr > 255) clr = 255;
                     if (clr < 0) clr = 255;
-                    img[i, j] = Color.FromArgb(clr, clr, clr);
+                    img.SetPixel(i, j, Color.FromArgb(clr, clr, clr));
                 }
-            var bmp = img.ToBitmap();
-            return bmp;
+            return img;
+
+
         }
 	}
 

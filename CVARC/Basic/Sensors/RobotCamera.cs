@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using AIRLab.Mathematics;
-using AIRLab.Thornado;
+
 
 namespace CVARC.Basic.Sensors
 {
@@ -23,8 +23,7 @@ namespace CVARC.Basic.Sensors
 		/// </summary>
 		/// <returns></returns>
         public override ImageSensorData Measure()
-	    {
-	        return new ImageSensorData(Engine.GetImageFromCamera(CameraName));
+			    };
 		}
 
 		public const int DefaultHeight = 600;
@@ -43,25 +42,46 @@ namespace CVARC.Basic.Sensors
 
 	}
 	
-    [Serializable]
+	
+	[Serializable]
+	public class RobotCameraData : IImageSensorData
+	{
+		/// <summary>
+		/// Массив байтов, содержащий изображение в формате jpeg
+		/// </summary>
+		public byte[] Bitmap;
+
+	    public string GetStringRepresentation()
+	    {
+            return Convert.ToBase64String(Bitmap);
+	    }
+
+	    public Bitmap GetImage()
+	    {
+            return (System.Drawing.Bitmap)System.Drawing.Bitmap.FromStream(new MemoryStream(Bitmap));
+	        //return new Bitmap(FastBitmap.FromBMPStream(new MemoryStream(Bitmap)).ToBitmap());
+	    }
+	}
+
+	[Serializable]
 	public class RobotCameraSettings
 	{
 		/// <summary>
 		/// Угол зрения
 		/// </summary>
-		[Thornado]
+
 		public Angle ViewAngle=Angle.HalfPi;
 
 		/// <summary>
 		/// Точка крепления камеры
 		/// </summary>
-		[Thornado]
-        public Frame3D Location = new Frame3D(30, 0, 30, Angle.FromGrad(-45), Angle.Zero, Angle.Zero);
+
+		public Frame3D Location = new Frame3D(0, 0, 10, Angle.FromGrad(-25), Angle.Zero, Angle.Zero);
 
 		/// <summary>
 		/// Писать в файл для дебага
 		/// </summary>
-		[Thornado]
+
 		public bool WriteToFile;
 	}
 }

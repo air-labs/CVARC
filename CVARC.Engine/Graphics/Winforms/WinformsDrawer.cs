@@ -67,7 +67,7 @@ namespace CVARC.Graphics.Winforms
 		private float GetScalingFactor()
 		{
 			var worldVisible = (float)(_settings.TopViewCameraLocation.Z *
-										Angem.Tg(SceneConfig.ThirdPersonViewAngle / 2) * 2);
+                                        Geometry.Tg(SceneConfig.ThirdPersonViewAngle / 2) * 2);
 			return Math.Min(_control.ClientSize.Width / worldVisible,
 							_control.ClientSize.Height / worldVisible);
 		}

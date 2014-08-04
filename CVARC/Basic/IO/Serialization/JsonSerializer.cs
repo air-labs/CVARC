@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
+//using System.Collections.Concurrent;
 using System.IO;
 using System.Runtime.Serialization.Json;
 
@@ -7,25 +8,37 @@ namespace CVARC.Basic.Core.Serialization
 {
     public class JsonSerializer : ISerializer
     {
-        readonly static ConcurrentDictionary<Type, DataContractJsonSerializer> Serializers = new ConcurrentDictionary<Type, DataContractJsonSerializer>();
+        //TODO: There must be concurrent dictionary!!!
+        readonly static Dictionary<Type, DataContractJsonSerializer> Serializers = new Dictionary<Type, DataContractJsonSerializer>();
         public byte[] Serialize(object obj)
         {
-            using (var stream = new MemoryStream())
+            lock (Serializers)
             {
-                Get(obj.GetType()).WriteObject(stream, obj);
-                return stream.ToArray();
+                using (var stream = new MemoryStream())
+                {
+                    Get(obj.GetType()).WriteObject(stream, obj);
+                    return stream.ToArray();
+                }
             }
         }
 
         public T Deserialize<T>(byte[] bytes)
         {
-            using(var stream = new MemoryStream(bytes))
-                return (T) Get(typeof(T)).ReadObject(stream);
+            lock (Serializers)
+            {
+                using (var stream = new MemoryStream(bytes))
+                    return (T)Get(typeof(T)).ReadObject(stream);
+            }
         }
 
         private DataContractJsonSerializer Get(Type t)
         {
-            return Serializers.GetOrAdd(t, type => new DataContractJsonSerializer(type));
+            lock (Serializers)
+            {
+                if (!Serializers.ContainsKey(t))
+                    Serializers.Add(t, new DataContractJsonSerializer(t));
+                return Serializers[t];
+            }
         }
     }
 }

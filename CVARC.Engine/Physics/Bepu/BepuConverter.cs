@@ -79,9 +79,9 @@ namespace CVARC.Core.Physics.BepuWrap
 			m[3, 2] = frame.Z;
 			m[3, 3] = 1.0f;
 
-			var yaw = Angem.Atan2(m[1, 0], m[0, 0]);
-			var pitch = Angem.Atan2(-m[2, 0], Angem.Hypot(m[2, 1], m[2, 2]));
-			var roll = Angem.Atan2(m[2, 1], m[2, 2]);
+			var yaw = Geometry.Atan2(m[1, 0], m[0, 0]);
+            var pitch = Geometry.Atan2(-m[2, 0], Geometry.Hypot(m[2, 1], m[2, 2]));
+            var roll = Geometry.Atan2(m[2, 1], m[2, 2]);
 
 			Frame3D fr = new Frame3D(frame.X, frame.Y, frame.Z, pitch, yaw, roll); 
 

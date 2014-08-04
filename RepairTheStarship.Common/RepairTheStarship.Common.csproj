@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AIRLab">
-      <HintPath>..\libs\AIRLab.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -55,6 +52,10 @@
     <Compile Include="PositionSensorsData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\airlabs-cope\AIRLabs.csproj">
+      <Project>{b1953d7f-0f62-400d-a77a-ff1ce4474a41}</Project>
+      <Name>AIRLabs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CVARC\Basic\Basic.csproj">
       <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
       <Name>Basic</Name>
