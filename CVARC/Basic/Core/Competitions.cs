@@ -11,6 +11,7 @@ using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
 using CVARC.Core;
 using CVARC.Network;
+using AIRLab;
 
 namespace CVARC.Basic
 {
@@ -228,7 +229,9 @@ namespace CVARC.Basic
                                                             .Select(
                                                                 a =>
                                                                 "{\"num\":\"" + a + "\", \"score\": \"" +   
-                                                                Score.GetFullSumForRobot(a) + "\"}")) + "]";
+                                                                Score.GetFullSumForRobot(a) + "\"}")
+                                                                .ToArray()
+                                                                ) + "]";
                     var replay = Engine.GetReplay();
                     data["log"] = replay;
                     wb.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36");

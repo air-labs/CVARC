@@ -374,7 +374,7 @@ namespace RepairTheStarship
 
         private double Distance(Body from, Body to)
         {
-            return Angem.Hypot(from.GetAbsoluteLocation() - to.GetAbsoluteLocation());
+            return Geometry.Hypot(from.GetAbsoluteLocation() - to.GetAbsoluteLocation());
         }
 
 

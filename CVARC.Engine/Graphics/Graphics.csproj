@@ -46,10 +46,6 @@
     <OutputPath>..\..\Competitions\build\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AIRLab, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\libs\AIRLab.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="nunit.framework, Version=2.6.1.12217, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\nunit.framework.dll</HintPath>
@@ -182,6 +178,10 @@
     <EmbeddedResource Include="Models\testtexture.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\airlabs-cope\AIRLabs.csproj">
+      <Project>{b1953d7f-0f62-400d-a77a-ff1ce4474a41}</Project>
+      <Name>AIRLabs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bodies\Bodies.csproj">
       <Project>{a316853c-7f60-4c7f-8fb5-6bafbc417a68}</Project>
       <Name>Bodies</Name>

@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AIRLab">
-      <HintPath>..\..\..\libs\AIRLab.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -50,6 +47,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\airlabs-cope\AIRLabs.csproj">
+      <Project>{b1953d7f-0f62-400d-a77a-ff1ce4474a41}</Project>
+      <Name>AIRLabs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\CVARC\BotDemo\BotDemo.csproj">
       <Project>{1d83cef9-eb28-4938-8cb4-b83ada4b65c6}</Project>
       <Name>BotDemo</Name>

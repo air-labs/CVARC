@@ -19,7 +19,7 @@ namespace Client
         {
             var server = new CvarcClient(args, Settings).GetServer<SensorsData>();
             server.Run();
-            server.SendCommand(new Command { Angle = Angle.FromGrad(-90), Time = 1});
+            server.SendCommand(new Command { Angle = Angle.FromGrad(-90), Time = 1 });
             server.SendCommand(new Command { Move = 50, Time = 1 });
             server.SendCommand(new Command { Action = CommandAction.Grip, Time = 1 });
             server.SendCommand(new Command { Move = -50, Time = 1 });

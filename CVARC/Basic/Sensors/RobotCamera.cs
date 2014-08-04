@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using AIRLab.Drawing;
 using AIRLab.Mathematics;
-using AIRLab.Thornado;
+
 using CVARC.Core;
 
 namespace CVARC.Basic.Sensors
@@ -68,7 +67,8 @@ namespace CVARC.Basic.Sensors
 
 	    public Bitmap GetImage()
 	    {
-	        return new Bitmap(FastBitmap.FromBMPStream(new MemoryStream(Bitmap)).ToBitmap());
+            return (System.Drawing.Bitmap)System.Drawing.Bitmap.FromStream(new MemoryStream(Bitmap));
+	        //return new Bitmap(FastBitmap.FromBMPStream(new MemoryStream(Bitmap)).ToBitmap());
 	    }
 	}
 
@@ -78,19 +78,16 @@ namespace CVARC.Basic.Sensors
 		/// <summary>
 		/// Угол зрения
 		/// </summary>
-		[Thornado]
 		public Angle ViewAngle=Angle.HalfPi;
 
 		/// <summary>
 		/// Точка крепления камеры
 		/// </summary>
-		[Thornado]
 		public Frame3D Location = new Frame3D(0, 0, 10, Angle.FromGrad(-25), Angle.Zero, Angle.Zero);
 
 		/// <summary>
 		/// Писать в файл для дебага
 		/// </summary>
-		[Thornado]
 		public bool WriteToFile;
 	}
 }
