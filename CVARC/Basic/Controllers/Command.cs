@@ -1,12 +1,13 @@
 ﻿using AIRLab.Mathematics;
+using CVARC.Basic.Core;
 
 namespace CVARC.Basic.Controllers
 {
     public class Command
     {
+        public Angle Angle { get; set; }
         public int RobotId { get; set; }
         public double Move { get; set; }
-        public Angle Angle { get; set; }
         public CommandAction Action { get; set; }
         public double Time { get; set; }
 
@@ -15,9 +16,9 @@ namespace CVARC.Basic.Controllers
             return new Command {Move = distance, Time = 1};
         }
 
-        public static Command Rot(double angle)
+        public static Command Rot(double grad)
         {
-            return new Command { Angle = Angle.FromGrad(angle), Time = 1 }; 
+            return new Command { Angle = Angle.FromGrad(grad).Normilize(), Time = 1 }; 
         }
 
         public static Command Sleep(int time = 1)

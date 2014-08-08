@@ -23,14 +23,14 @@ namespace Level2Client
             var robotLocator = new RobotLocator(map);
             var path = PathSearcher.FindPath(map, new Point(1, 1), new Point(2, 1));
 
-//            foreach (var direction in path)
-//            {
-//                foreach (var command in robotLocator.GetCommandsByDirection(direction))
-//                {
-//                    sensorData = server.SendCommand(command);
-//                    robotLocator.Update(sensorData);
-//                }
-//            }
+            foreach (var direction in path)
+            {
+                foreach (var command in robotLocator.GetCommandsByDirection(direction))
+                {
+                    sensorData = server.SendCommand(command);
+                    robotLocator.Update(sensorData);
+                }
+            }
             server.SendCommand(new Command { Time = 10000 });
         }
     }

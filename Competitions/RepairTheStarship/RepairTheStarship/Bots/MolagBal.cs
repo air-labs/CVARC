@@ -13,6 +13,8 @@ namespace RepairTheStarship.Bots
     {
         private Map map;
         private RobotLocator robotLocator;
+        private IEnumerable<Command> currentCommands = new List<Command>();
+        private IEnumerator<Command> enumerator;
 
         public override void Initialize(Competitions competitions)
         {
@@ -21,9 +23,6 @@ namespace RepairTheStarship.Bots
             robotLocator = new RobotLocator(map);
             enumerator = currentCommands.GetEnumerator();
         }
-
-        private IEnumerable<Command> currentCommands = new List<Command>();
-        private IEnumerator<Command> enumerator;
 
         public override Command MakeTurn()
         {
@@ -40,8 +39,7 @@ namespace RepairTheStarship.Bots
             var opponentCoordinates = GetCoordinatesByPosition(map.OpponentPosition);
             var botCoordinates = GetCoordinatesByPosition(map.CurrentPosition);
             var path = PathSearcher.FindPath(map, botCoordinates, opponentCoordinates);
-            var direction = path.First();
-            return robotLocator.GetCommandsByDirection(direction);
+            return path.Length == 0 ? new Command[0] : robotLocator.GetCommandsByDirection(path.First());
         }
 
         private Point GetCoordinatesByPosition(PositionData position)

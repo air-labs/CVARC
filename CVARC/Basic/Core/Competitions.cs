@@ -16,7 +16,6 @@ namespace CVARC.Basic
 {
     public abstract class Competitions
     {
-        public readonly KeyboardController KeyboardController;
         public readonly ICvarcRules CvarcRules;
         public IEngine Engine { get; private set; }
 
@@ -37,10 +36,9 @@ namespace CVARC.Basic
         public virtual int CompetitionId { get { return 1; } }
 
 
-        public Competitions(ICvarcRules rules, KeyboardController keyboard)
+        public Competitions(ICvarcRules rules)
         {
             CvarcRules=rules;
-            KeyboardController = keyboard;
             GameTimeLimit = 90;
             NetworkTimeLimit = 1;
             AvailableBots = new Dictionary<string, Type>();

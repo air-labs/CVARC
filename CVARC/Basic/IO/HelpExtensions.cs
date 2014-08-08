@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
+using AIRLab.Mathematics;
 
 namespace CVARC.Basic.Core
 {
@@ -85,6 +86,16 @@ namespace CVARC.Basic.Core
             for (int i = 0; i < length; i++)
                 column[i] = array[columnNum, i];
             return column;
+        }
+
+        public static Angle Normilize(this Angle angle)
+        {
+            var grad = angle.Grad%360;
+            if (grad > 180)
+                grad = grad - 360;
+            if (grad < -180)
+                grad = 360 + grad;
+            return Angle.FromGrad(grad);
         }
     }
 }
