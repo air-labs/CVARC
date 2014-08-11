@@ -52,7 +52,7 @@
     <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RobotLocator.cs" />
-    <Compile Include="Wall.cs" />
+    <Compile Include="StarshipObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\CVARC\Basic\Basic.csproj">

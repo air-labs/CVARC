@@ -1,11 +1,13 @@
-﻿using CVARC.Basic.Sensors;
+﻿using System.Linq;
+using CVARC.Basic.Sensors;
 using RepairTheStarship.Sensors;
 
 namespace MapHelper
 {
     public class Map
     {
-        public Wall[] Walls { get; set; }
+        public StarshipObject[] Details { get; set; }
+        public StarshipObject[] Walls { get; set; }
         public Direction[,] AvailableDirectionsByCoordinates { get; set; }
         public int RobotId { get; set; }
         public int OpponentRobotId { get; set; }
@@ -28,6 +30,12 @@ namespace MapHelper
         {
             CurrentPosition = data.LightHouseSensor.PositionsData[RobotId];
             OpponentPosition = data.LightHouseSensor.PositionsData[OpponentRobotId];
+            Details = data.MapSensor.MapItems.Where(x => x.Tag.Contains("Detail")).Select(x => new StarshipObject
+                {
+                    DiscreteCoordinate = MapBuilder.AbsoluteCoordinateToDiscrete(new Point((int) x.X, (int) x.Y)),
+                    AbsoluteCoordinate = new Point((int) x.X, (int) x.Y),
+                    Type = x.Tag
+                }).ToArray();
         }
     }
 }

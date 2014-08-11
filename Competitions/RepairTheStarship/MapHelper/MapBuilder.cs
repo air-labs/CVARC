@@ -22,7 +22,7 @@ namespace MapHelper
             };
         }
 
-        private static void UpdateAvailableDirections(Wall[] walls, Direction[,] availableDirections)
+        private static void UpdateAvailableDirections(StarshipObject[] walls, Direction[,] availableDirections)
         {
             foreach (var wall in walls)
             {
@@ -46,12 +46,17 @@ namespace MapHelper
             return new Point(x, y);
         }
 
-        private static Wall[] GetWallsWithDiscreteCoordinates(IEnumerable<MapItem> mapItems)
+        private static StarshipObject[] GetWallsWithDiscreteCoordinates(IEnumerable<MapItem> mapItems)
         {
             return mapItems.Where(IsWall).Select(w =>
             {
                 var point = new Point((int) w.X, (int) w.Y);
-                return new Wall(AbsoluteCoordinateToDiscrete(point), point, w.Tag);
+                return new StarshipObject()
+                    {
+                        DiscreteCoordinate = AbsoluteCoordinateToDiscrete(point),
+                        AbsoluteCoordinate = point,
+                        Type = w.Tag
+                    };
             }).ToArray();
         }
 

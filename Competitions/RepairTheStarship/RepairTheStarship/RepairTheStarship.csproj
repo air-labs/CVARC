@@ -47,11 +47,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bots\FixedProgramBot.cs" />
+    <Compile Include="Bots\Azura.cs" />
+    <Compile Include="Bots\RepairTheStarshipBot.cs" />
     <Compile Include="Bots\MolagBal.cs" />
-    <Compile Include="Bots\NamiraBot.cs" />
-    <Compile Include="Bots\PerytheBot.cs" />
-    <Compile Include="Bots\RunnedBot.cs" />
     <Compile Include="Bots\Sanguine.cs" />
     <Compile Include="Bots\Vaermina.cs" />
     <Compile Include="Competitions.cs" />
@@ -60,7 +58,6 @@
     <Compile Include="Map\Node.cs" />
     <Compile Include="GemsRobot.cs" />
     <Compile Include="Map\SceneSettings.cs" />
-    <Compile Include="Bots\SimpleBot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

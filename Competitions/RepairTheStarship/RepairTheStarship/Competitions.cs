@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using AIRLab.Mathematics;
 using CVARC.Basic;
-using RepairTheStarship.Bots;
+using Gems.Bots;
 
 namespace RepairTheStarship
 {
@@ -61,12 +61,10 @@ namespace RepairTheStarship
 
         public SRCompetitions() : base( new GemsRules())
         {
-            AvailableBots["Simple"] = typeof(SimpleBot);
             AvailableBots["Sanguine"] = typeof(Sanguine);
-            AvailableBots["Perythe"] = typeof(PerytheBot);
             AvailableBots["Vaermina"] = typeof(Vaermina);
             AvailableBots["MolagBal"] = typeof(MolagBal);
-            AvailableBots["Namira"] = typeof(NamiraBot);
+            AvailableBots["Azura"] = typeof(Azura);
         }
     }
 }

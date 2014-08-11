@@ -4,10 +4,8 @@
     {
         None,
         Vaermina, //tries to stand ahead of player
-        Simple, 
-        Namira,
+        Azura,
         MolagBal, //hits the player
         Sanguine, //walks the labitynth randomly (as a graph)
-        Perythe
     }
 }

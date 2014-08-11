@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using AIRLab.Mathematics;
 using CVARC.Basic.Engine;
@@ -28,7 +26,6 @@ namespace CVARC.Basic
         {
             Rules = rules;
         }
-
 
         public void SetSpeed(string obj, Frame3D velocity)
         {
@@ -72,7 +69,8 @@ namespace CVARC.Basic
             {
                 Logger.LogBodies();
 
-                foreach (var e in RequestedSpeeds)
+                var speeds = RequestedSpeeds.ToArray();
+                foreach (var e in speeds)
                     GetBody(e.Key).Velocity = e.Value;
 
                 PhysicalManager.MakeIteration(dt, Root);
@@ -82,7 +80,6 @@ namespace CVARC.Basic
                     Thread.Sleep(span);
             }
         }
-
 
         public string GetReplay()
         {
@@ -99,7 +96,6 @@ namespace CVARC.Basic
         {
             return Kinects[kinectName].Measure();
         }
-
 
         public IEnumerable<string> GetAllObjects()
         {

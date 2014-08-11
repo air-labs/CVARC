@@ -16,6 +16,11 @@ namespace CVARC.Basic.Controllers
             return new Command {Move = distance, Time = 1};
         }
 
+        public static Command Act(CommandAction action)
+        {
+            return new Command { Action = action, Time = 1 };
+        }
+
         public static Command Rot(double grad)
         {
             return new Command { Angle = Angle.FromGrad(grad).Normilize(), Time = 1 }; 
