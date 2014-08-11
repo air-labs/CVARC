@@ -12,7 +12,7 @@ namespace CVARC.Tutorial
         private static TutorialForm form;
         private static Competitions competitions;
         private static readonly KeyboardController Controller = new KeyboardController();
-        private const string BotName = "MolagBal";
+        private const string BotName = "Sanguine";
 
         [STAThread]
         private static void Main()
