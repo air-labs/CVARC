@@ -20,7 +20,7 @@ namespace Gems.Bots
         public override void Initialize(Competitions competitions)
         {
             base.Initialize(competitions);
-            Map = Competitions.GetSensorsData<SensorsData>(ControlledRobot).BuildStaticMap();
+            Map = Competitions.GetSensorsData<SensorsData>(ControlledRobot).BuildMap();
             RobotLocator = new RobotLocator(Map);
             enumerator = currentCommands.GetEnumerator();
         }

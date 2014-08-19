@@ -32,7 +32,7 @@ namespace ClientBase
         {
             return new HelloPackage
             {
-                MapSeed = settings.MapSeed,
+                MapSeed = settings.MapNumber,
                 Opponent = settings.BotName.ToString(),
                 Side = settings.Side,
                 LevelName = settings.LevelName

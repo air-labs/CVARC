@@ -102,7 +102,6 @@ namespace CVARC.Basic
             return Root.Select(z => z.UniqueId);
         }
 
-
         public void PerformAction(string name, string action)
         {
             Rules.PerformAction(this, name, action);

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using RepairTheStarship.Sensors;
+﻿using RepairTheStarship.Sensors;
 
 namespace MapHelper
 {
@@ -10,20 +8,16 @@ namespace MapHelper
         private const int MapHeight = 200;
         private const int CellSize = 50;
 
-        public static Map BuildStaticMap(this SensorsData sensorsData)
+        public static Map BuildMap(this SensorsData sensorsData)
         {
-            var availableDirections = RemoveDirectionsContactingWithBorder(MapWidth / CellSize + 2, MapHeight / CellSize + 2);
-            var walls = GetWallsWithDiscreteCoordinates(sensorsData.MapSensor.MapItems);
-            UpdateAvailableDirections(walls, availableDirections);
-            return new Map(sensorsData)
-            {
-                AvailableDirectionsByCoordinates = availableDirections,
-                Walls = walls,
-            };
+            var map = new Map(sensorsData);
+            map.AvailableDirectionsByCoordinates = GetAvailableDirections(map.Walls);
+            return map;
         }
 
-        private static void UpdateAvailableDirections(StarshipObject[] walls, Direction[,] availableDirections)
+        private static Direction[,] GetAvailableDirections(StarshipObject[] walls)
         {
+            var availableDirections = RemoveDirectionsContactingWithBorder(MapWidth / CellSize + 2, MapHeight / CellSize + 2);
             foreach (var wall in walls)
             {
                 if (wall.Type.Contains("Vertical"))
@@ -37,6 +31,7 @@ namespace MapHelper
                     availableDirections[wall.DiscreteCoordinate.X, wall.DiscreteCoordinate.Y - 1] &= ~Direction.Down;
                 }
             }
+            return availableDirections;
         }
 
         public static Point AbsoluteCoordinateToDiscrete(Point absolute)
@@ -45,26 +40,7 @@ namespace MapHelper
             int y = (absolute.Y - MapHeight / 2) / CellSize * -1 + 1;
             return new Point(x, y);
         }
-
-        private static StarshipObject[] GetWallsWithDiscreteCoordinates(IEnumerable<MapItem> mapItems)
-        {
-            return mapItems.Where(IsWall).Select(w =>
-            {
-                var point = new Point((int) w.X, (int) w.Y);
-                return new StarshipObject()
-                    {
-                        DiscreteCoordinate = AbsoluteCoordinateToDiscrete(point),
-                        AbsoluteCoordinate = point,
-                        Type = w.Tag
-                    };
-            }).ToArray();
-        }
-
-        private static bool IsWall(MapItem mapItem)
-        {
-            return mapItem.Tag.Contains("Socket") || mapItem.Tag.Contains("Wall");
-        }
-
+      
         private static Direction[,] RemoveDirectionsContactingWithBorder(int x, int y)
         {
             var bitArray = new Direction[x, y];

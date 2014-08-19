@@ -11,7 +11,7 @@ namespace ClientBase
         /// <summary>
         /// ѕринимает целое число дл€ генерации карты. -1 - дл€ случайной карты.
         /// </summary>
-        public int MapSeed { get; set; }
+        public int MapNumber { get; set; }
         
         /// <summary>
         /// ѕротивник. None - игра без противника.

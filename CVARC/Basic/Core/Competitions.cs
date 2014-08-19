@@ -18,8 +18,6 @@ namespace CVARC.Basic
     {
         public readonly ICvarcRules CvarcRules;
         public IEngine Engine { get; private set; }
-
-
         public double GameTimeLimit { get; protected set; }
         public double NetworkTimeLimit { get; protected set; }
         public virtual double LinearVelocityLimit { get { return 10; } }

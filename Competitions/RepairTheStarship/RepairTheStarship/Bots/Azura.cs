@@ -12,12 +12,6 @@ namespace Gems.Bots
         private bool hasDetail;
         private const int Epsilon = 30;
 
-        public override void Initialize(CVARC.Basic.Competitions competitions)
-        {
-            base.Initialize(competitions);
-            color = Map.RobotId == 0 ? "red" : "blue";
-        }
-
         protected override IEnumerable<Command> FindNextCommands()
         {
             return hasDetail ? RepairStarship() : GripDetail(); 
@@ -47,10 +41,10 @@ namespace Gems.Bots
 
         private IEnumerable<Command> GripDetail()
         {
-            var nearDetail = Map.Details.Where(x => x.Type.ToLower().Contains(color)).OrderBy(GetDistance).FirstOrDefault();
+            var nearDetail = Map.Details.OrderBy(GetDistance).FirstOrDefault();
             if (nearDetail == null)
                 return new Command[0];
-
+            color = nearDetail.Type.Split(new[] {"Detail"}, StringSplitOptions.None).First().ToLower();
             var path = PathSearcher.FindPath(Map, OurCoordinates, nearDetail.DiscreteCoordinate);
             hasDetail = path.Length == 0;
             return hasDetail ? new[]{ Command.Act(CommandAction.Grip)} : RobotLocator.GetCommandsByDirection(path.First());

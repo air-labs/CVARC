@@ -12,14 +12,15 @@ namespace Level2Client
             {
                 BotName = Bots.Azura,
                 Side = Side.Left,
-                LevelName = "Level1"
+                LevelName = "Level2",
+                MapNumber = 5
             };
 
         private static void Main(string[] args)
         {
             var server = new CvarcClient(args, Settings).GetServer<SensorsData>();
             var sensorData = server.Run();
-            var map = sensorData.BuildStaticMap();
+            var map = sensorData.BuildMap();
             var robotLocator = new RobotLocator(map);
             var path = PathSearcher.FindPath(map, new Point(1, 1), new Point(2, 1));
 

@@ -36,6 +36,17 @@ namespace MapHelper
                     AbsoluteCoordinate = new Point((int) x.X, (int) x.Y),
                     Type = x.Tag
                 }).ToArray();
+            Walls = data.MapSensor.MapItems.Where(IsWall).Select(w => new StarshipObject
+                {
+                    DiscreteCoordinate = MapBuilder.AbsoluteCoordinateToDiscrete(new Point((int)w.X, (int)w.Y)),
+                    AbsoluteCoordinate = new Point((int)w.X, (int)w.Y),
+                    Type = w.Tag
+                }).ToArray();
+        }
+
+        private static bool IsWall(MapItem mapItem)
+        {
+            return mapItem.Tag.Contains("Socket") || mapItem.Tag.Contains("Wall");
         }
     }
 }
