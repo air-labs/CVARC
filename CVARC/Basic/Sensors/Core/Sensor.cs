@@ -14,8 +14,6 @@ namespace CVARC.Basic.Sensors
             Robot = robot;
             World = robot.Competitions;
             Engine = World.Engine;
-           
-            
         }
 
         public abstract T Measure();

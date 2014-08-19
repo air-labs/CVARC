@@ -25,15 +25,23 @@ namespace CVARC.Network
 
         private static void InternalMain(NetworkSettings settings)
         {
-            InitCompetition(settings); //Why CurrentDomain.UnhandledException does not work for this one???
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            form = new TutorialForm(participant.Competitions);
-            new Thread(() => participant.Competitions.ProcessParticipants(realTime, 1000, participants))
+            try
+            {
+                InitCompetition(settings);
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                form = new TutorialForm(participant.Competitions);
+                new Thread(() => participant.Competitions.ProcessParticipants(realTime, 1000, participants))
                 {
                     IsBackground = true
                 }.Start();
-            Application.Run(form);
+                Application.Run(form);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "CVARC Network", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
         }
 
         private static void InitCompetition(NetworkSettings settings)
@@ -41,8 +49,9 @@ namespace CVARC.Network
             participants = new Participant[2];
             participant = new NetworkParticipant(settings.CompetitionsName);
             participants[participant.ControlledRobot] = participant;
-            participant.Competitions.Initialize(new CVARCEngine(participant.Competitions.CvarcRules));
             var botNumber = participant.ControlledRobot == 0 ? 1 : 0;
+            participant.Competitions.Initialize(new CVARCEngine(participant.Competitions.CvarcRules),
+                new[] { new RobotSettings(participant.ControlledRobot, false), new RobotSettings(botNumber, true) });
             var botName = participant.HelloPackage.Opponent ?? "None";
             participants[botNumber] = participant.Competitions.CreateBot(botName, botNumber);
             if (settings.StartClient)

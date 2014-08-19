@@ -47,6 +47,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseGemsRobot.cs" />
     <Compile Include="Bots\Azura.cs" />
     <Compile Include="Bots\RepairTheStarshipBot.cs" />
     <Compile Include="Bots\MolagBal.cs" />
@@ -54,6 +55,11 @@
     <Compile Include="Bots\Vaermina.cs" />
     <Compile Include="Competitions.cs" />
     <Compile Include="CvarcEngine.cs" />
+    <Compile Include="DestinationGemsRobot.cs" />
+    <Compile Include="Levels\BaseLevel.cs" />
+    <Compile Include="Levels\Level1.cs" />
+    <Compile Include="Levels\Level3.cs" />
+    <Compile Include="Levels\Level2.cs" />
     <Compile Include="Map\Map.cs" />
     <Compile Include="Map\Node.cs" />
     <Compile Include="GemsRobot.cs" />

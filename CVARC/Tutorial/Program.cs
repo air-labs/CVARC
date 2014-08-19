@@ -24,7 +24,7 @@ namespace CVARC.Tutorial
                 if (settings.HasMap)
                     competitions.HelloPackage = new HelloPackage { MapSeed = settings.MapSeed };
 
-                competitions.Initialize(new CVARCEngine(competitions.CvarcRules));
+                competitions.Initialize(new CVARCEngine(competitions.CvarcRules), new[] { new RobotSettings(0, false), new RobotSettings(1, true) });
             }
             catch (Exception e)
             {

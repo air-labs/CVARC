@@ -5,31 +5,10 @@ using Gems.Bots;
 
 namespace RepairTheStarship
 {
-    public class Level1 : SRCompetitions
-    {
-        public override ISceneSettings ParseSettings(CVARC.Network.HelloPackage helloPackage)
-        {
-            return SceneSettings.GetRandomMap(-1);
-        }
-    };
-
-    public class Level2 : SRCompetitions
-    {
-        public override ISceneSettings ParseSettings(CVARC.Network.HelloPackage helloPackage)
-        {
-            return SceneSettings.GetRandomMap(helloPackage.MapSeed);
-        }
-    };
-
     public abstract class SRCompetitions : Competitions
     {
         public const double MaxLinearVelocity = 50;
         public const double MaxAngularVelocity = 50;
-
-
-        public static string GripAction = "Grip";
-        public static string ReleaseAction = "Release";
-
         public static readonly Color WallColor = Color.LightGray;
 
         public override int RobotCount

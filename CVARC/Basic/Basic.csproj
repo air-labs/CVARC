@@ -62,6 +62,7 @@
     <Compile Include="Core\ICvarcRules.cs" />
     <Compile Include="Core\IEngine.cs" />
     <Compile Include="Core\ISceneSettings.cs" />
+    <Compile Include="Core\RobotSettings.cs" />
     <Compile Include="IO\HelpExtensions.cs" />
     <Compile Include="IO\Serialization\JsonSerializer.cs" />
     <Compile Include="IO\Serialization\ISerializer.cs" />

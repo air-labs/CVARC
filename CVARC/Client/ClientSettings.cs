@@ -18,6 +18,6 @@ namespace ClientBase
         /// </summary>
         public Bots BotName { get; set; }
 
-        public string LevelName { get; set; }
+        public LevelName LevelName { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace Level2Client
             {
                 BotName = Bots.Azura,
                 Side = Side.Left,
-                LevelName = "Level2",
+                LevelName = LevelName.Level3,
                 MapNumber = 5
             };
 

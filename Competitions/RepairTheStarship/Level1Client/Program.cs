@@ -12,7 +12,7 @@ namespace Client
             {
                 BotName = Bots.None,
                 Side = Side.Left,
-                LevelName = "Level1"
+                LevelName = LevelName.Level1
             };
 
         private static void Main(string[] args)

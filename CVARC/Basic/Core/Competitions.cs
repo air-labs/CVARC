@@ -29,6 +29,7 @@ namespace CVARC.Basic
         public HelloPackage HelloPackage { get; set; }
         public abstract ISceneSettings ParseSettings(HelloPackage helloPackage);
         public abstract Robot CreateRobot(int robotNumber);
+        public abstract Robot CreateBot(int robotNumber);
         public List<Robot> Robots { get; private set; }
         public virtual int RobotCount { get { return 2; } }
         public virtual int CompetitionId { get { return 1; } }
@@ -65,11 +66,11 @@ namespace CVARC.Basic
             return ctor.Invoke(new object[] {}) as Competitions;
         }
 
-        public void Initialize(IEngine engine)
+        public void Initialize(IEngine engine, RobotSettings[] robotSettings)
         {
             Engine = engine;
             Settings = ParseSettings(HelloPackage);
-            Robots = Enumerable.Range(0, RobotCount).Select(CreateRobot).ToList();
+            Robots = robotSettings.Select(x => x.IsBot ? CreateBot(x.Number) : CreateRobot(x.Number)).ToList();
             Score = new ScoreCollection(RobotCount);
             Engine.Initialize(Settings);
             Robots.ForEach(x => x.Init());

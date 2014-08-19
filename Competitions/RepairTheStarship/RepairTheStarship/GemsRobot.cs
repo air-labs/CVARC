@@ -1,16 +1,9 @@
-﻿using CVARC.Basic;
-using CVARC.Basic.Sensors;
-using CVARC.Basic.Sensors.Positions;
-using RepairTheStarship.Sensors;
+﻿using RepairTheStarship.Sensors;
 
 namespace RepairTheStarship
 {
-    public class GemsRobot : Robot
+    public class GemsRobot : BaseGemsRobot
     {
-        private RobotIdSensor robotIdSensor;
-        private MapSensor mapSensor;
-        private LightHouseSensor lightHouseSensor;
-
         public GemsRobot(SRCompetitions competitions, int number)
             : base(competitions, number)
         {
@@ -20,17 +13,10 @@ namespace RepairTheStarship
         {
             return new SensorsData
                 {
-                    RobotIdSensor = robotIdSensor.Measure(),
-                    LightHouseSensor = lightHouseSensor.Measure(),
-                    MapSensor = mapSensor.Measure()
+                    RobotIdSensor = RobotIdSensor.Measure(),
+                    LightHouseSensor = LightHouseSensor.Measure(),
+                    MapSensor = MapSensor.Measure()
                 } as T;
-        }
-
-        public override void Init()
-        {
-            robotIdSensor = new RobotIdSensor(this);
-            mapSensor = new MapSensor(this);
-            lightHouseSensor = new LightHouseSensor(this);
         }
     }
 }
