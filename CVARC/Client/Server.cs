@@ -1,7 +1,6 @@
 ﻿using System.Net.Sockets;
 using CVARC.Basic;
 using CVARC.Basic.Controllers;
-using CVARC.Basic.Core;
 using CVARC.Basic.Core.Serialization;
 using CVARC.Network;
 
@@ -11,21 +10,20 @@ namespace ClientBase
     {
         private readonly ClientSettings settings;
         private readonly ISerializer serializer = new JsonSerializer();
-        private readonly NetworkStream stream;
+        private readonly GroboTcpClient client;
         private int? robotId;
 
         public Server(ClientSettings settings)
         {
             this.settings = settings;
             var tcpClient = new TcpClient(settings.Ip, settings.Port);
-            stream = tcpClient.GetStream();
+            client = new GroboTcpClient(tcpClient);
         }
 
         public TSensorsData Run()
         {
-            stream.Write(serializer.Serialize(GetHelloPackage()));
-            stream.Flush();
-            return serializer.Deserialize<TSensorsData>(stream.ReadBytes());
+            client.Send(serializer.Serialize(GetHelloPackage()));
+            return serializer.Deserialize<TSensorsData>(client.ReadToEnd());
         }
 
         private HelloPackage GetHelloPackage()
@@ -43,7 +41,7 @@ namespace ClientBase
         {
             if (command != null)
                 SendCommandInternal(command);
-            return serializer.Deserialize<TSensorsData>(stream.ReadBytes());
+            return serializer.Deserialize<TSensorsData>(client.ReadToEnd());
         }
 
         private void SendCommandInternal(Command command)
@@ -52,8 +50,7 @@ namespace ClientBase
 //                throw new Exception("Сервер не ининциализирован. Воспользуйтесь методом Run.");
 //            command.RobotId = robotId.Value;
     //        var str = new string(Encoding.UTF8.GetChars(serializer.Serialize(command)));
-            stream.Write(serializer.Serialize(command));
-            stream.Flush();
+            client.Send(serializer.Serialize(command));
         }
     }
 }
