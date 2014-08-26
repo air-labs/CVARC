@@ -27,5 +27,18 @@ namespace MapHelper
                 return -180;
             throw new ArgumentOutOfRangeException();
         }
+
+        public static Direction Invert(this Direction direction)
+        {
+            if (direction == Direction.Up)
+                return Direction.Down;
+            if (direction == Direction.Right)
+                return Direction.Left;
+            if (direction == Direction.Down)
+                return Direction.Up;
+            if (direction == Direction.Left)
+                return Direction.Right;
+            throw new ArgumentOutOfRangeException();
+        }
     }
 }

@@ -7,10 +7,19 @@ namespace Gems.Bots
 {
     class MolagBal : RepairTheStarshipBot
     {
+        private Direction lastCommand;
+
         protected override IEnumerable<Command> FindNextCommands()
         {
             var path = PathSearcher.FindPath(Map, OurCoordinates, OpponentCoordinates);
-            return path.Length == 0 ? new Command[0] : RobotLocator.GetCommandsByDirection(path.First());
+            var commands = path.Length == 0 ? GoBack() : RobotLocator.GetCommandsByDirection(path.First());
+            lastCommand = path.FirstOrDefault();
+            return commands;
+        }
+
+        private IEnumerable<Command> GoBack()
+        {
+            return RobotLocator.GetCommandsByDirection(lastCommand.Invert()).Concat(new[] {Command.Sleep(3)});
         }
     }
 }
