@@ -4,6 +4,6 @@ namespace CVARC.Basic.Sensors
 {
     public interface IImageSensorData : ISensorData
     {
-        Bitmap GetImage();
+//        Bitmap GetImage();
     }
 }

@@ -1,6 +1,7 @@
-﻿using RepairTheStarship.Sensors;
+﻿using RepairTheStarship;
+using RepairTheStarship.Sensors;
 
-namespace RepairTheStarship
+namespace Gems.Robots
 {
     public class DestinationGemsRobot : GemsRobot
     {
@@ -14,7 +15,7 @@ namespace RepairTheStarship
             return new SensorsData
             {
                 RobotIdSensor = RobotIdSensor.Measure(),
-                LightHouseSensor = LightHouseSensor.Measure(),
+                LightHouseSensor = PositionSensor.Measure(),
                 MapSensor = DestinationMapSensor.Measure()
             } as T;
         }

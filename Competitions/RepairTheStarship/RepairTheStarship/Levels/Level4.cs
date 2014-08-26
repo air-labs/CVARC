@@ -4,7 +4,7 @@ using RepairTheStarship;
 
 namespace Gems.Levels
 {
-    public class Level3 : BaseLevel
+    public class Level4 : BaseLevel
     {
         public override ISceneSettings ParseSettings(CVARC.Network.HelloPackage helloPackage)
         {
@@ -13,7 +13,7 @@ namespace Gems.Levels
 
         public override Robot CreateRobot(int robotNumber)
         {
-            return new DestinationGemsRobot(this, robotNumber);
+            return new ImageGemsRobot(this, robotNumber);
         }
     };
 }

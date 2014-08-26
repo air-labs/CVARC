@@ -6,6 +6,11 @@ namespace CVARC.Basic.Sensors
     public class ImageSensorData : ISensorData
     {
         [DataMember]
-        public string Base64Picture { get; set; }
+        public byte[] Bytes { get; set; }
+        
+        public ImageSensorData(byte[] bytes)
+        {
+            Bytes = bytes;
+        }
     }
 }

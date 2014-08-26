@@ -44,11 +44,11 @@ namespace CVARC.Basic.Engine
         public byte[] Measure()
         {
             Settings.Location = robot.GetAbsoluteLocation();
-            var data = new RobotCameraData();
-            bool result = _drawer.TryGetImage(_camera, out data.Bitmap);
+            byte[] data;
+            bool result = _drawer.TryGetImage(_camera, out data);
             if (Settings.WriteToFile && result)
-                WriteToFile(data.Bitmap);
-            return data.Bitmap;
+                WriteToFile(data);
+            return data;
         }
 
         public const int DefaultHeight = 600;

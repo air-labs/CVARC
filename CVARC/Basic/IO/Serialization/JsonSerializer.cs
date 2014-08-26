@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.IO;
 using System.Runtime.Serialization.Json;
+using System.Text;
 
 namespace CVARC.Basic.Core.Serialization
 {
@@ -19,12 +20,14 @@ namespace CVARC.Basic.Core.Serialization
 
         public T Deserialize<T>(byte[] bytes)
         {
+            var s = Encoding.UTF8.GetString(bytes);
             using(var stream = new MemoryStream(bytes))
                 return (T) Get(typeof(T)).ReadObject(stream);
         }
 
         private DataContractJsonSerializer Get(Type t)
         {
+            return new DataContractJsonSerializer(t);
             return Serializers.GetOrAdd(t, type => new DataContractJsonSerializer(type));
         }
     }

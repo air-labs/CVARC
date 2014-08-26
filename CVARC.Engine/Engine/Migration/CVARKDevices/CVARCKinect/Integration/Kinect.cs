@@ -6,10 +6,8 @@ using System.IO;
 using System.Linq;
 using AIRLab.Drawing;
 using AIRLab.Mathematics;
-using CVARC.Basic;
 using CVARC.Basic.Sensors;
 using CVARC.Core;
-using CVARC.Graphics;
 
 namespace kinect.Integration
 {
@@ -65,10 +63,7 @@ namespace kinect.Integration
                 }
                 verticalAngle += _settings.VStep;
             }
-            return new ImageSensorData
-                {
-                    Base64Picture = result.GetStringRepresentation()
-                };
+            return new ImageSensorData(result.GetBytes());
         }
     }
 
@@ -81,16 +76,14 @@ namespace kinect.Integration
             Depth = new double[i,j];
         }
 
-        public string GetStringRepresentation()
+        public byte[] GetBytes()
         {
             var bmp = GetImage();
-            string base64;
             using (var ms = new MemoryStream())
             {
                 bmp.Save(ms, ImageFormat.Png);
-                base64 = Convert.ToBase64String(ms.ToArray());
+                return ms.ToArray();
             }
-            return base64;
         }
 
         public Bitmap GetImage()

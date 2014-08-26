@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Drawing;
 using System.IO;
-using AIRLab.Drawing;
 using AIRLab.Mathematics;
 using AIRLab.Thornado;
-using CVARC.Core;
 
 namespace CVARC.Basic.Sensors
 {
@@ -21,20 +18,13 @@ namespace CVARC.Basic.Sensors
 
 	    public RobotCameraSettings Settings { get; private set; }
 
-
-
 	    /// <summary>
 		/// Снимает изображение с камеры и возвращает объект с данными камеры. 
 		/// </summary>
 		/// <returns></returns>
         public override ImageSensorData Measure()
-		{
-            var data = new RobotCameraData();
-            data.Bitmap = Engine.GetImageFromCamera(CameraName);
-			return new ImageSensorData
-			    {
-			        Base64Picture = data.GetStringRepresentation()
-			    };
+	    {
+	        return new ImageSensorData(Engine.GetImageFromCamera(CameraName));
 		}
 
 		public const int DefaultHeight = 600;
@@ -53,26 +43,7 @@ namespace CVARC.Basic.Sensors
 
 	}
 	
-	[Serializable]
-	public class RobotCameraData : IImageSensorData
-	{
-		/// <summary>
-		/// Массив байтов, содержащий изображение в формате jpeg
-		/// </summary>
-		public byte[] Bitmap;
-
-	    public string GetStringRepresentation()
-	    {
-            return Convert.ToBase64String(Bitmap);
-	    }
-
-	    public Bitmap GetImage()
-	    {
-	        return new Bitmap(FastBitmap.FromBMPStream(new MemoryStream(Bitmap)).ToBitmap());
-	    }
-	}
-
-	[Serializable]
+    [Serializable]
 	public class RobotCameraSettings
 	{
 		/// <summary>

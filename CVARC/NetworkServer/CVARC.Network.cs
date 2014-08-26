@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using CVARC.Basic;
@@ -39,6 +40,7 @@ namespace CVARC.Network
             }
             catch (Exception e)
             {
+                throw;//todo Убрать
                 MessageBox.Show(e.Message, "CVARC Network", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }

@@ -3,14 +3,15 @@ using CVARC.Basic.Sensors;
 using CVARC.Basic.Sensors.Positions;
 using RepairTheStarship.Sensors;
 
-namespace RepairTheStarship
+namespace Gems.Robots
 {
     public abstract class BaseGemsRobot : Robot
     {
         protected RobotIdSensor RobotIdSensor;
         protected MapSensor MapSensor;
-        protected LightHouseSensor LightHouseSensor;
+        protected LightHouseSensor PositionSensor;
         protected DestinationMapSensor DestinationMapSensor;
+        protected RobotCamera RobotCamera;
 
         protected BaseGemsRobot(Competitions competitions, int number) : base(competitions, number)
         {
@@ -20,8 +21,9 @@ namespace RepairTheStarship
         {
             RobotIdSensor = new RobotIdSensor(this);
             MapSensor = new MapSensor(this);
-            LightHouseSensor = new LightHouseSensor(this);
+            PositionSensor = new LightHouseSensor(this);
             DestinationMapSensor = new DestinationMapSensor(this);
+            RobotCamera = new RobotCamera(this);
         }
     }
 }

@@ -2,6 +2,7 @@
 using AIRLab.Mathematics;
 using CVARC.Basic;
 using Gems.Bots;
+using Gems.Robots;
 
 namespace RepairTheStarship
 {
