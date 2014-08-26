@@ -56,7 +56,7 @@ namespace CVARC.Basic.Sensors
 		/// Точка крепления камеры
 		/// </summary>
 		[Thornado]
-		public Frame3D Location = new Frame3D(0, 0, 10, Angle.FromGrad(-25), Angle.Zero, Angle.Zero);
+        public Frame3D Location = new Frame3D(30, 0, 30, Angle.FromGrad(-45), Angle.Zero, Angle.Zero);
 
 		/// <summary>
 		/// Писать в файл для дебага

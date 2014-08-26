@@ -1,12 +1,11 @@
 ﻿using System.Runtime.Serialization;
-using CVARC.Basic.Sensors;
 
 namespace RepairTheStarship.Sensors
 {
     [DataContract]
-    public class ImageSensorsData : BaseSensorData
+    public class PositionSensorsData : BaseSensorData
     {
         [DataMember]
-        public ImageSensorData Image { get; set; }
+        public MapSensorData MapSensor { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace Gems.Bots
         public override void Initialize(Competitions competitions)
         {
             base.Initialize(competitions);
-            Map = Competitions.GetSensorsData<SensorsData>(ControlledRobot).BuildMap();
+            Map = Competitions.GetSensorsData<PositionSensorsData>(ControlledRobot).BuildMap();
             RobotLocator = new RobotLocator(Map);
             enumerator = currentCommands.GetEnumerator();
         }
@@ -37,7 +37,7 @@ namespace Gems.Bots
 
         private void Update()
         {
-            RobotLocator.Update(Competitions.GetSensorsData<SensorsData>(ControlledRobot));
+            RobotLocator.Update(Competitions.GetSensorsData<PositionSensorsData>(ControlledRobot));
             OpponentCoordinates = GetCoordinatesByPosition(Map.OpponentPosition);
             OurCoordinates = GetCoordinatesByPosition(Map.CurrentPosition);
         }

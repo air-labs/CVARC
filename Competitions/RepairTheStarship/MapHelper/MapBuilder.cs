@@ -8,9 +8,9 @@ namespace MapHelper
         private const int MapHeight = 200;
         private const int CellSize = 50;
 
-        public static Map BuildMap(this SensorsData sensorsData)
+        public static Map BuildMap(this PositionSensorsData positionSensorsData)
         {
-            var map = new Map(sensorsData);
+            var map = new Map(positionSensorsData);
             map.AvailableDirectionsByCoordinates = GetAvailableDirections(map.Walls);
             return map;
         }

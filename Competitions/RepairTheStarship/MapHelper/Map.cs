@@ -14,22 +14,22 @@ namespace MapHelper
         public PositionData CurrentPosition { get; set; }
         public PositionData OpponentPosition { get; set; }
 
-        public Map(SensorsData data)
+        public Map(PositionSensorsData data)
         {
             Init(data);
             Update(data);
         }
 
-        private void Init(SensorsData data)
+        private void Init(PositionSensorsData data)
         {
-            RobotId = data.RobotIdSensor.Id;
+            RobotId = data.RobotId.Id;
             OpponentRobotId = RobotId == 0 ? 1 : 0;
         }
 
-        public void Update(SensorsData data)
+        public void Update(PositionSensorsData data)
         {
-            CurrentPosition = data.LightHouseSensor.PositionsData[RobotId];
-            OpponentPosition = data.LightHouseSensor.PositionsData[OpponentRobotId];
+            CurrentPosition = data.Position.PositionsData[RobotId];
+            OpponentPosition = data.Position.PositionsData[OpponentRobotId];
             Details = data.MapSensor.MapItems.Where(x => x.Tag.Contains("Detail")).Select(x => new StarshipObject
                 {
                     DiscreteCoordinate = MapBuilder.AbsoluteCoordinateToDiscrete(new Point((int) x.X, (int) x.Y)),

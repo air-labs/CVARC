@@ -45,13 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseSensorData.cs" />
     <Compile Include="DestinationMapSensor.cs" />
     <Compile Include="ImageSensorsData.cs" />
     <Compile Include="MapItem.cs" />
     <Compile Include="MapSensor.cs" />
     <Compile Include="MapSensorData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SensorsData.cs" />
+    <Compile Include="PositionSensorsData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CVARC\Basic\Basic.csproj">

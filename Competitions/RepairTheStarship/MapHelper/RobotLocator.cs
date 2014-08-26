@@ -22,7 +22,7 @@ namespace MapHelper
             expectedRobotAngle = realRobotAngle;
         }
 
-        public void Update(SensorsData sensorData)
+        public void Update(PositionSensorsData sensorData)
         {
             map.Update(sensorData);
             realRobotAngle = map.CurrentPosition.Angle;

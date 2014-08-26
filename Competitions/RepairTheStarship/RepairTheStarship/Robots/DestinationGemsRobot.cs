@@ -12,10 +12,10 @@ namespace Gems.Robots
 
         public override T GetSensorsData<T>()
         {
-            return new SensorsData
+            return new PositionSensorsData
             {
-                RobotIdSensor = RobotIdSensor.Measure(),
-                LightHouseSensor = PositionSensor.Measure(),
+                RobotId = RobotIdSensor.Measure(),
+                Position = PositionSensor.Measure(),
                 MapSensor = DestinationMapSensor.Measure()
             } as T;
         }

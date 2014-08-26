@@ -18,7 +18,7 @@ namespace Level2Client
 
         private static void Main(string[] args)
         {
-            var server = new CvarcClient(args, Settings).GetServer<SensorsData>();
+            var server = new CvarcClient(args, Settings).GetServer<PositionSensorsData>();
             var sensorData = server.Run();
             var map = sensorData.BuildMap();
             var robotLocator = new RobotLocator(map);
