@@ -27,9 +27,9 @@ namespace CVARC.Basic
             Rules = rules;
         }
 
-        public void SetSpeed(string obj, Frame3D velocity)
+        public void SetSpeed(string id, Frame3D velocity)
         {
-            RequestedSpeeds[obj] = velocity;
+            RequestedSpeeds[id] = velocity;
         }
 
         public void Initialize(ISceneSettings settings)
@@ -42,12 +42,12 @@ namespace CVARC.Basic
 
         public Body GetBody(string name)
         {
-            return Root.First(z => z.UniqueId == name);
+            return Root.First(z => z.Id.ToString() == name);
         }
 
-        public Frame3D GetAbsoluteLocation(string name)
+        public Frame3D GetAbsoluteLocation(string id)
         {
-            return GetBody(name).Location;
+            return GetBody(id).Location;
         }
 
         public void DefineCamera(string cameraName, string host, RobotCameraSettings settings)
@@ -59,7 +59,6 @@ namespace CVARC.Basic
         {
             return Cameras[cameraName].Measure();
         }
-
 
         public void RunEngine(double timeInSeconds, bool inRealTime)
         {
@@ -86,7 +85,6 @@ namespace CVARC.Basic
             return ConverterToJavaScript.Convert(Logger.SerializationRoot);
         }
 
-
         public void DefineKinect(string kinectName, string host)
         {
             Kinects[kinectName] = new Kinect(GetBody(host));
@@ -97,14 +95,14 @@ namespace CVARC.Basic
             return Kinects[kinectName].Measure();
         }
 
-        public IEnumerable<string> GetAllObjects()
+        public IEnumerable<IGameObject> GetAllObjects()
         {
-            return Root.Select(z => z.UniqueId);
+            return Root.Select(z => new GameObject(z.Id.ToString(), z.Type));
         }
 
-        public void PerformAction(string name, string action)
+        public void PerformAction(string id, string action)
         {
-            Rules.PerformAction(this, name, action);
+            Rules.PerformAction(this, id, action);
         }
     }
 }

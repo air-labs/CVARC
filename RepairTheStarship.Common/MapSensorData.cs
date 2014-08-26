@@ -11,7 +11,7 @@ namespace RepairTheStarship.Sensors
         public MapSensorData(IEngine engine)
         {
             MapItems = engine.GetAllObjects()
-                .Select(e => new MapItem(e,engine.GetAbsoluteLocation(e)))
+                .Select(e => new MapItem(e.Type, engine.GetAbsoluteLocation(e.Id)))
                 .Where(x => x.Tag != null)
                 .ToArray();
         }

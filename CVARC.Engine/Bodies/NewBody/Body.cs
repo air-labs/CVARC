@@ -213,14 +213,9 @@ namespace CVARC.Core
 		public Action<Body, double> CustomAnimationDelegate;
 		
 		[NonSerialized]
-		public string Name;
+		public string Type;
 
 		public int Id { get { return _id; } }
-
-	    public string UniqueId
-	    {
-	        get { return Name + "_" + (Id - 1); }//нумеруем с нуля
-	    }
 
 	    #region IEnumerable members
 

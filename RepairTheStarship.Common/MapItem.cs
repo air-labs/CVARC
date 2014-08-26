@@ -16,10 +16,9 @@ namespace RepairTheStarship.Sensors
         [DataMember]
         public double Y { get; set; }
 
-        public MapItem(string id, Frame3D Location)
+        public MapItem(string type, Frame3D Location)
         {
-            var name = id.Split('_').First();
-            switch (name)
+            switch (type)
             {
                 case "DR": Tag = "RedDetail"; break;
                 case "DB": Tag = "BlueDetail"; break;

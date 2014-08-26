@@ -38,7 +38,7 @@ namespace RepairTheStarship
                         ZSize = weight,
                         Location = new Frame3D(coo.X, coo.Y, 0),
                         DefaultColor = color,
-                        Name = name,
+                        Type = name,
                         IsMaterial = true,
                         IsStatic = true,
                     });
@@ -67,7 +67,7 @@ namespace RepairTheStarship
                 Density = Density.Iron,
                 FrictionCoefficient = 0,
                 Top = new PlaneImageBrush { Image = new Bitmap(GetResourceStream("red.png")) },
-                Name = "Robot"
+                Type = "Robot"
             };
             var second = new Cylinder
             {
@@ -80,7 +80,7 @@ namespace RepairTheStarship
                 Density = Density.Iron,
                 FrictionCoefficient = 0,
                 Top = new PlaneImageBrush { Image = new Bitmap(GetResourceStream("blue.png")) },
-                Name = "Robot"
+                Type = "Robot"
             };
             root.Add(first);
             root.Add(second);
@@ -118,7 +118,7 @@ namespace RepairTheStarship
                 DefaultColor = Color.White,
                 Top = new SolidColorBrush { Color = Color.Yellow },
                 IsStatic = true,
-                Name = "floor",
+                Type = "floor",
             });
 
             foreach (var detail in Settings.Details)
@@ -139,7 +139,7 @@ namespace RepairTheStarship
                     ZSize = 15,
                     Location = new Frame3D(-150 + 25 + detail.Location.X * 50, 100 - 25 - 50 * detail.Location.Y, 0),
                     DefaultColor = color,
-                    Name = name,
+                    Type = name,
                     IsMaterial = true,
                     IsStatic = false,
                     FrictionCoefficient = 8
@@ -172,7 +172,7 @@ namespace RepairTheStarship
                     ZSize = 3,
                     DefaultColor = wallsColor,
                     IsStatic = true,
-                    Name = "wall",
+                    Type = "wall",
                     IsMaterial = true,
                     Location = new Frame3D(
                         pos * lY / 2,
@@ -191,7 +191,7 @@ namespace RepairTheStarship
                 Location = new Frame3D(50, 80, 3),
                 DefaultColor = Color.YellowGreen,
                 IsMaterial = true,
-                Name = "part",
+                Type = "part",
                 FrictionCoefficient = 8,
                 Density = Density.Aluminum,
             });
@@ -203,7 +203,7 @@ namespace RepairTheStarship
                 Location = new Frame3D(-50, 80, 3),
                 DefaultColor = Color.YellowGreen,
                 IsMaterial = true,
-                Name = "part",
+                Type = "part",
                 FrictionCoefficient = 8,
                 Density = Density.Aluminum,
             });
@@ -215,7 +215,7 @@ namespace RepairTheStarship
                 Location = new Frame3D(50, -80, 3),
                 DefaultColor = Color.Red,
                 IsMaterial = true,
-                Name = "part",
+                Type = "part",
                 FrictionCoefficient = 8,
                 Density = Density.Aluminum,
             });
@@ -227,7 +227,7 @@ namespace RepairTheStarship
                 Location = new Frame3D(-50, -80, 3),
                 DefaultColor = Color.Red,
                 IsMaterial = true,
-                Name = "part",
+                Type = "part",
                 FrictionCoefficient = 8,
                 Density = Density.Aluminum
             });
@@ -260,7 +260,7 @@ namespace RepairTheStarship
                         Location = new Frame3D(radius * k * Math.Sin(angleCircle.Radian), radius * Math.Cos(angleCircle.Radian), 3),
                         DefaultColor = gem.Item2,
                         IsMaterial = true,
-                        Name = gem.Item1,
+                        Type = gem.Item1,
                         FrictionCoefficient = 8
                     });
                 }
@@ -281,19 +281,19 @@ namespace RepairTheStarship
 
         private void Release(ICvarcEngine engine, Body Body)
         {
-            var latestGripped = Body.FirstOrDefault(z => z.Name.StartsWith("D") && z.Name.Length == 2);
+            var latestGripped = Body.FirstOrDefault(z => z.Type.StartsWith("D") && z.Type.Length == 2);
             if (latestGripped == null) return;
 
             var absoluteLocation = latestGripped.GetAbsoluteLocation();
             Body.Remove(latestGripped);
 
-            var targetColor = latestGripped.Name[1].ToString();
+            var targetColor = latestGripped.Type[1].ToString();
 
             latestGripped.Location = absoluteLocation;
             latestGripped.Velocity = Body.Velocity;
             var toAtt = Body.TreeRoot.GetSubtreeChildrenFirst()
                             .Where(a =>
-                                    (a.Name == "VW" + targetColor || a.Name == "HW" + targetColor) &&
+                                    (a.Type == "VW" + targetColor || a.Type == "HW" + targetColor) &&
                                     Distance(latestGripped, a) < 30)
                             .OfType<Box>()
                             .FirstOrDefault();
@@ -303,7 +303,7 @@ namespace RepairTheStarship
                 Body.TreeRoot.Remove(toAtt);
                 var wall = new Box
                 {
-                    Name = toAtt.Name.Substring(0, 2),
+                    Type = toAtt.Type.Substring(0, 2),
                     XSize = toAtt.XSize,
                     YSize = toAtt.YSize,
                     ZSize = toAtt.ZSize,
@@ -368,7 +368,7 @@ namespace RepairTheStarship
                 !body.IsStatic &&
                 !to.SubtreeContainsChild(body) &&
                 !to.ParentsContain(body) &&
-                body.Name.StartsWith("D") &&
+                body.Type.StartsWith("D") &&
                 Distance(body, to) < 30;
         }
 

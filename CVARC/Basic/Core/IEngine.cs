@@ -6,7 +6,6 @@ using CVARC.Basic.Sensors;
 
 namespace CVARC.Basic
 {
-
     public static class IEngineExtensions
     {
         public static void ProcessCommand(this IEngine engine, string actor, Command cmd)
@@ -18,7 +17,6 @@ namespace CVARC.Basic
             engine.SetSpeed(actor, speed);
             if (cmd.Action != CommandAction.None)
                 engine.PerformAction(actor, cmd.Action.ToString());
-
         }
     }
 
@@ -31,11 +29,11 @@ namespace CVARC.Basic
         /// <summary>
         /// Speed is specified in absolute coordinates
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="id"></param>
         /// <param name="speed"></param>
-        void SetSpeed(string name, Frame3D speed);
-        void PerformAction(string name, string action);
-        Frame3D GetAbsoluteLocation(string name);
+        void SetSpeed(string id, Frame3D speed);
+        void PerformAction(string id, string action);
+        Frame3D GetAbsoluteLocation(string id);
 
         void DefineCamera(string cameraName, string host, RobotCameraSettings settings);
         byte[] GetImageFromCamera(string cameraName);
@@ -46,6 +44,12 @@ namespace CVARC.Basic
         void RunEngine(double timeInSeconds, bool inRealTime);
         string GetReplay();
 
-        IEnumerable<string> GetAllObjects();
+        IEnumerable<IGameObject> GetAllObjects();
+    }
+
+    public interface IGameObject
+    {
+        string Type { get; }
+        string Id { get; }     
     }
 }
