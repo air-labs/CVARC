@@ -40,7 +40,7 @@ namespace MapHelper
 
         public IEnumerable<Command> GetCommandsByDirection(Direction direction)
         {
-            return GetCommandsByDirectionInternal(direction).Where(x => (int)x.Move != 0 || Math.Abs(x.Angle.Grad) > 0.01);
+            return GetCommandsByDirectionInternal(direction).Where(x => (int)x.LinearVelocity != 0 || Math.Abs(x.AngularVelocity.Grad) > 0.01);
         }
 
         private Command CorrectRobotPosition()
