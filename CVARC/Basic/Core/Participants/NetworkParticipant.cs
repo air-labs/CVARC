@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using CVARC.Basic.Controllers;
 using CVARC.Basic.Core.Serialization;
 using CVARC.Network;

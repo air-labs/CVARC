@@ -16,6 +16,11 @@ namespace CVARC.Network
         [STAThread]
         static void Main()
         {
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
+            {
+                MessageBox.Show(args.ExceptionObject.ToString(), "CVARC Network", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(1);
+            };
             InternalMain(new NetworkSettings());
         }
 
@@ -42,7 +47,7 @@ namespace CVARC.Network
             {
                 throw;//todo Убрать
                 MessageBox.Show(e.Message, "CVARC Network", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
+                Environment.Exit(1);
             }
         }
 
@@ -62,7 +67,7 @@ namespace CVARC.Network
 
         private static void StartClient()
         {
-            var p = new System.Diagnostics.Process();
+            var p = new Process();
             p.StartInfo.FileName = "..\\..\\..\\..\\Competitions\\DemoNetworkClient\\bin\\Debug\\DemoNetworkClient.exe";
             p.Start();
         }

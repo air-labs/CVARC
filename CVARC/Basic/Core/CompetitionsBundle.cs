@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace CVARC.Basic
 {
@@ -17,9 +16,9 @@ namespace CVARC.Basic
             Rules = r;
         }
 
-
         public static CompetitionsBundle Load(string competitionsName, string levelName)
         {
+
             if (string.IsNullOrEmpty(competitionsName) || !File.Exists(competitionsName))
                 throw new Exception(string.Format("Файл соревнований {0} не был найден. Проверьте правильность пути CompetitionsName.", competitionsName));
 
