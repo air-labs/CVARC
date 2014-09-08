@@ -15,7 +15,7 @@ def Send(server, jsonObj):
 	server.send(struct.pack('I', length))
 	server.send(json.dumps(jsonObj))
 	length = struct.unpack("<L", server.recv(4))[0]
-	return server.recv(length)
+	return json.loads(server.recv(length))
 	
 def RunServer():
 	serverPath = "\\Cvarc\\CVARC\\NetworkServer\\bin\\Debug\\"
