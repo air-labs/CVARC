@@ -44,6 +44,7 @@ namespace RepairTheStarship
             AvailableBots["Sanguine"] = typeof(Sanguine);
             AvailableBots["MolagBal"] = typeof(MolagBal);
             AvailableBots["Azura"] = typeof(Azura);
+            AvailableBots["Vaermina"] = typeof(Vaermina);
         }
     }
 }
