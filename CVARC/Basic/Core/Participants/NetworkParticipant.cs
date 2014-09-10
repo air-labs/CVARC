@@ -9,7 +9,7 @@ namespace CVARC.Basic
 {
     public class NetworkParticipant: Participant
     {
-        public Competitions Competitions { get; private set; }
+        public CompetitionsBundle competitionsBundle { get; private set; }
         public HelloPackage HelloPackage { get; private set; }
         private readonly ISerializer serializer = new JsonSerializer();
         private readonly GroboTcpClient client;
@@ -24,8 +24,8 @@ namespace CVARC.Basic
             {
                 var package = client.ReadToEnd();
                 HelloPackage = serializer.Deserialize<HelloPackage>(package);
-                Competitions = Competitions.Load(competitionsName, HelloPackage.LevelName);
-                Competitions.HelloPackage = HelloPackage;
+                competitionsBundle = CompetitionsBundle.Load(competitionsName, HelloPackage.LevelName);
+                competitionsBundle.competitions.HelloPackage = HelloPackage;
             }
             catch (Exception e)
             {
@@ -42,7 +42,7 @@ namespace CVARC.Basic
 
         public override Command MakeTurn()
         {
-            var sensorsData = Competitions.GetSensorsData<ISensorsData>(ControlledRobot);
+            var sensorsData = competitionsBundle.competitions.GetSensorsData<ISensorsData>(ControlledRobot);
             client.Send(serializer.Serialize(sensorsData));
             var command = serializer.Deserialize<Command>(client.ReadToEnd());
             command.RobotId = ControlledRobot;

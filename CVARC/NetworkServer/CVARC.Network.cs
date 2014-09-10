@@ -31,8 +31,8 @@ namespace CVARC.Network
                 InitCompetition(settings);
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                form = new TutorialForm(participant.Competitions);
-                new Thread(() => participant.Competitions.ProcessParticipants(realTime, 1000, participants))
+                form = new TutorialForm(participant.competitionsBundle.competitions);
+                new Thread(() => participant.competitionsBundle.competitions.ProcessParticipants(realTime, 1000, participants))
                 {
                     IsBackground = true
                 }.Start();
@@ -52,10 +52,10 @@ namespace CVARC.Network
             participant = new NetworkParticipant(settings.CompetitionsName);
             participants[participant.ControlledRobot] = participant;
             var botNumber = participant.ControlledRobot == 0 ? 1 : 0;
-            participant.Competitions.Initialize(new CVARCEngine(participant.Competitions.CvarcRules),
+            participant.competitionsBundle.competitions.Initialize(new CVARCEngine(participant.competitionsBundle.Rules),
                 new[] { new RobotSettings(participant.ControlledRobot, false), new RobotSettings(botNumber, true) });
             var botName = participant.HelloPackage.Opponent ?? "None";
-            participants[botNumber] = participant.Competitions.CreateBot(botName, botNumber);
+            participants[botNumber] = participant.competitionsBundle.competitions.CreateBot(botName, botNumber);
             if (settings.StartClient)
                 StartClient();
         }

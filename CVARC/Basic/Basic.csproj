@@ -52,6 +52,7 @@
     <Compile Include="Core\Bots\Bot.cs" />
     <Compile Include="Core\Bots\EmptyBot.cs" />
     <Compile Include="Core\Competitions.cs" />
+    <Compile Include="Core\CompetitionsBundle.cs" />
     <Compile Include="Core\CompetitionsSettings.cs" />
     <Compile Include="Core\Exceptions.cs" />
     <Compile Include="Core\GameObject.cs" />

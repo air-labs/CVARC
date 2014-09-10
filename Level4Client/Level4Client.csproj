@@ -46,10 +46,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Competitions\RepairTheStarship\MapHelper\MapHelper.csproj">
-      <Project>{D19AFC65-6B6E-4EE5-B22A-6C147A9E2763}</Project>
-      <Name>MapHelper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Competitions\RepairTheStarship\RepairTheStarship\RepairTheStarship.csproj">
       <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
       <Name>RepairTheStarship</Name>

@@ -69,10 +69,6 @@
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
       <Name>Basic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MapHelper\MapHelper.csproj">
-      <Project>{D19AFC65-6B6E-4EE5-B22A-6C147A9E2763}</Project>
-      <Name>MapHelper</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

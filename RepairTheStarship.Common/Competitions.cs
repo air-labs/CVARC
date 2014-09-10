@@ -39,7 +39,7 @@ namespace RepairTheStarship
             }
         }
 
-        public SRCompetitions() : base( new GemsRules())
+        public SRCompetitions() : base( )
         {
             AvailableBots["Sanguine"] = typeof(Sanguine);
             AvailableBots["MolagBal"] = typeof(MolagBal);

@@ -10,7 +10,7 @@ namespace CVARC.Tutorial
     internal static class Program
     {
         private static TutorialForm form;
-        private static Competitions competitions;
+        private static CompetitionsBundle CompetitionsBundle;
         private static readonly KeyboardController Controller = new KeyboardController();
         private const string BotName = "Sanguine";
 
@@ -20,11 +20,11 @@ namespace CVARC.Tutorial
             try
             {
                 var settings = new TutorialSettings();
-                competitions = Competitions.Load(settings.CompetitionsName, "Level1");
+                CompetitionsBundle = CompetitionsBundle.Load(settings.CompetitionsName, "Level1");
                 if (settings.HasMap)
-                    competitions.HelloPackage = new HelloPackage { MapSeed = settings.MapSeed };
+                    CompetitionsBundle.competitions.HelloPackage = new HelloPackage { MapSeed = settings.MapSeed };
 
-                competitions.Initialize(new CVARCEngine(competitions.CvarcRules), new[] { new RobotSettings(0, false), new RobotSettings(1, true) });
+                CompetitionsBundle.competitions.Initialize(new CVARCEngine(CompetitionsBundle.Rules), new[] { new RobotSettings(0, false), new RobotSettings(1, true) });
             }
             catch (Exception e)
             {
@@ -34,11 +34,11 @@ namespace CVARC.Tutorial
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            form = new TutorialForm(competitions);
+            form = new TutorialForm(CompetitionsBundle.competitions);
             form.KeyPreview = true;
-            form.KeyDown += (sender, e) => competitions.ApplyCommand(Controller.GetCommand(e.KeyCode));
-            form.KeyUp += (sender, e) => competitions.ApplyCommand(Command.Sleep(0));
-            new Thread(() => competitions.ProcessParticipants(true, int.MaxValue, new[] { competitions.CreateBot(BotName, 1) }))
+            form.KeyDown += (sender, e) => CompetitionsBundle.competitions.ApplyCommand(Controller.GetCommand(e.KeyCode));
+            form.KeyUp += (sender, e) => CompetitionsBundle.competitions.ApplyCommand(Command.Sleep(0));
+            new Thread(() => CompetitionsBundle.competitions.ProcessParticipants(true, int.MaxValue, new[] { CompetitionsBundle.competitions.CreateBot(BotName, 1) }))
                 {
                     IsBackground = true
                 }.Start();
