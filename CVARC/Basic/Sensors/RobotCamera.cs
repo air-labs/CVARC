@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using AIRLab.Mathematics;
+using System.Drawing;
 
 
 namespace CVARC.Basic.Sensors
@@ -23,8 +24,10 @@ namespace CVARC.Basic.Sensors
 		/// </summary>
 		/// <returns></returns>
         public override ImageSensorData Measure()
-			    };
-		}
+        {
+            return new ImageSensorData(Engine.GetImageFromCamera(CameraName));
+        }
+
 
 		public const int DefaultHeight = 600;
 		public const int DefaultWidth = 800;
