@@ -11,7 +11,7 @@ namespace CVARC.Basic
 {
     public class NetworkParticipant: Participant
     {
-        public Competitions Competitions { get; private set; }
+        public CompetitionsBundle CompetitionsBundle { get; private set; }
         public HelloPackage HelloPackage { get; private set; }
         private readonly ISerializer serializer = new JsonSerializer();
         private readonly NetworkStream stream;
@@ -33,8 +33,8 @@ namespace CVARC.Basic
                 var package = stream.ReadBytes();
                 Console.Write("Receiving hello package... {0}", Encoding.UTF8.GetString(package));
                 HelloPackage = serializer.Deserialize<HelloPackage>(package);
-                Competitions = Competitions.Load(competitionsName, HelloPackage.LevelName);
-                Competitions.HelloPackage = HelloPackage;
+                CompetitionsBundle = CompetitionsBundle.Load(competitionsName, HelloPackage.LevelName);
+                CompetitionsBundle.Competitions.HelloPackage = HelloPackage;
             }
             catch (Exception e)
             {
@@ -51,7 +51,7 @@ namespace CVARC.Basic
 
         public override Command MakeTurn()
         {
-            var sensorsData = Competitions.GetSensorsData<ISensorsData>(ControlledRobot);
+            var sensorsData = CompetitionsBundle.Competitions.GetSensorsData<ISensorsData>(ControlledRobot);
             stream.Write(serializer.Serialize(sensorsData));
             stream.Flush();
 

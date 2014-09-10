@@ -18,7 +18,6 @@ namespace CVARC.Basic
     public abstract class Competitions
     {
         public readonly KeyboardController KeyboardController;
-        public readonly ICvarcRules CvarcRules;
         public IEngine Engine { get; private set; }
 
 
@@ -38,9 +37,9 @@ namespace CVARC.Basic
         public virtual int CompetitionId { get { return 1; } }
 
 
-        public Competitions(ICvarcRules rules, KeyboardController keyboard)
+        public Competitions(KeyboardController keyboard)
         {
-            CvarcRules=rules;
+            
             KeyboardController = keyboard;
             GameTimeLimit = 90;
             NetworkTimeLimit = 1;
@@ -57,18 +56,7 @@ namespace CVARC.Basic
             Robots[command.RobotId].ProcessCommand(command);
         }
 
-        public static Competitions Load(string competitionsName, string levelName)
-        {
-            if (string.IsNullOrEmpty(competitionsName) || !File.Exists(competitionsName))
-                throw new Exception(string.Format("Файл соревнований {0} не был найден. Проверьте правильность пути CompetitionsName.", competitionsName));
 
-            var ass = Assembly.LoadFrom(competitionsName);
-            var competitions = ass.GetExportedTypes().SingleOrDefault(a => a.IsSubclassOf(typeof(Competitions)) && a.Name == levelName);
-            if (competitions == null)
-                throw new Exception(string.Format("Уровень {0} не был найден в {1}", levelName, competitionsName));
-            var ctor = competitions.GetConstructor(new Type[] {});
-            return ctor.Invoke(new object[] {}) as Competitions;
-        }
 
         public void Initialize(IEngine engine)
         {

@@ -28,8 +28,8 @@ namespace CVARC.Network
             InitCompetition(settings); //Why CurrentDomain.UnhandledException does not work for this one???
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            form = new TutorialForm(participant.Competitions);
-            new Thread(() => participant.Competitions.ProcessParticipants(realTime, 1000, participants))
+            form = new TutorialForm(participant.CompetitionsBundle.Competitions);
+            new Thread(() => participant.CompetitionsBundle.Competitions.ProcessParticipants(realTime, 1000, participants))
                 {
                     IsBackground = true
                 }.Start();
@@ -41,10 +41,10 @@ namespace CVARC.Network
             participants = new Participant[2];
             participant = new NetworkParticipant(settings.CompetitionsName);
             participants[participant.ControlledRobot] = participant;
-            participant.Competitions.Initialize(new CVARCEngine(participant.Competitions.CvarcRules));
+            participant.CompetitionsBundle.Competitions.Initialize(new CVARCEngine(participant.CompetitionsBundle.CvarcRules));
             var botNumber = participant.ControlledRobot == 0 ? 1 : 0;
             var botName = participant.HelloPackage.Opponent ?? "None";
-            participants[botNumber] = participant.Competitions.CreateBot(botName, botNumber);
+            participants[botNumber] = participant.CompetitionsBundle.Competitions.CreateBot(botName, botNumber);
             if (settings.StartClient)
                 StartClient();
         }

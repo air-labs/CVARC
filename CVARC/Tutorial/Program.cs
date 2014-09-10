@@ -8,13 +8,14 @@ using System.Windows.Forms;
 using CVARC.Basic;
 using CVARC.Basic.Controllers;
 using CVARC.Network;
+using CVARC.Basic.Core;
 
 namespace CVARC.Tutorial
 {
     internal static class Program
     {
         private static TutorialForm form;
-        private static Competitions competitions;
+        private static CompetitionsBundle CompetitionsBundle;
         private static readonly ConcurrentDictionary<Keys, IEnumerable<Command>> PressedKeys = new ConcurrentDictionary<Keys, IEnumerable<Command>>();
 
         private static void form_KeyUp(object sender, KeyEventArgs e)
@@ -24,7 +25,7 @@ namespace CVARC.Tutorial
             {
                 if (commands.Any())
                 {
-                    competitions.ApplyCommand(new Command
+                    CompetitionsBundle.Competitions.ApplyCommand(new Command
                         {
                             Time = 1,
                             RobotId = commands.First().RobotId
@@ -35,7 +36,7 @@ namespace CVARC.Tutorial
          
         private static void form_KeyDown(object sender, KeyEventArgs e)
         {
-            PressedKeys.TryAdd(e.KeyCode, competitions.KeyboardController.GetCommand(e.KeyCode));
+            PressedKeys.TryAdd(e.KeyCode, CompetitionsBundle.Competitions.KeyboardController.GetCommand(e.KeyCode));
         }
 
         private static void Process()
@@ -46,8 +47,8 @@ namespace CVARC.Tutorial
                 Console.WriteLine(commands.Count);
                 Debug.WriteLine(commands.Count);
                 foreach (var c in commands)
-                    competitions.ApplyCommand(c);
-                competitions.MakeCycle(0.1, true);
+                    CompetitionsBundle.Competitions.ApplyCommand(c);
+                CompetitionsBundle.Competitions.MakeCycle(0.1, true);
                 form.BeginInvoke(new Action(form.UpdateScores));
             }
         }
@@ -61,10 +62,10 @@ namespace CVARC.Tutorial
             try
             {
                 var settings = new TutorialSettings();
-                competitions = Competitions.Load(settings.CompetitionsName, "Level1");
+                CompetitionsBundle = CompetitionsBundle.Load(settings.CompetitionsName, "Level1");
                 if (settings.HasMap)
-                    competitions.HelloPackage = new HelloPackage { MapSeed = settings.MapSeed };
-                competitions.Initialize(new CVARCEngine(competitions.CvarcRules));
+                    CompetitionsBundle.Competitions.HelloPackage = new HelloPackage { MapSeed = settings.MapSeed };
+                CompetitionsBundle.Competitions.Initialize(new CVARCEngine(CompetitionsBundle.CvarcRules));
             }
             catch (Exception e)
             {
@@ -74,7 +75,7 @@ namespace CVARC.Tutorial
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            form = new TutorialForm(competitions);
+            form = new TutorialForm(CompetitionsBundle.Competitions);
             form.KeyPreview = true;
             form.KeyDown += form_KeyDown;
             form.KeyUp += form_KeyUp;

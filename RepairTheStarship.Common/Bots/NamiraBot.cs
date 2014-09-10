@@ -7,6 +7,7 @@ using AIRLab.Mathematics;
 using CVARC.Basic;
 using CVARC.Basic.Controllers;
 using RepairTheStarship.Sensors;
+using AIRLab;
 
 namespace RepairTheStarship.Bots
 {
