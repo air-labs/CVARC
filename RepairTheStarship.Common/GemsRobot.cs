@@ -16,6 +16,7 @@ namespace RepairTheStarship
         {
         }
 
+        //TODO: какой кошмар!
         public override T GetSensorsData<T>()
         {
             return new SensorsData
