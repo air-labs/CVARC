@@ -10,7 +10,7 @@ namespace Level2Client
     {
         private static readonly ClientSettings Settings = new ClientSettings
             {
-                BotName = Bots.Sanguine,
+                BotName = Bots.Azura,
                 Side = Side.Left,
                 LevelName = LevelName.Level2,
                 MapNumber = 5

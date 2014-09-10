@@ -54,7 +54,7 @@ namespace MapHelper
         {
             var availableDirections = map.AvailableDirectionsByCoordinates[position.X, position.Y];
             var point = new InternalPoint(position.X + xOffset, position.Y + yOffset, direction);
-            if (true) // todo: переписать без HasFlag availableDirections.HasFlag(direction) && !handled.Contains(point))
+            if ( (availableDirections & direction)!= 0 && !handled.Contains(point))
             {
                 AddPoint(point);
                 parents.SafeAdd(point, position);
