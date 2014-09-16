@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using CVARC.Basic;
@@ -21,15 +20,15 @@ namespace CVARC.Network
                 MessageBox.Show(args.ExceptionObject.ToString(), "CVARC Network", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(1);
             };
-            InternalMain(new NetworkSettings());
+            InternalMain(new CompetitionsSettings());
         }
 
-        public static void DebugMain(NetworkSettings networkSettings)
+        public static void DebugMain(CompetitionsSettings networkSettings)
         {
             InternalMain(networkSettings);
         }
 
-        private static void InternalMain(NetworkSettings settings)
+        private static void InternalMain(CompetitionsSettings settings)
         {
             try
             {
@@ -51,7 +50,7 @@ namespace CVARC.Network
             }
         }
 
-        private static void InitCompetition(NetworkSettings settings)
+        private static void InitCompetition(CompetitionsSettings settings)
         {
             participants = new Participant[2];
             participant = new NetworkParticipant(settings.CompetitionsName);
@@ -61,15 +60,6 @@ namespace CVARC.Network
                 new[] { new RobotSettings(participant.ControlledRobot, false), new RobotSettings(botNumber, true) });
             var botName = participant.HelloPackage.Opponent ?? "None";
             participants[botNumber] = participant.competitionsBundle.competitions.CreateBot(botName, botNumber);
-            if (settings.StartClient)
-                StartClient();
-        }
-
-        private static void StartClient()
-        {
-            var p = new Process();
-            p.StartInfo.FileName = "..\\..\\..\\..\\Competitions\\DemoNetworkClient\\bin\\Debug\\DemoNetworkClient.exe";
-            p.Start();
         }
     }
 }

@@ -11,8 +11,9 @@ namespace ClientBase
         public CvarcClient(string[] args, ClientSettings settings)
         {
             this.settings = settings;
-            string relativePath = args.Length == 0 ? "" : args[0];
-            StartServer(relativePath);
+            bool needRunServer = args.Length == 0;
+            if (needRunServer)
+                StartServer();
         }
 
         public Server<TSensorsData> GetServer<TSensorsData>() where TSensorsData : ISensorsData
@@ -20,13 +21,9 @@ namespace ClientBase
             return new Server<TSensorsData>(settings);
         }
 
-        private void StartServer(string path)
+        private void StartServer()
         {
-            ThreadPool.QueueUserWorkItem(o => Program.DebugMain(new NetworkSettings{CompetitionsName = "Fall2013.0.dll"}));
-//            Process.Start(new ProcessStartInfo("CVARC.Network.exe")
-//                {
-//                    WorkingDirectory = path
-//                });
+            ThreadPool.QueueUserWorkItem(o => Program.DebugMain(new CompetitionsSettings{CompetitionsName = "Fall2013.0.dll"}));
         }
     }
 }

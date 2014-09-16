@@ -2,7 +2,7 @@
 
 namespace CVARC.Basic
 {
-    public abstract class CompetitionsSettings
+    public class CompetitionsSettings
     {
         public string CompetitionsName { get; set; }
         public string SettingsFileName { get; private set; }
