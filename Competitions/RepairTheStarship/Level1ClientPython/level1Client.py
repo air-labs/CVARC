@@ -1,4 +1,4 @@
-import os, socket,json,struct
+import os, socket,json,struct,sys
 
 # Bots = "None","Vaermina","Azura","MolagBal","Sanguine"
 Side = {"Left":0,"Right":1,"Random":2}
@@ -18,9 +18,10 @@ def Send(server, jsonObj):
 	return json.loads(server.recv(length))
 	
 def RunServer():
-	serverPath = "\\Cvarc\\CVARC\\NetworkServer\\bin\\Debug\\"
-	os.chdir(serverPath)
-	os.startfile(serverPath + "CVARC.Network.exe")
+	if 'noRunServer' not in sys.argv:
+		serverPath = "\\Cvarc\\CVARC\\NetworkServer\\bin\\Debug\\"
+		os.chdir(serverPath)
+		os.startfile(serverPath + "CVARC.Network.exe")
 	server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	server.connect(('localhost', 14000))
 	return server

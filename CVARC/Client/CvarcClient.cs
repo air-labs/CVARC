@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using CVARC.Basic;
 using CVARC.Network;
 
@@ -11,8 +12,7 @@ namespace ClientBase
         public CvarcClient(string[] args, ClientSettings settings)
         {
             this.settings = settings;
-            bool needRunServer = args.Length == 0;
-            if (needRunServer)
+            if (!args.Contains("noRunServer"))
                 StartServer();
         }
 
