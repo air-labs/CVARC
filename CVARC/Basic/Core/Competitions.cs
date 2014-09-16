@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
+using CVARC.Basic.Core.Participants;
 using CVARC.Core;
 using CVARC.Network;
 using AIRLab;

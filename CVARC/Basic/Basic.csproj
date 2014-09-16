@@ -62,13 +62,14 @@
     <Compile Include="Core\ICvarcRules.cs" />
     <Compile Include="Core\IEngine.cs" />
     <Compile Include="Core\ISceneSettings.cs" />
+    <Compile Include="Core\Participants\NetworkParticipant.cs" />
     <Compile Include="Core\Participants\GroboTcpClient.cs" />
+    <Compile Include="Core\Participants\ParticipantsServer.cs" />
     <Compile Include="Core\RobotSettings.cs" />
     <Compile Include="IO\HelpExtensions.cs" />
     <Compile Include="IO\Serialization\JsonSerializer.cs" />
     <Compile Include="IO\Serialization\ISerializer.cs" />
     <Compile Include="Core\Participants\Participant.cs" />
-    <Compile Include="Core\Participants\NetworkParticipant.cs" />
     <Compile Include="Controllers\Command.cs" />
     <Compile Include="Controllers\OBSOLETE NetworkController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

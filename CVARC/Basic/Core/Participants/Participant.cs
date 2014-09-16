@@ -1,7 +1,7 @@
 ﻿using System;
 using CVARC.Basic.Controllers;
 
-namespace CVARC.Basic
+namespace CVARC.Basic.Core.Participants
 {
     public enum ExitReason
     {

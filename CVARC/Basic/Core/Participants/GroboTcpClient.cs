@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
-using CVARC.Basic.Core;
 
-namespace CVARC.Basic
+namespace CVARC.Basic.Core.Participants
 {
     public class GroboTcpClient
     {

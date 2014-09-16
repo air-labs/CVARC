@@ -2,12 +2,13 @@
 using System.Threading;
 using System.Windows.Forms;
 using CVARC.Basic;
+using CVARC.Basic.Core.Participants;
 
 namespace CVARC.Network
 {
     public static class Program
     {
-        static NetworkParticipant participant;
+        private static CompetitionsBundle competitionsBundle;
         static Participant[] participants;
         static Form form;
         private static bool realTime = true;
@@ -35,8 +36,8 @@ namespace CVARC.Network
                 InitCompetition(settings);
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                form = new TutorialForm(participant.competitionsBundle.competitions);
-                new Thread(() => participant.competitionsBundle.competitions.ProcessParticipants(realTime, 1000, participants))
+                form = new TutorialForm(competitionsBundle.competitions);
+                new Thread(() => competitionsBundle.competitions.ProcessParticipants(realTime, 1000, participants))
                 {
                     IsBackground = true
                 }.Start();
@@ -52,14 +53,16 @@ namespace CVARC.Network
 
         private static void InitCompetition(CompetitionsSettings settings)
         {
+            var participantsServer = new ParticipantsServer(settings.CompetitionsName);
+            var participant = participantsServer.GetParticipant();
+            competitionsBundle = participantsServer.CompetitionsBundle;
             participants = new Participant[2];
-            participant = new NetworkParticipant(settings.CompetitionsName);
             participants[participant.ControlledRobot] = participant;
             var botNumber = participant.ControlledRobot == 0 ? 1 : 0;
-            participant.competitionsBundle.competitions.Initialize(new CVARCEngine(participant.competitionsBundle.Rules),
+            participantsServer.CompetitionsBundle.competitions.Initialize(new CVARCEngine(participantsServer.CompetitionsBundle.Rules),
                 new[] { new RobotSettings(participant.ControlledRobot, false), new RobotSettings(botNumber, true) });
-            var botName = participant.HelloPackage.Opponent ?? "None";
-            participants[botNumber] = participant.competitionsBundle.competitions.CreateBot(botName, botNumber);
+            var botName = participantsServer.CompetitionsBundle.competitions.HelloPackage.Opponent ?? "None";
+            participants[botNumber] = participantsServer.CompetitionsBundle.competitions.CreateBot(botName, botNumber);
         }
     }
 }

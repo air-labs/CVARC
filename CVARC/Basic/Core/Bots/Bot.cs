@@ -1,4 +1,6 @@
-﻿namespace CVARC.Basic
+﻿using CVARC.Basic.Core.Participants;
+
+namespace CVARC.Basic
 {
     public abstract class Bot : Participant
     {
