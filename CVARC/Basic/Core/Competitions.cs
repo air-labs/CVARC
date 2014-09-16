@@ -57,7 +57,7 @@ namespace CVARC.Basic
         {
             Engine = engine;
             Settings = ParseSettings(HelloPackage);
-            Robots = robotSettings.Select(x => x.IsBot ? CreateBot(x.Number) : CreateRobot(x.Number)).ToList();
+            Robots = robotSettings.Select(x => x.IsBot ? CreateBot(x.Number) : CreateRobot(x.Number)).OrderBy(x => x.Number).ToList();
             Score = new ScoreCollection(RobotCount);
             Engine.Initialize(Settings);
             Robots.ForEach(x => x.Init());
