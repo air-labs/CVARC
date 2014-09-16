@@ -4,6 +4,7 @@
     {
         None,
         Grip,
-        Release
+        Release,
+        WaitForExit
     }
 }

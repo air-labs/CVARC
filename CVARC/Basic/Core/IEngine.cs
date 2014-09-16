@@ -10,9 +10,11 @@ namespace CVARC.Basic
     {
         public static void ProcessCommand(this IEngine engine, string actor, Command cmd)
         {
-            var Location = engine.GetAbsoluteLocation(actor);
-            var speed = new Frame3D(cmd.LinearVelocity * Math.Cos(Location.Yaw.Radian),
-                               cmd.LinearVelocity * Math.Sin(Location.Yaw.Radian), 0, Angle.Zero, cmd.AngularVelocity,
+            if (cmd.Action == CommandAction.WaitForExit)
+                cmd.Time = 100000;
+            var location = engine.GetAbsoluteLocation(actor);
+            var speed = new Frame3D(cmd.LinearVelocity * Math.Cos(location.Yaw.Radian),
+                               cmd.LinearVelocity * Math.Sin(location.Yaw.Radian), 0, Angle.Zero, cmd.AngularVelocity,
                                Angle.Zero);
             engine.SetSpeed(actor, speed);
             if (cmd.Action != CommandAction.None)

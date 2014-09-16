@@ -2,7 +2,7 @@ import os, socket,json,struct
 
 # Bots = "None","Vaermina","Azura","MolagBal","Sanguine"
 Side = {"Left":0,"Right":1,"Random":2}
-Action = {"None":0,"Grip":1,"Release":2}
+Action = {"None":0,"Grip":1,"Release":2,"WaitForExit":3}
 
 def GetHelloPackage():
 	return {"LevelName":"Level1","Opponent":"Azura","Side":Side["Left"]}
@@ -33,4 +33,4 @@ sensorData = Send(server, GetCommand(1, 0, 0, Action["Grip"]))
 sensorData = Send(server, GetCommand(1, -50, 0, Action["None"]))
 sensorData = Send(server, GetCommand(1, 0, 90, Action["None"]))
 sensorData = Send(server, GetCommand(1, 0, 0, Action["Release"]))
-sensorData = Send(server, GetCommand(10000, 0, 0, Action["None"]))#WaitForExit
+sensorData = Send(server, GetCommand(0, 0, 0, Action["WaitForExit"]))#WaitForExit

@@ -278,7 +278,6 @@ namespace RepairTheStarship
             if (action == "Release") Release(engine, robotBody);
         }
 
-
         private void Release(ICvarcEngine engine, Body Body)
         {
             var latestGripped = Body.FirstOrDefault(z => z.Type.StartsWith("D") && z.Type.Length == 2);

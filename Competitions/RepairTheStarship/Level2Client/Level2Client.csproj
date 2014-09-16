@@ -46,9 +46,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\airlabs-cope\AIRLabs.csproj">
       <Project>{b1953d7f-0f62-400d-a77a-ff1ce4474a41}</Project>
       <Name>AIRLabs</Name>
