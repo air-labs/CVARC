@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using CVARC.Basic;
 using CVARC.Basic.Controllers;
-using CVARC.Basic.Sensors;
 using MapHelper;
 using RepairTheStarship.Sensors;
 using Map = MapHelper.Map;
@@ -38,19 +37,8 @@ namespace Gems.Bots
         private void Update()
         {
             RobotLocator.Update(Competitions.GetSensorsData<PositionSensorsData>(ControlledRobot));
-            OpponentCoordinates = GetCoordinatesByPosition(Map.OpponentPosition);
-            OurCoordinates = GetCoordinatesByPosition(Map.CurrentPosition);
-        }
-
-        protected Point GetCoordinatesByPosition(PositionData position)
-        {
-            return GetCoordinatesByPosition((int)position.X, (int)position.Y);
-        }
-
-        protected Point GetCoordinatesByPosition(int positionX, int positionY)
-        {
-            var point = new Point(positionX, positionY);
-            return MapBuilder.AbsoluteCoordinateToDiscrete(point);
+            OpponentCoordinates = Map.GetDiscretePosition(Map.OpponentPosition);
+            OurCoordinates = Map.GetDiscretePosition(Map.CurrentPosition);
         }
 
         protected abstract IEnumerable<Command> FindNextCommands();

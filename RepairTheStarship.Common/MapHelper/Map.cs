@@ -32,16 +32,26 @@ namespace MapHelper
             OpponentPosition = data.Position.PositionsData[OpponentRobotId];
             Details = data.MapSensor.MapItems.Where(x => x.Tag.Contains("Detail")).Select(x => new StarshipObject
                 {
-                    DiscreteCoordinate = MapBuilder.AbsoluteCoordinateToDiscrete(new Point((int) x.X, (int) x.Y)),
+                    DiscreteCoordinate = GetDiscretePosition((int)x.X, (int)x.Y),
                     AbsoluteCoordinate = new Point((int) x.X, (int) x.Y),
                     Type = x.Tag
                 }).ToArray();
             Walls = data.MapSensor.MapItems.Where(IsWall).Select(w => new StarshipObject
                 {
-                    DiscreteCoordinate = MapBuilder.AbsoluteCoordinateToDiscrete(new Point((int)w.X, (int)w.Y)),
+                    DiscreteCoordinate = GetDiscretePosition((int)w.X, (int)w.Y),
                     AbsoluteCoordinate = new Point((int)w.X, (int)w.Y),
                     Type = w.Tag
                 }).ToArray();
+        }
+
+        public Point GetDiscretePosition(int x, int y)
+        {
+            return MapBuilder.AbsoluteCoordinateToDiscrete(new Point(x, y));
+        }
+
+        public Point GetDiscretePosition(PositionData positionData)
+        {
+            return GetDiscretePosition((int)positionData.X, (int)positionData.Y);
         }
 
         private static bool IsWall(MapItem mapItem)
