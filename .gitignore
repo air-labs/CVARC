@@ -2,7 +2,4 @@ obj
 bin
 *.suo
 /TestResults
-deploy
-deploy.rar
-build
-participants
+CVARC.sln.DotSettings.user
