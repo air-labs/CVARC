@@ -15,7 +15,8 @@ def Send(server, jsonObj):
 	server.send(struct.pack('I', length))
 	server.send(json.dumps(jsonObj))
 	length = struct.unpack("<L", server.recv(4))[0]
-	return json.loads(server.recv(length))
+	print server.makefile('r')
+	# return json.loads(server.recv(length))
 	
 def RunServer():
 	if 'noRunServer' not in sys.argv:

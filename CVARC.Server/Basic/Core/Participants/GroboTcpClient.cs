@@ -1,33 +1,38 @@
 using System;
+using System.IO;
 using System.Net.Sockets;
+using System.Text;
 
 namespace CVARC.Basic.Core.Participants
 {
-    public class GroboTcpClient
+    public class GroboTcpClient : IDisposable
     {
-        private readonly NetworkStream stream;
+        private readonly Stream stream;
+        private const byte EndLine = (byte)'\n';
+        private StreamReader streamReader;
+
 
         public GroboTcpClient(TcpClient client)
         {
             stream = client.GetStream();
+            streamReader = new StreamReader(stream);
         }
 
         public void Send(byte[] message)
         {
-            var lengthBytes = BitConverter.GetBytes(message.Length);
-            stream.Write(lengthBytes);
             stream.Write(message);
+            stream.WriteByte(EndLine);
             stream.Flush();
         }
 
         public byte[] ReadToEnd()
         {
-            var lengthBytes = new byte[4];
-            stream.Read(lengthBytes, 0, lengthBytes.Length);
-            int messageLength = BitConverter.ToInt32(lengthBytes, 0);
-            var message = new byte[messageLength];
-            stream.Read(message, 0, messageLength);
-            return message;
+            return Encoding.UTF8.GetBytes(streamReader.ReadLine());
+        }
+
+        public void Dispose()
+        {
+            stream.Dispose();
         }
     }
 }
