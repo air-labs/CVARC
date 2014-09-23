@@ -4,7 +4,7 @@ namespace CVARC.Basic
 {
     public interface ICvarcRules
     {
-        Body CreateWorld(ISceneSettings settings);
+        Body CreateWorld(ICvarcEngine engine, ISceneSettings settings);
         void PerformAction(ICvarcEngine engine, string actor, string action);
     }
 }

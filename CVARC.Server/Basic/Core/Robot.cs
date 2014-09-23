@@ -1,6 +1,5 @@
 ﻿using System;
 using AIRLab.Mathematics;
-using CVARC.Core;
 using CVARC.Basic.Controllers;
 
 namespace CVARC.Basic
@@ -19,11 +18,6 @@ namespace CVARC.Basic
         {
             Competitions = competitions;
             Number = number;
-        }
-
-        public void AddScore(int cnt, string msg = "")
-        {
-            Competitions.Score.AddPenalty(new Penalty {Message = msg, RobotNumber = Number, Value = cnt});
         }
 
         public Frame3D GetAbsoluteLocation()

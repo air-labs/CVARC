@@ -81,6 +81,10 @@
       <Project>{B1953D7F-0F62-400D-A77A-FF1CE4474A41}</Project>
       <Name>AIRLabs</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CVARC.Engine\Bodies\Bodies.csproj">
+      <Project>{A316853C-7F60-4C7F-8FB5-6BAFBC417A68}</Project>
+      <Name>Bodies</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Basic\Basic.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
       <Name>Basic</Name>
