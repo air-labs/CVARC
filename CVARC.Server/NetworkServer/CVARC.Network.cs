@@ -45,7 +45,6 @@ namespace CVARC.Network
             }
             catch (Exception e)
             {
-                throw;//todo Убрать
                 MessageBox.Show(e.Message, "CVARC Network", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(1);
             }

@@ -28,7 +28,7 @@ def RunServer():
 	if 'noRunServer' not in sys.argv:
 		serverPath = "\\Cvarc\\build\\"
 		os.chdir(serverPath)
-		os.startfile(serverPath + "NetworkServer.exe.lnk")
+		os.startfile(serverPath + "NetworkServer.bat")
 	server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	server.connect(('localhost', 14000))
 	return server
