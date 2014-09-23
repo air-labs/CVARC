@@ -11,7 +11,6 @@ namespace CVARC.Basic.Core.Participants
         private const byte EndLine = (byte)'\n';
         private StreamReader streamReader;
 
-
         public GroboTcpClient(TcpClient client)
         {
             stream = client.GetStream();

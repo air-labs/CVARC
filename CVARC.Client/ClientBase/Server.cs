@@ -1,6 +1,8 @@
 ﻿using System.Net.Sockets;
+using System.Text;
 using CVARC.Basic;
 using CVARC.Basic.Controllers;
+using CVARC.Basic.Core;
 using CVARC.Basic.Core.Participants;
 using CVARC.Basic.Core.Serialization;
 using CVARC.Network;
@@ -12,7 +14,6 @@ namespace ClientBase
         private readonly ClientSettings settings;
         private readonly ISerializer serializer = new JsonSerializer();
         private readonly GroboTcpClient client;
-        private int? robotId;
 
         public Server(ClientSettings settings)
         {
@@ -21,10 +22,14 @@ namespace ClientBase
             client = new GroboTcpClient(tcpClient);
         }
 
-        public TSensorsData Run()
+        public HelloPackageAns Run()
         {
             client.Send(serializer.Serialize(GetHelloPackage()));
-            return serializer.Deserialize<TSensorsData>(client.ReadToEnd());
+            return new HelloPackageAns
+                {
+                    RealSide = Encoding.UTF8.GetString(client.ReadToEnd()).ParseEnum<Side>(),
+                    SensorsData = serializer.Deserialize<TSensorsData>(client.ReadToEnd())
+                };
         }
 
         private HelloPackage GetHelloPackage()
@@ -38,20 +43,16 @@ namespace ClientBase
             };
         }
 
-        public TSensorsData SendCommand(Command command = null)
+        public TSensorsData SendCommand(Command command)
         {
-            if (command != null)
-                SendCommandInternal(command);
+            client.Send(serializer.Serialize(command));
             return serializer.Deserialize<TSensorsData>(client.ReadToEnd());
         }
 
-        private void SendCommandInternal(Command command)
+        public class HelloPackageAns
         {
-//            if (robotId == null)
-//                throw new Exception("Сервер не ининциализирован. Воспользуйтесь методом Run.");
-//            command.RobotId = robotId.Value;
-    //        var str = new string(Encoding.UTF8.GetChars(serializer.Serialize(command)));
-            client.Send(serializer.Serialize(command));
+            public TSensorsData SensorsData { get; set; }
+            public Side RealSide { get; set; }
         }
     }
 }

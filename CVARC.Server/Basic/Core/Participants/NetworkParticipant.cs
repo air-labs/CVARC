@@ -1,5 +1,7 @@
+using System.Text;
 using CVARC.Basic.Controllers;
 using CVARC.Basic.Core.Serialization;
+using CVARC.Network;
 
 namespace CVARC.Basic.Core.Participants
 {
@@ -14,6 +16,12 @@ namespace CVARC.Basic.Core.Participants
             CompetitionsBundle = competitionsBundle;
             ControlledRobot = controlledRobot;
             this.client = client;
+            SendSide(controlledRobot);
+        }
+
+        private void SendSide(int side)
+        {
+            client.Send(Encoding.UTF8.GetBytes(((Side)side).ToString()));
         }
 
         public override Command MakeTurn()
