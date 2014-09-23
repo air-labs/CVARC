@@ -11,12 +11,9 @@ def GetCommand(time, linearVelocity, angularVelocityGrad, action):
 	return {"Action":action,"AngularVelocity":{"Grad":angularVelocityGrad},"LinearVelocity":linearVelocity,"RobotId":0,"Time":time}
 	
 def Send(server, jsonObj):
-	length = len(str(jsonObj))
-	server.send(struct.pack('I', length))
 	server.send(json.dumps(jsonObj))
-	length = struct.unpack("<L", server.recv(4))[0]
-	print server.makefile('r')
-	# return json.loads(server.recv(length))
+	server.send('\n')
+	return json.loads(server.makefile('r').readline())
 	
 def RunServer():
 	if 'noRunServer' not in sys.argv:
