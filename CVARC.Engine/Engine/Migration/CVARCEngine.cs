@@ -32,9 +32,14 @@ namespace CVARC.Basic
             RequestedSpeeds[id] = velocity;
         }
 
+        public Frame3D GetSpeed(string id)
+        {
+            return RequestedSpeeds[id];
+        }
+
         public void Initialize(ISceneSettings settings)
         {
-            Root = Rules.CreateWorld(settings);
+            Root = Rules.CreateWorld(this, settings);
             DrawerFactory = new DrawerFactory(Root);
             PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
             Logger = new ReplayLogger(Root, 0.1);
@@ -85,6 +90,13 @@ namespace CVARC.Basic
             return ConverterToJavaScript.Convert(Logger.SerializationRoot);
         }
 
+        public event OnCollisionEventHandler OnCollision;
+        public void RaiseOnCollision(string firstBodyId, string secondBodyId, CollisionType collisionType)
+        {
+            if (OnCollision != null)
+                OnCollision(new OnCollisionEventHandlerArgs(firstBodyId, secondBodyId, collisionType));
+        }
+
         public void DefineKinect(string kinectName, string host)
         {
             Kinects[kinectName] = new Kinect(GetBody(host));
@@ -94,6 +106,7 @@ namespace CVARC.Basic
         {
             return Kinects[kinectName].Measure();
         }
+
 
         public IEnumerable<IGameObject> GetAllObjects()
         {

@@ -19,7 +19,7 @@ namespace Level2Client
         private static void Main(string[] args)
         {
             var server = new CvarcClient(args, Settings).GetServer<PositionSensorsData>();
-            var sensorData = server.Run();
+            var sensorData = server.Run().SensorsData;
             var map = sensorData.BuildMap();
             var robotLocator = new RobotLocator(map);
             var path = PathSearcher.FindPath(map, map.GetDiscretePosition(map.CurrentPosition), new Point(2, 1));
@@ -32,7 +32,7 @@ namespace Level2Client
                     robotLocator.Update(sensorData);
                 }
             }
-            server.SendCommand(new Command { Time = 10000 });
+            server.SendCommand(new Command { Action = CommandAction.WaitForExit });
         }
     }
 }

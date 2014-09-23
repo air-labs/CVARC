@@ -21,7 +21,7 @@ namespace Level4Client
         private static void Main(string[] args)
         {
             var server = new CvarcClient(args, Settings).GetServer<ImageSensorsData>();
-            var sensorData = server.Run();
+            var sensorData = server.Run().SensorsData;
             if (!Directory.Exists(Path))
                 Directory.CreateDirectory(Path);
             int i = 0;

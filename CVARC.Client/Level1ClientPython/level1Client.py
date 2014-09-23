@@ -9,13 +9,20 @@ def GetHelloPackage():
 
 def GetCommand(time, linearVelocity, angularVelocityGrad, action):
 	return {"Action":action,"AngularVelocity":{"Grad":angularVelocityGrad},"LinearVelocity":linearVelocity,"Time":time}
-	
+
+def ReadAns(server):
+	return json.loads(server.makefile('r').readline())
+
 def Send(server, jsonObj):
-	length = len(str(jsonObj))
-	server.send(struct.pack('I', length))
 	server.send(json.dumps(jsonObj))
-	length = struct.unpack("<L", server.recv(4))[0]
-	return json.loads(server.recv(length))
+	server.send('\n')
+	return ReadAns(server)
+	
+def SendHelloPackage(server):
+	server.send(json.dumps(GetHelloPackage()))
+	server.send('\n')
+	realSide = server.makefile('r').readline()
+	return ReadAns(server)
 	
 def RunServer():
 	if 'noRunServer' not in sys.argv:
@@ -27,7 +34,7 @@ def RunServer():
 	return server
 
 server = RunServer();
-sensorData = Send(server, GetHelloPackage())
+sensorData = SendHelloPackage(server)
 sensorData = Send(server, GetCommand(1, 0, -90, Action["None"]))
 sensorData = Send(server, GetCommand(1, 50, 0, Action["None"]))
 sensorData = Send(server, GetCommand(1, 0, 0, Action["Grip"]))

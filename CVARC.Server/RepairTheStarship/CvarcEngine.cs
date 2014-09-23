@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using AIRLab.Mathematics;
 using CVARC.Basic;
 using CVARC.Core;
@@ -50,8 +49,7 @@ namespace RepairTheStarship
             return GetType().Assembly.GetManifestResourceStream("Gems.Resources." + resourceName);
         }
 
-
-        public Body CreateWorld(ISceneSettings _settings)
+        public Body CreateWorld(ICvarcEngine engine, ISceneSettings _settings)
         {
             Settings = (SceneSettings)_settings;
             var root = new Body();
@@ -85,31 +83,9 @@ namespace RepairTheStarship
             root.Add(first);
             root.Add(second);
 
-            //Это какой-то пиздец. С коллизиями позже разберемся
-            //var dt = 1000;
-            //var collisionTimes = new Dictionary<int, DateTime>
-            //                                                {
-            //                                                    {first.Body.Id,new DateTime()},
-            //                                                    {second.Body.Id,new DateTime()}
-            //                                                };
-            //Func<Body, Body, bool> isFault = (robot, opponent) =>
-            //                                     {
-            //                                         var vec = opponent.GetAbsoluteLocation() - robot.GetAbsoluteLocation();
-            //                                         var sc = vec.X*robot.Velocity.X + vec.Y*robot.Velocity.Y;
-            //                                         return sc > 0;
-            //                                     };
-            //Func<Robot, Robot, Action<Body>> subscribeToCollision = (robot, opponent) =>
-            //    body =>
-            //        {
-            //            if (body == opponent.Body && isFault(robot.Body, body) &&
-            //                (DateTime.Now - collisionTimes[robot.Body.Id]).TotalMilliseconds > dt)
-            //            {
-            //                robot.AddScore(-30, "Collision");
-            //                collisionTimes[robot.Body.Id] = DateTime.Now;
-            //            }
-            //        };
-            //first.Body.Collision += subscribeToCollision(first, second);
-            //second.Body.Collision += subscribeToCollision(second, first);
+            first.Collision += body => engine.RaiseOnCollision(first.Id.ToString(), body.Id.ToString(), CollisionType.RobotCollision);
+            second.Collision += body => engine.RaiseOnCollision(second.Id.ToString(), body.Id.ToString(), CollisionType.RobotCollision);
+            
             root.Add(new Box
             {
                 XSize = 300,
@@ -312,13 +288,26 @@ namespace RepairTheStarship
                     IsMaterial = true
                 };
                 Body.TreeRoot.Add(wall);
-
-                //С очками позже разберемся
-                //AddScore(10, "Repaired wall " + targetColor);
+                engine.RaiseOnCollision(Body.Id.ToString(), toAtt.Id.ToString(), GetCollisionType(targetColor));
             }
             else
                 Body.TreeRoot.Add(latestGripped);
             //  gripped.RemoveRange(0, gripped.Count);
+        }
+
+        private CollisionType GetCollisionType(string color)
+        {
+            switch (color)
+            {
+                case "R":
+                    return CollisionType.RedWallRepaired;
+                case "G":
+                    return CollisionType.GreenWallRepaired;
+                case "B":
+                    return CollisionType.BlueWallRepaired;
+                default:
+                    throw new ArgumentOutOfRangeException(color);
+            }
         }
 
         private void Grip(ICvarcEngine engine, Body Body)

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Text;
 using System.Threading;
 using AIRLab.Mathematics;
@@ -54,7 +52,7 @@ namespace CVARC.Basic
         }
 
 
-        public void Initialize(IEngine engine, RobotSettings[] robotSettings)
+        public virtual void Initialize(IEngine engine, RobotSettings[] robotSettings)
         {
             Engine = engine;
             Settings = ParseSettings(HelloPackage);

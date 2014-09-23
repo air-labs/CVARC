@@ -34,6 +34,7 @@ namespace CVARC.Basic
         /// <param name="id"></param>
         /// <param name="speed"></param>
         void SetSpeed(string id, Frame3D speed);
+        Frame3D GetSpeed(string id);
         void PerformAction(string id, string action);
         Frame3D GetAbsoluteLocation(string id);
 
@@ -46,7 +47,34 @@ namespace CVARC.Basic
         void RunEngine(double timeInSeconds, bool inRealTime);
         string GetReplay();
 
+        event OnCollisionEventHandler OnCollision;
+        void RaiseOnCollision(string firstBodyId, string secondBodyId, CollisionType collisionType);
+
         IEnumerable<IGameObject> GetAllObjects();
+    }
+
+    public delegate void OnCollisionEventHandler(OnCollisionEventHandlerArgs args);
+
+    public class OnCollisionEventHandlerArgs
+    {
+        public OnCollisionEventHandlerArgs(string firstBodyId, string secondBodyId, CollisionType collisionType)
+        {
+            FirstBodyId = firstBodyId;
+            SecondBodyId = secondBodyId;
+            CollisionType = collisionType;
+        }
+
+        public string FirstBodyId { get; set; }
+        public string SecondBodyId { get; set; }
+        public CollisionType CollisionType { get; set; }
+    }
+
+    public enum CollisionType
+    {
+        RedWallRepaired,
+        GreenWallRepaired,
+        BlueWallRepaired,
+        RobotCollision
     }
 
     public interface IGameObject
