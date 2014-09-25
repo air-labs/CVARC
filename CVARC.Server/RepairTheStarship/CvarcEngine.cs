@@ -316,7 +316,7 @@ namespace RepairTheStarship
         {
             var gripped = Body.ToList();
             if (gripped.Any()) return;
-            var found = Body.TreeRoot.GetSubtreeChildrenFirst().FirstOrDefault(a => CanBeAttached(Body, a) && (a.Parent == a.TreeRoot || !a.Parent.IsStatic));
+            var found = Body.TreeRoot.GetSubtreeChildrenFirst().FirstOrDefault(a => CanBeAttached(Body, a) && (a.Parent.Id == a.TreeRoot.Id));
             if (found != null)
             {
                 Body latestGripped = null;
@@ -349,7 +349,6 @@ namespace RepairTheStarship
                 CaptureDevicet(Body, found);
                 gripped.Add(found);
             }
-
         }
 
         private bool CanBeAttached(Body to, Body body)
@@ -361,7 +360,6 @@ namespace RepairTheStarship
                 body.Type.StartsWith("D") &&
                 Distance(body, to) < 30 && IsDetailAheadRobot(to.Location, body.Location);
         }
-
 
         private bool IsDetailAheadRobot(Frame3D robot, Frame3D detail)
         {
