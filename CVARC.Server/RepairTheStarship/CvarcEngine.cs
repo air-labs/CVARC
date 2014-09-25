@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using AIRLab.Mathematics;
 using CVARC.Basic;
+using CVARC.Basic.Core;
 using CVARC.Core;
 
 namespace RepairTheStarship
@@ -262,6 +263,7 @@ namespace RepairTheStarship
             var absoluteLocation = latestGripped.GetAbsoluteLocation();
             Body.Remove(latestGripped);
 
+            latestGripped.FrictionCoefficient = frictionCoefficientsById.SafeGet(latestGripped.Id);
             var targetColor = latestGripped.Type[1].ToString();
 
             latestGripped.Location = absoluteLocation;
@@ -365,6 +367,7 @@ namespace RepairTheStarship
             return Geometry.Hypot(from.GetAbsoluteLocation() - to.GetAbsoluteLocation());
         }
 
+        private readonly Dictionary<int, double> frictionCoefficientsById = new Dictionary<int, double>();
 
         private void CaptureDevicet(Body box, Body newChild)
         {
@@ -375,6 +378,8 @@ namespace RepairTheStarship
             newChild.Location = newChild.Location.NewYaw(Angle.Zero);
             newChild.Location = newChild.Location.NewX(14);
             newChild.Location = newChild.Location.NewY(0);
+            frictionCoefficientsById.SafeAdd(newChild.Id, newChild.FrictionCoefficient);
+            newChild.FrictionCoefficient = 0;
             box.Add(newChild);
         }
 

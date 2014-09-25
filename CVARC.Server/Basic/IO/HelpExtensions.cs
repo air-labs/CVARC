@@ -63,6 +63,11 @@ namespace CVARC.Basic.Core
                 dictionary.Add(key, value);
         }
 
+        public static V SafeGet<K, V>(this Dictionary<K, V> dictionary, K key)
+        {
+            return dictionary.ContainsKey(key) ? dictionary[key] : default(V);
+        }
+
         public static string PrintArray<T>(this T[,] array)
         {
             var offsetsByColumns = new int[array.GetLength(0)];
