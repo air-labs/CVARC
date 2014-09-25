@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using AIRLab.Mathematics;
 using CVARC.Basic;
+using CVARC.Basic.Core;
 using CVARC.Core;
 
 namespace RepairTheStarship
@@ -108,7 +109,7 @@ namespace RepairTheStarship
                     case DetailColor.Green: color = Color.Green; name += "G"; break;
                 }
 
-                root.Add(new Box
+                var box = new Box
                 {
                     XSize = 15,
                     YSize = 15,
@@ -119,7 +120,16 @@ namespace RepairTheStarship
                     IsMaterial = true,
                     IsStatic = false,
                     FrictionCoefficient = 8
-                });
+                };
+                root.Add(box);
+
+                box.Collision += body =>
+                    {
+                        if (box.Parent.Id == first.Id && body.Id == second.Id)
+                            engine.RaiseOnCollision(second.Id.ToString(), first.Id.ToString(), CollisionType.RobotCollision);
+                        if (box.Parent.Id == second.Id && body.Id == first.Id)
+                            engine.RaiseOnCollision(first.Id.ToString(), second.Id.ToString(), CollisionType.RobotCollision);
+                    };
             }
 
             CreateWalls(root, Settings.HorizontalWalls, 50, 10, 15, "HW", (x, y) => new Point(-150 + 25 + x * 50, 100 - (y + 1) * 50));
@@ -262,6 +272,7 @@ namespace RepairTheStarship
             var absoluteLocation = latestGripped.GetAbsoluteLocation();
             Body.Remove(latestGripped);
 
+            latestGripped.FrictionCoefficient = frictionCoefficientsById.SafeGet(latestGripped.Id);
             var targetColor = latestGripped.Type[1].ToString();
 
             latestGripped.Location = absoluteLocation;
@@ -314,7 +325,7 @@ namespace RepairTheStarship
         {
             var gripped = Body.ToList();
             if (gripped.Any()) return;
-            var found = Body.TreeRoot.GetSubtreeChildrenFirst().FirstOrDefault(a => CanBeAttached(Body, a) && (a.Parent == a.TreeRoot || !a.Parent.IsStatic));
+            var found = Body.TreeRoot.GetSubtreeChildrenFirst().FirstOrDefault(a => CanBeAttached(Body, a) && (a.Parent.Id == a.TreeRoot.Id));
             if (found != null)
             {
                 Body latestGripped = null;
@@ -347,7 +358,6 @@ namespace RepairTheStarship
                 CaptureDevicet(Body, found);
                 gripped.Add(found);
             }
-
         }
 
         private bool CanBeAttached(Body to, Body body)
@@ -357,7 +367,23 @@ namespace RepairTheStarship
                 !to.SubtreeContainsChild(body) &&
                 !to.ParentsContain(body) &&
                 body.Type.StartsWith("D") &&
-                Distance(body, to) < 30;
+                Distance(body, to) < 30 && IsDetailAheadRobot(to.Location, body.Location);
+        }
+
+        private bool IsDetailAheadRobot(Frame3D robot, Frame3D detail)
+        {
+            var angle = robot.Yaw.Grad;
+            while (angle < 0)
+                angle += 360;
+            while (angle > 360)
+                angle -= 360;
+            const int angleLatitude = 40;
+            const int detailDistance = 10;
+            var detailAbove = detail.Y > robot.Y && Math.Abs(detail.Y - robot.Y) > detailDistance && angle >= 90 - angleLatitude && angle <= 90 + angleLatitude;
+            var detailBelow = detail.Y < robot.Y && Math.Abs(detail.Y - robot.Y) > detailDistance && angle >= 270 - angleLatitude && angle <= 270 + angleLatitude;
+            var detailLeft = detail.X < robot.X && Math.Abs(detail.X - robot.X) > detailDistance && angle >= 180 - angleLatitude && angle <= 180 + angleLatitude;
+            var detailRight = detail.X > robot.X && Math.Abs(detail.X - robot.X) > detailDistance && ((angle >= 360 - angleLatitude && angle <= 360) || (angle >= 0 && angle <= angleLatitude));
+            return detailAbove || detailBelow || detailLeft || detailRight;
         }
 
         private double Distance(Body from, Body to)
@@ -365,6 +391,7 @@ namespace RepairTheStarship
             return Geometry.Hypot(from.GetAbsoluteLocation() - to.GetAbsoluteLocation());
         }
 
+        private readonly Dictionary<int, double> frictionCoefficientsById = new Dictionary<int, double>();
 
         private void CaptureDevicet(Body box, Body newChild)
         {
@@ -375,6 +402,8 @@ namespace RepairTheStarship
             newChild.Location = newChild.Location.NewYaw(Angle.Zero);
             newChild.Location = newChild.Location.NewX(14);
             newChild.Location = newChild.Location.NewY(0);
+            frictionCoefficientsById.SafeAdd(newChild.Id, newChild.FrictionCoefficient);
+            newChild.FrictionCoefficient = 0;
             box.Add(newChild);
         }
 
