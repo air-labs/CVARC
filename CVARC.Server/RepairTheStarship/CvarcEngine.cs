@@ -359,7 +359,24 @@ namespace RepairTheStarship
                 !to.SubtreeContainsChild(body) &&
                 !to.ParentsContain(body) &&
                 body.Type.StartsWith("D") &&
-                Distance(body, to) < 30;
+                Distance(body, to) < 30 && IsDetailAheadRobot(to.Location, body.Location);
+        }
+
+
+        private bool IsDetailAheadRobot(Frame3D robot, Frame3D detail)
+        {
+            var angle = robot.Yaw.Grad;
+            while (angle < 0)
+                angle += 360;
+            while (angle > 360)
+                angle -= 360;
+            const int angleLatitude = 40;
+            const int detailDistance = 10;
+            var detailAbove = detail.Y > robot.Y && Math.Abs(detail.Y - robot.Y) > detailDistance && angle >= 90 - angleLatitude && angle <= 90 + angleLatitude;
+            var detailBelow = detail.Y < robot.Y && Math.Abs(detail.Y - robot.Y) > detailDistance && angle >= 270 - angleLatitude && angle <= 270 + angleLatitude;
+            var detailLeft = detail.X < robot.X && Math.Abs(detail.X - robot.X) > detailDistance && angle >= 180 - angleLatitude && angle <= 180 + angleLatitude;
+            var detailRight = detail.X > robot.X && Math.Abs(detail.X - robot.X) > detailDistance && ((angle >= 360 - angleLatitude && angle <= 360) || (angle >= 0 && angle <= angleLatitude));
+            return detailAbove || detailBelow || detailLeft || detailRight;
         }
 
         private double Distance(Body from, Body to)
