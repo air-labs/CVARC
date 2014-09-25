@@ -109,7 +109,7 @@ namespace RepairTheStarship
                     case DetailColor.Green: color = Color.Green; name += "G"; break;
                 }
 
-                root.Add(new Box
+                var box = new Box
                 {
                     XSize = 15,
                     YSize = 15,
@@ -120,7 +120,16 @@ namespace RepairTheStarship
                     IsMaterial = true,
                     IsStatic = false,
                     FrictionCoefficient = 8
-                });
+                };
+                root.Add(box);
+
+                box.Collision += body =>
+                    {
+                        if (box.Parent.Id == first.Id && body.Id == second.Id)
+                            engine.RaiseOnCollision(second.Id.ToString(), first.Id.ToString(), CollisionType.RobotCollision);
+                        if (box.Parent.Id == second.Id && body.Id == first.Id)
+                            engine.RaiseOnCollision(first.Id.ToString(), second.Id.ToString(), CollisionType.RobotCollision);
+                    };
             }
 
             CreateWalls(root, Settings.HorizontalWalls, 50, 10, 15, "HW", (x, y) => new Point(-150 + 25 + x * 50, 100 - (y + 1) * 50));
