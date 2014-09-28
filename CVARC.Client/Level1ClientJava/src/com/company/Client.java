@@ -3,6 +3,7 @@ package com.company;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import sun.management.Sensor;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -129,7 +130,7 @@ public class Client {
                 string += (char) response;
             }
             try {
-                System.out.println(string);
+                //System.out.println(string);
                 return new SensorData(new JSONObject(string));
             } catch (JSONException e) {
                 return new SensorData(new JSONObject());
@@ -150,6 +151,10 @@ public class Client {
         return server;
     }
 
+    public static void print(SensorData data) {
+        System.out.println("X: " + data.positions[data.robotId].x + ", Y: " + data.positions[data.robotId].y);
+    }
+
     public static void main(String[] args) throws Exception {
         boolean noRunServer = false;
         for (String arg : args) {
@@ -160,12 +165,20 @@ public class Client {
 
         Socket server = runServer(noRunServer);
         SensorData sensorData = send(server, getHelloPackage());
+
         sensorData = send(server, getCommand(1, 0, -90, action.get("None")));
+        print(sensorData);
         sensorData = send(server, getCommand(1, 50, 0, action.get("None")));
+        print(sensorData);
         sensorData = send(server, getCommand(1, 0, 0, action.get("Grip")));
+        print(sensorData);
         sensorData = send(server, getCommand(1, -50, 0, action.get("None")));
+        print(sensorData);
         sensorData = send(server, getCommand(1, 0, 90, action.get("None")));
+        print(sensorData);
         sensorData = send(server, getCommand(1, 0, 0, action.get("Release")));
+        print(sensorData);
         sensorData = send(server, getCommand(0, 0, 0, action.get("WaitForExit")));
+        print(sensorData);
     }
 }
