@@ -1,8 +1,4 @@
 ﻿using CVARC.Basic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Client
 {
@@ -16,7 +12,7 @@ namespace Client
     public class Level2 : CompetitionsBundle
     {
         public Level2()
-            : base(new Gems.Levels.Level1(), new RepairTheStarship.GemsRules())
+            : base(new Gems.Levels.Level2(), new RepairTheStarship.GemsRules())
         { }
     }
 

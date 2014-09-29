@@ -75,6 +75,7 @@
     <Compile Include="Robots\DestinationGemsRobot.cs" />
     <Compile Include="Robots\GemsRobot.cs" />
     <Compile Include="Robots\ImageGemsRobot.cs" />
+    <Compile Include="Robots\MapGemsRobot.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CVARC.Engine\airlabs-cope\AIRLabs.csproj">
