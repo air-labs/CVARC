@@ -1,3 +1,0 @@
-Before you try to compile the solution, please:
-
-1. Install SlimDX (http://slimdx.org), version for .NET 4.0, x86 (independenlty on which platform you actually have)
