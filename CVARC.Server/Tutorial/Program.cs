@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using CVARC.Basic;
@@ -12,11 +13,22 @@ namespace CVARC.Tutorial
         private static TutorialForm form;
         private static CompetitionsBundle CompetitionsBundle;
         private static readonly KeyboardController Controller = new KeyboardController();
-        private const string BotName = "Sanguine";
+        private static string botName;
 
         [STAThread]
-        private static void Main()
+        static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.UnhandledException += (sender, a) =>
+            {
+                MessageBox.Show(a.ExceptionObject.ToString(), "CVARC Network", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(1);
+            };
+            InternalMain(args);
+        }
+
+        private static void InternalMain(string[] args)
+        {
+            botName = args.FirstOrDefault() ?? "None";
             try
             {
                 var settings = new TutorialSettings();
@@ -38,7 +50,7 @@ namespace CVARC.Tutorial
             form.KeyPreview = true;
             form.KeyDown += (sender, e) => CompetitionsBundle.competitions.ApplyCommand(Controller.GetCommand(e.KeyCode));
             form.KeyUp += (sender, e) => CompetitionsBundle.competitions.ApplyCommand(Command.Sleep(0));
-            new Thread(() => CompetitionsBundle.competitions.ProcessParticipants(true, int.MaxValue, new[] { CompetitionsBundle.competitions.CreateBot(BotName, 1) }))
+            new Thread(() => CompetitionsBundle.competitions.ProcessParticipants(true, int.MaxValue, new[] { CompetitionsBundle.competitions.CreateBot(botName, 1) }))
                 {
                     IsBackground = true
                 }.Start();
