@@ -22,7 +22,7 @@ namespace Level2Client
             var sensorData = server.Run().SensorsData;
             var map = sensorData.BuildMap();
             var robotLocator = new RobotLocator(map);
-            var path = PathSearcher.FindPath(map, map.GetDiscretePosition(map.CurrentPosition), new Point(2, 1));
+            var path = PathSearcher.FindPath(map, map.GetDiscretePosition(map.CurrentPosition), new Point(2, 1));//(2, 1) - just random point
 
             foreach (var direction in path)
             {

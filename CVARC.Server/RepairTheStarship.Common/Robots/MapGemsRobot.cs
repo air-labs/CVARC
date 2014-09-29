@@ -3,19 +3,20 @@ using RepairTheStarship.Sensors;
 
 namespace Gems.Robots
 {
-    public class GemsRobot : BaseGemsRobot
+    public class MapGemsRobot : BaseGemsRobot
     {
-        public GemsRobot(SRCompetitions competitions, int number)
+        public MapGemsRobot(SRCompetitions competitions, int number)
             : base(competitions, number)
         {
         }
 
         public override T GetSensorsData<T>()
         {
-            return new BaseSensorData
+            return new PositionSensorsData
                 {
                     RobotId = RobotIdSensor.Measure(),
                     Position = PositionSensor.Measure(),
+                    MapSensor = MapSensor.Measure()
                 } as T;
         }
     }

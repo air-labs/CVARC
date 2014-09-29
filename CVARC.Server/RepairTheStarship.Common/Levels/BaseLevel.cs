@@ -8,7 +8,7 @@ namespace Gems.Levels
     {
         public override Robot CreateBot(int robotNumber)
         {
-            return new GemsRobot(this, robotNumber);
+            return new MapGemsRobot(this, robotNumber);
         }
     }
 }
