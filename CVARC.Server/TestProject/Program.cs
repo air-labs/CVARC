@@ -19,19 +19,30 @@ namespace TestProject
         static void Main()
         {
             var Competitions = new Gems.Levels.Level1();
-            var bundle = new CompetitionsBundle(Competitions, new GemsRules());
-
             Competitions.HelloPackage = new HelloPackage { MapSeed = -1 };
+            
+            var CvarcRules = new GemsRules();
+            var CvarcEngine = new CVARCEngine(CvarcRules);
+
             Competitions.Initialize(
-                new CVARCEngine(bundle.Rules),
-                new[] { new RobotSettings(0, true), new RobotSettings(1, true) });
+                CvarcEngine,
+                new[] { 
+                    new RobotSettings(0, true), 
+                    new RobotSettings(1, true) 
+                });
 
-            var bots = new[] { new SquareMovingBot(), new SquareMovingBot()};
-            var form = new TutorialForm(bundle.competitions);
+            var bots = new[] 
+            { 
+                new SquareMovingBot(), 
+                new SquareMovingBot()
+            };
 
-            new Thread(() => bundle.competitions.ProcessParticipants(true, int.MaxValue, bots)) 
+            var form = new TutorialForm(Competitions);
+
+            new Thread(() => Competitions.ProcessParticipants(true, int.MaxValue, bots)) 
                 { IsBackground = true }
                 .Start();
+
             Application.Run(form);
         }
     }

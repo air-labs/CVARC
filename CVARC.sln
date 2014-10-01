@@ -43,7 +43,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIRLabs", "CVARC.Engine\air
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "CVARC.Engine\Tests\Tests.csproj", "{88C7E18A-0ED8-455D-9EE7-742D2E4E6C31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{1CD9B5DF-6D79-4BB5-81A2-B0CBEFF4A0CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "CVARC.Server\TestProject\TestProject.csproj", "{1CD9B5DF-6D79-4BB5-81A2-B0CBEFF4A0CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
