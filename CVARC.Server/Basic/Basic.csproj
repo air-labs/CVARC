@@ -51,6 +51,7 @@
     <Compile Include="Controllers\CommandAction.cs" />
     <Compile Include="Core\Bots\Bot.cs" />
     <Compile Include="Core\Bots\EmptyBot.cs" />
+    <Compile Include="Core\Bots\SquareMovingBot.cs" />
     <Compile Include="Core\Competitions.cs" />
     <Compile Include="Core\CompetitionsBundle.cs" />
     <Compile Include="Core\CompetitionsSettings.cs" />
