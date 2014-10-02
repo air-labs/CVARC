@@ -38,11 +38,6 @@
     <Compile Include="KeyboardController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TutorialSettings.cs" />
-    <None Include="app.config" />
-    <None Include="CVARC.Tutorial.exe.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
