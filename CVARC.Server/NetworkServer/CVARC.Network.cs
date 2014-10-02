@@ -16,11 +16,6 @@ namespace CVARC.Network
         [STAThread]
         static void Main()
         {
-            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
-            {
-                MessageBox.Show(args.ExceptionObject.ToString(), "CVARC Network", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(1);
-            };
             InternalMain(new CompetitionsSettings());
         }
 
@@ -31,24 +26,15 @@ namespace CVARC.Network
 
         private static void InternalMain(CompetitionsSettings settings)
         {
-            try
-            {
-                InitCompetition(settings);
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                form = new TutorialForm(competitionsBundle.competitions);
-                new Thread(() => competitionsBundle.competitions.ProcessParticipants(realTime, 1000, participants))
+            InitCompetition(settings);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            form = new TutorialForm(competitionsBundle.competitions);
+            new Thread(() => competitionsBundle.competitions.ProcessParticipants(realTime, 1000, participants))
                 {
                     IsBackground = true
                 }.Start();
-                Application.Run(form);
-            }
-            catch (Exception e)
-            {
-                throw;//todo Убрать
-                MessageBox.Show(e.Message, "CVARC Network", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(1);
-            }
+            Application.Run(form);
         }
 
         private static void InitCompetition(CompetitionsSettings settings)
