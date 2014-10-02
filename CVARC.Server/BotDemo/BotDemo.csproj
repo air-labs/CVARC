@@ -77,17 +77,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KR.csproj">
+      <Project>{13695795-f82c-48df-86d7-eae60259f845}</Project>
+      <Name>CVARC.Engine.KR</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RepairTheStarship\RepairTheStarship.csproj">
       <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
       <Name>RepairTheStarship</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Engine\Engine\Engine.csproj">
-      <Project>{475bd26b-2456-4db4-8dc5-ba9d05088fcb}</Project>
-      <Name>Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Basic\Basic.csproj">
+    <ProjectReference Include="..\Basic\CVARC.csproj">
       <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
-      <Name>Basic</Name>
+      <Name>CVARC</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

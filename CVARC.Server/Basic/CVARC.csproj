@@ -53,19 +53,15 @@
     <Compile Include="Core\Bots\EmptyBot.cs" />
     <Compile Include="Core\Bots\SquareMovingBot.cs" />
     <Compile Include="Core\Competitions.cs" />
-    <Compile Include="Core\KRDependentClasses\CompetitionsBundle.cs" />
     <Compile Include="Core\CompetitionsSettings.cs" />
     <Compile Include="Core\Exceptions.cs" />
     <Compile Include="Core\GameObject.cs" />
     <Compile Include="Core\HelloPackage.cs" />
     <Compile Include="Core\ISensorsData.cs" />
-    <Compile Include="Core\KRDependentClasses\ICvarcEngine.cs" />
-    <Compile Include="Core\KRDependentClasses\ICvarcRules.cs" />
     <Compile Include="Core\IEngine.cs" />
     <Compile Include="Core\ISceneSettings.cs" />
     <Compile Include="Core\Participants\NetworkParticipant.cs" />
     <Compile Include="Core\Participants\GroboTcpClient.cs" />
-    <Compile Include="Core\KRDependentClasses\ParticipantsServer.cs" />
     <Compile Include="Core\RobotSettings.cs" />
     <Compile Include="IO\HelpExtensions.cs" />
     <Compile Include="IO\Serialization\JsonSerializer.cs" />
@@ -87,15 +83,13 @@
     <Compile Include="Sensors\RobotCamera.cs" />
     <Compile Include="Sensors\Core\Sensor.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Core\KRDependentClasses\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CVARC.Engine\airlabs-cope\AIRLabs.csproj">
       <Project>{B1953D7F-0F62-400D-A77A-FF1CE4474A41}</Project>
       <Name>AIRLabs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Engine\Bodies\Bodies.csproj">
-      <Project>{a316853c-7f60-4c7f-8fb5-6bafbc417a68}</Project>
-      <Name>Bodies</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

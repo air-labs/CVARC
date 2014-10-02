@@ -45,27 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migration\CompetitionsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Migration\CompetitionsForm.Designer.cs">
-      <DependentUpon>CompetitionsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migration\CVARCEngine.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCEngineCamera.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\Kinect.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\KinectSensor.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\SensorRotation.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\SimpleSonar.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\BallIntersection.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\BoxIntersection.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\CylinderIntersection.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\Intersector.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\PlaneIntersection.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\QuadEquation.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\Ray.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Tests\BodyIntersectionTests.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Tests\SimpleSonarTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

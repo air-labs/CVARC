@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CVARC.Engine.KR</RootNamespace>
     <AssemblyName>CVARC.Engine.KR</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -149,6 +149,30 @@
     <Compile Include="Drawing\Winforms\WinformsDrawer.cs" />
     <Compile Include="Drawing\Winforms\WinformsModel.cs" />
     <Compile Include="Drawing\Winforms\WinformsScene.cs" />
+    <Compile Include="Engine\CompetitionsBundle.cs" />
+    <Compile Include="Engine\ICvarcEngine.cs" />
+    <Compile Include="Engine\ICvarcRules.cs" />
+    <Compile Include="Engine\Implementation\CompetitionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Engine\Implementation\CompetitionsForm.Designer.cs">
+      <DependentUpon>CompetitionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Engine\Implementation\CVARCEngine.cs" />
+    <Compile Include="Engine\Implementation\CVARKDevices\CVARCEngineCamera.cs" />
+    <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Integration\Kinect.cs" />
+    <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Integration\KinectSensor.cs" />
+    <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Integration\SensorRotation.cs" />
+    <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Integration\SimpleSonar.cs" />
+    <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Intersections\BallIntersection.cs" />
+    <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Intersections\BoxIntersection.cs" />
+    <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Intersections\CylinderIntersection.cs" />
+    <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Intersections\Intersector.cs" />
+    <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Intersections\PlaneIntersection.cs" />
+    <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Intersections\QuadEquation.cs" />
+    <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Intersections\Ray.cs" />
+    <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Tests\BodyIntersectionTests.cs" />
+    <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Tests\SimpleSonarTests.cs" />
     <Compile Include="Physics\Bepu\BepuBody.cs" />
     <Compile Include="Physics\Bepu\BepuConverter.cs" />
     <Compile Include="Physics\Bepu\BepuWorld.cs" />
@@ -167,6 +191,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Не на своем месте\ParticipantsServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Drawing\DirectX\CameraSwitchControl.resx">
@@ -265,9 +290,9 @@
     <EmbeddedResource Include="Drawing\Models\untitled.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CVARC.Server\Basic\Basic.csproj">
+    <ProjectReference Include="..\..\CVARC.Server\Basic\CVARC.csproj">
       <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
-      <Name>Basic</Name>
+      <Name>CVARC</Name>
     </ProjectReference>
     <ProjectReference Include="..\airlabs-cope\AIRLabs.csproj">
       <Project>{b1953d7f-0f62-400d-a77a-ff1ce4474a41}</Project>
