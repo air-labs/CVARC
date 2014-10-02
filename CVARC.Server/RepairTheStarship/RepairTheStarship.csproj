@@ -11,6 +11,7 @@
     <AssemblyName>Fall2013.0</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SlimDX, Version=4.0.11.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
@@ -49,21 +52,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CVARC.Engine\airlabs-cope\AIRLabs.csproj">
+    <ProjectReference Include="..\..\CVARC.Engine\AIRLabs\AIRLabs.csproj">
       <Project>{B1953D7F-0F62-400D-A77A-FF1CE4474A41}</Project>
       <Name>AIRLabs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Basic\Basic.csproj">
+    <ProjectReference Include="..\..\CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KR.csproj">
+      <Project>{13695795-f82c-48df-86d7-eae60259f845}</Project>
+      <Name>CVARC.Engine.KR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CVARC.Engine\CVARC\CVARC.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
-      <Name>Basic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Engine\Bodies\Bodies.csproj">
-      <Project>{A316853C-7F60-4C7F-8FB5-6BAFBC417A68}</Project>
-      <Name>Bodies</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Engine\Graphics\Graphics.csproj">
-      <Project>{4DC31792-DB9F-4A7E-9454-473A030076DB}</Project>
-      <Name>Graphics</Name>
+      <Name>CVARC</Name>
     </ProjectReference>
     <ProjectReference Include="..\RepairTheStarship.Common\RepairTheStarship.Common.csproj">
       <Project>{6b20b01b-360b-410c-95f3-0ac88e907281}</Project>

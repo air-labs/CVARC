@@ -46,9 +46,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CVARC.Server\Basic\Basic.csproj">
+    <ProjectReference Include="..\..\CVARC.Engine\CVARC\CVARC.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
-      <Name>Basic</Name>
+      <Name>CVARC</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CVARC.Server\RepairTheStarship.Common\RepairTheStarship.Common.csproj">
       <Project>{6B20B01B-360B-410C-95F3-0AC88E907281}</Project>
