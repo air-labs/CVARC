@@ -89,7 +89,6 @@
     <Compile Include="Replay\Tests\SavingAndLoadingScoresTests.cs" />
     <Compile Include="Replay\Tests\SavingBodiesTests.cs" />
     <Compile Include="Replay\Visibility.cs" />
-    <Compile Include="Scores.cs" />
     <Compile Include="VideoModes.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -86,7 +86,6 @@
     <Compile Include="Bodies\Replay\Tests\SavingAndLoadingScoresTests.cs" />
     <Compile Include="Bodies\Replay\Tests\SavingBodiesTests.cs" />
     <Compile Include="Bodies\Replay\Visibility.cs" />
-    <Compile Include="Bodies\Scores.cs" />
     <Compile Include="Bodies\VideoModes.cs" />
     <Compile Include="Drawing\DirectX\CameraSwitchControl.cs">
       <SubType>UserControl</SubType>
