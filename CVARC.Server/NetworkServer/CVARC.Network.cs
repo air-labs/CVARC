@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CVARC.Basic;
 using CVARC.Basic.Core.Participants;
+using Gems;
 
 namespace CVARC.Network
 {
@@ -19,6 +20,7 @@ namespace CVARC.Network
 
         public static void InternalMain()
         {
+            SimpleLogger.Run();
             var participants = InitCompetition();
             RunForm(participants);
         }
