@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{13695795-F82C-48DF-86D7-EAE60259F845}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CVARC.Engine.KR</RootNamespace>
+    <AssemblyName>CVARC.Engine.KR</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BEPUphysics">
+      <HintPath>..\..\libs\BEPUphysics.dll</HintPath>
+    </Reference>
+    <Reference Include="FarseerPhysics">
+      <HintPath>..\..\libs\FarseerPhysics.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\libs\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\SlimDX.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bodies\CommonUtils.cs" />
+    <Compile Include="Bodies\IScoreCounter.cs" />
+    <Compile Include="Bodies\IVisitable.cs" />
+    <Compile Include="Bodies\NewBody\Ball.cs" />
+    <Compile Include="Bodies\NewBody\Body.cs" />
+    <Compile Include="Bodies\NewBody\Box.cs" />
+    <Compile Include="Bodies\NewBody\Brush.cs" />
+    <Compile Include="Bodies\NewBody\Cylinder.cs" />
+    <Compile Include="Bodies\NewBody\Density.cs" />
+    <Compile Include="Bodies\NewBody\Model.cs" />
+    <Compile Include="Bodies\NewBody\Tests\BasicBodyCollectionTests.cs" />
+    <Compile Include="Bodies\NewBody\Tests\BodyLocationTests.cs" />
+    <Compile Include="Bodies\NewBody\Tests\NotifyPropertyTests.cs" />
+    <Compile Include="Bodies\Replay\ConverterToJS.cs" />
+    <Compile Include="Bodies\Replay\LoggingObject.cs" />
+    <Compile Include="Bodies\Replay\Movement.cs" />
+    <Compile Include="Bodies\Replay\ObjectLoader.cs" />
+    <Compile Include="Bodies\Replay\ReplayLogger.cs" />
+    <Compile Include="Bodies\Replay\ReplayPlayer.cs" />
+    <Compile Include="Bodies\Replay\ScoreAtTime.cs" />
+    <Compile Include="Bodies\Replay\ScoreLoader.cs" />
+    <Compile Include="Bodies\Replay\ScoreSaver.cs" />
+    <Compile Include="Bodies\Replay\SerializationRoot.cs" />
+    <Compile Include="Bodies\Replay\Tests\LoadingBodiesTests.cs" />
+    <Compile Include="Bodies\Replay\Tests\SavingAndLoadingScoresTests.cs" />
+    <Compile Include="Bodies\Replay\Tests\SavingBodiesTests.cs" />
+    <Compile Include="Bodies\Replay\Visibility.cs" />
+    <Compile Include="Bodies\Scores.cs" />
+    <Compile Include="Bodies\VideoModes.cs" />
+    <Compile Include="Drawing\DirectX\CameraSwitchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Drawing\DirectX\CameraSwitchControl.Designer.cs">
+      <DependentUpon>CameraSwitchControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\DirectX\Camera\Camera.cs" />
+    <Compile Include="Drawing\DirectX\Camera\FirstPersonCamera.cs" />
+    <Compile Include="Drawing\DirectX\Camera\ICamera.cs" />
+    <Compile Include="Drawing\DirectX\Camera\SwitchableCamera.cs" />
+    <Compile Include="Drawing\DirectX\Camera\TopViewCamera.cs" />
+    <Compile Include="Drawing\DirectX\Camera\TrackballCamera.cs" />
+    <Compile Include="Drawing\DirectX\DefaultEffect.cs" />
+    <Compile Include="Drawing\DirectX\DeviceWorker.cs" />
+    <Compile Include="Drawing\DirectX\DirectXBrushConverter.cs" />
+    <Compile Include="Drawing\DirectX\DirectXExtensions.cs" />
+    <Compile Include="Drawing\DirectX\DirectXFormDrawer.cs" />
+    <Compile Include="Drawing\DirectX\DirectXModel.cs" />
+    <Compile Include="Drawing\DirectX\DirectXModelFactory.cs" />
+    <Compile Include="Drawing\DirectX\DirectXPrimitives.cs" />
+    <Compile Include="Drawing\DirectX\DirectXScene.cs" />
+    <Compile Include="Drawing\DirectX\Effect.cs" />
+    <Compile Include="Drawing\DirectX\GraphicsBodyComparer.cs" />
+    <Compile Include="Drawing\DirectX\IDirectXDrawer.cs" />
+    <Compile Include="Drawing\DirectX\OffscreenDirectXDrawer.cs" />
+    <Compile Include="Drawing\DirectX\Tests\BodyComparerTests.cs" />
+    <Compile Include="Drawing\DirectX\Tests\BrushConverterTests.cs" />
+    <Compile Include="Drawing\DirectX\Tests\CameraTests.cs" />
+    <Compile Include="Drawing\DirectX\Tests\ControlPlacementTests.cs" />
+    <Compile Include="Drawing\DirectX\Tests\DeviceCreationTests.cs" />
+    <Compile Include="Drawing\DirectX\Tests\DrawerControlTests.cs" />
+    <Compile Include="Drawing\DirectX\Tests\DrawerTests.cs" />
+    <Compile Include="Drawing\DirectX\Tests\LightConversionTests.cs" />
+    <Compile Include="Drawing\DirectX\Tests\ModelFactoryTests.cs" />
+    <Compile Include="Drawing\DirectX\Tests\MultiSceneTests.cs" />
+    <Compile Include="Drawing\DirectX\Tests\OffscreenDrawerTests.cs" />
+    <Compile Include="Drawing\DrawerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Drawing\DrawerControl.Designer.cs">
+      <DependentUpon>DrawerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\DrawerFactoryBase.cs" />
+    <Compile Include="Drawing\DrawerSettings.cs" />
+    <Compile Include="Drawing\DrawingBodyWorker.cs" />
+    <Compile Include="Drawing\FormDrawer.cs" />
+    <Compile Include="Drawing\SceneConfig.cs" />
+    <Compile Include="Drawing\ScoreDisplayControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Drawing\ScoreDisplayControl.Designer.cs">
+      <DependentUpon>ScoreDisplayControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\UniversalDrawerFactory.cs" />
+    <Compile Include="Drawing\Utils\Converter.cs" />
+    <Compile Include="Drawing\Utils\Extensions.cs" />
+    <Compile Include="Drawing\Utils\ModelFactory.cs" />
+    <Compile Include="Drawing\Utils\ThreadActionQueue.cs" />
+    <Compile Include="Drawing\ViewModes.cs" />
+    <Compile Include="Drawing\Winforms\WinformsDrawer.cs" />
+    <Compile Include="Drawing\Winforms\WinformsModel.cs" />
+    <Compile Include="Drawing\Winforms\WinformsScene.cs" />
+    <Compile Include="Physics\Bepu\BepuBody.cs" />
+    <Compile Include="Physics\Bepu\BepuConverter.cs" />
+    <Compile Include="Physics\Bepu\BepuWorld.cs" />
+    <Compile Include="Physics\BodyCreatorVisitor.cs" />
+    <Compile Include="Physics\Exceptions\PhysicsException.cs" />
+    <Compile Include="Physics\Exceptions\UnknownBodyTypeException.cs" />
+    <Compile Include="Physics\Farseer\FarseerBody.cs" />
+    <Compile Include="Physics\Farseer\FarseerConverter.cs" />
+    <Compile Include="Physics\Farseer\FarseerWorld.cs" />
+    <Compile Include="Physics\IPhysical.cs" />
+    <Compile Include="Physics\IWorld.cs" />
+    <Compile Include="Physics\PhysicalManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\DirectX\CameraSwitchControl.resx">
+      <DependentUpon>CameraSwitchControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\DrawerControl.resx">
+      <DependentUpon>DrawerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\arrowblue.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\arrowred.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\camera.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\custombox.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\king.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\king.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\kingtower2.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\kingtower3.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\queen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\queen.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\queentower2.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\queentower3.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\table.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\testtexture.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\TreasureIsland\blackcd.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\TreasureIsland\bottleblue.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\TreasureIsland\bottlered.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\TreasureIsland\cd.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\TreasureIsland\chest.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\TreasureIsland\clothblue.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\TreasureIsland\clothred.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\TreasureIsland\coinactuatorbody.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\TreasureIsland\ingot.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\TreasureIsland\map.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\TreasureIsland\palm.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\TreasureIsland\table.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\TreasureIsland\totem.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Drawing\Models\untitled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CVARC.Server\Basic\Basic.csproj">
+      <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
+      <Name>Basic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\airlabs-cope\AIRLabs.csproj">
+      <Project>{b1953d7f-0f62-400d-a77a-ff1ce4474a41}</Project>
+      <Name>AIRLabs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
