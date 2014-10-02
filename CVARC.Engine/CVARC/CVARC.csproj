@@ -71,6 +71,7 @@
     <Compile Include="Controllers\OBSOLETE NetworkController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Robot.cs" />
+    <Compile Include="Scores.cs" />
     <Compile Include="Sensors\ImageSensorData.cs" />
     <Compile Include="Sensors\Positions\LighthouseSensor.cs" />
     <Compile Include="Sensors\Core\IImageSensorData.cs" />
@@ -87,7 +88,7 @@
     <Folder Include="Core\KRDependentClasses\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CVARC.Engine\airlabs-cope\AIRLabs.csproj">
+    <ProjectReference Include="..\AIRLabs\AIRLabs.csproj">
       <Project>{B1953D7F-0F62-400D-A77A-FF1CE4474A41}</Project>
       <Name>AIRLabs</Name>
     </ProjectReference>

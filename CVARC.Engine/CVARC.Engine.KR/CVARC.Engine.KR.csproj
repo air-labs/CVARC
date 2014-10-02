@@ -290,11 +290,11 @@
     <EmbeddedResource Include="Drawing\Models\untitled.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CVARC.Server\Basic\CVARC.csproj">
+    <ProjectReference Include="..\CVARC\CVARC.csproj">
       <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
       <Name>CVARC</Name>
     </ProjectReference>
-    <ProjectReference Include="..\airlabs-cope\AIRLabs.csproj">
+    <ProjectReference Include="..\AIRLabs\AIRLabs.csproj">
       <Project>{b1953d7f-0f62-400d-a77a-ff1ce4474a41}</Project>
       <Name>AIRLabs</Name>
     </ProjectReference>

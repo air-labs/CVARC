@@ -75,7 +75,7 @@
       <Project>{13695795-f82c-48df-86d7-eae60259f845}</Project>
       <Name>CVARC.Engine.KR</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Basic\CVARC.csproj">
+    <ProjectReference Include="..\..\CVARC.Engine\CVARC\CVARC.csproj">
       <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
       <Name>CVARC</Name>
     </ProjectReference>

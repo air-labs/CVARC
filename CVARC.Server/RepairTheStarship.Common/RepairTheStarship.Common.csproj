@@ -78,11 +78,11 @@
     <Compile Include="Robots\MapGemsRobot.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CVARC.Engine\airlabs-cope\AIRLabs.csproj">
+    <ProjectReference Include="..\..\CVARC.Engine\AIRLabs\AIRLabs.csproj">
       <Project>{B1953D7F-0F62-400D-A77A-FF1CE4474A41}</Project>
       <Name>AIRLabs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Basic\CVARC.csproj">
+    <ProjectReference Include="..\..\CVARC.Engine\CVARC\CVARC.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
       <Name>CVARC</Name>
     </ProjectReference>
