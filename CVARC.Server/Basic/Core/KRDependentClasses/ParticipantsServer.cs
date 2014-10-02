@@ -24,7 +24,7 @@ namespace CVARC.Basic.Core.Participants
             var client = new ClientWithPackage(listener.AcceptTcpClient());
             CompetitionsBundle = GetCompetitionsBundle(client.HelloPackage);
             int controlledRobot = client.HelloPackage.Side == Side.Random ? new Random().Next(2) : (int)client.HelloPackage.Side;
-            return new NetworkParticipant(CompetitionsBundle, controlledRobot, client.Client);
+            return new NetworkParticipant(CompetitionsBundle.competitions, controlledRobot, client.Client);
         }
 
         public NetworkParticipant[] GetParticipants(HelloPackage helloPackage)
@@ -34,8 +34,8 @@ namespace CVARC.Basic.Core.Participants
             CompetitionsBundle = GetCompetitionsBundle(helloPackage);
             return new[]
             {
-                new NetworkParticipant(CompetitionsBundle, 0, client.Client), 
-                new NetworkParticipant(CompetitionsBundle, 1, client2.Client)
+                new NetworkParticipant(CompetitionsBundle.competitions, 0, client.Client), 
+                new NetworkParticipant(CompetitionsBundle.competitions, 1, client2.Client)
             };
         }
 

@@ -7,13 +7,13 @@ namespace CVARC.Basic.Core.Participants
 {
     public class NetworkParticipant : Participant
     {
-        private CompetitionsBundle CompetitionsBundle { get; set; }
+        private Competitions Competitions { get; set; }
         private static readonly ISerializer Serializer = new JsonSerializer();
         private readonly GroboTcpClient client;
 
-        public NetworkParticipant(CompetitionsBundle competitionsBundle, int controlledRobot, GroboTcpClient client)
+        public NetworkParticipant(Competitions competitionsBundle, int controlledRobot, GroboTcpClient client)
         {
-            CompetitionsBundle = competitionsBundle;
+            Competitions = competitionsBundle;
             ControlledRobot = controlledRobot;
             this.client = client;
             SendSide(controlledRobot);
@@ -26,7 +26,7 @@ namespace CVARC.Basic.Core.Participants
 
         public override Command MakeTurn()
         {
-            var sensorsData = CompetitionsBundle.competitions.GetSensorsData<ISensorsData>(ControlledRobot);
+            var sensorsData = Competitions.GetSensorsData<ISensorsData>(ControlledRobot);
             client.Send(Serializer.Serialize(sensorsData));
             var command = Serializer.Deserialize<Command>(client.ReadToEnd());
             command.RobotId = ControlledRobot;
