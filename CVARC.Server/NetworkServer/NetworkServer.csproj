@@ -11,6 +11,7 @@
     <AssemblyName>CVARC.Network</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -60,9 +63,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="CVARC.Network.exe.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -74,29 +74,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KR.csproj">
+      <Project>{13695795-f82c-48df-86d7-eae60259f845}</Project>
+      <Name>CVARC.Engine.KR</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RepairTheStarship\RepairTheStarship.csproj">
       <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
       <Name>RepairTheStarship</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Engine\Engine\Engine.csproj">
-      <Project>{475bd26b-2456-4db4-8dc5-ba9d05088fcb}</Project>
-      <Name>Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Basic\Basic.csproj">
+    <ProjectReference Include="..\..\CVARC.Engine\CVARC\CVARC.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
-      <Name>Basic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Engine\Bodies\Bodies.csproj">
-      <Project>{A316853C-7F60-4C7F-8FB5-6BAFBC417A68}</Project>
-      <Name>Bodies</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Engine\Graphics\Graphics.csproj">
-      <Project>{4DC31792-DB9F-4A7E-9454-473A030076DB}</Project>
-      <Name>Graphics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Engine\Physics\Physics.csproj">
-      <Project>{4FAD9255-3334-4C61-B8D8-97BA4F6E351B}</Project>
-      <Name>Physics</Name>
+      <Name>CVARC</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

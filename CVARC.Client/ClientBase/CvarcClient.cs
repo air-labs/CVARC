@@ -23,7 +23,7 @@ namespace ClientBase
 
         private void StartServer()
         {
-            ThreadPool.QueueUserWorkItem(o => Program.DebugMain(new CompetitionsSettings{CompetitionsName = "Fall2013.0.dll"}));
+            ThreadPool.QueueUserWorkItem(o => Program.InternalMain());
         }
     }
 }
