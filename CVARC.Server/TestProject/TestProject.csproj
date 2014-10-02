@@ -69,27 +69,27 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CVARC.Engine\Bodies\Bodies.csproj">
+    <ProjectReference Include="..\..\CVARC.Engine\Bodies\Bodies.csproj">
       <Project>{a316853c-7f60-4c7f-8fb5-6bafbc417a68}</Project>
       <Name>Bodies</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CVARC.Engine\Engine\Engine.csproj">
+    <ProjectReference Include="..\..\CVARC.Engine\Engine\Engine.csproj">
       <Project>{475bd26b-2456-4db4-8dc5-ba9d05088fcb}</Project>
       <Name>Engine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CVARC.Engine\Graphics\Graphics.csproj">
+    <ProjectReference Include="..\..\CVARC.Engine\Graphics\Graphics.csproj">
       <Project>{4dc31792-db9f-4a7e-9454-473a030076db}</Project>
       <Name>Graphics</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CVARC.Server\Basic\Basic.csproj">
+    <ProjectReference Include="..\Basic\Basic.csproj">
       <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
       <Name>Basic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CVARC.Server\RepairTheStarship.Common\RepairTheStarship.Common.csproj">
+    <ProjectReference Include="..\RepairTheStarship.Common\RepairTheStarship.Common.csproj">
       <Project>{6b20b01b-360b-410c-95f3-0ac88e907281}</Project>
       <Name>RepairTheStarship.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CVARC.Server\RepairTheStarship\RepairTheStarship.csproj">
+    <ProjectReference Include="..\RepairTheStarship\RepairTheStarship.csproj">
       <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
       <Name>RepairTheStarship</Name>
     </ProjectReference>
