@@ -16,7 +16,8 @@ namespace Gems.Robots
             {
                 RobotId = RobotIdSensor.Measure(),
                 Position = PositionSensor.Measure(),
-                MapSensor = DestinationMapSensor.Measure()
+                MapSensor = DestinationMapSensor.Measure(),
+                DetailsInfo = GripSensor.Measure()
             } as T;
         }
     }

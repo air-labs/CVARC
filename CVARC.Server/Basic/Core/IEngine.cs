@@ -47,6 +47,8 @@ namespace CVARC.Basic
         void RunEngine(double timeInSeconds, bool inRealTime);
         string GetReplay();
 
+        IEnumerable<IGameObject> GetChilds(string id);
+
         event OnCollisionEventHandler OnCollision;
         void RaiseOnCollision(string firstBodyId, string secondBodyId, CollisionType collisionType);
 

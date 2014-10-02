@@ -90,6 +90,11 @@ namespace CVARC.Basic
             return ConverterToJavaScript.Convert(Logger.SerializationRoot);
         }
 
+        public IEnumerable<IGameObject> GetChilds(string id)
+        {
+            return Root.Single(z => z.Id.ToString() == id).Nested.Select(GetGameObject);
+        }
+
         public event OnCollisionEventHandler OnCollision;
         public void RaiseOnCollision(string firstBodyId, string secondBodyId, CollisionType collisionType)
         {
@@ -102,15 +107,19 @@ namespace CVARC.Basic
             Kinects[kinectName] = new Kinect(GetBody(host));
         }
 
+        private IGameObject GetGameObject(Body body)
+        {
+            return new GameObject(body.Id.ToString(), body.Type);
+        }
+
         public ImageSensorData GetImageFromKinect(string kinectName)
         {
             return Kinects[kinectName].Measure();
         }
 
-
         public IEnumerable<IGameObject> GetAllObjects()
         {
-            return Root.Select(z => new GameObject(z.Id.ToString(), z.Type));
+            return Root.Select(GetGameObject);
         }
 
         public void PerformAction(string id, string action)
