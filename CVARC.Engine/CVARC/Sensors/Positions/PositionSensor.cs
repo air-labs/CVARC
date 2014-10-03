@@ -1,6 +1,4 @@
-﻿
-
-namespace CVARC.Basic.Sensors.Positions
+﻿namespace CVARC.Basic.Sensors.Positions
 {
     public class PositionSensor : Sensor<PositionData>
     {

@@ -12,6 +12,7 @@ namespace Gems.Robots
         protected LightHouseSensor PositionSensor;
         protected DestinationMapSensor DestinationMapSensor;
         protected RobotCamera RobotCamera;
+        protected GripSensor GripSensor;
 
         protected BaseGemsRobot(Competitions competitions, int number) : base(competitions, number)
         {
@@ -24,6 +25,7 @@ namespace Gems.Robots
             PositionSensor = new LightHouseSensor(this);
             DestinationMapSensor = new DestinationMapSensor(this);
             RobotCamera = new RobotCamera(this);
+            GripSensor = new GripSensor(this);
         }
     }
 }
