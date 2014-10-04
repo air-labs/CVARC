@@ -12,9 +12,10 @@ namespace CVARC.V2.SimpleMovement
 
         double distance;
 
-        public SquareWalkingBot(double distance)
+        public SquareWalkingBot(string controllerId, double distance)
         {
             this.distance = distance;
+            ControllerId = controllerId;
         }
 
         public SimpleMovementCommand GetCommand()
@@ -30,7 +31,7 @@ namespace CVARC.V2.SimpleMovement
            
         }
 
-        public int ControllerNumber
+        public string ControllerId
         {
             get;
             set; 

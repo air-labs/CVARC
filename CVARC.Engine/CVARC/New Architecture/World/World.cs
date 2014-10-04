@@ -22,15 +22,15 @@ namespace CVARC.V2
 
         protected abstract IEnumerable<IActor> CreateActors();
 
-        public void Initialize(Competitions competitions, CompetitionsEnvironment environment)
+        public void Initialize(Competitions competitions, Environment environment)
         {
             Clocks = new WorldClocks();
             IdGenerator = new IdGenerator();
 
             //Initializing world
-            this.SceneState = (TSceneState)environment.SceneSettings;
-            this.Engine = competitions.Engine;
-            this.Manager = (TWorldManager)competitions.WorldManager;
+            this.SceneState = (TSceneState)environment.GetSceneSettings();
+            this.Engine = competitions.Engine.Engine;
+            this.Manager = (TWorldManager)competitions.Manager.WorldManager;
             Engine.Initialize(this);
             Manager.Initialize(this);
             Manager.CreateWorld(IdGenerator);
@@ -38,14 +38,14 @@ namespace CVARC.V2
 
             //Initializing actors
             actors = CreateActors().ToList();
-            foreach(var e in actors)
+            foreach (var e in actors)
             {
                 var actorObjectId = IdGenerator.CreateNewId(e);
-                var rules=competitions.ActorManagerFactories.Where(z=>z.ActorManagerType==e.GetManagerType).FirstOrDefault();
+                var rules = competitions.Manager.ActorManagerFactories.Where(z => z.ActorManagerType == e.GetManagerType).FirstOrDefault();
                 IActorManager manager = null;
                 if (rules != null)
                     manager = rules.Generate();
-                e.Initialize(manager,this, actorObjectId);
+                e.Initialize(manager, this, actorObjectId);
                 if (manager != null)
                 {
                     manager.Initialize(e);
@@ -54,31 +54,8 @@ namespace CVARC.V2
             }
 
 
-
-            //Initializing controllable actors
-            var controllable = actors.OfType<IControllable>().ToArray();
-            var used=new HashSet<int>();
-            foreach (var e in controllable)
-            {
-                var number = e.ControllerNumber;
-                if (used.Contains(number))
-                    throw new Exception("The controller number " + number + " is used more than once");
-                var controller=environment.Controllers.Where(z=>z.ControllerNumber==number).FirstOrDefault();
-                if (controller==null)
-                    throw new Exception("The controller number " + number + " is not found in controllers pool");
-                controller.Initialize(this);
-                e.AcceptParticipant(controller);
-                used.Add(number);
-            }
-            var unusedControllers=environment.Controllers
-                .Select(z=>z.ControllerNumber)
-                .Where(z=>!used.Contains(z))
-                .ToArray();
-            if (unusedControllers.Length != 0)
-            {
-                var unused = unusedControllers.Select(z => z.ToString()).Aggregate((a, b) => a + " " + b);
-                throw new Exception("The controller numbers " + unused + " were unused");
-            }
+            foreach (var e in actors.OfType<IControllable>())
+                e.AcceptParticipant(environment.GetController(e.ControllerId));
         }
 
 

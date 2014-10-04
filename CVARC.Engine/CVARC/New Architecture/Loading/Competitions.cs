@@ -7,17 +7,21 @@ namespace CVARC.V2
 {
     public class Competitions
     {
-        public readonly IWorld World;
-        public readonly IWorldManager WorldManager;
-        public readonly IEnumerable<IActorManagerFactory> ActorManagerFactories;
-        public readonly IEngine Engine;
+        public readonly LogicPart Logic;
+        public readonly EnginePart Engine;
+        public readonly ManagerPart Manager;
 
-        public Competitions(IWorld world, IEngine Engine, IWorldManager manager, IEnumerable<IActorManagerFactory> actorManagerFactories)
+        public Competitions(LogicPart logic, EnginePart engine, ManagerPart manager)
         {
-            this.World = world;
-            this.Engine = Engine;
-            this.WorldManager = manager;
-            this.ActorManagerFactories = actorManagerFactories.ToList();
+            this.Logic = logic;
+            this.Engine = engine;
+            this.Manager = manager;
+
+        }
+
+        public void Load(Environment environment)
+        {
+            Logic.World.Initialize(this, environment);
         }
     }
 }

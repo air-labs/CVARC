@@ -14,6 +14,20 @@ namespace CVARC.V2
         {
             if (!keyIdCount.ContainsKey(obj)) keyIdCount[obj] = 0;
             var id = Combine(obj.GetType().Name, obj.ToString(), keyIdCount[obj].ToString());
+
+            if (idToKey.ContainsKey(id)) //two key object has the same type and does not override ToString method
+            {
+                for (int i = 0; ; i++)
+                {
+                    var newId = Combine(id, i.ToString());
+                    if (!idToKey.ContainsKey(newId))
+                    {
+                        id = newId;
+                        break;
+                    }
+                }
+            }
+
             keyIdCount[obj]++;
             idToKey[id] = obj;
             return id;

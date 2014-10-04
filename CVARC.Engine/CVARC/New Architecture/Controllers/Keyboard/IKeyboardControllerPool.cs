@@ -5,9 +5,8 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public interface IController
+    public interface IKeyboardControllerPool
     {
-        void Initialize(IWorld world);
-        string  ControllerId { get; }
+        IController CreateController(string controllerId);
     }
 }

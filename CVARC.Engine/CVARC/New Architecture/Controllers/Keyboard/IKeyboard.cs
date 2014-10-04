@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace CVARC.V2
 {
-    public interface IController
+    public interface IKeyboard
     {
-        void Initialize(IWorld world);
-        string  ControllerId { get; }
+        IEnumerable<Keys> PressedKeys { get; }
     }
 }

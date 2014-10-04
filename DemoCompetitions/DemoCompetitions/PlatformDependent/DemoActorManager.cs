@@ -27,13 +27,18 @@ namespace DemoCompetitions
         public override void CreateActorBody()
         {
             var root=(Actor.World.Engine as KRPhysical).Root;
+
+            double X = -50;
+            if (Actor.ControllerId == TwoPlayersId.Right)
+                X = 50;
+
             var cyllinder = new Cylinder
             {
                 
                 Height = 20,
                 RTop = 10,
                 RBottom = 10,
-                Location = new Frame3D(-50, 50, 3),
+                Location = new Frame3D(X, 50, 3),
                 DefaultColor = Color.DarkViolet,
                 IsMaterial = true,
                 Density = Density.Iron,
@@ -41,7 +46,6 @@ namespace DemoCompetitions
                 Top = new PlaneImageBrush { Image = Bitmap.FromFile("red.png") },
                 Type = "Robot",
                 NewId = Actor.ObjectId
-                
             };
             root.Add(cyllinder);
         }

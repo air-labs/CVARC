@@ -19,9 +19,9 @@ namespace CVARC.V2
         IController<TCommand> controller;
         IReactiveController<TSensorsData,TCommand> reactiveController;
 
-        public Robot(int controlNumber)
+        public Robot(string controlledId)
         {
-            ControllerNumber = controlNumber;
+            ControllerId = controlledId;
         }
 
         public override void Initialize(IActorManager rules, IWorld world, string actorObjectId)
@@ -30,7 +30,7 @@ namespace CVARC.V2
             World.Clocks.SetClockdown(0, PerformControl);
         }
 
-        public int ControllerNumber
+        public string ControllerId
         {
             get;
             private set; 

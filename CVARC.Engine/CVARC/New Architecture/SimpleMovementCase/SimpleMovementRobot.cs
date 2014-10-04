@@ -13,8 +13,8 @@ namespace CVARC.V2.SimpleMovement
         where TWorld : IWorld
         where TSensorsData : ISensorsData
     {
-        public SimpleMovementRobot(int controllerNumber)
-            : base(controllerNumber)
+        public SimpleMovementRobot(string controllerId)
+            : base(controllerId)
         { }
 
         public abstract void ProcessCustomCommand(string commandName, out double nextRequestTimeSpan);

@@ -8,7 +8,7 @@ namespace CVARC.V2
 {
     public interface IControllable
     {
-        int ControllerNumber { get; }
+        string ControllerId { get; }
         void AcceptParticipant(IController participant);
     }
 }

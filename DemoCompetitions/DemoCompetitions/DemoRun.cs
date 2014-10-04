@@ -9,23 +9,32 @@ using CVARC.V2.SimpleMovement;
 
 namespace DemoCompetitions
 {
+
+
+    
     class DemoRun
     {
-        public static void Main()
+        static Competitions Create()
         {
-            //this is loaded from a library
-            var competitions = new Competitions(
-                new DemoWorld(),
-                new KRPhysical(),
+            var logicPart = new LogicPart(
+                new DemoWorld(), 
+                keyboard=>new SimpleMovement2PlayersKeyboardControllerPool(keyboard));
+
+            var managerPart=new ManagerPart(
                 new DemoWorldManager(),
                 new IActorManagerFactory[] { new ActorManagerFactory<DemoActorManager>() });
 
-            var environment = new CompetitionsEnvironment(
-                new SceneSettings(),
-                new IController[] { new SquareWalkingBot(100) });
+            return new Competitions(logicPart, new KREnginePart(), managerPart);
+        }
 
-            competitions.World.Initialize(competitions, environment);
-            var form = new KRForm(competitions.World);
+
+        public static void Main()
+        {
+
+            var competitions = Create();
+            var environment = new TutorialEnvironment<SceneSettings>(competitions, new SceneSettings());
+            competitions.Load(environment);
+            var form = new KRForm(competitions.Logic.World);
             Application.Run(form);
 
         }

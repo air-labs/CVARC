@@ -11,7 +11,8 @@ namespace DemoCompetitions
     {
         protected override IEnumerable<IActor> CreateActors()
         {
-            yield return new DemoRobot(0);
+            yield return new DemoRobot(TwoPlayersId.Left);
+            yield return new DemoRobot(TwoPlayersId.Right);
         }
     }
 }

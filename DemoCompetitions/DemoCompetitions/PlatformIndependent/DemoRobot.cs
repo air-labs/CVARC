@@ -9,7 +9,7 @@ namespace DemoCompetitions
 {
     class DemoRobot : SimpleMovementRobot<DemoActorManager,DemoWorld,SensorsData>
     {
-        public DemoRobot(int controllerNumber) : base(controllerNumber) { }
+        public DemoRobot(string controllerId) : base(controllerId) { }
 
         public override void ProcessCustomCommand(string commandName, out double nextRequestTimeSpan)
         {
