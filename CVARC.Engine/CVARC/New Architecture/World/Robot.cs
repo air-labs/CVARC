@@ -22,7 +22,12 @@ namespace CVARC.V2
         public Robot(int controlNumber)
         {
             ControllerNumber = controlNumber;
-            Triggers += new ClockdownTrigger(PerformControl).Tick;
+        }
+
+        public override void Initialize(IActorManager rules, IWorld world, string actorObjectId)
+        {
+            base.Initialize(rules, world, actorObjectId);
+            World.Clocks.SetClockdown(0, PerformControl);
         }
 
         public int ControllerNumber
@@ -47,7 +52,7 @@ namespace CVARC.V2
 
         protected abstract TSensorsData GetSensorsData();
         protected abstract void ProcessCommand(TCommand command, out double nextRequestTimeSpan);
-        void PerformControl(ClockdownTrigger trigger, out double NextScheduledTime)
+        void PerformControl(ClockdownData trigger, out double NextScheduledTime)
         {
             if (reactiveController != null)
                 reactiveController.AcceptSensorsData(GetSensorsData());

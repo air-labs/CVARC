@@ -9,8 +9,6 @@ namespace CVARC.V2
         where TActorManager : IActorManager
         where TWorld : IWorld
     {
-        public event Action<double> Triggers;
-
         protected TActorManager Manager { get; private set; }
         public TWorld World { get; private set; }
         IWorld IActor.World { get { return World; } }
@@ -27,13 +25,8 @@ namespace CVARC.V2
             get { return typeof(TActorManager); }
         }
 
-        public void Tick(double time)
-        {
-            if (Triggers!=null) Triggers(time);
-        }
 
-
-        public void Initialize(IActorManager rules, IWorld world, string actorObjectId)
+        public virtual void Initialize(IActorManager rules, IWorld world, string actorObjectId)
         {
             try
             {

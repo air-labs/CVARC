@@ -18,20 +18,13 @@ namespace CVARC.V2
         public TWorldManager Manager { get; private set; }
         IWorldManager IWorld.Manager { get { return Manager; } }
         public IdGenerator IdGenerator { get; private set; }
-        public event Action<double> Triggers;
-
-        public void Tick(double time)
-        {
-            if (Triggers != null) Triggers(time);
-            foreach (var e in actors)
-                e.Tick(time);
-            Engine.Tick(time);
-        }
+        public WorldClocks Clocks { get; private set; }
 
         protected abstract IEnumerable<IActor> CreateActors();
 
         public void Initialize(Competitions competitions, CompetitionsEnvironment environment)
         {
+            Clocks = new WorldClocks();
             IdGenerator = new IdGenerator();
 
             //Initializing world
@@ -87,5 +80,7 @@ namespace CVARC.V2
                 throw new Exception("The controller numbers " + unused + " were unused");
             }
         }
+
+
     }
 }

@@ -16,6 +16,7 @@ namespace CVARC.V2
 
     public class KRPhysical : IEngine
     {
+        const double DeltaTime = 0.01;
         public DrawerFactory DrawerFactory { get; private set; }
         public IWorld World { get; private set; }
         public Body Root { get; private set; }
@@ -31,12 +32,12 @@ namespace CVARC.V2
             DrawerFactory = new DrawerFactory(Root);
             PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
             Logger = new ReplayLogger(Root, 0.1);
-            Trigger += new ClockdownTrigger(Updates).Tick;
+            World.Clocks.SetClockdown(DeltaTime, Updates);
         }
 
-        void Updates(ClockdownTrigger trigger, out double nextSpan)
+        void Updates(ClockdownData data, out double nextTime)
         {
-            var dt = trigger.ThisCallTime - trigger.PreviousCallTime;
+            var dt = data.ThisCallTime - data.PreviousCallTime;
 
             foreach (var e in RequestedSpeeds)
                 GetBody(e.Key).Velocity = e.Value;
@@ -45,10 +46,8 @@ namespace CVARC.V2
             foreach (Body body in Root)
                 body.Update(dt);
 
-            nextSpan = trigger.ThisCallTime + 0.01;
+            nextTime = data.ThisCallTime + DeltaTime;
         }
-
-        event Action<double> Trigger;
 
         public void SetSpeed(string id, Frame3D velocity)
         {
@@ -64,11 +63,6 @@ namespace CVARC.V2
             {
                 return RequestedSpeeds[id];
             }
-        }
-
-        public void Tick(double time)
-        {
-            if (Trigger != null) Trigger(time);
         }
 
         public Body GetBody(string name)

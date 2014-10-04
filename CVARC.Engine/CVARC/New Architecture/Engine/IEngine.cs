@@ -11,8 +11,6 @@ namespace CVARC.V2
     public interface IEngine
     {
         void Initialize(IWorld world);
-
-        void Tick(double time);
         void SetSpeed(string id, Frame3D speed);
         Frame3D GetSpeed(string id);
         Frame3D GetAbsoluteLocation(string id);
