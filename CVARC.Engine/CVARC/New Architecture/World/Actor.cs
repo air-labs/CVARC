@@ -12,8 +12,8 @@ namespace CVARC.V2
         public event Action<double> Triggers;
 
         protected TActorManager Manager { get; private set; }
-        protected TWorld World { get; private set; }
-        public IWorld WorldAsIWorld { get { return World; } }
+        public TWorld World { get; private set; }
+        IWorld IActor.World { get { return World; } }
 
         public string ObjectId { get; private set; }
 
@@ -29,7 +29,7 @@ namespace CVARC.V2
 
         public void Tick(double time)
         {
-            Triggers(time);
+            if (Triggers!=null) Triggers(time);
         }
 
 

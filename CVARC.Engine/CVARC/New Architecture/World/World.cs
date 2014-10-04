@@ -9,6 +9,7 @@ namespace CVARC.V2
     public interface IWorld 
     {
         Engine Engine { get; }
+        void Tick(double time);
     }
 
     public abstract class World<TSceneState> : IWorld
@@ -17,6 +18,15 @@ namespace CVARC.V2
 
         public TSceneState SceneState { get; private set; }
         public Engine Engine { get; private set; }
+        public event Action<double> Triggers;
+
+        public void Tick(double time)
+        {
+            if (Triggers != null) Triggers(time);
+            foreach (var e in actors)
+                e.Tick(time);
+            Engine.Physical.Tick(time);
+        }
 
         protected abstract IEnumerable<IActor> CreateActors();
 
@@ -25,8 +35,9 @@ namespace CVARC.V2
             //Initializing world
             this.SceneState = sceneState;
             this.Engine = engine;
-            Engine.WorldManager.CreateWorld(this, Engine.IdGenerator);
-
+            engine.Physical.Initialize(this);
+            engine.WorldManager.Initialize(this);
+            engine.WorldManager.CreateWorld(Engine.IdGenerator);
 
             //Initializing actors
             actors = CreateActors().ToList();
@@ -38,9 +49,14 @@ namespace CVARC.V2
                 if (rules != null)
                     manager = rules.Generate();
                 e.Initialize(manager,this, actorObjectId);
-                if (manager!=null)
-                    manager.CreateActorBody(e, Engine.IdGenerator);
+                if (manager != null)
+                {
+                    manager.Initialize(e);
+                    manager.CreateActorBody();
+                }
             }
+
+
 
             //Initializing controllable actors
             var controllable = actors.OfType<IControllable>().ToArray();

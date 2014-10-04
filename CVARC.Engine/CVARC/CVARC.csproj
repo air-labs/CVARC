@@ -72,12 +72,15 @@
     <Compile Include="New Architecture\Controllers\IController.cs" />
     <Compile Include="New Architecture\Controllers\IController{TCommand}.cs" />
     <Compile Include="New Architecture\Controllers\ISensorDataReceiver.cs" />
-    <Compile Include="New Architecture\Engine\ActorRulesFactory.cs" />
+    <Compile Include="New Architecture\Engine\ActorManager.cs" />
+    <Compile Include="New Architecture\Engine\ActorManagerFactory.cs" />
+    <Compile Include="New Architecture\Engine\IActorManagerFactory.cs" />
     <Compile Include="New Architecture\Engine\Engine.cs" />
     <Compile Include="New Architecture\Engine\IActorManager.cs" />
     <Compile Include="New Architecture\Engine\IdGenerator.cs" />
     <Compile Include="New Architecture\Engine\IPhysical.cs" />
     <Compile Include="New Architecture\Engine\IWorldManager.cs" />
+    <Compile Include="New Architecture\Engine\WorldManager.cs" />
     <Compile Include="New Architecture\SimpleMovementCase\SimpleMovementCommand.cs" />
     <Compile Include="New Architecture\SimpleMovementCase\SimpleMovementRobot.cs" />
     <Compile Include="New Architecture\SimpleMovementCase\SquareWalkingBot.cs" />

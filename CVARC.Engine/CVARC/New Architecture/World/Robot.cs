@@ -52,7 +52,7 @@ namespace CVARC.V2
             if (reactiveController != null)
                 reactiveController.AcceptSensorsData(GetSensorsData());
             double nextRequestTimeSpan;
-            ProcessCommand(reactiveController.GetCommand(), out nextRequestTimeSpan);
+            ProcessCommand(controller.GetCommand(), out nextRequestTimeSpan);
             NextScheduledTime = trigger.ThisCallTime + nextRequestTimeSpan;
         }
 

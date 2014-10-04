@@ -10,7 +10,7 @@ namespace CVARC.V2
         Type GetManagerType { get; }
         Type GetWorldType { get; }
         string ObjectId { get; }
-        IWorld WorldAsIWorld { get; }
+        IWorld World { get; }
         void Tick(double time);
         void Initialize(IActorManager manager, IWorld world, string objectId);
     }

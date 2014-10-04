@@ -8,6 +8,7 @@ namespace CVARC.V2
 {
     public interface IWorldManager
     {
-        void CreateWorld(IWorld world, IdGenerator generator);
+        void Initialize(IWorld world);
+        void CreateWorld(IdGenerator generator);
     }
 }
