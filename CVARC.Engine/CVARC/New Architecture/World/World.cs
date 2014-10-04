@@ -12,12 +12,13 @@ namespace CVARC.V2
         void Tick(double time);
     }
 
-    public abstract class World<TSceneState> : IWorld
+    public abstract class World<TSceneState,TWorldManager> : IWorld
     {
         List<IActor> actors;
 
         public TSceneState SceneState { get; private set; }
         public Engine Engine { get; private set; }
+        public TWorldManager Manager { get; private set; }
         public event Action<double> Triggers;
 
         public void Tick(double time)
@@ -35,9 +36,11 @@ namespace CVARC.V2
             //Initializing world
             this.SceneState = sceneState;
             this.Engine = engine;
+            this.Manager = (TWorldManager)engine.WorldManager;
             engine.Physical.Initialize(this);
             engine.WorldManager.Initialize(this);
             engine.WorldManager.CreateWorld(Engine.IdGenerator);
+
 
             //Initializing actors
             actors = CreateActors().ToList();

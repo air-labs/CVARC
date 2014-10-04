@@ -11,9 +11,9 @@ using CVARC.V2;
 
 namespace DemoCompetitions
 {
-    class DemoActorManager : DemoActorManagerPrototype
+    class DemoActorManager : ActorManager<DemoRobot>, IDemoActorManagerPrototype
     {
-        public override void MakeAction()
+        public void MakeAction()
         {
            
         }
