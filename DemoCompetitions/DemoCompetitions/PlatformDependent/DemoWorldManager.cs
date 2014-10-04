@@ -15,8 +15,8 @@ namespace DemoCompetitions
         {
             Root.Add(new Box
             {
-                XSize = 300,
-                YSize = 200,
+                XSize = 100,
+                YSize = 100,
                 ZSize = 3,
                 DefaultColor = Color.White,
                 Top = new SolidColorBrush { Color = Color.Yellow },

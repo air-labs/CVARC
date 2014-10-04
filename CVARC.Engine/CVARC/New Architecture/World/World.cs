@@ -6,13 +6,7 @@ using CVARC.Basic.Core.Participants;
 
 namespace CVARC.V2
 {
-    public interface IWorld 
-    {
-        void Tick(double time);
-        IEngine Engine { get; }
-        IWorldManager Manager { get; }
-        void Initialize(Competitions competitions, CompetitionsEnvironment environment);
-    }
+
 
     public abstract class World<TSceneState,TWorldManager> : IWorld
         where TWorldManager : IWorldManager

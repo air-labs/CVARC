@@ -90,6 +90,7 @@
     <Compile Include="New Architecture\World\IActor.cs" />
     <Compile Include="New Architecture\World\ICommand.cs" />
     <Compile Include="New Architecture\World\IControllable.cs" />
+    <Compile Include="New Architecture\World\IWorld.cs" />
     <Compile Include="New Architecture\World\Robot.cs" />
     <Compile Include="New Architecture\World\World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

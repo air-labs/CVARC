@@ -22,7 +22,7 @@ namespace DemoCompetitions
 
             var environment = new CompetitionsEnvironment(
                 new SceneSettings(),
-                new IController[] { new SquareWalkingBot() });
+                new IController[] { new SquareWalkingBot(100) });
 
             competitions.World.Initialize(competitions, environment);
             var form = new KRForm(competitions.World);

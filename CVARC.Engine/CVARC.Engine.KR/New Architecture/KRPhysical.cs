@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using AIRLab.Mathematics;
@@ -30,7 +31,24 @@ namespace CVARC.V2
             DrawerFactory = new DrawerFactory(Root);
             PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
             Logger = new ReplayLogger(Root, 0.1);
+            Trigger += new ClockdownTrigger(Updates).Tick;
         }
+
+        void Updates(ClockdownTrigger trigger, out double nextSpan)
+        {
+            var dt = trigger.ThisCallTime - trigger.PreviousCallTime;
+
+            foreach (var e in RequestedSpeeds)
+                GetBody(e.Key).Velocity = e.Value;
+
+            PhysicalManager.MakeIteration(dt, Root);
+            foreach (Body body in Root)
+                body.Update(dt);
+
+            nextSpan = trigger.ThisCallTime + 0.01;
+        }
+
+        event Action<double> Trigger;
 
         public void SetSpeed(string id, Frame3D velocity)
         {
@@ -48,17 +66,9 @@ namespace CVARC.V2
             }
         }
 
-        double oldTime = 0;
         public void Tick(double time)
         {
-            foreach (var e in RequestedSpeeds)
-                GetBody(e.Key).Velocity = e.Value;
-            
-            double dt = time - oldTime;
-            PhysicalManager.MakeIteration(dt, Root);
-            foreach (Body body in Root)
-                body.Update(dt);
-            oldTime = time;
+            if (Trigger != null) Trigger(time);
         }
 
         public Body GetBody(string name)

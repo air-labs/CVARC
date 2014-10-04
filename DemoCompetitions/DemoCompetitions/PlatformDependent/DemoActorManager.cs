@@ -33,7 +33,7 @@ namespace DemoCompetitions
                 Height = 20,
                 RTop = 10,
                 RBottom = 10,
-                Location = new Frame3D(-150 + 25 - 10, 100 - 25 + 10, 3),
+                Location = new Frame3D(-50, 50, 3),
                 DefaultColor = Color.DarkViolet,
                 IsMaterial = true,
                 Density = Density.Iron,

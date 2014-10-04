@@ -12,7 +12,7 @@ namespace CVARC.V2
     public class KRForm : Form
     {
         double clock = 0;
-        double dt = 0.025;
+        double dt = 0.01;
         IWorld world;
         public KRForm(IWorld world)
         {
