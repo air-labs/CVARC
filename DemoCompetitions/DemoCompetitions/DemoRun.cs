@@ -16,15 +16,12 @@ namespace DemoCompetitions
     {
         static Competitions Create()
         {
-            var logicPart = new LogicPart(
-                new DemoWorld(), 
-                keyboard=>new SimpleMovementTwoPlayersKeyboardControllerPool(keyboard));
-
+            
             var managerPart=new ManagerPart(
                 new DemoWorldManager(),
                 new IActorManagerFactory[] { new ActorManagerFactory<DemoActorManager>() });
 
-            return new Competitions(logicPart, new KREnginePart(), managerPart);
+            return new Competitions(new DemoLogicPart(), new KREnginePart(), managerPart);
         }
 
 
@@ -33,8 +30,7 @@ namespace DemoCompetitions
 
             var competitions = Create();
             var environment = new TutorialEnvironment<SceneSettings>(competitions, new SceneSettings());
-            competitions.Load(environment);
-            var form = new KRForm(competitions.Logic.World);
+            var form = new KRForm(competitions.Create(environment));
             Application.Run(form);
 
         }

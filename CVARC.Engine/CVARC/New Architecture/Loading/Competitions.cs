@@ -19,9 +19,10 @@ namespace CVARC.V2
 
         }
 
-        public void Load(Environment environment)
+        public IWorld Create(Environment environment)
         {
             Logic.World.Initialize(this, environment);
+            return Logic.World;
         }
     }
 }
