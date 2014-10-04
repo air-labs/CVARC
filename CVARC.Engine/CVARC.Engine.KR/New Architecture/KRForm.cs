@@ -12,12 +12,12 @@ namespace CVARC.V2
     public class KRForm : Form
     {
         double clock = 0;
-        double dt = 0.01;
+        double dt = 0.025;
         IWorld world;
         public KRForm(IWorld world)
         {
             this.world=world;
-            var engine = world.Engine.Physical as KRPhysical;
+            var engine = world.Engine as KRPhysical;
             ClientSize = new System.Drawing.Size(800, 600);
             var control = new DrawerControl(new DirectXFormDrawer(engine.DrawerFactory.GetDirectXScene(), new DrawerSettings { ViewMode = ViewModes.Top }));
             control.Dock = DockStyle.Fill;

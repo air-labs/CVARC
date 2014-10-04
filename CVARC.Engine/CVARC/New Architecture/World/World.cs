@@ -8,17 +8,22 @@ namespace CVARC.V2
 {
     public interface IWorld 
     {
-        Engine Engine { get; }
         void Tick(double time);
+        IEngine Engine { get; }
+        IWorldManager Manager { get; }
+        void Initialize(Competitions competitions, CompetitionsEnvironment environment);
     }
 
     public abstract class World<TSceneState,TWorldManager> : IWorld
+        where TWorldManager : IWorldManager
     {
         List<IActor> actors;
 
         public TSceneState SceneState { get; private set; }
-        public Engine Engine { get; private set; }
+        public IEngine Engine { get; private set; }
         public TWorldManager Manager { get; private set; }
+        IWorldManager IWorld.Manager { get { return Manager; } }
+        public IdGenerator IdGenerator { get; private set; }
         public event Action<double> Triggers;
 
         public void Tick(double time)
@@ -26,28 +31,30 @@ namespace CVARC.V2
             if (Triggers != null) Triggers(time);
             foreach (var e in actors)
                 e.Tick(time);
-            Engine.Physical.Tick(time);
+            Engine.Tick(time);
         }
 
         protected abstract IEnumerable<IActor> CreateActors();
 
-        public void Initialize(TSceneState sceneState, Engine engine, IEnumerable<IController> controllers)
+        public void Initialize(Competitions competitions, CompetitionsEnvironment environment)
         {
+            IdGenerator = new IdGenerator();
+
             //Initializing world
-            this.SceneState = sceneState;
-            this.Engine = engine;
-            this.Manager = (TWorldManager)engine.WorldManager;
-            engine.Physical.Initialize(this);
-            engine.WorldManager.Initialize(this);
-            engine.WorldManager.CreateWorld(Engine.IdGenerator);
+            this.SceneState = (TSceneState)environment.SceneSettings;
+            this.Engine = competitions.Engine;
+            this.Manager = (TWorldManager)competitions.WorldManager;
+            Engine.Initialize(this);
+            Manager.Initialize(this);
+            Manager.CreateWorld(IdGenerator);
 
 
             //Initializing actors
             actors = CreateActors().ToList();
             foreach(var e in actors)
             {
-                var actorObjectId = Engine.IdGenerator.CreateNewId(e);
-                var rules=engine.ActorManagerFactories.Where(z=>z.ActorManagerType==e.GetManagerType).FirstOrDefault();
+                var actorObjectId = IdGenerator.CreateNewId(e);
+                var rules=competitions.ActorManagerFactories.Where(z=>z.ActorManagerType==e.GetManagerType).FirstOrDefault();
                 IActorManager manager = null;
                 if (rules != null)
                     manager = rules.Generate();
@@ -69,14 +76,14 @@ namespace CVARC.V2
                 var number = e.ControllerNumber;
                 if (used.Contains(number))
                     throw new Exception("The controller number " + number + " is used more than once");
-                var controller=controllers.Where(z=>z.ControllerNumber==number).FirstOrDefault();
+                var controller=environment.Controllers.Where(z=>z.ControllerNumber==number).FirstOrDefault();
                 if (controller==null)
                     throw new Exception("The controller number " + number + " is not found in controllers pool");
                 controller.Initialize(this);
                 e.AcceptParticipant(controller);
                 used.Add(number);
             }
-            var unusedControllers=controllers
+            var unusedControllers=environment.Controllers
                 .Select(z=>z.ControllerNumber)
                 .Where(z=>!used.Contains(z))
                 .ToArray();

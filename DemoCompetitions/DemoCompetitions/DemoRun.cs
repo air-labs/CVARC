@@ -13,14 +13,19 @@ namespace DemoCompetitions
     {
         public static void Main()
         {
-            var world = new DemoWorld();
-            var engine = new Engine(
+            //this is loaded from a library
+            var competitions = new Competitions(
+                new DemoWorld(),
                 new KRPhysical(),
                 new DemoWorldManager(),
                 new IActorManagerFactory[] { new ActorManagerFactory<DemoActorManager>() });
-            var controllers = new IController[] { new SquareWalkingBot() };
-            world.Initialize(new object(), engine, controllers);
-            var form = new KRForm(world);
+
+            var environment = new CompetitionsEnvironment(
+                new SceneSettings(),
+                new IController[] { new SquareWalkingBot() });
+
+            competitions.World.Initialize(competitions, environment);
+            var form = new KRForm(competitions.World);
             Application.Run(form);
 
         }

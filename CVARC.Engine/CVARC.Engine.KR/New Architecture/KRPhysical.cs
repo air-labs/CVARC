@@ -13,7 +13,7 @@ using kinect.Integration;
 namespace CVARC.V2
 {
 
-    public class KRPhysical : IPhysical
+    public class KRPhysical : IEngine
     {
         public DrawerFactory DrawerFactory { get; private set; }
         public IWorld World { get; private set; }
@@ -26,7 +26,7 @@ namespace CVARC.V2
         public void Initialize(IWorld world)
         {
             World = world;
-            Root = (World.Engine.WorldManager as IKRWorldManager).Root;
+            Root = (World.Manager as IKRWorldManager).Root;
             DrawerFactory = new DrawerFactory(Root);
             PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
             Logger = new ReplayLogger(Root, 0.1);

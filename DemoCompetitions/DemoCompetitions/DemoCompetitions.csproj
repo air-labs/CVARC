@@ -51,6 +51,7 @@
     <Compile Include="PlatformDependent\DemoWorldManager.cs" />
     <Compile Include="PlatformIndependent\DemoRobot.cs" />
     <Compile Include="PlatformIndependent\DemoWorld.cs" />
+    <Compile Include="PlatformIndependent\SceneSettings.cs" />
     <Compile Include="PlatformIndependent\SensorsData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

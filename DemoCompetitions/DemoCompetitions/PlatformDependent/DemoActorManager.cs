@@ -26,7 +26,7 @@ namespace DemoCompetitions
 
         public override void CreateActorBody()
         {
-            var root=(Actor.World.Engine.Physical as KRPhysical).Root;
+            var root=(Actor.World.Engine as KRPhysical).Root;
             var cyllinder = new Cylinder
             {
                 

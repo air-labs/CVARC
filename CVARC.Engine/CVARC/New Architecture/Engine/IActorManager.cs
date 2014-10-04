@@ -17,11 +17,11 @@ namespace CVARC.V2
     {
         public static Frame3D GetAbsoluteLocation(this IActorManager actorManager)
         {
-            return actorManager.Actor.World.Engine.Physical.GetAbsoluteLocation(actorManager.Actor.ObjectId);
+            return actorManager.Actor.World.Engine.GetAbsoluteLocation(actorManager.Actor.ObjectId);
         }
         public static void SetSpeed(this IActorManager actorManager, Frame3D speed)
         {
-            actorManager.Actor.World.Engine.Physical.SetSpeed(actorManager.Actor.ObjectId, speed);
+            actorManager.Actor.World.Engine.SetSpeed(actorManager.Actor.ObjectId, speed);
         }
     }
 
