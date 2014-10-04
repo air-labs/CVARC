@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using CVARC.Basic.Core.Participants;
+
+namespace CVARC.V2
+{
+    public interface IWorld 
+    {
+        Engine Engine { get; }
+    }
+
+    public abstract class World<TSceneState> : IWorld
+    {
+        List<IActor> actors;
+
+        public TSceneState SceneState { get; private set; }
+        public Engine Engine { get; private set; }
+
+        protected abstract IEnumerable<IActor> CreateActors();
+
+        public void Initialize(TSceneState sceneState, Engine engine, IEnumerable<IController> controllers)
+        {
+            //Initializing world
+            this.SceneState = sceneState;
+            this.Engine = engine;
+            Engine.WorldManager.CreateWorld(this, Engine.IdGenerator);
+
+
+            //Initializing actors
+            actors = CreateActors().ToList();
+            foreach(var e in actors)
+            {
+                var actorObjectId = Engine.IdGenerator.CreateNewId(e);
+                var rules=engine.ActorManagerFactories.Where(z=>z.ActorManagerType==e.GetManagerType).FirstOrDefault();
+                IActorManager manager = null;
+                if (rules != null)
+                    manager = rules.Generate();
+                e.Initialize(manager,this, actorObjectId);
+                if (manager!=null)
+                    manager.CreateActorBody(e, Engine.IdGenerator);
+            }
+
+            //Initializing controllable actors
+            var controllable = actors.OfType<IControllable>().ToArray();
+            var used=new HashSet<int>();
+            foreach (var e in controllable)
+            {
+                var number = e.ControllerNumber;
+                if (used.Contains(number))
+                    throw new Exception("The controller number " + number + " is used more than once");
+                var controller=controllers.Where(z=>z.ControllerNumber==number).FirstOrDefault();
+                if (controller==null)
+                    throw new Exception("The controller number " + number + " is not found in controllers pool");
+                controller.Initialize(this);
+                e.AcceptParticipant(controller);
+                used.Add(number);
+            }
+            var unusedControllers=controllers
+                .Select(z=>z.ControllerNumber)
+                .Where(z=>!used.Contains(z))
+                .ToArray();
+            if (unusedControllers.Length != 0)
+            {
+                var unused = unusedControllers.Select(z => z.ToString()).Aggregate((a, b) => a + " " + b);
+                throw new Exception("The controller numbers " + unused + " were unused");
+            }
+        }
+    }
+}
