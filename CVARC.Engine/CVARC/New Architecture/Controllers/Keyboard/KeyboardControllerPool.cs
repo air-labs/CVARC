@@ -29,8 +29,11 @@ namespace CVARC.V2
         public TCommand GetCommand(string controllerId)
         {
             foreach (var e in keyboard.PressedKeys)
+            {
+                if (!keys.ContainsKey(e)) continue;
                 if (keys[e].Item1 == controllerId)
                     return keys[e].Item2();
+            }
             return StopCommandFactory();
         }
 

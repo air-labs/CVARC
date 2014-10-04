@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="DemoRun.cs" />
     <Compile Include="PlatformDependent\DemoActorManager.cs" />
+    <Compile Include="PlatformIndependent\DemoLogicPart.cs" />
     <Compile Include="PlatformIndependent\DemoWorldManagerPrototype.cs" />
     <Compile Include="PlatformIndependent\DemoActorManagerPrototype.cs" />
     <Compile Include="PlatformDependent\DemoWorldManager.cs" />
@@ -92,6 +93,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="red.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="blue.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

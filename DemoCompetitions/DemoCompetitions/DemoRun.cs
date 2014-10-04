@@ -18,7 +18,7 @@ namespace DemoCompetitions
         {
             var logicPart = new LogicPart(
                 new DemoWorld(), 
-                keyboard=>new SimpleMovement2PlayersKeyboardControllerPool(keyboard));
+                keyboard=>new SimpleMovementTwoPlayersKeyboardControllerPool(keyboard));
 
             var managerPart=new ManagerPart(
                 new DemoWorldManager(),

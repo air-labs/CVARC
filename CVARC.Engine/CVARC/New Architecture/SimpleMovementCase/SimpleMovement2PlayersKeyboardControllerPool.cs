@@ -7,9 +7,9 @@ using AIRLab.Mathematics;
 
 namespace CVARC.V2.SimpleMovement
 {
-    public class SimpleMovement2PlayersKeyboardControllerPool : KeyboardControllerPool<SimpleMovementCommand>
+    public class SimpleMovementTwoPlayersKeyboardControllerPool : KeyboardControllerPool<SimpleMovementCommand>
     {
-        public SimpleMovement2PlayersKeyboardControllerPool(IKeyboard keyboard) : base(keyboard)
+        public SimpleMovementTwoPlayersKeyboardControllerPool(IKeyboard keyboard) : base(keyboard)
         {
             double time = 0.1;
             double linear = 50;
