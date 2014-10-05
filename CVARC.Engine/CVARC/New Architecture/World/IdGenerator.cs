@@ -39,6 +39,13 @@ namespace CVARC.V2
             return idToKey[id];
         }
 
+        public TKey GetKey<TKey>(string id)
+        {
+            var key = GetKey(id);
+            if (!(key is TKey)) throw new Exception("The key is not of type TKey");
+            return (TKey)key;
+        }
+
         public IEnumerable<string> GetAllId()
         {
             return idToKey.Keys;

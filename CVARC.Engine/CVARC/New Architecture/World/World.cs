@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CVARC.Basic.Core.Participants;
+using CVARC.Core;
 
 namespace CVARC.V2
 {
@@ -41,16 +42,10 @@ namespace CVARC.V2
             foreach (var e in actors)
             {
                 var actorObjectId = IdGenerator.CreateNewId(e);
-                var rules = competitions.Manager.ActorManagerFactories.Where(z => z.ActorManagerType == e.GetManagerType).FirstOrDefault();
-                IActorManager manager = null;
-                if (rules != null)
-                    manager = rules.Generate();
+                var manager = competitions.Manager.CreateActorManagerFor(e);
                 e.Initialize(manager, this, actorObjectId);
-                if (manager != null)
-                {
-                    manager.Initialize(e);
-                    manager.CreateActorBody();
-                }
+                manager.Initialize(e);
+                manager.CreateActorBody();
             }
 
 

@@ -9,8 +9,13 @@ namespace DemoCompetitions
 {
     public class DemoManagerPart : ManagerPart 
     {
-        public DemoManagerPart() : base(new DemoWorldManager(),
-                new IActorManagerFactory[] { new ActorManagerFactory<DemoActorManager>() })
-        {}
+        public DemoManagerPart()
+            : base(new DemoWorldManager())
+        { }
+
+        public override IActorManager CreateActorManagerFor(IActor actor)
+        {
+            return new DemoActorManager();
+        }
     }
 }

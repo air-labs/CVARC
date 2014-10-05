@@ -5,14 +5,15 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public class ManagerPart
+    public abstract class ManagerPart
     {
         public readonly IWorldManager WorldManager;
-        public readonly IEnumerable<IActorManagerFactory> ActorManagerFactories;
-        public ManagerPart(IWorldManager worldManager, IEnumerable<IActorManagerFactory> actorManagerFactories)
+
+        public abstract IActorManager CreateActorManagerFor(IActor actor);
+
+        public ManagerPart(IWorldManager worldManager)
         {
             WorldManager = worldManager;
-            ActorManagerFactories = actorManagerFactories;
         }
     }
 }

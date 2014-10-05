@@ -7,7 +7,7 @@ using CVARC.V2;
 
 namespace DemoCompetitions
 {
-    public interface IDemoActorManagerPrototype 
+    public interface IDemoActorManagerPrototype  : IActorManager
     {
         void MakeAction();
     }

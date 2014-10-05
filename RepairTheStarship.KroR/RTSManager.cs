@@ -9,10 +9,14 @@ namespace RepairTheStarship.KroR
 {
     public class RTSManagerPart : ManagerPart
     {
-        public RTSManagerPart()
-            : base(
-                new RTSWorldManager(),
-                new IActorManagerFactory[] { })
-        { }
+        public RTSManagerPart() : base(new RTSWorldManager())
+        {
+
+        }
+
+        public override IActorManager CreateActorManagerFor(IActor actor)
+        {
+            return new RTSActorManager();
+        }
     }
 }

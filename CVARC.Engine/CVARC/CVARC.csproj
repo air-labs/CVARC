@@ -78,8 +78,6 @@
     <Compile Include="New Architecture\Controllers\Keyboard\KeyboardControllerPool.cs" />
     <Compile Include="New Architecture\Controllers\Keyboard\WinformsKey.cs" />
     <Compile Include="New Architecture\Engine\ActorManager.cs" />
-    <Compile Include="New Architecture\Engine\ActorManagerFactory.cs" />
-    <Compile Include="New Architecture\Engine\IActorManagerFactory.cs" />
     <Compile Include="New Architecture\Engine\IActorManager.cs" />
     <Compile Include="New Architecture\Loading\Environments\BotDemoEnvironment.cs" />
     <Compile Include="New Architecture\Loading\Environments\StandardEnvironment.cs" />
