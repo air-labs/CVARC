@@ -16,7 +16,7 @@ namespace RepairTheStarship.Robot
         string grippedDetailId;
         public override void ProcessCustomCommand(string commandName, out double nextRequestTimeSpan)
         {
-            nextRequestTimeSpan=1;
+            nextRequestTimeSpan=0.1;
             if (commandName == "Grip")
             {
                 if (grippedDetailId != null) return;

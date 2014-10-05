@@ -23,6 +23,7 @@ namespace CVARC.V2.SimpleMovement
         {
             if (command.Command != null)
             {
+                Manager.SetSpeed(new Frame3D(0, 0, 0, Angle.Zero, Angle.Zero, Angle.Zero));
                 ProcessCustomCommand(command.Command, out nextRequestTimeSpan);
                 return;
             }

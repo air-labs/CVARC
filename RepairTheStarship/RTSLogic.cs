@@ -12,7 +12,7 @@ namespace RepairTheStarship
         public RTSLogicPart()
             : base(
                 new RTSWorld(),
-                (keyboard)=>new SimpleMovementTwoPlayersKeyboardControllerPool(keyboard),
+                (keyboard)=>new RTSKeyboardControllerPool(keyboard),
                 seed => SceneSettings.GetRandomMap(seed))
         { }
     }

@@ -46,6 +46,13 @@ namespace CVARC.V2
             return (TKey)key;
         }
 
+        public bool KeyOfType<TKey>(string id)
+        {
+            if (!idToKey.ContainsKey(id)) throw new ArgumentException("Unrecognized object ID");
+            return idToKey[id] is TKey;
+        }
+
+
         public IEnumerable<string> GetAllId()
         {
             return idToKey.Keys;

@@ -48,5 +48,13 @@ namespace RepairTheStarship
         {
             return Orientation.GetHashCode() ^ Type.GetHashCode();
         }
+
+        public bool Match(DetailColor detailColor)
+        {
+            if (Type == WallSettings.BlueSocket && detailColor == DetailColor.Blue) return true;
+            if (Type == WallSettings.RedSocket && detailColor == DetailColor.Red) return true;
+            if (Type == WallSettings.GreenSocket && detailColor == DetailColor.Green) return true;
+            return false;
+        }
     }
 }

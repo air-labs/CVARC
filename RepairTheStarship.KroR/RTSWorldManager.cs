@@ -66,6 +66,7 @@ namespace RepairTheStarship.KroR
             CreateBorders();
         }
 
+        public static Color DefaultWallColor { get { return Color.LightGray; } }
 
         void CreateWalls(WallSettings[,] array, int width, int height, int weight, WallOrientation orientation, Func<int, int, Point> cooMaker)
         {
@@ -75,7 +76,7 @@ namespace RepairTheStarship.KroR
                     var wall = array[x, y];
                     if (wall == WallSettings.NoWall) continue;
 
-                    Color color = Color.LightGray;
+                    Color color = DefaultWallColor;
                     switch (wall)
                     {
                         case WallSettings.RedSocket: color = Color.DarkRed; break;

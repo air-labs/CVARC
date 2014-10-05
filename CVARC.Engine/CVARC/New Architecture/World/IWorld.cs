@@ -12,5 +12,6 @@ namespace CVARC.V2
         IWorldManager Manager { get; }
         void Initialize(Competitions competitions, IEnvironment environment);
         WorldClocks Clocks { get; }
+        IdGenerator IdGenerator { get; }
     }
 }
