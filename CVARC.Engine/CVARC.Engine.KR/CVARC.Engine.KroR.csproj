@@ -178,7 +178,7 @@
     <Compile Include="New Architecture\KroRForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="New Architecture\KroRPhysical.cs" />
+    <Compile Include="New Architecture\KroREngine.cs" />
     <Compile Include="Physics\Bepu\BepuBody.cs" />
     <Compile Include="Physics\Bepu\BepuConverter.cs" />
     <Compile Include="Physics\Bepu\BepuWorld.cs" />

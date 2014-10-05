@@ -10,8 +10,9 @@ namespace RepairTheStarship
 {
     public class RTSKeyboardControllerPool : SimpleMovementTwoPlayersKeyboardControllerPool
     {
-        public RTSKeyboardControllerPool(IKeyboard keyboard) : base(keyboard)
+        public override void Initialize(IWorld world, IKeyboard keyboard)
         {
+            base.Initialize(world, keyboard);
             Add(Keys.Q, TwoPlayersId.Left, () => new SimpleMovementCommand { Command = "Grip" });
             Add(Keys.E, TwoPlayersId.Left, () => new SimpleMovementCommand { Command = "Release" });
 

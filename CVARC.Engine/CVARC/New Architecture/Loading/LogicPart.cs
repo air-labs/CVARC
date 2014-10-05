@@ -9,12 +9,12 @@ namespace CVARC.V2
     public class LogicPart
     {
         public readonly IWorld World;
-        public readonly Func<IKeyboard,IKeyboardControllerPool> KeyboardControllerPoolFactory;
+        public readonly Func<IKeyboardControllerPool> KeyboardControllerPoolFactory;
         public readonly Dictionary<string, Func<IController>> Bots = new Dictionary<string, Func<IController>>();
         public readonly Func<int, ISceneSettings> MapGenerator;
         public LogicPart(
             IWorld world, 
-            Func<IKeyboard, IKeyboardControllerPool> keyboardControllerPoolFactory,
+            Func<IKeyboardControllerPool> keyboardControllerPoolFactory,
             Func<int,ISceneSettings> mapGenerator
             )
         {

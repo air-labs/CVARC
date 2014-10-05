@@ -18,7 +18,8 @@ namespace CVARC.V2
         override public void Initialize(Dictionary<string,string> commandLineArgs, Competitions competitions)
         {
             base.Initialize(commandLineArgs, competitions);
-            this.pool = competitions.Logic.KeyboardControllerPoolFactory(competitions.Engine.Keyboard);
+            this.pool = competitions.Logic.KeyboardControllerPoolFactory();
+            pool.Initialize(competitions.Logic.World, competitions.Engine.Keyboard);
         }
 
         override public void PrepareControllers(string[] allControllersId)

@@ -12,7 +12,7 @@ namespace DemoCompetitions
     {
         public DemoLogicPart() : base(
             new DemoWorld(),
-            keyboard=>new SimpleMovementTwoPlayersKeyboardControllerPool(keyboard),
+            ()=>new SimpleMovementTwoPlayersKeyboardControllerPool(),
             seed=>new SceneSettings()
             )
         {

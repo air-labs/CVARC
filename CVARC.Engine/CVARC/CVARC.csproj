@@ -83,6 +83,7 @@
     <Compile Include="New Architecture\Loading\Environments\StandardEnvironment.cs" />
     <Compile Include="New Architecture\Loading\Environments\Environments.cs" />
     <Compile Include="New Architecture\SimpleMovementCase\RandomWalkingBot.cs" />
+    <Compile Include="New Architecture\SimpleMovementCase\ISimpleMovementWorld.cs" />
     <Compile Include="New Architecture\World\IdGenerator.cs" />
     <Compile Include="New Architecture\Engine\IEngine.cs" />
     <Compile Include="New Architecture\Engine\IWorldManager.cs" />

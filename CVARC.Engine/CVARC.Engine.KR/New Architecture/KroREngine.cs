@@ -16,7 +16,7 @@ namespace CVARC.V2
 
     public class KroREngine : IEngine
     {
-        const double DeltaTime = 0.01;
+        const double DeltaTime = 0.025;
         public DrawerFactory DrawerFactory { get; private set; }
         public IWorld World { get; private set; }
         public Body Root { get; private set; }

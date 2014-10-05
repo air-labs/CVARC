@@ -10,7 +10,7 @@ namespace CVARC.V2.SimpleMovement
     public abstract class SimpleMovementRobot<TActorManager,TWorld,TSensorsData>
         : Robot<TActorManager,TWorld,TSensorsData,SimpleMovementCommand>
         where TActorManager : IActorManager
-        where TWorld : IWorld
+        where TWorld : ISimpleMovementWorld, IWorld
         where TSensorsData : ISensorsData
     {
         public SimpleMovementRobot(string controllerId)
@@ -31,8 +31,16 @@ namespace CVARC.V2.SimpleMovement
             if (command.WaitForExit)
             {
                 nextRequestTimeSpan = double.PositiveInfinity;
+                ProcessCustomCommand(command.Command, out nextRequestTimeSpan);
                 return;
             }
+
+            if (Math.Abs(command.LinearVelocity) > World.LinearVelocityLimit)
+                command.LinearVelocity = Math.Sign(command.LinearVelocity) * World.LinearVelocityLimit;
+            if (Math.Abs(command.AngularVelocity.Grad) > World.AngularVelocityLimit.Grad)
+                command.AngularVelocity = Angle.FromGrad(Math.Sign(command.AngularVelocity.Grad) * World.AngularVelocityLimit.Grad);
+
+
 
             var location = Manager.GetAbsoluteLocation();
 

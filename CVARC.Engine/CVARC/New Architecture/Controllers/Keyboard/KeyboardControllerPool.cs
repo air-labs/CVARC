@@ -11,7 +11,11 @@ namespace CVARC.V2
         where TCommand : ICommand
     {
 
-        public KeyboardControllerPool(IKeyboard keyboard)
+        public KeyboardControllerPool()
+        {
+        }
+
+        public virtual void Initialize(IWorld world, IKeyboard keyboard)
         {
             this.keyboard = keyboard;
         }
