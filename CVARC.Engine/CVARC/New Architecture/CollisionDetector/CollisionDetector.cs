@@ -11,7 +11,7 @@ namespace CVARC.V2
         public string ObjectId;
         public string ControllerId;
         public string ControlledObjectId;
-        public bool IsControllable { get { return ControllerId == null; } }
+        public bool IsControllable { get { return ControllerId != null; } }
         public bool Match(CollisionSide side)
         {
             if (IsControllable != side.IsControllable) return false;
@@ -27,7 +27,7 @@ namespace CVARC.V2
         public CollisionSide Victim;
     }
 
-    public abstract class CollisionDetector
+    public class CollisionDetector
     {
         IWorld world;
         public CollisionDetector(IWorld world)
@@ -37,8 +37,11 @@ namespace CVARC.V2
         }
         
         public Action<CollisionSide> FindControllableObject;
+        public Action<CollisionCase> Account;
+        public double CooldownTime = 0.001;
 
         List<CollisionCase> cases = new List<CollisionCase>();
+        bool triggerSet = false;
 
         void Engine_Collision(string arg1, string arg2)
         {
@@ -51,6 +54,29 @@ namespace CVARC.V2
                 return;
             cases.Add(new CollisionCase { Offender = side1, Victim = side2 });
             cases.Add(new CollisionCase { Offender = side2, Victim = side1 });
+            if (!triggerSet)
+            {
+                triggerSet = true;
+                world.Clocks.AddOneTimeTrigger(world.Clocks.CurrentTime + CooldownTime, Resolve);
+            }
+        }
+
+
+        void Resolve()
+        {
+            foreach (var e in cases)
+                Account(e);
+            cases.Clear();
+            triggerSet = false;
+        }
+
+
+        public bool Guilty(CollisionCase c)
+        {
+            if (!c.Offender.IsControllable) return false;
+            var vec = world.Engine.GetAbsoluteLocation(c.Victim.ObjectId) - world.Engine.GetAbsoluteLocation(c.Offender.ControlledObjectId);
+            var velocity = world.Engine.GetSpeed(c.Offender.ControlledObjectId);
+            return vec.X * velocity.X + vec.Y * velocity.Y > 0;
         }
     }
 }

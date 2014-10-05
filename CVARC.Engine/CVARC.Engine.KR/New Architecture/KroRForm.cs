@@ -24,7 +24,7 @@ namespace CVARC.V2
             scores = new Label();
             scores.BackColor = Color.White;
             scores.Font = new Font("Arial", 18);
-            scores.Size = new Size(200, 30);
+            scores.Size = new Size(ClientSize.Width, 30);
             scores.BringToFront();
             Controls.Add(scores);
             

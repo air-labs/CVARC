@@ -10,10 +10,13 @@ namespace DemoCompetitions
 {
     public class DemoWorld : World<object, IDemoWorldManagerPrototype>, ISimpleMovementWorld
     {
+        DemoRobot robot1;
+        DemoRobot robot2;
+
         protected override IEnumerable<IActor> CreateActors()
         {
-            yield return new DemoRobot(TwoPlayersId.Left);
-            yield return new DemoRobot(TwoPlayersId.Right);
+            yield return robot1 = new DemoRobot(TwoPlayersId.Left);
+            yield return robot2 = new DemoRobot(TwoPlayersId.Right);
         }
 
         public double LinearVelocityLimit
@@ -31,12 +34,23 @@ namespace DemoCompetitions
         public override void Initialize(Competitions competitions, IEnvironment environment)
         {
             base.Initialize(competitions, environment);
-            Engine.Collision += CollisionDetected;
-        }
+            var detector = new CollisionDetector(this);
+            detector.FindControllableObject = side =>
+                {
+                    var actor = Actors.OfType<DemoRobot>().Where(z => z.ObjectId == side.ObjectId).FirstOrDefault();
+                    if (actor != null)
+                    {
+                        side.ControlledObjectId = actor.ObjectId;
+                        side.ControllerId = actor.ControllerId;
+                    }
+                };
 
-        void CollisionDetected(string arg1, string arg2)
-        {
-            
+            detector.Account = c =>
+                {
+                    if (!c.Victim.IsControllable) return;
+                    if (!detector.Guilty(c)) return;
+                    Scores.Add(c.Offender.ControllerId, -1, "Collision");
+                };
         }
 
     }

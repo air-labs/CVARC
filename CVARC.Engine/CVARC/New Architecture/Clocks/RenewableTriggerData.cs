@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public class ClockdownData
+    public class RenewableTriggerData
     {
         public double PreviousCallTime;
         public double ThisCallTime;

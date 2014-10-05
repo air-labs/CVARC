@@ -23,6 +23,11 @@ namespace CVARC.V2
         public Scores Scores { get; private set; }
         protected abstract IEnumerable<IActor> CreateActors();
 
+        public IEnumerable<IActor> Actors
+        {
+            get { return actors; }
+        }
+
         public virtual void Initialize(Competitions competitions, IEnvironment environment)
         {
             Clocks = new WorldClocks();
@@ -55,5 +60,8 @@ namespace CVARC.V2
         }
 
 
+
+
+   
     }
 }

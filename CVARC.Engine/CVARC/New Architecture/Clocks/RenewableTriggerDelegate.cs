@@ -5,5 +5,5 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public delegate void ClockdownDelegate(ClockdownData data, out double nextCallTime);
+    public delegate void RenewableTriggerDelegate(RenewableTriggerData data, out double nextCallTime);
 }

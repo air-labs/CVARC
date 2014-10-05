@@ -14,5 +14,6 @@ namespace CVARC.V2
         WorldClocks Clocks { get; }
         IdGenerator IdGenerator { get; }
         Scores Scores { get; }
+        IEnumerable<IActor> Actors { get; }
     }
 }

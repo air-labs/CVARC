@@ -34,7 +34,7 @@ namespace CVARC.V2
             DrawerFactory = new DrawerFactory(Root);
             PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
             Logger = new ReplayLogger(Root, 0.1);
-            World.Clocks.SetClockdown(DeltaTime, Updates);
+            World.Clocks.AddRenewableTrigger(DeltaTime, Updates);
         }
 
 
@@ -53,7 +53,7 @@ namespace CVARC.V2
         }
 
  
-        void Updates(ClockdownData data, out double nextTime)
+        void Updates(RenewableTriggerData data, out double nextTime)
         {
             var dt = data.ThisCallTime - data.PreviousCallTime;
 

@@ -7,35 +7,58 @@ namespace CVARC.V2
 {
     public class WorldClocks
     {
-        List<ClockdownRecord> clockdown = new List<ClockdownRecord>();
+        List<Trigger> triggers = new List<Trigger>();
 
         public double CurrentTime { get; private set; }
 
         public double GetNextEventTime()
         {
-            return clockdown.Select(z => z.ScheduledTime).Where(z => z >= CurrentTime).Min();
+            return triggers.Select(z => z.ScheduledTime).Where(z => z >= CurrentTime).Min();
         }
 
-        public void SetClockdown(double firstCallTime, ClockdownDelegate clockdownMethod)
+        public void AddOneTimeTrigger(double scheduledTime, Action action)
         {
-            clockdown.Add(new ClockdownRecord { ClockdownMethod = clockdownMethod, LastCallTime = 0, ScheduledTime = firstCallTime });
+            triggers.Add(new Trigger { ScheduledTime = scheduledTime, Action = action });
         }
+
+        public void AddRenewableTrigger(double firstCallTime, RenewableTriggerDelegate clockdownMethod)
+        {
+            RenewTrigger(0, firstCallTime, clockdownMethod);
+        }
+
+        void RenewTrigger(double lastCall, double scheduledTime, RenewableTriggerDelegate clockdownMethod)
+        {
+            triggers.Add(new Trigger
+                {
+                    ScheduledTime = scheduledTime,
+                    Action = () => RunRenewvableTrigger(lastCall, scheduledTime, clockdownMethod)
+                });
+        }
+
+
+        void RunRenewvableTrigger(double lastCall, double scheduledTime, RenewableTriggerDelegate clockdownMethod)
+        {
+            var clockdownData = new RenewableTriggerData { PreviousCallTime = lastCall, ScheduledTime = scheduledTime, ThisCallTime = CurrentTime };
+            double nextCall;
+            clockdownMethod(clockdownData, out nextCall);
+            RenewTrigger(clockdownData.ThisCallTime,nextCall,clockdownMethod);
+        }
+
+        
+        
 
         public void Tick(double time)
         {
             CurrentTime = time;
-            if (clockdown.Count == 0) return;
+            if (triggers.Count == 0) return;
             while (true)
             {
-                var ready = clockdown.Where(z => z.ScheduledTime <= time);
+                var ready = triggers.Where(z => z.ScheduledTime <= time);
                 if (!ready.Any()) return;
                 var min = ready.Min(z => z.ScheduledTime);
-                var recordToRun = clockdown.Where(z => z.ScheduledTime == min).First();
-                clockdown.Remove(recordToRun);
-                var clockdownData = new ClockdownData { PreviousCallTime = recordToRun.LastCallTime, ScheduledTime = recordToRun.ScheduledTime, ThisCallTime = time };
-                double nextCall;
-                recordToRun.ClockdownMethod(clockdownData, out nextCall);
-                clockdown.Add(new ClockdownRecord { ClockdownMethod = recordToRun.ClockdownMethod, ScheduledTime = nextCall, LastCallTime = time });
+                var recordToRun = triggers.Where(z => z.ScheduledTime == min).First();
+                triggers.Remove(recordToRun);
+                recordToRun.Action();
             }
         }
 

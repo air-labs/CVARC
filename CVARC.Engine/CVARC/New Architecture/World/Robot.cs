@@ -27,7 +27,7 @@ namespace CVARC.V2
         public override void Initialize(IActorManager rules, IWorld world, string actorObjectId)
         {
             base.Initialize(rules, world, actorObjectId);
-            World.Clocks.SetClockdown(0, PerformControl);
+            World.Clocks.AddRenewableTrigger(0, PerformControl);
         }
 
         public string ControllerId
@@ -52,7 +52,7 @@ namespace CVARC.V2
 
         protected abstract TSensorsData GetSensorsData();
         protected abstract void ProcessCommand(TCommand command, out double nextRequestTimeSpan);
-        void PerformControl(ClockdownData trigger, out double NextScheduledTime)
+        void PerformControl(RenewableTriggerData trigger, out double NextScheduledTime)
         {
             if (reactiveController != null)
                 reactiveController.AcceptSensorsData(GetSensorsData());
