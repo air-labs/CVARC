@@ -14,16 +14,7 @@ namespace CVARC.V2
     public abstract class KroRWorldManager<TWorld> : WorldManager<TWorld>, IKroRWorldManager
         where TWorld : IWorld
     {
-
-        public KroRWorldManager()
-        {
-            Root=new Body();
-        }
-        
-        public Body Root
-        {
-            get;
-            private set; 
-        }
+        public KroREngine Engine { get { return (KroREngine)World.Engine; } }
+        public Body Root { get { return Engine.Root; } }
     }
 }

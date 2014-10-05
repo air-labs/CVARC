@@ -20,13 +20,14 @@ namespace CVARC.V2
         IWorldManager IWorld.Manager { get { return Manager; } }
         public IdGenerator IdGenerator { get; private set; }
         public WorldClocks Clocks { get; private set; }
-
+        public Scores Scores { get; private set; }
         protected abstract IEnumerable<IActor> CreateActors();
 
-        public void Initialize(Competitions competitions, IEnvironment environment)
+        public virtual void Initialize(Competitions competitions, IEnvironment environment)
         {
             Clocks = new WorldClocks();
             IdGenerator = new IdGenerator();
+            Scores = new Scores(this);
 
             //Initializing world
             this.SceneSettings = (TSceneState)environment.GetSceneSettings();

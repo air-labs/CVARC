@@ -10,9 +10,33 @@ namespace RepairTheStarship
 {
     public class RTSWorld : World<SceneSettings,IRTSWorldManager>, ISimpleMovementWorld
     {
+        Dictionary<DetailColor, int> repairs = new Dictionary<DetailColor, int>();
+
+        public RTSWorld()
+        {
+            repairs[DetailColor.Blue] = 0;
+            repairs[DetailColor.Green] = 0;
+            repairs[DetailColor.Red] = 0;
+
+        }
+
+
         public void DetailInstalled(DetailColor color, string robotId)
         {
-            //TODO: реализовать логику начисления очков
+            Scores.Add(robotId, 10, "Repaired " + color);
+            repairs[color]++;
+            if (repairs[color] == 2)
+            {
+                Scores.Add(TwoPlayersId.Left, 5, "Cooperative action for color " + color);
+                Scores.Add(TwoPlayersId.Right, 5, "Cooperative action for color " + color);
+            }
+            if (repairs.Values.Sum() == 6)
+            {
+                Scores.Add(TwoPlayersId.Left, 5, "Cooperative action for all colors");
+                Scores.Add(TwoPlayersId.Right, 5, "Cooperative action for all colors");
+            }
+
+
         }
 
         protected override IEnumerable<IActor> CreateActors()

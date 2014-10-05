@@ -69,6 +69,7 @@
     <Compile Include="Core\Participants\Participant.cs" />
     <Compile Include="Controllers\Command.cs" />
     <Compile Include="Controllers\OBSOLETE NetworkController.cs" />
+    <Compile Include="New Architecture\CollisionDetector\CollisionDetector.cs" />
     <Compile Include="New Architecture\Controllers\IController.cs" />
     <Compile Include="New Architecture\Controllers\IController{TCommand}.cs" />
     <Compile Include="New Architecture\Controllers\ISensorDataReceiver.cs" />
@@ -108,6 +109,8 @@
     <Compile Include="New Architecture\World\IWorld.cs" />
     <Compile Include="New Architecture\World\Robot.cs" />
     <Compile Include="New Architecture\Clocks\ClockdownData.cs" />
+    <Compile Include="New Architecture\World\Scores\ScoreRecord.cs" />
+    <Compile Include="New Architecture\World\Scores\Scores.cs" />
     <Compile Include="New Architecture\World\World.cs" />
     <Compile Include="New Architecture\Clocks\WorldClocks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

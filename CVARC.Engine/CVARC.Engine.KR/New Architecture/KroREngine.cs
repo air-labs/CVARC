@@ -23,18 +23,36 @@ namespace CVARC.V2
         Dictionary<string, Frame3D> RequestedSpeeds = new Dictionary<string, Frame3D>();
         Dictionary<string, CVARCEngineCamera> Cameras = new Dictionary<string, CVARCEngineCamera>();
         Dictionary<string, Kinect> Kinects = new Dictionary<string, Kinect>();
+        HashSet<Body> installedCollisionDetector = new HashSet<Body>();
         public ReplayLogger Logger { get; private set; }
 
         public void Initialize(IWorld world)
         {
             World = world;
-            Root = (World.Manager as IKroRWorldManager).Root;
+            Root = new Body();
+            Root.ChildAdded += Root_ChildAdded;
             DrawerFactory = new DrawerFactory(Root);
             PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
             Logger = new ReplayLogger(Root, 0.1);
             World.Clocks.SetClockdown(DeltaTime, Updates);
         }
 
+
+        void Root_ChildAdded(Body firstObject)
+        {
+            if (!installedCollisionDetector.Contains(firstObject))
+            {
+                installedCollisionDetector.Add(firstObject);
+                firstObject.ChildAdded += Root_ChildAdded;
+                firstObject.Collision += (secondObject) =>
+                    {
+                        if (firstObject.NewId != null && secondObject.NewId != null)
+                            OnCollision(firstObject.NewId, secondObject.NewId);
+                    };
+            }
+        }
+
+ 
         void Updates(ClockdownData data, out double nextTime)
         {
             var dt = data.ThisCallTime - data.PreviousCallTime;
@@ -98,6 +116,11 @@ namespace CVARC.V2
 
         public event System.Action<string, string> Collision;
 
+        void OnCollision(string firstObject, string secondObject)
+        {
+            if (Collision!=null)
+                Collision(firstObject,secondObject);
+        }
 
 
         public ImageSensorData GetImageFromKinect(string kinectName)

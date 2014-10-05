@@ -18,12 +18,26 @@ namespace DemoCompetitions
 
         public double LinearVelocityLimit
         {
-            get { return 50; }
+            get { return 200; }
         }
 
         public AIRLab.Mathematics.Angle AngularVelocityLimit
         {
-            get { return Angle.FromGrad(50); }
+            get { return Angle.FromGrad(200); }
         }
+
+
+
+        public override void Initialize(Competitions competitions, IEnvironment environment)
+        {
+            base.Initialize(competitions, environment);
+            Engine.Collision += CollisionDetected;
+        }
+
+        void CollisionDetected(string arg1, string arg2)
+        {
+            
+        }
+
     }
 }

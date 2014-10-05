@@ -13,5 +13,6 @@ namespace CVARC.V2
         void Initialize(Competitions competitions, IEnvironment environment);
         WorldClocks Clocks { get; }
         IdGenerator IdGenerator { get; }
+        Scores Scores { get; }
     }
 }
