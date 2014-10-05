@@ -50,9 +50,9 @@
       <Project>{B1953D7F-0F62-400D-A77A-FF1CE4474A41}</Project>
       <Name>AIRLabs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KR.csproj">
+    <ProjectReference Include="..\..\CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KroR.csproj">
       <Project>{13695795-f82c-48df-86d7-eae60259f845}</Project>
-      <Name>CVARC.Engine.KR</Name>
+      <Name>CVARC.Engine.KroR</Name>
     </ProjectReference>
     <ProjectReference Include="..\RepairTheStarship\RepairTheStarship.csproj">
       <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
@@ -60,7 +60,7 @@
     </ProjectReference>
     <ProjectReference Include="..\..\CVARC.Engine\CVARC\CVARC.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
-      <Name>CVARC</Name>
+      <Name>CVARC %28CVARC.Engine\CVARC%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

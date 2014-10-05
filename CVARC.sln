@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "CVARC.Engine\Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "CVARC.Server\TestProject\TestProject.csproj", "{1CD9B5DF-6D79-4BB5-81A2-B0CBEFF4A0CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVARC.Engine.KR", "CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KR.csproj", "{13695795-F82C-48DF-86D7-EAE60259F845}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVARC.Engine.KroR", "CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KroR.csproj", "{13695795-F82C-48DF-86D7-EAE60259F845}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIRLabs", "CVARC.Engine\AIRLabs\AIRLabs.csproj", "{B1953D7F-0F62-400D-A77A-FF1CE4474A41}"
 EndProject
@@ -40,6 +40,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoCompetitions", "DemoCompetitions\DemoCompetitions\DemoCompetitions.csproj", "{CE636D44-57A4-48FA-A178-88CA2C3E9DD4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVARC", "DemoCompetitions\CVARC\CVARC.csproj", "{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepairTheStarship.General", "RepairTheStarship\RepairTheStarship.General.csproj", "{11B6A7C1-E6AA-4F81-9710-EC84069CA858}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepairTheStarship.KroR", "RepairTheStarship.KroR\RepairTheStarship.KroR.csproj", "{748DB258-2D25-42A4-AF68-F852DA397324}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -211,6 +215,26 @@ Global
 		{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}.Release|x86.ActiveCfg = Release|Any CPU
+		{11B6A7C1-E6AA-4F81-9710-EC84069CA858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11B6A7C1-E6AA-4F81-9710-EC84069CA858}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11B6A7C1-E6AA-4F81-9710-EC84069CA858}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{11B6A7C1-E6AA-4F81-9710-EC84069CA858}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{11B6A7C1-E6AA-4F81-9710-EC84069CA858}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{11B6A7C1-E6AA-4F81-9710-EC84069CA858}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11B6A7C1-E6AA-4F81-9710-EC84069CA858}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11B6A7C1-E6AA-4F81-9710-EC84069CA858}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{11B6A7C1-E6AA-4F81-9710-EC84069CA858}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{11B6A7C1-E6AA-4F81-9710-EC84069CA858}.Release|x86.ActiveCfg = Release|Any CPU
+		{748DB258-2D25-42A4-AF68-F852DA397324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{748DB258-2D25-42A4-AF68-F852DA397324}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{748DB258-2D25-42A4-AF68-F852DA397324}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{748DB258-2D25-42A4-AF68-F852DA397324}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{748DB258-2D25-42A4-AF68-F852DA397324}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{748DB258-2D25-42A4-AF68-F852DA397324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{748DB258-2D25-42A4-AF68-F852DA397324}.Release|Any CPU.Build.0 = Release|Any CPU
+		{748DB258-2D25-42A4-AF68-F852DA397324}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{748DB258-2D25-42A4-AF68-F852DA397324}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{748DB258-2D25-42A4-AF68-F852DA397324}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -232,5 +256,7 @@ Global
 		{5177F2A5-6BA0-4EB6-91DA-5C4CAB84DCF8} = {4C090D07-4CFD-481D-BD1F-7C9AAFF68900}
 		{CE636D44-57A4-48FA-A178-88CA2C3E9DD4} = {42B98253-B4B7-4E0B-A065-68DF4FD0A0B0}
 		{570F2CCC-CB76-4A27-B1CA-D38888D34A5E} = {42B98253-B4B7-4E0B-A065-68DF4FD0A0B0}
+		{11B6A7C1-E6AA-4F81-9710-EC84069CA858} = {42B98253-B4B7-4E0B-A065-68DF4FD0A0B0}
+		{748DB258-2D25-42A4-AF68-F852DA397324} = {42B98253-B4B7-4E0B-A065-68DF4FD0A0B0}
 	EndGlobalSection
 EndGlobal

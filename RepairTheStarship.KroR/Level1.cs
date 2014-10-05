@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using CVARC.V2;
 
-namespace DemoCompetitions
+namespace RepairTheStarship.KroR
 {
     public class Level1 : Competitions
     {
         public Level1()
-            : base(new DemoLogicPart(), new KroREnginePart(), new DemoManagerPart())
+            : base(new RTSLogicPart(), new KroREnginePart(), new RTSManagerPart())
         { }
     }
 }

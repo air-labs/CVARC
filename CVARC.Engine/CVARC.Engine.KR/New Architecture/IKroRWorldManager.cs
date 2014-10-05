@@ -6,16 +6,16 @@ using CVARC.Core;
 
 namespace CVARC.V2
 {
-    public interface IKRWorldManager
+    public interface IKroRWorldManager
     {
         Body Root { get; }
     }
 
-    public abstract class KRWorldManager<TWorld> : WorldManager<TWorld>, IKRWorldManager
+    public abstract class KroRWorldManager<TWorld> : WorldManager<TWorld>, IKroRWorldManager
         where TWorld : IWorld
     {
 
-        public KRWorldManager()
+        public KroRWorldManager()
         {
             Root=new Body();
         }

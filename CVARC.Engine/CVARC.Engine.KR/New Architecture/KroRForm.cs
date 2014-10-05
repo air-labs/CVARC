@@ -9,15 +9,15 @@ using CVARC.Graphics.DirectX;
 
 namespace CVARC.V2
 {
-    public class KRForm : Form
+    public class KroRForm : Form
     {
         double clock = 0;
         IWorld world;
         Timer timer;
-        public KRForm(IWorld world)
+        public KroRForm(IWorld world)
         {
             this.world=world;
-            var engine = world.Engine as KRPhysical;
+            var engine = world.Engine as KroREngine;
             ClientSize = new System.Drawing.Size(800, 600);
             var control = new DrawerControl(new DirectXFormDrawer(engine.DrawerFactory.GetDirectXScene(), new DrawerSettings { ViewMode = ViewModes.Top }));
             control.Dock = DockStyle.Fill;

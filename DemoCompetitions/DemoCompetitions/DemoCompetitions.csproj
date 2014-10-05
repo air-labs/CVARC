@@ -86,13 +86,13 @@
       <Project>{b1953d7f-0f62-400d-a77a-ff1ce4474a41}</Project>
       <Name>AIRLabs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KR.csproj">
+    <ProjectReference Include="..\..\CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KroR.csproj">
       <Project>{13695795-f82c-48df-86d7-eae60259f845}</Project>
-      <Name>CVARC.Engine.KR</Name>
+      <Name>CVARC.Engine.KroR</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CVARC.Engine\CVARC\CVARC.csproj">
       <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
-      <Name>CVARC</Name>
+      <Name>CVARC %28CVARC.Engine\CVARC%29</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

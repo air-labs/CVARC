@@ -173,12 +173,12 @@
     <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Intersections\Ray.cs" />
     <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Tests\BodyIntersectionTests.cs" />
     <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Tests\SimpleSonarTests.cs" />
-    <Compile Include="New Architecture\IKRWorldManager.cs" />
-    <Compile Include="New Architecture\KREnginePart.cs" />
-    <Compile Include="New Architecture\KRForm.cs">
+    <Compile Include="New Architecture\IKroRWorldManager.cs" />
+    <Compile Include="New Architecture\KroREnginePart.cs" />
+    <Compile Include="New Architecture\KroRForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="New Architecture\KRPhysical.cs" />
+    <Compile Include="New Architecture\KroRPhysical.cs" />
     <Compile Include="Physics\Bepu\BepuBody.cs" />
     <Compile Include="Physics\Bepu\BepuConverter.cs" />
     <Compile Include="Physics\Bepu\BepuWorld.cs" />
@@ -298,7 +298,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CVARC\CVARC.csproj">
       <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
-      <Name>CVARC</Name>
+      <Name>CVARC %28CVARC.Engine\CVARC%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\AIRLabs\AIRLabs.csproj">
       <Project>{b1953d7f-0f62-400d-a77a-ff1ce4474a41}</Project>

@@ -75,13 +75,17 @@
       <Project>{b1953d7f-0f62-400d-a77a-ff1ce4474a41}</Project>
       <Name>AIRLabs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KR.csproj">
+    <ProjectReference Include="..\..\CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KroR.csproj">
       <Project>{13695795-f82c-48df-86d7-eae60259f845}</Project>
-      <Name>CVARC.Engine.KR</Name>
+      <Name>CVARC.Engine.KroR</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CVARC.Engine\CVARC\CVARC.csproj">
       <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
       <Name>CVARC %28CVARC.Engine\CVARC%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RepairTheStarship.KroR\RepairTheStarship.KroR.csproj">
+      <Project>{748db258-2d25-42a4-af68-f852da397324}</Project>
+      <Name>RepairTheStarship.KroR</Name>
     </ProjectReference>
     <ProjectReference Include="..\DemoCompetitions\DemoCompetitions.csproj">
       <Project>{ce636d44-57a4-48fa-a178-88ca2c3e9dd4}</Project>

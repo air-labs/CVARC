@@ -13,7 +13,7 @@ namespace CVARC.V2
     {
         List<IActor> actors;
 
-        public TSceneState SceneState { get; private set; }
+        public TSceneState SceneSettings { get; private set; }
         public IEngine Engine { get; private set; }
         public TWorldManager Manager { get; private set; }
         IWorldManager IWorld.Manager { get { return Manager; } }
@@ -28,7 +28,7 @@ namespace CVARC.V2
             IdGenerator = new IdGenerator();
 
             //Initializing world
-            this.SceneState = (TSceneState)environment.GetSceneSettings();
+            this.SceneSettings = (TSceneState)environment.GetSceneSettings();
             this.Engine = competitions.Engine.Engine;
             this.Manager = (TWorldManager)competitions.Manager.WorldManager;
             Engine.Initialize(this);

@@ -61,7 +61,7 @@ namespace CVARC
         static void Main(string[] args)
         {
             var world = Initialize(args);
-            var form = new KRForm(world);
+            var form = new KroRForm(world);
             Application.Run(form);
         }
     }

@@ -28,7 +28,7 @@ namespace DemoCompetitions
 
         public override void CreateActorBody()
         {
-            var root=(Actor.World.Engine as KRPhysical).Root;
+            var root=(Actor.World.Engine as KroREngine).Root;
 
             double X = -50;
             string fileName = "red.png";
