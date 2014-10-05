@@ -13,10 +13,9 @@ namespace CVARC.V2.SimpleMovement
 
         double distance;
 
-        public RandomWalkingBot(string controllerId, double distance)
+        public RandomWalkingBot(double distance)
         {
             this.distance = distance;
-            ControllerId = controllerId;
         }
 
         public SimpleMovementCommand GetCommand()
@@ -30,12 +29,6 @@ namespace CVARC.V2.SimpleMovement
         public void Initialize(IWorld world)
         {
            
-        }
-
-        public string ControllerId
-        {
-            get;
-            set; 
         }
     }
 }

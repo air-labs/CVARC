@@ -12,6 +12,7 @@ namespace CVARC.V2
         static Environments()
         {
             Available["Tutorial"] = () => new TutorialEnvironment();
+            Available["BotDemo"] = () => new BotDemoEnvironment();
         }
     }
 }

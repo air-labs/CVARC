@@ -27,9 +27,5 @@ namespace CVARC.V2
             
         }
 
-        public string ControllerId
-        {
-            get { return controllerId; }
-        }
     }
 }

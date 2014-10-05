@@ -8,6 +8,5 @@ namespace CVARC.V2
     public interface IController
     {
         void Initialize(IWorld world);
-        string  ControllerId { get; }
     }
 }

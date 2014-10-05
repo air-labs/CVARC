@@ -16,9 +16,8 @@ namespace DemoCompetitions
             seed=>new SceneSettings()
             )
         {
-            Bots["Square"]=controllerId=>new SquareWalkingBot(controllerId,50);
-            Bots["Random"]=controllerId=>new RandomWalkingBot(controllerId,50);
-
+            Bots["Square"]=()=>new SquareWalkingBot(50);
+            Bots["Random"]=()=>new RandomWalkingBot(50);
         }
     }
 }

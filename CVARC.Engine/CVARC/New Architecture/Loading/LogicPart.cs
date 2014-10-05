@@ -10,7 +10,7 @@ namespace CVARC.V2
     {
         public readonly IWorld World;
         public readonly Func<IKeyboard,IKeyboardControllerPool> KeyboardControllerPoolFactory;
-        public readonly Dictionary<string, Func<string,IController>> Bots = new Dictionary<string, Func<string,IController>>();
+        public readonly Dictionary<string, Func<IController>> Bots = new Dictionary<string, Func<IController>>();
         public readonly Func<int, ISceneSettings> MapGenerator;
         public LogicPart(
             IWorld world, 

@@ -81,6 +81,8 @@
     <Compile Include="New Architecture\Engine\ActorManagerFactory.cs" />
     <Compile Include="New Architecture\Engine\IActorManagerFactory.cs" />
     <Compile Include="New Architecture\Engine\IActorManager.cs" />
+    <Compile Include="New Architecture\Loading\Environments\BotDemoEnvironment.cs" />
+    <Compile Include="New Architecture\Loading\Environments\StandardEnvironment.cs" />
     <Compile Include="New Architecture\Loading\Environments\Environments.cs" />
     <Compile Include="New Architecture\SimpleMovementCase\RandomWalkingBot.cs" />
     <Compile Include="New Architecture\World\IdGenerator.cs" />
