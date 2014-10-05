@@ -81,14 +81,14 @@
     <Compile Include="New Architecture\Engine\ActorManagerFactory.cs" />
     <Compile Include="New Architecture\Engine\IActorManagerFactory.cs" />
     <Compile Include="New Architecture\Engine\IActorManager.cs" />
-    <Compile Include="New Architecture\Loading\Environments\BotDemoEnvironment.cs" />
+    <Compile Include="New Architecture\Loading\Environments\Environments.cs" />
     <Compile Include="New Architecture\SimpleMovementCase\RandomWalkingBot.cs" />
     <Compile Include="New Architecture\World\IdGenerator.cs" />
     <Compile Include="New Architecture\Engine\IEngine.cs" />
     <Compile Include="New Architecture\Engine\IWorldManager.cs" />
     <Compile Include="New Architecture\Engine\WorldManager.cs" />
     <Compile Include="New Architecture\Loading\Competitions.cs" />
-    <Compile Include="New Architecture\Loading\Environments\Environment.cs" />
+    <Compile Include="New Architecture\Loading\Environments\IEnvironment.cs" />
     <Compile Include="New Architecture\Loading\EnginePart.cs" />
     <Compile Include="New Architecture\Loading\LogicPart.cs" />
     <Compile Include="New Architecture\Loading\ManagerPart.cs" />

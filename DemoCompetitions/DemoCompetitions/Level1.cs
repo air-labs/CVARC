@@ -7,9 +7,10 @@ using CVARC.V2;
 
 namespace DemoCompetitions
 {
-   public  interface IDemoWorldManagerPrototype : IWorldManager
+    public class Level1 : Competitions
     {
-        
+        public Level1()
+            : base(new DemoLogicPart(), new KREnginePart(), new DemoManagerPart())
+        { }
     }
-        
 }

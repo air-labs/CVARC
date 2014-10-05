@@ -22,7 +22,7 @@ namespace CVARC.V2
 
         protected abstract IEnumerable<IActor> CreateActors();
 
-        public void Initialize(Competitions competitions, Environment environment)
+        public void Initialize(Competitions competitions, IEnvironment environment)
         {
             Clocks = new WorldClocks();
             IdGenerator = new IdGenerator();

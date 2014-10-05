@@ -39,6 +39,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DemoCompetitions", "DemoCom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoCompetitions", "DemoCompetitions\DemoCompetitions\DemoCompetitions.csproj", "{CE636D44-57A4-48FA-A178-88CA2C3E9DD4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVARC", "DemoCompetitions\CVARC\CVARC.csproj", "{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -199,6 +201,16 @@ Global
 		{CE636D44-57A4-48FA-A178-88CA2C3E9DD4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{CE636D44-57A4-48FA-A178-88CA2C3E9DD4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CE636D44-57A4-48FA-A178-88CA2C3E9DD4}.Release|x86.ActiveCfg = Release|Any CPU
+		{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -219,5 +231,6 @@ Global
 		{3D879342-6FFF-4E86-81CF-69A89A23CA81} = {4C090D07-4CFD-481D-BD1F-7C9AAFF68900}
 		{5177F2A5-6BA0-4EB6-91DA-5C4CAB84DCF8} = {4C090D07-4CFD-481D-BD1F-7C9AAFF68900}
 		{CE636D44-57A4-48FA-A178-88CA2C3E9DD4} = {42B98253-B4B7-4E0B-A065-68DF4FD0A0B0}
+		{570F2CCC-CB76-4A27-B1CA-D38888D34A5E} = {42B98253-B4B7-4E0B-A065-68DF4FD0A0B0}
 	EndGlobalSection
 EndGlobal

@@ -19,8 +19,9 @@ namespace CVARC.V2
 
         }
 
-        public IWorld Create(Environment environment)
+        public IWorld Create(Dictionary<string,string> commandLineArguments, IEnvironment environment)
         {
+            environment.Initialize(commandLineArguments, this);
             Logic.World.Initialize(this, environment);
             return Logic.World;
         }

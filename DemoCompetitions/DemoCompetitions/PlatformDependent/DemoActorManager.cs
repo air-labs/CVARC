@@ -11,7 +11,7 @@ using CVARC.V2;
 
 namespace DemoCompetitions
 {
-    class DemoActorManager : ActorManager<DemoRobot>, IDemoActorManagerPrototype
+    public class DemoActorManager : ActorManager<DemoRobot>, IDemoActorManagerPrototype
     {
         public void MakeAction()
         {
@@ -21,7 +21,9 @@ namespace DemoCompetitions
 
         private Stream GetResourceStream(string resourceName)
         {
-            return GetType().Assembly.GetManifestResourceStream("Gems.Resources." + resourceName);
+            var assembly = GetType().Assembly;
+            var names = assembly.GetManifestResourceNames();
+            return assembly.GetManifestResourceStream("DemoCompetitions.Resourses."+resourceName);
         }
 
         public override void CreateActorBody()
@@ -49,7 +51,7 @@ namespace DemoCompetitions
                 IsMaterial = true,
                 Density = Density.Iron,
                 FrictionCoefficient = 0,
-                Top = new PlaneImageBrush { Image = Bitmap.FromFile(fileName) },
+                Top = new PlaneImageBrush { Image = Bitmap.FromStream(GetResourceStream(fileName)) },
                 Type = "Robot",
                 NewId = Actor.ObjectId
             };

@@ -7,7 +7,7 @@ using CVARC.Basic;
 
 namespace DemoCompetitions
 {
-    class SceneSettings : ISceneSettings
+    public class SceneSettings : ISceneSettings
     {
     }
 }

@@ -6,27 +6,44 @@ using CVARC.Basic;
 
 namespace CVARC.V2
 {
-    public class TutorialEnvironment<TSceneSettings> : Environment
-        where TSceneSettings : ISceneSettings
+    public class TutorialEnvironment : IEnvironment
     {
-        TSceneSettings sceneSettings;
         IKeyboardControllerPool pool;
+        Competitions competitions;
+        Dictionary<string, string> commandLineArgs;
 
-        public TutorialEnvironment(Competitions competitions, TSceneSettings sceneSettings) : base(competitions)
+        public ISceneSettings GetSceneSettings()
         {
-            this.sceneSettings = sceneSettings;
-            pool = competitions.Logic.KeyboardControllerPoolFactory(competitions.Engine.Keyboard);
+            int seed = 0;
+            if (commandLineArgs.ContainsKey(Environments.SeedKey))
+            {
+                try
+                {
+                    seed = int.Parse(commandLineArgs[Environments.SeedKey]);
+                }
+                catch
+                {
+                    throw new Exception("The key " + Environments.SeedKey + " must have an integer value");
+                }
+            }
+            return competitions.Logic.MapGenerator(seed);
         }
 
-
-        public override ISceneSettings GetSceneSettings()
-        {
-            return sceneSettings;
-        }
-
-        public override IController GetController(string controllerId)
+        public IController GetController(string controllerId)
         {
             return pool.CreateController(controllerId);
+        }
+
+        public void Initialize(Dictionary<string,string> commandLineArgs, Competitions competitions)
+        {
+            this.commandLineArgs = commandLineArgs;
+            this.competitions = competitions;
+            this.pool = competitions.Logic.KeyboardControllerPoolFactory(competitions.Engine.Keyboard);
+        }
+
+        public void PrepareControllers(string[] allControllersId)
+        {
+            
         }
     }
 }

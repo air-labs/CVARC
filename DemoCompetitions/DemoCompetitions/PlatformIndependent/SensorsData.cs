@@ -7,7 +7,7 @@ using CVARC.Basic;
 
 namespace DemoCompetitions
 {
-    class SensorsData : ISensorsData
+    public class SensorsData : ISensorsData
     {
     }
 }

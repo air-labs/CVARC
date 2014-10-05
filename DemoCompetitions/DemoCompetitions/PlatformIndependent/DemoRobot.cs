@@ -7,7 +7,7 @@ using CVARC.V2.SimpleMovement;
 
 namespace DemoCompetitions
 {
-    class DemoRobot : SimpleMovementRobot<DemoActorManager,DemoWorld,SensorsData>
+    public class DemoRobot : SimpleMovementRobot<DemoActorManager, DemoWorld, SensorsData>
     {
         public DemoRobot(string controllerId) : base(controllerId) { }
 

@@ -7,7 +7,7 @@ using CVARC.V2;
 
 namespace DemoCompetitions
 {
-    class DemoWorld : World<object,IDemoWorldManagerPrototype>
+    public class DemoWorld : World<object, IDemoWorldManagerPrototype>
     {
         protected override IEnumerable<IActor> CreateActors()
         {
