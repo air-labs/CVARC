@@ -8,5 +8,6 @@ namespace RepairTheStarship.Robot
 {
     public interface IRTSRobot : IControllable, IActor
     {
+        string GrippedObjectId { get; }
     }
 }

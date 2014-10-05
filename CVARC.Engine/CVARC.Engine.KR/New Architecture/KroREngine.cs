@@ -85,7 +85,7 @@ namespace CVARC.V2
 
         public Body GetBody(string name)
         {
-            return Root.First(z => z.NewId == name);
+            return Root.GetSubtreeChildrenFirst().First(z => z.NewId == name);
         }
 
         public Frame3D GetAbsoluteLocation(string id)

@@ -17,7 +17,30 @@ namespace RepairTheStarship
             repairs[DetailColor.Blue] = 0;
             repairs[DetailColor.Green] = 0;
             repairs[DetailColor.Red] = 0;
+        }
 
+        public override void Initialize(Competitions competitions, IEnvironment environment)
+        {
+            base.Initialize(competitions, environment);
+            var detector = new CollisionDetector(this);
+            detector.FindControllableObject = side =>
+                {
+                    var robot = Actors
+                        .OfType<IRTSRobot>()
+                        .Where(z => z.ObjectId == side.ObjectId || z.GrippedObjectId == side.ObjectId)
+                        .FirstOrDefault();
+                    if (robot != null)
+                    {
+                        side.ControlledObjectId = robot.ObjectId;
+                        side.ControllerId = robot.ControllerId;
+                    }
+                };
+            detector.Account = c =>
+                {
+                    if (!c.Victim.IsControllable) return;
+                    if (!detector.Guilty(c)) return;
+                    Scores.Add(c.Offender.ControllerId, -30, "Collision");
+                };
         }
 
 
@@ -47,12 +70,12 @@ namespace RepairTheStarship
 
         public double LinearVelocityLimit
         {
-            get { return 50; }
+            get { return 300; }
         }
 
         public AIRLab.Mathematics.Angle AngularVelocityLimit
         {
-            get { return Angle.FromGrad(50); }
+            get { return Angle.FromGrad(300); }
         }
     }
 }

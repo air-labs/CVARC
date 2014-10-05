@@ -13,25 +13,26 @@ namespace RepairTheStarship.Robot
 
         public RTSRobot(string controllerName) : base(controllerName) { }
 
-        string grippedDetailId;
+        public string GrippedObjectId { get; private set; }
+
         public override void ProcessCustomCommand(string commandName, out double nextRequestTimeSpan)
         {
             nextRequestTimeSpan=0.1;
             if (commandName == "Grip")
             {
-                if (grippedDetailId != null) return;
-                grippedDetailId = Manager.Grip();
+                if (GrippedObjectId != null) return;
+                GrippedObjectId = Manager.Grip();
                 return;
             }
             if (commandName == "Release")
             {
-                if (grippedDetailId == null) return;
+                if (GrippedObjectId == null) return;
                 if (Manager.Release())
                 {
-                    var detailType = World.IdGenerator.GetKey<DetailColor>(grippedDetailId);
+                    var detailType = World.IdGenerator.GetKey<DetailColor>(GrippedObjectId);
                     World.DetailInstalled(detailType, ControllerId);
                 }
-                grippedDetailId = null;
+                GrippedObjectId = null;
             }
         }
     }
