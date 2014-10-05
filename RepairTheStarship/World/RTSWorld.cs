@@ -19,7 +19,7 @@ namespace RepairTheStarship
             repairs[DetailColor.Red] = 0;
         }
 
-        public override void Initialize(Competitions competitions, IEnvironment environment)
+        public override void Initialize(Competitions competitions, IRunMode environment)
         {
             base.Initialize(competitions, environment);
             var detector = new CollisionDetector(this);
@@ -58,8 +58,6 @@ namespace RepairTheStarship
                 Scores.Add(TwoPlayersId.Left, 5, "Cooperative action for all colors");
                 Scores.Add(TwoPlayersId.Right, 5, "Cooperative action for all colors");
             }
-
-
         }
 
         protected override IEnumerable<IActor> CreateActors()

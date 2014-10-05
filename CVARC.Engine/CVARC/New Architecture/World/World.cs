@@ -28,7 +28,7 @@ namespace CVARC.V2
             get { return actors; }
         }
 
-        public virtual void Initialize(Competitions competitions, IEnvironment environment)
+        public virtual void Initialize(Competitions competitions, IRunMode environment)
         {
             Clocks = new WorldClocks();
             IdGenerator = new IdGenerator();

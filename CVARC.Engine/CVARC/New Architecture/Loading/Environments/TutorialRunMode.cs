@@ -6,7 +6,7 @@ using CVARC.Basic;
 
 namespace CVARC.V2
 {
-    public class TutorialEnvironment : StandardEnvironment
+    public class TutorialRunMode : StandardRunMode
     {
         IKeyboardControllerPool pool;
 
@@ -15,9 +15,9 @@ namespace CVARC.V2
             return pool.CreateController(controllerId);
         }
 
-        override public void Initialize(Dictionary<string,string> commandLineArgs, Competitions competitions)
+        override public void Initialize(RunModeArguments arguments, Competitions competitions)
         {
-            base.Initialize(commandLineArgs, competitions);
+            base.Initialize(arguments, competitions);
             this.pool = competitions.Logic.KeyboardControllerPoolFactory();
             pool.Initialize(competitions.Logic.World, competitions.Engine.Keyboard);
         }

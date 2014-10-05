@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace CVARC.V2
@@ -19,11 +21,41 @@ namespace CVARC.V2
 
         }
 
-        public IWorld Create(Dictionary<string,string> commandLineArguments, IEnvironment environment)
+        public IWorld Create(RunModeArguments arguments, IRunMode environment)
         {
-            environment.Initialize(commandLineArguments, this);
+            environment.Initialize(arguments, this);
             Logic.World.Initialize(this, environment);
             return Logic.World;
+        }
+
+        public static IWorld Create(string[] commandLineArguments)
+        {
+            var arguments = CommandLineAnalyzer.Analyze(commandLineArguments);
+
+            var assemblyName = arguments.Assembly + ".dll";
+
+            if (!File.Exists(assemblyName))
+            {
+                throw new Exception(string.Format("The competitions assembly {0} was not found", assemblyName));
+            }
+
+            var ass = Assembly.LoadFrom(assemblyName);
+            var list = ass.GetExportedTypes().ToList();
+            var competitionsClass = list
+                .SingleOrDefault(a => a.IsSubclassOf(typeof(Competitions)) && a.Name == arguments.Level);
+            if (competitionsClass == null)
+                throw new Exception(string.Format("The level {0} was not found il{1}", arguments.Level, arguments.Assembly));
+            var ctor = competitionsClass.GetConstructor(new Type[] { });
+            var competitions = ctor.Invoke(new object[] { }) as Competitions;
+
+            if (!RunModes.Available.ContainsKey(arguments.Mode))
+                throw new Exception(string.Format(
+                    "Mode {0} is unknown, try one of these: {1}",
+                    arguments.Mode,
+                    RunModes.Available.Keys.Aggregate((a, b) => a + ", " + b)));
+
+            var environment = RunModes.Available[arguments.Mode]();
+            return competitions.Create(arguments, environment);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace DemoCompetitions
 
 
 
-        public override void Initialize(Competitions competitions, IEnvironment environment)
+        public override void Initialize(Competitions competitions, IRunMode environment)
         {
             base.Initialize(competitions, environment);
             var detector = new CollisionDetector(this);

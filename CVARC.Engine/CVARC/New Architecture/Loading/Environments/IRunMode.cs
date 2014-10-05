@@ -6,9 +6,9 @@ using CVARC.Basic;
 
 namespace CVARC.V2
 {
-    public interface IEnvironment
+    public interface IRunMode
     {
-        void Initialize(Dictionary<string,string> commandLineArguments, Competitions competitions);
+        void Initialize(RunModeArguments arguments, Competitions competitions);
         ISceneSettings GetSceneSettings();
         void PrepareControllers(string[] allControllersId);
         IController GetController(string controllerId);
