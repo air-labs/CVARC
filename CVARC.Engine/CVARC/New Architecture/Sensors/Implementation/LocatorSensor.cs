@@ -13,6 +13,7 @@ namespace CVARC.V2
         {
             return Actor.World.Actors
                 .OfType<IControllable>()
+                .Where(z=>Actor.World.Engine.ContainBody(z.ObjectId))
                 .Select(z => new Tuple<string, Frame3D>(
                     z.ControllerId,
                     Actor.World.Engine.GetAbsoluteLocation(z.ObjectId)))

@@ -31,6 +31,7 @@ namespace RepairTheStarship
             return Actor.World.IdGenerator.GetAllId()
                 .Select(z => new Tuple<string, string>(z, GetType(z)))
                 .Where(z => z.Item2 != null)
+                .Where(z=>Actor.World.Engine.ContainBody(z.Item1))
                 .Select(z => new Tuple<string, Frame3D>(z.Item2, Actor.World.Engine.GetAbsoluteLocation(z.Item1)))
                 .Select(z => new MapItem
                 {

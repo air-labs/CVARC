@@ -14,6 +14,7 @@ namespace CVARC.V2
         void SetSpeed(string id, Frame3D speed);
         Frame3D GetSpeed(string id);
         Frame3D GetAbsoluteLocation(string id);
+        bool ContainBody(string id);
         void DefineCamera(string cameraName, string host, RobotCameraSettings settings);
         byte[] GetImageFromCamera(string cameraName);
         void DefineKinect(string kinectName, string host);

@@ -72,12 +72,12 @@ namespace RepairTheStarship
 
         public double LinearVelocityLimit
         {
-            get { return 300; }
+            get { return 50; }
         }
 
         public AIRLab.Mathematics.Angle AngularVelocityLimit
         {
-            get { return Angle.FromGrad(300); }
+            get { return Angle.FromGrad(90); }
         }
     }
 }

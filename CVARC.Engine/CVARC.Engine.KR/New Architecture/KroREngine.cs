@@ -16,7 +16,8 @@ namespace CVARC.V2
 
     public class KroREngine : IEngine
     {
-        const double DeltaTime = 0.025;
+        const double ExternalDeltaTime = 0.02;
+        const double InternalDeltaTime = 0.001;
         public DrawerFactory DrawerFactory { get; private set; }
         public IWorld World { get; private set; }
         public Body Root { get; private set; }
@@ -34,7 +35,7 @@ namespace CVARC.V2
             DrawerFactory = new DrawerFactory(Root);
             PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
             Logger = new ReplayLogger(Root, 0.1);
-            World.Clocks.AddRenewableTrigger(DeltaTime, Updates);
+            World.Clocks.AddRenewableTrigger(InternalDeltaTime, Updates);
         }
 
 
@@ -60,11 +61,15 @@ namespace CVARC.V2
             foreach (var e in RequestedSpeeds)
                 GetBody(e.Key).Velocity = e.Value;
 
-            PhysicalManager.MakeIteration(dt, Root);
+            while (dt > 1e-5)
+            {
+                PhysicalManager.MakeIteration(Math.Min(InternalDeltaTime,dt), Root);
+                dt -= InternalDeltaTime;
+            }
             foreach (Body body in Root)
                 body.Update(dt);
 
-            nextTime = data.ThisCallTime + DeltaTime;
+            nextTime = data.ThisCallTime + ExternalDeltaTime;
         }
 
         public void SetSpeed(string id, Frame3D velocity)
@@ -85,13 +90,16 @@ namespace CVARC.V2
 
         public Body GetBody(string name)
         {
-            return Root.GetSubtreeChildrenFirst().First(z => z.NewId == name);
+            return Root.GetSubtreeChildrenFirst().FirstOrDefault(z => z.NewId == name);
         }
 
         public Frame3D GetAbsoluteLocation(string id)
         {
-            return GetBody(id).Location;
+            var body = GetBody(id);
+            if (body == null) throw new Exception("Id not found in Engine");
+            return body.Location;
         }
+
 
         public void DefineCamera(string cameraName, string host, RobotCameraSettings settings)
         {
@@ -126,6 +134,12 @@ namespace CVARC.V2
         public ImageSensorData GetImageFromKinect(string kinectName)
         {
             return Kinects[kinectName].Measure();
+        }
+
+
+        public bool ContainBody(string id)
+        {
+            return GetBody(id) != null;
         }
     }
 }
