@@ -5,3 +5,4 @@ bin
 *.user
 /CVARC.sln.DotSettings.user
 /build
+/Cvarc.Logs
