@@ -82,6 +82,10 @@
     <Compile Include="New Architecture\Loading\Environments\BotDemoEnvironment.cs" />
     <Compile Include="New Architecture\Loading\Environments\StandardEnvironment.cs" />
     <Compile Include="New Architecture\Loading\Environments\Environments.cs" />
+    <Compile Include="New Architecture\Sensors\FromSensorAttribute.cs" />
+    <Compile Include="New Architecture\Sensors\ISensor.cs" />
+    <Compile Include="New Architecture\Sensors\Sensor.cs" />
+    <Compile Include="New Architecture\Sensors\SensorPack.cs" />
     <Compile Include="New Architecture\SimpleMovementCase\RandomWalkingBot.cs" />
     <Compile Include="New Architecture\SimpleMovementCase\ISimpleMovementWorld.cs" />
     <Compile Include="New Architecture\World\IdGenerator.cs" />
