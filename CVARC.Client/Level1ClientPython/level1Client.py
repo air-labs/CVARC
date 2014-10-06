@@ -65,19 +65,17 @@ def read_ans(server):
     return json.loads(server.makefile('r').readline())
 
 
+def sendUtf8(server, string):
+	server.send(string.encode('utf-8'))
+	
 def send(server, json_obj):
-    try:
-        server.send(bytes(json.dumps(json_obj), 'utf-8'))
-        server.send(bytes('\n', 'utf-8'))
-        return read_ans(server)
-    except ConnectionResetError as e:
-        print(e)
-        exit()
-
+	sendUtf8(server, json.dumps(json_obj))
+	sendUtf8(server, '\n')
+	return read_ans(server)
 
 def send_hello_package(server):
-    server.send(bytes(json.dumps(get_hello_package()), 'utf-8'))
-    server.send(bytes('\n', 'utf-8'))
+    sendUtf8(server, json.dumps(get_hello_package()))
+    sendUtf8(server, '\n')
     real_side = server.makefile('r').readline()
     return read_ans(server)
 
