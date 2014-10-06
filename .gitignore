@@ -4,4 +4,5 @@ bin
 /TestResults
 *.user
 /CVARC.sln.DotSettings.user
+/build
 /Cvarc.Logs
