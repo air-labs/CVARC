@@ -28,8 +28,12 @@ namespace CVARC.V2
         public override void Initialize(IActorManager rules, IWorld world, string actorObjectId)
         {
             base.Initialize(rules, world, actorObjectId);
+<<<<<<< HEAD
             World.Clocks.AddRenewableTrigger(0, PerformControl);
+=======
+            World.Clocks.SetClockdown(0, PerformControl);
             sensors = new SensorPack<TSensorsData>(this);
+>>>>>>> a8c27aac6cf875b4e78e689839bee5defc8d55ad
         }
 
         public string ControllerId

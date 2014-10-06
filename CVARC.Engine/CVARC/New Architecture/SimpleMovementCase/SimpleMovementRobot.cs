@@ -11,7 +11,7 @@ namespace CVARC.V2.SimpleMovement
         : Robot<TActorManager,TWorld,TSensorsData,SimpleMovementCommand>
         where TActorManager : IActorManager
         where TWorld : ISimpleMovementWorld, IWorld
-        where TSensorsData : ISensorsData
+        where TSensorsData : new()
     {
         public SimpleMovementRobot(string controllerId)
             : base(controllerId)

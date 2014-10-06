@@ -17,9 +17,6 @@ namespace DemoCompetitions
             nextRequestTimeSpan = 1;
         }
 
-        protected override SensorsData GetSensorsData()
-        {
-            return new SensorsData();
-        }
+     
     }
 }

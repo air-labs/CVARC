@@ -12,9 +12,5 @@ namespace RepairTheStarship.Robot
             : base(controllerId)
         { }
 
-        protected override SensorsData GetSensorsData()
-        {
-            return new SensorsData();
-        }
     }
 }

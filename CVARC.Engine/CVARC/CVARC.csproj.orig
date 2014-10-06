@@ -80,16 +80,22 @@
     <Compile Include="New Architecture\Controllers\Keyboard\WinformsKey.cs" />
     <Compile Include="New Architecture\Engine\ActorManager.cs" />
     <Compile Include="New Architecture\Engine\IActorManager.cs" />
+<<<<<<< HEAD
     <Compile Include="New Architecture\Loading\Environments\BotDemoRunMode.cs" />
     <Compile Include="New Architecture\Loading\Environments\RunModeArguments.cs" />
     <Compile Include="New Architecture\Loading\Environments\StandardRunMode.cs" />
     <Compile Include="New Architecture\Loading\Environments\RunModes.cs" />
     <Compile Include="New Architecture\Loading\RunModes\CommandLineAnalyzer.cs" />
     <Compile Include="New Architecture\Loading\RunModes\CommandLineData.cs" />
+=======
+    <Compile Include="New Architecture\Loading\Environments\BotDemoEnvironment.cs" />
+    <Compile Include="New Architecture\Loading\Environments\StandardEnvironment.cs" />
+    <Compile Include="New Architecture\Loading\Environments\Environments.cs" />
     <Compile Include="New Architecture\Sensors\FromSensorAttribute.cs" />
     <Compile Include="New Architecture\Sensors\ISensor.cs" />
     <Compile Include="New Architecture\Sensors\Sensor.cs" />
     <Compile Include="New Architecture\Sensors\SensorPack.cs" />
+>>>>>>> a8c27aac6cf875b4e78e689839bee5defc8d55ad
     <Compile Include="New Architecture\SimpleMovementCase\RandomWalkingBot.cs" />
     <Compile Include="New Architecture\SimpleMovementCase\ISimpleMovementWorld.cs" />
     <Compile Include="New Architecture\World\IdGenerator.cs" />

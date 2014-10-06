@@ -8,7 +8,7 @@ using CVARC.V2.SimpleMovement;
 namespace RepairTheStarship.Robot
 {
     public abstract class RTSRobot<TSensorsData> : SimpleMovementRobot<IRTSActorManager,RTSWorld,TSensorsData>, IRTSRobot
-        where TSensorsData : ISensorsData
+        where TSensorsData : new()
     {
 
         public RTSRobot(string controllerName) : base(controllerName) { }
