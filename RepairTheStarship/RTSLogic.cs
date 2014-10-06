@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CVARC.V2;
 using CVARC.V2.SimpleMovement;
+using RepairTheStarship.Bots;
 
 namespace RepairTheStarship
 {
@@ -14,6 +15,12 @@ namespace RepairTheStarship
                 new RTSWorld(),
                 ()=>new RTSKeyboardControllerPool(),
                 seed => SceneSettings.GetRandomMap(seed))
-        { }
+        {
+            Bots["Azura"] = () => new Azura();
+            Bots["Vaermina"] = () => new Vaermina();
+            Bots["MolagBal"] = () => new MolagBal();
+            Bots["Sanguine"] = () => new Sanguine();
+        
+        }
     }
 }

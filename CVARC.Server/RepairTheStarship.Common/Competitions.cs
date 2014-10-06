@@ -5,8 +5,8 @@ using System.Linq;
 using AIRLab.Mathematics;
 using CVARC.Basic;
 using CVARC.Core;
-using Gems.Bots;
-using Gems.Robots;
+using RepairTheStarship.Bots;
+using RepairTheStarship.Robots;
 
 namespace RepairTheStarship
 {

@@ -1,7 +1,7 @@
 ﻿using CVARC.Basic;
 using RepairTheStarship;
 
-namespace Gems.Levels
+namespace RepairTheStarship.Levels
 {
     public class Level1 : BaseLevel
     {

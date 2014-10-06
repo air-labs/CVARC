@@ -3,7 +3,7 @@ using CVARC.Basic.Sensors;
 using CVARC.Basic.Sensors.Positions;
 using RepairTheStarship.Sensors;
 
-namespace Gems.Robots
+namespace RepairTheStarship.Robots
 {
     public abstract class BaseGemsRobot : Robot
     {

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AIRLab.Mathematics;
 using CVARC.V2;
+using CVARC.V2.SimpleMovement;
 
 namespace DemoCompetitions
 {

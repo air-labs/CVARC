@@ -7,6 +7,6 @@ namespace CVARC.V2
 {
     public interface IController
     {
-        void Initialize(IWorld world);
+        void Initialize(IControllable controllableActor);
     }
 }

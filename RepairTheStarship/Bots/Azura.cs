@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CVARC.Basic.Controllers;
-using MapHelper;
+using CVARC.V2.SimpleMovement;
+using RepairTheStarship.MapBuilder;
 
 namespace RepairTheStarship.Bots
 {
@@ -12,16 +12,16 @@ namespace RepairTheStarship.Bots
         private bool hasDetail;
         private const int Epsilon = 30;
 
-        protected override IEnumerable<Command> FindNextCommands()
+        protected override IEnumerable<SimpleMovementCommand> FindNextCommands()
         {
             return hasDetail ? RepairStarship() : GripDetail(); 
         }
 
-        private IEnumerable<Command> RepairStarship()
+        private IEnumerable<SimpleMovementCommand> RepairStarship()
         {
             var nearSocket = Map.Walls.Where(x => x.Type.ToLower().Contains(color)).OrderBy(GetDistance).FirstOrDefault();
             if (nearSocket == null)
-                return new Command[0];
+                return new SimpleMovementCommand[0];
             var path = PathSearcher.FindPath(Map, OurCoordinates, nearSocket.DiscreteCoordinate);
             if (path.Length == 0)
             {
@@ -34,20 +34,20 @@ namespace RepairTheStarship.Bots
                 if (Map.CurrentPosition.Y - nearSocket.AbsoluteCoordinate.Y < -Epsilon)
                     return RobotLocator.GetCommandsByDirection(Direction.Up);
                 hasDetail = false;
-                return new[] {Command.Act(CommandAction.Release)};
+                return new[] {world.ActionCommand(world.ReleaseCommand)};
             }
             return RobotLocator.GetCommandsByDirection(path.First());
         }
 
-        private IEnumerable<Command> GripDetail()
+        private IEnumerable<SimpleMovementCommand> GripDetail()
         {
             var nearDetail = Map.Details.OrderBy(GetDistance).FirstOrDefault();
             if (nearDetail == null)
-                return new Command[0];
+                return new SimpleMovementCommand[0];
             color = nearDetail.Type.Split(new[] {"Detail"}, StringSplitOptions.None).First().ToLower();
             var path = PathSearcher.FindPath(Map, OurCoordinates, nearDetail.DiscreteCoordinate);
             hasDetail = path.Length == 0;
-            return hasDetail ? new[]{ Command.Act(CommandAction.Grip)} : RobotLocator.GetCommandsByDirection(path.First());
+            return hasDetail ? new[]{ world.ActionCommand(world.GripCommand)} : RobotLocator.GetCommandsByDirection(path.First());
         }
 
         private int GetDistance(StarshipObject starshipObject)

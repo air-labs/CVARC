@@ -1,8 +1,8 @@
 using CVARC.Basic;
-using Gems.Robots;
+using RepairTheStarship.Robots;
 using RepairTheStarship;
 
-namespace Gems.Levels
+namespace RepairTheStarship.Levels
 {
     public abstract class BaseLevel : SRCompetitions
     {

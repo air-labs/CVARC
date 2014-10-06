@@ -22,7 +22,7 @@ namespace CVARC.V2
             return pool.GetCommand(controllerId);
         }
 
-        public void Initialize(IWorld world)
+        public void Initialize(IControllable controllableActor)
         {
             
         }

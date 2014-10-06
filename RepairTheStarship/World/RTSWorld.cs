@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using AIRLab.Mathematics;
 using CVARC.V2;
+using CVARC.V2.SimpleMovement;
 using RepairTheStarship.Robot;
 
 namespace RepairTheStarship
@@ -18,6 +19,9 @@ namespace RepairTheStarship
             repairs[DetailColor.Green] = 0;
             repairs[DetailColor.Red] = 0;
         }
+
+        public string GripCommand = "Grip";
+        public string ReleaseCommand = "Release";
 
         public override void Initialize(Competitions competitions, IRunMode environment)
         {

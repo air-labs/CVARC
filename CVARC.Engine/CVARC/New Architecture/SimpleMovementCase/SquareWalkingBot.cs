@@ -25,7 +25,7 @@ namespace CVARC.V2.SimpleMovement
             
         }
 
-        public void Initialize(IWorld world)
+        public void Initialize(IControllable controllableActor)
         {
            
         }

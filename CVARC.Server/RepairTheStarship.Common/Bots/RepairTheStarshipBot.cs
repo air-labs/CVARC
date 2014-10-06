@@ -5,7 +5,7 @@ using MapHelper;
 using RepairTheStarship.Sensors;
 using Map = MapHelper.Map;
 
-namespace Gems.Bots
+namespace RepairTheStarship.Bots
 {
     public abstract class RepairTheStarshipBot : Bot
     {

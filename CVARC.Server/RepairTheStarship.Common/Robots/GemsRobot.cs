@@ -1,7 +1,7 @@
 ﻿using RepairTheStarship;
 using RepairTheStarship.Sensors;
 
-namespace Gems.Robots
+namespace RepairTheStarship.Robots
 {
     public class GemsRobot : BaseGemsRobot
     {

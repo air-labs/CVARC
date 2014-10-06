@@ -18,7 +18,7 @@ namespace TestProject
         [STAThread]
         static void Main()
         {
-            var Competitions = new Gems.Levels.Level1();
+            var Competitions = new RepairTheStarship.Levels.Level1();
             Competitions.HelloPackage = new HelloPackage { MapSeed = -1 };
             
             var CvarcRules = new GemsRules();

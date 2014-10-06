@@ -56,7 +56,11 @@ namespace CVARC.V2
 
 
             foreach (var e in actors.OfType<IControllable>())
-                e.AcceptParticipant(environment.GetController(e.ControllerId));
+            {
+                var controller = environment.GetController(e.ControllerId);
+                controller.Initialize(e);
+                e.AcceptParticipant(controller);
+            }
         }
 
 

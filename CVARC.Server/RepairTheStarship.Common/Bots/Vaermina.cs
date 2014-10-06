@@ -3,7 +3,7 @@ using System.Linq;
 using CVARC.Basic.Controllers;
 using MapHelper;
 
-namespace Gems.Bots
+namespace RepairTheStarship.Bots
 {
     public class Vaermina : RepairTheStarshipBot
     {
