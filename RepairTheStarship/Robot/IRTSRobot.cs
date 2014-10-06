@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using CVARC.V2;
 
-namespace RepairTheStarship.Robot
+namespace RepairTheStarship
 {
-    public interface IRTSRobot : IControllable, IActor
+    public interface IRTSRobot : IControllable
     {
         string GrippedObjectId { get; }
     }

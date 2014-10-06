@@ -6,7 +6,7 @@ using RepairTheStarship.Sensors;
 
 namespace RepairTheStarship.Robot
 {
-    public class Level1Robot : RTSRobot<SensorsData>
+    public class Level1Robot : RTSRobot<Level1SensorData>
     {
         public Level1Robot(string controllerId)
             : base(controllerId)

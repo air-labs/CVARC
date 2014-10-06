@@ -87,6 +87,9 @@
     <Compile Include="New Architecture\Loading\RunModes\CommandLineAnalyzer.cs" />
     <Compile Include="New Architecture\Loading\RunModes\CommandLineData.cs" />
     <Compile Include="New Architecture\Sensors\FromSensorAttribute.cs" />
+    <Compile Include="New Architecture\Sensors\Implementation\LocatorItem.cs" />
+    <Compile Include="New Architecture\Sensors\Implementation\LocatorSensor.cs" />
+    <Compile Include="New Architecture\Sensors\Implementation\SelfIdSensor.cs" />
     <Compile Include="New Architecture\Sensors\ISensor.cs" />
     <Compile Include="New Architecture\Sensors\Sensor.cs" />
     <Compile Include="New Architecture\Sensors\SensorPack.cs" />

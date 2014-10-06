@@ -6,7 +6,7 @@ using CVARC.Basic.Core.Participants;
 
 namespace CVARC.V2
 {
-    public interface IControllable
+    public interface IControllable : IActor
     {
         string ControllerId { get; }
         void AcceptParticipant(IController participant);
