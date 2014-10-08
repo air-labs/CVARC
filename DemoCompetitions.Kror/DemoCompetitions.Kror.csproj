@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CE636D44-57A4-48FA-A178-88CA2C3E9DD4}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{B9AAEF76-AD12-4593-B665-66DB19AD03C8}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DemoCompetitions</RootNamespace>
+    <RootNamespace>DemoCompetitions.Kror</RootNamespace>
     <AssemblyName>Demo</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -31,75 +31,45 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DemoActorManager.cs" />
+    <Compile Include="DemoWorldManager.cs" />
     <Compile Include="Level1.cs" />
-    <Compile Include="PlatformDependent\DemoActorManager.cs" />
-    <Compile Include="PlatformDependent\ManagerPart.cs" />
-    <Compile Include="PlatformIndependent\DemoLogicPart.cs" />
-    <Compile Include="PlatformIndependent\DemoWorldManagerPrototype.cs" />
-    <Compile Include="PlatformIndependent\DemoActorManagerPrototype.cs" />
-    <Compile Include="PlatformDependent\DemoWorldManager.cs" />
-    <Compile Include="PlatformIndependent\DemoRobot.cs" />
-    <Compile Include="PlatformIndependent\DemoWorld.cs" />
-    <Compile Include="PlatformIndependent\SceneSettings.cs" />
-    <Compile Include="PlatformIndependent\SensorsData.cs" />
+    <Compile Include="ManagerPart.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CVARC.Engine\AIRLabs\AIRLabs.csproj">
+    <ProjectReference Include="..\CVARC.Engine\AIRLabs\AIRLabs.csproj">
       <Project>{b1953d7f-0f62-400d-a77a-ff1ce4474a41}</Project>
       <Name>AIRLabs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KroR.csproj">
+    <ProjectReference Include="..\CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KroR.csproj">
       <Project>{13695795-f82c-48df-86d7-eae60259f845}</Project>
       <Name>CVARC.Engine.KroR</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Engine\CVARC\CVARC.csproj">
+    <ProjectReference Include="..\CVARC.Engine\CVARC\CVARC.csproj">
       <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
       <Name>CVARC %28CVARC.Engine\CVARC%29</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resourses\red.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resourses\blue.png" />
+    <ProjectReference Include="..\DemoCompetitions\DemoCompetitions\DemoCompetitions.General.csproj">
+      <Project>{ce636d44-57a4-48fa-a178-88ca2c3e9dd4}</Project>
+      <Name>DemoCompetitions.General</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

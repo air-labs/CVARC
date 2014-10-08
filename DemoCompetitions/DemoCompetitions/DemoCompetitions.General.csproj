@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{CE636D44-57A4-48FA-A178-88CA2C3E9DD4}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CVARC</RootNamespace>
-    <AssemblyName>CVARC</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>DemoCompetitions</RootNamespace>
+    <AssemblyName>Demo.General</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,7 +48,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CVARC.cs" />
+    <Compile Include="PlatformIndependent\DemoLogicPart.cs" />
+    <Compile Include="PlatformIndependent\DemoWorldManagerPrototype.cs" />
+    <Compile Include="PlatformIndependent\DemoActorManagerPrototype.cs" />
+    <Compile Include="PlatformIndependent\DemoRobot.cs" />
+    <Compile Include="PlatformIndependent\DemoWorld.cs" />
+    <Compile Include="PlatformIndependent\SceneSettings.cs" />
+    <Compile Include="PlatformIndependent\SensorsData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -54,6 +64,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -81,18 +92,15 @@
       <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
       <Name>CVARC %28CVARC.Engine\CVARC%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DemoCompetitions.Kror\DemoCompetitions.Kror.csproj">
-      <Project>{b9aaef76-ad12-4593-b665-66db19ad03c8}</Project>
-      <Name>DemoCompetitions.Kror</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\RepairTheStarship.KroR\RepairTheStarship.KroR.csproj">
-      <Project>{748db258-2d25-42a4-af68-f852da397324}</Project>
-      <Name>RepairTheStarship.KroR</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DemoCompetitions\DemoCompetitions.General.csproj">
-      <Project>{ce636d44-57a4-48fa-a178-88ca2c3e9dd4}</Project>
-      <Name>DemoCompetitions.General</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resourses\red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resourses\blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PlatformDependent\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
