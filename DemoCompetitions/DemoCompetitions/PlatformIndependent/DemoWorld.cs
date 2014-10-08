@@ -9,7 +9,7 @@ using CVARC.V2.SimpleMovement;
 
 namespace DemoCompetitions
 {
-    public class DemoWorld : World<object, IDemoWorldManagerPrototype>, ISimpleMovementWorld
+    public class DemoWorld : World<SceneSettings, IWorldManager>, ISimpleMovementWorld
     {
         DemoRobot robot1;
         DemoRobot robot2;

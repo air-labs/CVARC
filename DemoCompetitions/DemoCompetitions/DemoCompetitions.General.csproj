@@ -49,8 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PlatformIndependent\DemoLogicPart.cs" />
-    <Compile Include="PlatformIndependent\DemoWorldManagerPrototype.cs" />
-    <Compile Include="PlatformIndependent\DemoActorManagerPrototype.cs" />
     <Compile Include="PlatformIndependent\DemoRobot.cs" />
     <Compile Include="PlatformIndependent\DemoWorld.cs" />
     <Compile Include="PlatformIndependent\SceneSettings.cs" />
@@ -92,12 +90,6 @@
       <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
       <Name>CVARC %28CVARC.Engine\CVARC%29</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resourses\red.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resourses\blue.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PlatformDependent\" />

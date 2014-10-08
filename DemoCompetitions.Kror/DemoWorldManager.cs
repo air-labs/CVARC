@@ -9,7 +9,7 @@ using CVARC.V2;
 
 namespace DemoCompetitions
 {
-    public class DemoWorldManager : KroRWorldManager<DemoWorld>, IDemoWorldManagerPrototype
+    public class DemoWorldManager : KroRWorldManager<DemoWorld>
     {
         public override void CreateWorld(IdGenerator generator)
         {

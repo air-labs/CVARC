@@ -11,19 +11,15 @@ using CVARC.V2;
 
 namespace DemoCompetitions
 {
-    public class DemoActorManager : ActorManager<DemoRobot>, IDemoActorManagerPrototype
+    public class DemoActorManager : ActorManager<DemoRobot>
     {
-        public void MakeAction()
-        {
-           
-        }
 
 
         private Stream GetResourceStream(string resourceName)
         {
             var assembly = GetType().Assembly;
             var names = assembly.GetManifestResourceNames();
-            return assembly.GetManifestResourceStream("DemoCompetitions.Resourses."+resourceName);
+            return assembly.GetManifestResourceStream("DemoCompetitions.Kror.Resourses."+resourceName);
         }
 
         public override void CreateActorBody()
