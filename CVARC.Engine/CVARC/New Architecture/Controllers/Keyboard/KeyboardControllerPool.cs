@@ -21,13 +21,13 @@ namespace CVARC.V2
         }
 
         IKeyboard keyboard;
-        Dictionary<Keys, Tuple<string, Func<TCommand>>> keys = new Dictionary<Keys, Tuple<string, Func<TCommand>>>();
+        Dictionary<string, Tuple<string, Func<TCommand>>> keys = new Dictionary<string, Tuple<string, Func<TCommand>>>();
         
         public Func<TCommand> StopCommandFactory { get; set; }
         
         public void Add(Keys key, string controllerId, Func<TCommand> commandFactory)
         {
-            keys[key] = new Tuple<string, Func<TCommand>>(controllerId, commandFactory);
+            keys[key.ToString()] = new Tuple<string, Func<TCommand>>(controllerId, commandFactory);
         }
 
         public TCommand GetCommand(string controllerId)

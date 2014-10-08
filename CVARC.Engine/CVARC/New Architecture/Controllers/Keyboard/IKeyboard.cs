@@ -8,6 +8,6 @@ namespace CVARC.V2
 {
     public interface IKeyboard
     {
-        IEnumerable<Keys> PressedKeys { get; }
+        IEnumerable<string> PressedKeys { get; }
     }
 }

@@ -34,8 +34,6 @@ namespace CVARC.V2
             control.Location = new Point(0, scores.Height);
             Controls.Add(control);
 
-
-
             timer = new Timer();
             timer.Interval = 1;
             timer.Tick += TimerTick;

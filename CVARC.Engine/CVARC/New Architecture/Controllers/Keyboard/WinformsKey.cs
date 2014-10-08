@@ -37,9 +37,9 @@ namespace CVARC.V2
             return false;
         }
 
-        public IEnumerable<Keys> PressedKeys
+        public IEnumerable<string> PressedKeys
         {
-            get { return pressedKeys; }
+            get { return pressedKeys.Select(z => z.ToString()); }
         }
     }
 }
