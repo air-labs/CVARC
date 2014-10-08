@@ -3,42 +3,12 @@ package com.company;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import sun.management.Sensor;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.*;
-
-enum MapItemType {
-    RedDetail,
-    BlueDetail,
-    GreenDetail,
-    HorizontalWall,
-    HorizontalBlueSocket,
-    HorizontalGreenSocket,
-    HorizontalRedSocket,
-    VerticalRedSocket,
-    VerticalWall,
-    VerticalBlueSocket
-}
-
-class MapItem {
-    public double x;
-    public double y;
-    public MapItemType tag;
-
-    public MapItem(JSONObject json) throws JSONException {
-        x = json.getDouble("X");
-        y = json.getDouble("Y");
-        tag = MapItemType.valueOf(json.getString("Tag"));
-    }
-
-    @Override
-    public String toString() {
-        return "X: " + x + " Y: " + y + " Tag: " + tag;
-    }
-}
 
 class Position {
     public double angle;
@@ -60,32 +30,22 @@ class Position {
 
 class SensorData {
     public int robotId;
+    public boolean hasGrippedDetail;
     public Position positions[];
-    public MapItem mapItems[] = {};
 
-    public SensorData(JSONObject json) {
-        try {
-            robotId = json.getJSONObject("RobotId").getInt("Id");
-
-            JSONArray position = json.getJSONObject("Position").getJSONArray("PositionsData");
-            positions = new Position[position.length()];
-            for (int i = 0; i < position.length(); i++) {
-                positions[i] = new Position(position.getJSONObject(i));
-            }
-
-            JSONArray items = json.getJSONObject("MapSensor").getJSONArray("MapItems");
-            mapItems = new MapItem[items.length()];
-            for (int i = 0; i < items.length(); i++) {
-                mapItems[i] = new MapItem(items.getJSONObject(i));
-            }
-        } catch (JSONException e) {
-            System.out.println("Could not parse sensor data");
+    public SensorData(JSONObject json) throws JSONException {
+        robotId = json.getJSONObject("RobotId").getInt("Id");
+        hasGrippedDetail = json.getJSONObject("DetailsInfo").getBoolean("HasGrippedDetail");
+        JSONArray position = json.getJSONObject("Position").getJSONArray("PositionsData");
+        positions = new Position[position.length()];
+        for (int i = 0; i < position.length(); i++) {
+            positions[i] = new Position(position.getJSONObject(i));
         }
     }
 
     @Override
     public String toString() {
-        return "RobotID: " + robotId + "\n" + mapItems[0].toString() + "\n" + positions[0].toString();
+        return "RobotID: " + robotId + "\nPosition 0: " + positions[0].toString() + "\nPosition 1: " + positions[1].toString() + "\nHasGrippedDetail: " + hasGrippedDetail + "\n";
     }
 }
 
@@ -120,26 +80,35 @@ public class Client {
         }});
     }
 
-    public static SensorData send(Socket server, JSONObject jsonObj) {
+    public static String readLine(Socket server) {
+        int response;
+        String string = "";
         try {
-            server.getOutputStream().write(jsonObj.toString().getBytes("UTF-8"));
-            server.getOutputStream().write("\n".getBytes("UTF-8"));
-            int response;
-            String string = "";
             while ((response = server.getInputStream().read()) != (int) '\n') {
                 string += (char) response;
             }
-            try {
-                //System.out.println(string);
-                return new SensorData(new JSONObject(string));
-            } catch (JSONException e) {
-                return new SensorData(new JSONObject());
-            }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-            System.exit(1);
-            return null;
+            System.exit(-1);
         }
+        return string;
+    }
+
+    public static void send(Socket server, JSONObject jsonObj) throws IOException {
+        OutputStream outputStream = server.getOutputStream();
+        outputStream.write(jsonObj.toString().getBytes("UTF-8"));
+        outputStream.write("\n".getBytes("UTF-8"));
+        outputStream.flush();
+    }
+
+    public static SensorData sendHelloPackage(Socket server, JSONObject jsonObj) throws Exception {
+        send(server, jsonObj);
+        readLine(server);
+        return new SensorData(new JSONObject(readLine(server)));
+    }
+
+    public static SensorData sendPackage(Socket server, JSONObject jsonObj) throws Exception {
+        send(server, jsonObj);
+        return new SensorData(new JSONObject(readLine(server)));
     }
 
     public static Socket runServer(boolean noRunServer) throws IOException {
@@ -152,33 +121,27 @@ public class Client {
     }
 
     public static void print(SensorData data) {
-        System.out.println("X: " + data.positions[data.robotId].x + ", Y: " + data.positions[data.robotId].y);
+        System.out.println(data);
+        //System.out.println("X: " + data.positions[data.robotId].x + ", Y: " + data.positions[data.robotId].y);
     }
 
     public static void main(String[] args) throws Exception {
-        boolean noRunServer = false;
-        for (String arg : args) {
-            if (arg.equals("noRunServer")) {
-                noRunServer = true;
-            }
-        }
-
-        Socket server = runServer(noRunServer);
-        SensorData sensorData = send(server, getHelloPackage());
-
-        sensorData = send(server, getCommand(1, 0, -90, action.get("None")));
+        Socket server = runServer(Arrays.asList(args).contains("noRunServer"));
+        SensorData sensorData = sendHelloPackage(server, getHelloPackage());
         print(sensorData);
-        sensorData = send(server, getCommand(1, 50, 0, action.get("None")));
+        sensorData = sendPackage(server, getCommand(1, 0, -90, action.get("None")));
         print(sensorData);
-        sensorData = send(server, getCommand(1, 0, 0, action.get("Grip")));
+        sensorData = sendPackage(server, getCommand(1, 50, 0, action.get("None")));
         print(sensorData);
-        sensorData = send(server, getCommand(1, -50, 0, action.get("None")));
+        sensorData = sendPackage(server, getCommand(1, 0, 0, action.get("Grip")));
         print(sensorData);
-        sensorData = send(server, getCommand(1, 0, 90, action.get("None")));
+        sensorData = sendPackage(server, getCommand(1, -50, 0, action.get("None")));
         print(sensorData);
-        sensorData = send(server, getCommand(1, 0, 0, action.get("Release")));
+        sensorData = sendPackage(server, getCommand(1, 0, 90, action.get("None")));
         print(sensorData);
-        sensorData = send(server, getCommand(0, 0, 0, action.get("WaitForExit")));
+        sensorData = sendPackage(server, getCommand(1, 0, 0, action.get("Release")));
         print(sensorData);
+        sensorData = sendPackage(server, getCommand(0, 0, 0, action.get("WaitForExit")));
+        System.out.println(sensorData + " last");
     }
 }
