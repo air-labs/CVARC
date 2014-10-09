@@ -12,6 +12,7 @@ namespace CVARC.V2
         ISceneSettings GetSceneSettings();
         void PrepareControllers(string[] allControllersId);
         IController GetController(string controllerId);
+        double TimeLimit { get; }
     }
 
 }

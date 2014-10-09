@@ -7,6 +7,22 @@ namespace CVARC.V2
 {
     public class CommandLineAnalyzer
     {
+        static T GetArgument<T>(CommandLineData data, string key, Func<string, T> parser, string exceptionMessage, T defaultValue)
+        {
+            if (data.Named.ContainsKey(key))
+            {
+                try
+                {
+                    return parser(data.Named[key]);
+                }
+                catch
+                {
+                    throw new Exception(exceptionMessage);
+                }
+            }
+            return defaultValue;
+        }
+
         public static RunModeArguments Analyze(string[] args)
         {
             var cmd = Parse(args);
@@ -19,18 +35,11 @@ namespace CVARC.V2
             arguments.Assembly = cmd.Unnamed[0];
             arguments.Level = cmd.Unnamed[1];
             arguments.Mode = cmd.Unnamed[2];
-            if (cmd.Named.ContainsKey("Seed"))
-            {
-                try
-                {
-                    arguments.Seed = int.Parse(cmd.Named["Seed"]);
-                    cmd.Named.Remove("Seed");
-                }
-                catch
-                {
-                    throw new Exception("The -Seed argument must be integer");
-                }
-            }
+
+            arguments.Seed = GetArgument<int>(cmd, "Seed", int.Parse, "The -Seed argument must be integer", 0);
+            arguments.TimeLimit = GetArgument<double?>(cmd, "TimeLimit", s => double.Parse(s), "The -TimeLimit argument must be floating point", null);
+
+
             var ControllerPrefix = "Controller.";
             foreach (var e in cmd.Named.Where(z=>z.Key.StartsWith(ControllerPrefix)))
                 arguments.Controllers.Add(e.Key.Substring(ControllerPrefix.Length),e.Value);

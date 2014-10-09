@@ -11,6 +11,7 @@ namespace CVARC.V2
         public string Level;
         public string Mode;
         public int Seed;
+        public double? TimeLimit;
         public readonly Dictionary<string, string> Controllers = new Dictionary<string, string>();
     }
 

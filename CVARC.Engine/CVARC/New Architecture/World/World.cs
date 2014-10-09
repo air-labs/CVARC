@@ -31,6 +31,7 @@ namespace CVARC.V2
         public virtual void Initialize(Competitions competitions, IRunMode environment)
         {
             Clocks = new WorldClocks();
+            Clocks.TimeLimit = environment.TimeLimit;
             IdGenerator = new IdGenerator();
             Scores = new Scores(this);
 

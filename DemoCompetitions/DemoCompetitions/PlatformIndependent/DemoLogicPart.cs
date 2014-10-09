@@ -12,7 +12,8 @@ namespace DemoCompetitions
         public DemoLogicPart() : base(
             new DemoWorld(),
             ()=>new SimpleMovementTwoPlayersKeyboardControllerPool(),
-            seed=>new SceneSettings()
+            seed=>new SceneSettings(),
+            double.PositiveInfinity
             )
         {
             Bots["Square"]=()=>new SquareWalkingBot(50);

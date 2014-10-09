@@ -9,6 +9,8 @@ namespace CVARC.V2
     {
         List<Trigger> triggers = new List<Trigger>();
 
+        public double TimeLimit { get; internal set; }
+
         public double CurrentTime { get; private set; }
 
         public double GetNextEventTime()

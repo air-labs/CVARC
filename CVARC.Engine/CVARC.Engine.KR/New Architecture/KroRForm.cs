@@ -15,16 +15,25 @@ namespace CVARC.V2
         double clock = 0;
         IWorld world;
         Label scores;
+        Label clocks;
         public KroRForm(IWorld world)
         {
             this.world=world;
             ClientSize = new System.Drawing.Size(800, 600);
 
+            var font=new Font("Arial", 18);
+
+            clocks=new Label();
+            clocks.Size=new Size(100,50);
+            clocks.Location=new Point(ClientSize.Width-clocks.Width,0);
+            clocks.Font=font;
+            clocks.BackColor=Color.White;
+            Controls.Add(clocks);
 
             scores = new Label();
             scores.BackColor = Color.White;
-            scores.Font = new Font("Arial", 18);
-            scores.Size = new Size(ClientSize.Width, 30);
+            scores.Font = font;
+            scores.Size = new Size(ClientSize.Width-clocks.Width, clocks.Height);
             scores.BringToFront();
             Controls.Add(scores);
             
@@ -48,9 +57,11 @@ namespace CVARC.V2
             while (true)
             {
                 time = world.Clocks.GetNextEventTime();
+                if (time > world.Clocks.TimeLimit) break;
                 (world.Engine as KroREngine).Updates(oldTime, time);
                 world.Clocks.Tick(time);
                 oldTime = time;
+                BeginInvoke(new Action(UpdateClocks));
             }
         }
 
@@ -61,6 +72,11 @@ namespace CVARC.V2
                             .Select(z => string.Format("{0}:{1}", z.Item1, z.Item2))
                             .Aggregate((a, b) => a + "            " + b);
             scores.Text = text;
+        }
+
+        void UpdateClocks()
+        {
+            clocks.Text = Math.Round(world.Clocks.CurrentTime).ToString();
         }
 
         void Scores_ScoresChanged()

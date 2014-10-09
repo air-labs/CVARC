@@ -9,11 +9,16 @@ namespace CVARC.V2
     {
         protected Competitions Competitions { get; private set; }
         protected RunModeArguments RunModeArguments { get; private set; }
+        public double TimeLimit { get; private set; }
 
         public virtual void Initialize(RunModeArguments runModeArguments, Competitions competitions)
         {
             this.RunModeArguments = runModeArguments;
             this.Competitions = competitions;
+            if (!runModeArguments.TimeLimit.HasValue)
+                TimeLimit = competitions.Logic.TimeLimit;
+            else
+                TimeLimit = runModeArguments.TimeLimit.Value;
         }
 
         public Basic.ISceneSettings GetSceneSettings()
