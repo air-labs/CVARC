@@ -36,6 +36,7 @@ namespace CVARC.V2
 
 
             world.Scores.ScoresChanged += Scores_ScoresChanged;
+            UpdateScores();
             new Thread(RunCompetitions) { IsBackground = true }.Start();
 
         }

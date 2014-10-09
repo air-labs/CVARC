@@ -45,6 +45,9 @@ namespace RepairTheStarship
                     if (!detector.Guilty(c)) return;
                     Scores.Add(c.Offender.ControllerId, -30, "Collision");
                 };
+            Scores.Add(TwoPlayersId.Left, 0, "Staring scores");
+            Scores.Add(TwoPlayersId.Right, 0, "Staring scores");
+
         }
 
 
