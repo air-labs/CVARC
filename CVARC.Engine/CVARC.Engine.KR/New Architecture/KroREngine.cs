@@ -16,8 +16,7 @@ namespace CVARC.V2
 
     public class KroREngine : IEngine
     {
-        const double ExternalDeltaTime = 0.02;
-        const double InternalDeltaTime = 0.001;
+        const double InternalDeltaTime = 0.01;
         public DrawerFactory DrawerFactory { get; private set; }
         public IWorld World { get; private set; }
         public Body Root { get; private set; }
@@ -35,7 +34,6 @@ namespace CVARC.V2
             DrawerFactory = new DrawerFactory(Root);
             PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
             Logger = new ReplayLogger(Root, 0.1);
-            World.Clocks.AddRenewableTrigger(InternalDeltaTime, Updates);
         }
 
 
@@ -54,22 +52,22 @@ namespace CVARC.V2
         }
 
  
-        void Updates(RenewableTriggerData data, out double nextTime)
+        internal void Updates(double lastTime, double thisTime)
         {
-            var dt = data.ThisCallTime - data.PreviousCallTime;
+            var dt = thisTime-lastTime;
 
-            foreach (var e in RequestedSpeeds)
-                GetBody(e.Key).Velocity = e.Value;
+            
 
             while (dt > 1e-5)
             {
+                foreach (var e in RequestedSpeeds)
+                    GetBody(e.Key).Velocity = e.Value;
                 PhysicalManager.MakeIteration(Math.Min(InternalDeltaTime,dt), Root);
+                foreach (Body body in Root)
+                    body.Update(dt);
                 dt -= InternalDeltaTime;
+                Thread.Sleep((int)(InternalDeltaTime * 1000));
             }
-            foreach (Body body in Root)
-                body.Update(dt);
-
-            nextTime = data.ThisCallTime + ExternalDeltaTime;
         }
 
         public void SetSpeed(string id, Frame3D velocity)

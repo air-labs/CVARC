@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using CVARC.Graphics;
 using CVARC.Graphics.DirectX;
+using System.Threading;
 
 namespace CVARC.V2
 {
@@ -13,7 +14,6 @@ namespace CVARC.V2
     {
         double clock = 0;
         IWorld world;
-        Timer timer;
         Label scores;
         public KroRForm(IWorld world)
         {
@@ -34,33 +34,38 @@ namespace CVARC.V2
             control.Location = new Point(0, scores.Height);
             Controls.Add(control);
 
-            timer = new Timer();
-            timer.Interval = 1;
-            timer.Tick += TimerTick;
-            timer.Start();
 
             world.Scores.ScoresChanged += Scores_ScoresChanged;
+            new Thread(RunCompetitions) { IsBackground = true }.Start();
 
+        }
+
+        void RunCompetitions()
+        {
+            double time = 0;
+            double oldTime = 0;
+            while (true)
+            {
+                time = world.Clocks.GetNextEventTime();
+                (world.Engine as KroREngine).Updates(oldTime, time);
+                world.Clocks.Tick(time);
+                oldTime = time;
+            }
+        }
+
+        void UpdateScores()
+        {
+            var text = world.Scores
+                            .GetAllScores()
+                            .Select(z => string.Format("{0}:{1}", z.Item1, z.Item2))
+                            .Aggregate((a, b) => a + "            " + b);
+            scores.Text = text;
         }
 
         void Scores_ScoresChanged()
         {
-            var text = world.Scores
-                .GetAllScores()
-                .Select(z => string.Format("{0}:{1}", z.Item1, z.Item2))
-                .Aggregate((a, b) => a + "            " + b);
-            scores.Text = text;
-        }
+            BeginInvoke(new Action(UpdateScores));
 
-
-        void TimerTick(object sender, EventArgs e)
-        {
-            world.Clocks.Tick(clock);
-            var nextCall = world.Clocks.GetNextEventTime();
-            clock = nextCall;
-            var interval=(int)(1000 * (nextCall - world.Clocks.CurrentTime));
-            if (interval==0) interval=1;
-            timer.Interval = interval;
         }
     }
 }
