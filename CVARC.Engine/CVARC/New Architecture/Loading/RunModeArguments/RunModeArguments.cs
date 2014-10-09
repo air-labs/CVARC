@@ -11,7 +11,7 @@ namespace CVARC.V2
         public string Level;
         public string Mode;
         public int Seed;
-        public readonly Dictionary<string, string> ControllersInfo = new Dictionary<string, string>();
+        public readonly Dictionary<string, string> Controllers = new Dictionary<string, string>();
     }
 
 

@@ -15,9 +15,9 @@ namespace CVARC.V2
 
         public override IController GetController(string controllerId)
         {
-            if (!RunModeArguments.ControllersInfo.ContainsKey(controllerId))
+            if (!RunModeArguments.Controllers.ContainsKey(controllerId))
                 throw new Exception(string.Format("The bot for controller '{0}' was not specified", controllerId));
-            var botName = RunModeArguments.ControllersInfo[controllerId];
+            var botName = RunModeArguments.Controllers[controllerId];
             if (!Competitions.Logic.Bots.ContainsKey(botName))
                 throw new Exception(string.Format("The bot '{0}' specified for controller '{1}' is not defined", botName, controllerId));
             var bot = Competitions.Logic.Bots[botName]();

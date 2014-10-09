@@ -31,9 +31,9 @@ namespace CVARC.V2
                     throw new Exception("The -Seed argument must be integer");
                 }
             }
-
-            foreach (var e in cmd.Named)
-                arguments.ControllersInfo.Add(e.Key,e.Value);
+            var ControllerPrefix = "Controller.";
+            foreach (var e in cmd.Named.Where(z=>z.Key.StartsWith(ControllerPrefix)))
+                arguments.Controllers.Add(e.Key.Substring(ControllerPrefix.Length),e.Value);
             return arguments;
         }
 
