@@ -23,6 +23,7 @@ namespace CVARC.V2
         public Scores Scores { get; private set; }
         public Logger Logger { get; private set; }
         protected abstract IEnumerable<IActor> CreateActors();
+        public IRunMode RunMode { get; private set; }
 
         public void OnExit()
         {
@@ -38,15 +39,15 @@ namespace CVARC.V2
 
         public virtual void Initialize(Competitions competitions, IRunMode environment)
         {
+            RunMode = environment;
             Clocks = new WorldClocks();
             IdGenerator = new IdGenerator();
             Scores = new Scores(this);
-
             Logger = new Logger(this);
 
             // setting up the parameters
-            Logger.SaveLog = environment.Arguments.SaveLog;
-            Logger.LogFileName = environment.Arguments.LogFileName;
+            Logger.SaveLog = environment.Arguments.EnableLog;
+            Logger.LogFileName = environment.Arguments.LogFile;
 
             if (environment.Arguments.TimeLimit.HasValue)
                 Clocks.TimeLimit = environment.Arguments.TimeLimit.Value;

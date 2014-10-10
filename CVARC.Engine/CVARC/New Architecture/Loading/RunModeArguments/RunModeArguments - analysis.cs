@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public class CommandLineAnalyzer
+    partial class RunModeArguments
     {
         static T GetArgument<T>(CommandLineData data, string key, Func<string, T> parser, string exceptionMessage, T defaultValue)
         {
@@ -38,8 +38,9 @@ namespace CVARC.V2
 
             arguments.Seed = GetArgument<int>(cmd, "Seed", int.Parse, "The -Seed argument must be integer", 0);
             arguments.TimeLimit = GetArgument<double?>(cmd, "TimeLimit", s => double.Parse(s), "The -TimeLimit argument must be floating point", null);
-            arguments.LogFileName = GetArgument<string>(cmd, "LogFile", s => s, "", null);
-            arguments.SaveLog = GetArgument<bool>(cmd, "EnableLog", s => true, "", false);
+            arguments.LogFile = GetArgument<string>(cmd, "LogFile", s => s, "", null);
+            arguments.EnableLog = GetArgument<bool>(cmd, "EnableLog", s => true, "", false);
+            arguments.SpeedUp = GetArgument<bool>(cmd, "SpeedUp", s => true, "", false);
 
             var ControllerPrefix = "Controller.";
             foreach (var e in cmd.Named.Where(z=>z.Key.StartsWith(ControllerPrefix)))

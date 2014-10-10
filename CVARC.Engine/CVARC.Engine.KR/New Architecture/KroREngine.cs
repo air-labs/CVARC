@@ -66,7 +66,8 @@ namespace CVARC.V2
                 foreach (Body body in Root)
                     body.Update(dt);
                 dt -= InternalDeltaTime;
-                Thread.Sleep((int)(InternalDeltaTime * 1000));
+                if (!World.RunMode.Arguments.SpeedUp)
+                    Thread.Sleep((int)(InternalDeltaTime * 1000));
             }
         }
 

@@ -84,7 +84,7 @@
     <Compile Include="New Architecture\Loading\RunModeArguments\RunModeArguments.cs" />
     <Compile Include="New Architecture\Loading\RunModes\StandardRunMode.cs" />
     <Compile Include="New Architecture\Loading\RunModes\RunModes.cs" />
-    <Compile Include="New Architecture\Loading\RunModeArguments\CommandLineAnalyzer.cs" />
+    <Compile Include="New Architecture\Loading\RunModeArguments\RunModeArguments - analysis.cs" />
     <Compile Include="New Architecture\Loading\RunModeArguments\CommandLineData.cs" />
     <Compile Include="New Architecture\Logging\Logger.cs" />
     <Compile Include="New Architecture\Sensors\FromSensorAttribute.cs" />

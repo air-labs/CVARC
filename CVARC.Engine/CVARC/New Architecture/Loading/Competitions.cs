@@ -30,7 +30,7 @@ namespace CVARC.V2
 
         public static IWorld Create(string[] commandLineArguments)
         {
-            var arguments = CommandLineAnalyzer.Analyze(commandLineArguments);
+            var arguments = RunModeArguments.Analyze(commandLineArguments);
 
             var assemblyName = arguments.Assembly + ".dll";
 

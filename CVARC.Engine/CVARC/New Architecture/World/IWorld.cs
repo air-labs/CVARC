@@ -17,5 +17,6 @@ namespace CVARC.V2
         IEnumerable<IActor> Actors { get; }
         void OnExit();
         event Action Exit;
+        IRunMode RunMode { get; }
     }
 }
