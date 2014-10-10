@@ -16,12 +16,7 @@ namespace CVARC.V2
         public bool Exists { get; set; }
     }
 
-    [Serializable]
-    public class Log
-    {
-        public readonly Dictionary<string, List<PositionLogItem>> Positions = new Dictionary<string, List<PositionLogItem>>();
-       
-    }
+
 
     public class Logger
     {
@@ -48,10 +43,7 @@ namespace CVARC.V2
                 if (!File.Exists(filename))
                     break;
             }
-            using (var stream= File.Open(filename,FileMode.Create,FileAccess.Write))
-            {
-                new BinaryFormatter().Serialize(stream, Log);
-            }
+            Log.Save(filename);
         }
 
         void UpdatePositions(RenewableTriggerData data, out double nextCall)

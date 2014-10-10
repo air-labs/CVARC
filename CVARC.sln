@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepairTheStarship.KroR", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoCompetitions.Kror", "DemoCompetitions.Kror\DemoCompetitions.Kror.csproj", "{B9AAEF76-AD12-4593-B665-66DB19AD03C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogComparator", "DemoCompetitions\LogComparator\LogComparator.csproj", "{0FF9A712-16AE-4349-8971-EBE16CF4E124}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -247,6 +249,16 @@ Global
 		{B9AAEF76-AD12-4593-B665-66DB19AD03C8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B9AAEF76-AD12-4593-B665-66DB19AD03C8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B9AAEF76-AD12-4593-B665-66DB19AD03C8}.Release|x86.ActiveCfg = Release|Any CPU
+		{0FF9A712-16AE-4349-8971-EBE16CF4E124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FF9A712-16AE-4349-8971-EBE16CF4E124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FF9A712-16AE-4349-8971-EBE16CF4E124}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0FF9A712-16AE-4349-8971-EBE16CF4E124}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0FF9A712-16AE-4349-8971-EBE16CF4E124}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0FF9A712-16AE-4349-8971-EBE16CF4E124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FF9A712-16AE-4349-8971-EBE16CF4E124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FF9A712-16AE-4349-8971-EBE16CF4E124}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0FF9A712-16AE-4349-8971-EBE16CF4E124}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0FF9A712-16AE-4349-8971-EBE16CF4E124}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -271,5 +283,6 @@ Global
 		{11B6A7C1-E6AA-4F81-9710-EC84069CA858} = {42B98253-B4B7-4E0B-A065-68DF4FD0A0B0}
 		{748DB258-2D25-42A4-AF68-F852DA397324} = {42B98253-B4B7-4E0B-A065-68DF4FD0A0B0}
 		{B9AAEF76-AD12-4593-B665-66DB19AD03C8} = {42B98253-B4B7-4E0B-A065-68DF4FD0A0B0}
+		{0FF9A712-16AE-4349-8971-EBE16CF4E124} = {42B98253-B4B7-4E0B-A065-68DF4FD0A0B0}
 	EndGlobalSection
 EndGlobal
