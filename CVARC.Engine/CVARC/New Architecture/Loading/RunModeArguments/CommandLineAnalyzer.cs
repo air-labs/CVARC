@@ -38,7 +38,8 @@ namespace CVARC.V2
 
             arguments.Seed = GetArgument<int>(cmd, "Seed", int.Parse, "The -Seed argument must be integer", 0);
             arguments.TimeLimit = GetArgument<double?>(cmd, "TimeLimit", s => double.Parse(s), "The -TimeLimit argument must be floating point", null);
-
+            arguments.LogFileName = GetArgument<string>(cmd, "LogFile", s => s, "", null);
+            arguments.SaveLog = GetArgument<bool>(cmd, "EnableLog", s => true, "", false);
 
             var ControllerPrefix = "Controller.";
             foreach (var e in cmd.Named.Where(z=>z.Key.StartsWith(ControllerPrefix)))
@@ -55,6 +56,8 @@ namespace CVARC.V2
             {
                 if (e.StartsWith("-"))
                 {
+                    if (key != null)
+                        data.Named[key] = "";
                     namedMode = true;
                     key = e.Substring(1);
                     continue;
@@ -71,6 +74,8 @@ namespace CVARC.V2
                 }
                 data.Unnamed.Add(e);
             }
+            if (key != null)
+                data.Named[key] = "";
             return data;
         }
     }

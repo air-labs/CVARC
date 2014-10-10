@@ -21,7 +21,15 @@ namespace CVARC.V2
         public IdGenerator IdGenerator { get; private set; }
         public WorldClocks Clocks { get; private set; }
         public Scores Scores { get; private set; }
+        public Logger Logger { get; private set; }
         protected abstract IEnumerable<IActor> CreateActors();
+
+        public void OnExit()
+        {
+            if (Exit != null) Exit();
+        }
+
+        public event Action Exit;
 
         public IEnumerable<IActor> Actors
         {
@@ -31,9 +39,21 @@ namespace CVARC.V2
         public virtual void Initialize(Competitions competitions, IRunMode environment)
         {
             Clocks = new WorldClocks();
-            Clocks.TimeLimit = environment.TimeLimit;
             IdGenerator = new IdGenerator();
             Scores = new Scores(this);
+
+            Logger = new Logger(this);
+
+            // setting up the parameters
+            Logger.SaveLog = environment.Arguments.SaveLog;
+            Logger.LogFileName = environment.Arguments.LogFileName;
+
+            if (environment.Arguments.TimeLimit.HasValue)
+                Clocks.TimeLimit = environment.Arguments.TimeLimit.Value;
+            else
+                Clocks.TimeLimit = competitions.Logic.TimeLimit;
+                 
+            
 
             //Initializing world
             this.SceneSettings = (TSceneState)environment.GetSceneSettings();
@@ -66,7 +86,5 @@ namespace CVARC.V2
 
 
 
-
-   
     }
 }

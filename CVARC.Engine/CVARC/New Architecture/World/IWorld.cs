@@ -15,5 +15,7 @@ namespace CVARC.V2
         IdGenerator IdGenerator { get; }
         Scores Scores { get; }
         IEnumerable<IActor> Actors { get; }
+        void OnExit();
+        event Action Exit;
     }
 }

@@ -16,6 +16,7 @@ namespace CVARC.V2
         IWorld world;
         Label scores;
         Label clocks;
+        Thread thread;
         public KroRForm(IWorld world)
         {
             this.world=world;
@@ -46,9 +47,18 @@ namespace CVARC.V2
 
             world.Scores.ScoresChanged += Scores_ScoresChanged;
             UpdateScores();
-            new Thread(RunCompetitions) { IsBackground = true }.Start();
+            thread= new Thread(RunCompetitions) { IsBackground = true };
+            thread.Start();
+
+           
 
         }
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            base.OnClosing(e);
+        }
+
+        bool worldExited = false;
 
         void RunCompetitions()
         {
@@ -63,7 +73,18 @@ namespace CVARC.V2
                 oldTime = time;
                 BeginInvoke(new Action(UpdateClocks));
             }
+            world.OnExit();
+            worldExited = true;
         }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            thread.Abort();
+            if (!worldExited)
+                world.OnExit();
+        }
+
 
         void UpdateScores()
         {
