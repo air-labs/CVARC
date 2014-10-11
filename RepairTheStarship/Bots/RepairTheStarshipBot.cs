@@ -6,7 +6,7 @@ using Map = RepairTheStarship.MapBuilder.Map;
 
 namespace RepairTheStarship.Bots
 {
-    public abstract class RepairTheStarshipBot : IController<SimpleMovementCommand>
+    public abstract class RepairTheStarshipBot : Controller<SimpleMovementCommand>
     {
         SensorPack<BotsSensorsData> sensors;
         protected Map Map;
@@ -17,7 +17,7 @@ namespace RepairTheStarship.Bots
         private IEnumerator<SimpleMovementCommand> enumerator;
         protected RTSWorld world;
 
-        public SimpleMovementCommand GetCommand()
+        override public SimpleMovementCommand GetCommand()
         {
             Update();
             if (enumerator.MoveNext())
@@ -27,7 +27,7 @@ namespace RepairTheStarship.Bots
             return enumerator.MoveNext() ? enumerator.Current : world.ExitCommand();
         }
 
-        public void Initialize(IControllable controllableActor)
+        override public void Initialize(IControllable controllableActor)
         {
             world = (RTSWorld)controllableActor.World;
             sensors = new SensorPack<BotsSensorsData>(controllableActor);

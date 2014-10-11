@@ -7,5 +7,6 @@ namespace CVARC.V2
 {
     public interface ICommand
     {
+        double Duration { get; }
     }
 }

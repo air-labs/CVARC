@@ -5,9 +5,16 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public class Trigger
+    public enum TriggerKeep
     {
-        public double ScheduledTime { get; set; }
-        public Action Action { get; set; }
+        Keep,
+        Remove
+    }
+
+    public abstract class Trigger
+    {
+        public double ScheduledTime { get; protected set; }
+
+        public abstract TriggerKeep  Act(double time);
     }
 }

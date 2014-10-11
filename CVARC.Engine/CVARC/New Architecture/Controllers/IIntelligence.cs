@@ -5,5 +5,8 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public delegate void RenewableTriggerDelegate(RenewableTriggerData data, out double nextCallTime);
+    public interface IIntelligence
+    {
+        void Initialize(IControllable controllableActor);
+    }
 }

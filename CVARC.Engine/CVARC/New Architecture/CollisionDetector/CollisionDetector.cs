@@ -57,7 +57,7 @@ namespace CVARC.V2
             if (!triggerSet)
             {
                 triggerSet = true;
-                world.Clocks.AddOneTimeTrigger(world.Clocks.CurrentTime + CooldownTime, Resolve);
+                world.Clocks.AddTrigger(new OneTimeTrigger(world.Clocks.CurrentTime + CooldownTime, Resolve));
             }
         }
 

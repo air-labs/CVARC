@@ -29,7 +29,7 @@ namespace CVARC.V2
         {
             this.world = world;
             Log=new V2.Log();
-            world.Clocks.AddRenewableTrigger(0, UpdatePositions);
+            world.Clocks.AddTrigger(new TimerTrigger(UpdatePositions, LoggingDeltaTime));
             world.Exit += world_Exit;
         }
 
@@ -46,13 +46,13 @@ namespace CVARC.V2
             Log.Save(filename);
         }
 
-        void UpdatePositions(RenewableTriggerData data, out double nextCall)
+        void UpdatePositions(double tick)
         {
             foreach (var e in world.IdGenerator.GetAllId())
             {
                 if (!Log.Positions.ContainsKey(e))
                     Log.Positions[e] = new List<PositionLogItem>();
-                var item = new PositionLogItem { Time = data.ThisCallTime };
+                var item = new PositionLogItem { Time = tick };
                 if (!world.Engine.ContainBody(e))
                     item.Exists = false;
                 else
@@ -62,7 +62,6 @@ namespace CVARC.V2
                 }
                 Log.Positions[e].Add(item);
             }
-            nextCall = data.ThisCallTime + LoggingDeltaTime;
         }
 
 

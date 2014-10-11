@@ -5,9 +5,10 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public class Actor<TActorManager,TWorld> : IActor
+    public abstract class Controllable<TActorManager, TWorld, TCommand> : IControllable
         where TActorManager : IActorManager
         where TWorld : IWorld
+        where TCommand : ICommand
     {
         protected TActorManager Manager { get; private set; }
         public TWorld World { get; private set; }
@@ -43,6 +44,21 @@ namespace CVARC.V2
         }
 
 
-        
+
+
+        public string ControllerId
+        {
+            get;
+            protected set;
+        }
+
+        void IControllable.ExecuteCommand(ICommand command)
+        {
+            ExecuteCommand((TCommand)command);
+        }
+
+        public abstract void ExecuteCommand(TCommand command);
+
+        public abstract object GetSensorData();
     }
 }

@@ -18,35 +18,12 @@ namespace CVARC.V2
             return triggers.Select(z => z.ScheduledTime).Where(z => z >= CurrentTime).Min();
         }
 
-        public void AddOneTimeTrigger(double scheduledTime, Action action)
+        public void AddTrigger(Trigger trigger)
         {
-            triggers.Add(new Trigger { ScheduledTime = scheduledTime, Action = action });
+            triggers.Add(trigger);
         }
 
-        public void AddRenewableTrigger(double firstCallTime, RenewableTriggerDelegate clockdownMethod)
-        {
-            RenewTrigger(0, firstCallTime, clockdownMethod);
-        }
-
-        void RenewTrigger(double lastCall, double scheduledTime, RenewableTriggerDelegate clockdownMethod)
-        {
-            triggers.Add(new Trigger
-                {
-                    ScheduledTime = scheduledTime,
-                    Action = () => RunRenewvableTrigger(lastCall, scheduledTime, clockdownMethod)
-                });
-        }
-
-
-        void RunRenewvableTrigger(double lastCall, double scheduledTime, RenewableTriggerDelegate clockdownMethod)
-        {
-            var clockdownData = new RenewableTriggerData { PreviousCallTime = lastCall, ScheduledTime = scheduledTime, ThisCallTime = CurrentTime };
-            double nextCall;
-            clockdownMethod(clockdownData, out nextCall);
-            RenewTrigger(clockdownData.ThisCallTime,nextCall,clockdownMethod);
-        }
-
-        
+    
         
 
         public void Tick(double time)
@@ -59,8 +36,9 @@ namespace CVARC.V2
                 if (!ready.Any()) return;
                 var min = ready.Min(z => z.ScheduledTime);
                 var recordToRun = triggers.Where(z => z.ScheduledTime == min).First();
-                triggers.Remove(recordToRun);
-                recordToRun.Action();
+                var result=recordToRun.Act(time);
+                if (result == TriggerKeep.Remove)
+                    triggers.Remove(recordToRun);
             }
         }
 

@@ -6,7 +6,7 @@ using AIRLab.Mathematics;
 
 namespace CVARC.V2.SimpleMovement
 {
-    public class SquareWalkingBot : IController<SimpleMovementCommand>
+    public class SquareWalkingBot : Controller<SimpleMovementCommand>
     {
         int turn = -1;
 
@@ -17,7 +17,7 @@ namespace CVARC.V2.SimpleMovement
             this.distance = distance;
         }
 
-        public SimpleMovementCommand GetCommand()
+        override public SimpleMovementCommand GetCommand()
         {
             turn = (turn + 1) % 2;
             if (turn==0) return new SimpleMovementCommand { LinearVelocity = distance, Duration = 1 };
@@ -25,9 +25,5 @@ namespace CVARC.V2.SimpleMovement
             
         }
 
-        public void Initialize(IControllable controllableActor)
-        {
-           
-        }
     }
 }

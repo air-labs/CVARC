@@ -17,21 +17,23 @@ namespace CVARC.V2.SimpleMovement
             : base(controllerId)
         { }
 
-        public abstract void ProcessCustomCommand(string commandName, out double nextRequestTimeSpan);
+        public abstract void ProcessCustomCommand(string commandName, out double rightDuration);
 
-        protected override void ProcessCommand(SimpleMovementCommand command, out double nextRequestTimeSpan)
+        public override void ExecuteCommand(SimpleMovementCommand command)
         {
+            double rightDuration;
             if (command.Command != null)
             {
                 Manager.SetSpeed(new Frame3D(0, 0, 0, Angle.Zero, Angle.Zero, Angle.Zero));
-                ProcessCustomCommand(command.Command, out nextRequestTimeSpan);
+                ProcessCustomCommand(command.Command, out rightDuration);
+                command.Duration = rightDuration;
                 return;
             }
 
             if (command.WaitForExit)
             {
-                nextRequestTimeSpan = double.PositiveInfinity;
-                ProcessCustomCommand(command.Command, out nextRequestTimeSpan);
+                ProcessCustomCommand(command.Command, out rightDuration);
+                command.Duration = rightDuration;
                 return;
             }
 
@@ -50,7 +52,6 @@ namespace CVARC.V2.SimpleMovement
                                    Angle.Zero);
 
             Manager.SetSpeed(requestedSpeed);
-            nextRequestTimeSpan = command.Duration;
         }
     }
 }

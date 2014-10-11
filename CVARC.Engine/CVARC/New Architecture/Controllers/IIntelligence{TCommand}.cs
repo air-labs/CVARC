@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public interface IController<out TCommand> : IController
+    public interface IIntelligence<out TCommand> : IIntelligence
         where TCommand : ICommand
     {
         TCommand GetCommand();

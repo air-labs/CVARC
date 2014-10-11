@@ -81,7 +81,7 @@ namespace CVARC.V2
             {
                 var controller = environment.GetController(e.ControllerId);
                 controller.Initialize(e);
-                e.AcceptParticipant(controller);
+                Clocks.AddTrigger(new ControlTrigger(controller, e));
             }
         }
 

@@ -9,6 +9,7 @@ namespace CVARC.V2
     public interface IControllable : IActor
     {
         string ControllerId { get; }
-        void AcceptParticipant(IController participant);
+        void ExecuteCommand(ICommand command);
+        object GetSensorData();
     }
 }
