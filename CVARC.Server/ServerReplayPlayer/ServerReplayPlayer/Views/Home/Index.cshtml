@@ -1,0 +1,42 @@
+﻿@model dynamic
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>ThreeJS</title>
+  <style>
+	#FPS {
+		 position:	absolute;
+		 top:	0;
+		 right:	0;
+		 color:	green;
+	}
+	.noselect {
+		 -moz-user-select: -moz-none;
+		 -o-user-select: none;
+		 -khtml-user-select: none;
+		 -webkit-user-select: none;
+		 user-select: none;
+	}
+  </style>
+  <link type="text/css" rel="stylesheet" href="other/css.css" />
+  <script lang="text/javascript" src="Scripts/three.js"></script>
+  <script lang="text/javascript" src="Scripts/ReplayLoader.js"></script>
+  <script lang="text/javascript" src="Scripts/ReplayWindow.js"></script>
+  <script lang="text/javascript" src="Scripts/showReplay.js"></script>
+  <script lang="text/javascript">
+      function onload() {
+          var div = document.getElementById('scene');
+          showReplay(div, "Home/GetReplay", 0); // 0 - не обязательно
+      }
+  </script>
+</head>
+<body onload="onload();">
+  <div id="scene" style="width: 800px; height: 600px; position: relative;" class="noselect"></div>
+</body>
+</html>
