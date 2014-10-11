@@ -46,6 +46,13 @@ namespace CVARC.V2
             Log.Save(filename);
         }
 
+        public void AccountCommand(string controllerId, ICommand command)
+        {
+            if (!Log.Commands.ContainsKey(controllerId))
+                Log.Commands[controllerId] = new List<ICommand>();
+            Log.Commands[controllerId].Add(command);
+        }
+
         void UpdatePositions(double tick)
         {
             foreach (var e in world.IdGenerator.GetAllId())

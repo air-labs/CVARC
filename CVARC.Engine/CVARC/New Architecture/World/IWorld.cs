@@ -18,5 +18,6 @@ namespace CVARC.V2
         void OnExit();
         event Action Exit;
         IRunMode RunMode { get; }
+        Logger Logger { get; }
     }
 }

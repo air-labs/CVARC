@@ -20,6 +20,8 @@ namespace CVARC.V2
             }
         }
 
+        public readonly Dictionary<string, List<ICommand>> Commands = new Dictionary<string, List<ICommand>>();
+
         public static Log Load(string filename)
         {
             using (var stream = File.Open(filename, FileMode.Open, FileAccess.Read))

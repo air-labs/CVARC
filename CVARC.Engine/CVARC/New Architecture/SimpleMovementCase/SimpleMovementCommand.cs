@@ -6,6 +6,7 @@ using AIRLab.Mathematics;
 
 namespace CVARC.V2.SimpleMovement
 {
+    [Serializable]
     public class SimpleMovementCommand : ICommand
     {
         public double LinearVelocity { get; set; }
@@ -13,7 +14,5 @@ namespace CVARC.V2.SimpleMovement
         public double Duration { get; set; }
         public string Command { get; set; }
         public bool WaitForExit { get; set; }
-
-
     }
 }
