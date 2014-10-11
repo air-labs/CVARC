@@ -6,7 +6,7 @@ using CVARC.V2;
 
 namespace RepairTheStarship
 {
-    public interface IRTSRobot : IControllable
+    public interface IRTSRobot : IActor
     {
         string GrippedObjectId { get; }
     }

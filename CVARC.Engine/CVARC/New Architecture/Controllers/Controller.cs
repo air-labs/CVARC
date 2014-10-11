@@ -8,7 +8,7 @@ namespace CVARC.V2
     public abstract class Controller<TCommand> : IController
         where TCommand : ICommand
     {
-        public virtual void Initialize(IControllable controllableActor)
+        public virtual void Initialize(IActor controllableActor)
         {
             
         }

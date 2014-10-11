@@ -77,7 +77,7 @@ namespace CVARC.V2
             }
 
 
-            foreach (var e in actors.OfType<IControllable>())
+            foreach (var e in actors.OfType<IActor>())
             {
                 var controller = environment.GetController(e.ControllerId);
                 controller.Initialize(e);

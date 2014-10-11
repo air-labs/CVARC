@@ -12,7 +12,7 @@ namespace CVARC.V2
         public override LocatorItem[] Measure()
         {
             return Actor.World.Actors
-                .OfType<IControllable>()
+                .OfType<IActor>()
                 .Where(z=>Actor.World.Engine.ContainBody(z.ObjectId))
                 .Select(z => new Tuple<string, Frame3D>(
                     z.ControllerId,

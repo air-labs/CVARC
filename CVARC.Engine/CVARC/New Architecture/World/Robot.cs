@@ -8,7 +8,7 @@ using CVARC.Basic.Core.Participants;
 
 namespace CVARC.V2
 {
-    public abstract class Robot<TActorManager,TWorld,TSensorsData,TCommand> : Controllable<TActorManager,TWorld, TCommand>
+    public abstract class Robot<TActorManager,TWorld,TSensorsData,TCommand> : Actor<TActorManager,TWorld, TCommand>
         where TActorManager : IActorManager
         where TWorld : IWorld
         where TSensorsData : new()

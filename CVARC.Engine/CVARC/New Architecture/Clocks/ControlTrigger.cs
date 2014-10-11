@@ -8,9 +8,9 @@ namespace CVARC.V2
     public class ControlTrigger : RenewableTrigger
     {
         IController controller;
-        IControllable controllable;
+        IActor controllable;
 
-        public ControlTrigger(IController controller, IControllable controllable)
+        public ControlTrigger(IController controller, IActor controllable)
         {
             this.controller = controller;
             this.controllable = controllable;

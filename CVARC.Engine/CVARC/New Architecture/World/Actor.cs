@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public abstract class Controllable<TActorManager, TWorld, TCommand> : IControllable
+    public abstract class Actor<TActorManager, TWorld, TCommand> : IActor
         where TActorManager : IActorManager
         where TWorld : IWorld
         where TCommand : ICommand
@@ -52,7 +52,7 @@ namespace CVARC.V2
             protected set;
         }
 
-        void IControllable.ExecuteCommand(ICommand command)
+        void IActor.ExecuteCommand(ICommand command)
         {
             ExecuteCommand((TCommand)command);
         }

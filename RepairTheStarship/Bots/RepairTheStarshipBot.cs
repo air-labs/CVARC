@@ -27,7 +27,7 @@ namespace RepairTheStarship.Bots
             return enumerator.MoveNext() ? enumerator.Current : world.ExitCommand();
         }
 
-        override public void Initialize(IControllable controllableActor)
+        override public void Initialize(IActor controllableActor)
         {
             world = (RTSWorld)controllableActor.World;
             sensors = new SensorPack<BotsSensorsData>(controllableActor);
