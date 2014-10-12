@@ -46,18 +46,19 @@ namespace CVARC.V2
             Logger = new Logger(this);
 
             // setting up the parameters
-            Logger.SaveLog = environment.Arguments.EnableLog;
-            Logger.LogFileName = environment.Arguments.LogFile;
+            Logger.SaveLog = environment.Configuration.EnableLog;
+            Logger.LogFileName = environment.Configuration.LogFile;
+            Logger.Log.Configuration = environment.Configuration;
 
-            if (environment.Arguments.TimeLimit.HasValue)
-                Clocks.TimeLimit = environment.Arguments.TimeLimit.Value;
+            if (environment.Configuration.TimeLimit.HasValue)
+                Clocks.TimeLimit = environment.Configuration.TimeLimit.Value;
             else
                 Clocks.TimeLimit = competitions.Logic.TimeLimit;
                  
             
 
             //Initializing world
-            this.SceneSettings = (TSceneState)environment.GetSceneSettings();
+            this.SceneSettings = (TSceneState)competitions.Logic.MapGenerator(environment.Configuration.Seed);
             this.Engine = competitions.Engine.Engine;
             this.Manager = (TWorldManager)competitions.Manager.WorldManager;
             Engine.Initialize(this);

@@ -13,6 +13,7 @@ namespace CVARC.V2
         {
             Available["Tutorial"] = () => new TutorialRunMode();
             Available["BotDemo"] = () => new BotDemoRunMode();
+            Available["Play"] = () => new LogPlayRunMode();
         }
     }
 }

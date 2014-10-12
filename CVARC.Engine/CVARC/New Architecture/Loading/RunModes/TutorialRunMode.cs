@@ -22,9 +22,5 @@ namespace CVARC.V2
             pool.Initialize(competitions.Logic.World, competitions.Engine.Keyboard);
         }
 
-        override public void PrepareControllers(string[] allControllersId)
-        {
-            
-        }
     }
 }

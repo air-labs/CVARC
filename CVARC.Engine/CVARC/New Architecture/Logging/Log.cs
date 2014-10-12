@@ -10,6 +10,8 @@ namespace CVARC.V2
     [Serializable]
     public class Log
     {
+        public Configuration Configuration { get; set; }
+
         public readonly Dictionary<string, List<PositionLogItem>> Positions = new Dictionary<string, List<PositionLogItem>>();
 
         public void Save(string filename)

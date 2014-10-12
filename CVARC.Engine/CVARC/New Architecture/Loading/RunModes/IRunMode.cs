@@ -10,10 +10,8 @@ namespace CVARC.V2
     {
         void CheckArguments(Configuration arguments);
         void InitializeCompetitions(Competitions competitions);
-        ISceneSettings GetSceneSettings();
-        void PrepareControllers(string[] allControllersId);
         IController GetController(string controllerId);
-        Configuration Arguments { get; }
+        Configuration Configuration { get; }
     }
 
 }

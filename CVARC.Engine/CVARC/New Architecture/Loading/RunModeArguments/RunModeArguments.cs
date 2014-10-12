@@ -5,6 +5,7 @@ using System.Text;
 
 namespace CVARC.V2
 {
+    [Serializable]
     public partial class Configuration
     {
         public string Assembly { get; set; }

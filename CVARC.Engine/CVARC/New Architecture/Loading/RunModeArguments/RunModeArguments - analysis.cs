@@ -34,11 +34,12 @@ namespace CVARC.V2
                 arguments.Assembly = cmd.Unnamed[0];
                 arguments.Level = cmd.Unnamed[1];
                 arguments.Mode = cmd.Unnamed[2];
+                arguments.LogFile = GetArgument<string>(cmd, "LogFile", s => s, "", null);
             }
             else if (cmd.Unnamed.Count == 1)
             {
                 arguments.LogFile = cmd.Unnamed[0];
-                arguments.Mode = "PlayLog";
+                arguments.Mode = "Play";
             }
 
 
@@ -46,7 +47,7 @@ namespace CVARC.V2
 
             arguments.Seed = GetArgument<int>(cmd, "Seed", int.Parse, "The -Seed argument must be integer", 0);
             arguments.TimeLimit = GetArgument<double?>(cmd, "TimeLimit", s => double.Parse(s), "The -TimeLimit argument must be floating point", null);
-            arguments.LogFile = GetArgument<string>(cmd, "LogFile", s => s, "", null);
+            
             arguments.EnableLog = GetArgument<bool>(cmd, "EnableLog", s => true, "", false);
             arguments.SpeedUp = GetArgument<bool>(cmd, "SpeedUp", s => true, "", false);
 
