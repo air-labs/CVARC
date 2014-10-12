@@ -49,6 +49,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoCompetitions.Kror", "De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogComparator", "DemoCompetitions\LogComparator\LogComparator.csproj", "{0FF9A712-16AE-4349-8971-EBE16CF4E124}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CVARC.V2", "CVARC.V2", "{9CA3FCB9-2460-442C-B861-C4E6144E24D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVARC.Core", "CVARC.V2\CVARC.Core\CVARC.Core.csproj", "{F7B5021F-09E8-4388-97A2-4B44B9770D03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -259,6 +263,16 @@ Global
 		{0FF9A712-16AE-4349-8971-EBE16CF4E124}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0FF9A712-16AE-4349-8971-EBE16CF4E124}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0FF9A712-16AE-4349-8971-EBE16CF4E124}.Release|x86.ActiveCfg = Release|Any CPU
+		{F7B5021F-09E8-4388-97A2-4B44B9770D03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7B5021F-09E8-4388-97A2-4B44B9770D03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7B5021F-09E8-4388-97A2-4B44B9770D03}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F7B5021F-09E8-4388-97A2-4B44B9770D03}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F7B5021F-09E8-4388-97A2-4B44B9770D03}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F7B5021F-09E8-4388-97A2-4B44B9770D03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7B5021F-09E8-4388-97A2-4B44B9770D03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7B5021F-09E8-4388-97A2-4B44B9770D03}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F7B5021F-09E8-4388-97A2-4B44B9770D03}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F7B5021F-09E8-4388-97A2-4B44B9770D03}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -284,5 +298,6 @@ Global
 		{748DB258-2D25-42A4-AF68-F852DA397324} = {42B98253-B4B7-4E0B-A065-68DF4FD0A0B0}
 		{B9AAEF76-AD12-4593-B665-66DB19AD03C8} = {42B98253-B4B7-4E0B-A065-68DF4FD0A0B0}
 		{0FF9A712-16AE-4349-8971-EBE16CF4E124} = {42B98253-B4B7-4E0B-A065-68DF4FD0A0B0}
+		{F7B5021F-09E8-4388-97A2-4B44B9770D03} = {9CA3FCB9-2460-442C-B861-C4E6144E24D5}
 	EndGlobalSection
 EndGlobal
