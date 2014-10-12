@@ -8,7 +8,7 @@ namespace CVARC.V2
     public interface IController
     {
         void Initialize(IActor controllableActor);
-        ICommand GetCommand();
+        ICommand GetCommand(Type commandType);
         void SendSensorData(object sensorData);
     }
 }

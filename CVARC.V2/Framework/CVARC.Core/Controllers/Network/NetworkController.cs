@@ -8,7 +8,8 @@ namespace CVARC.V2
     public class NetworkController : IController
     {
         GroboTcpClient client;
-
+        private static readonly ISerializer Serializer = new JsonSerializer();
+    
         public NetworkController(GroboTcpClient client)
         {
             this.client = client;
@@ -19,14 +20,17 @@ namespace CVARC.V2
            
         }
 
-        public ICommand GetCommand()
+        object sensorData;
+        public ICommand GetCommand(Type CommandType)
         {
-            return null;
+            client.Send(Serializer.Serialize(sensorData));
+            var command = (ICommand)Serializer.Deserialize(CommandType, client.ReadToEnd());
+            return command;
         }
 
         public void SendSensorData(object sensorData)
         {
-            
+            this.sensorData = sensorData;   
         }
     }
 }

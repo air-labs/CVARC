@@ -8,8 +8,7 @@ namespace CVARC.V2
 
     public interface IActor
     {
-        Type GetManagerType { get; }
-        Type GetWorldType { get; }
+        Type ExpectedCommandType { get; }
         string ObjectId { get; }
         IWorld World { get; }
         void Initialize(IActorManager manager, IWorld world, string objectId);

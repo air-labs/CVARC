@@ -15,17 +15,7 @@ namespace CVARC.V2
         IWorld IActor.World { get { return World; } }
 
         public string ObjectId { get; private set; }
-
-        public Type GetWorldType
-        {
-            get { return typeof(TWorld); }
-        }
-
-        public Type GetManagerType
-        {
-            get { return typeof(TActorManager); }
-        }
-
+        public Type ExpectedCommandType { get { return typeof(TCommand); } }
 
         public virtual void Initialize(IActorManager rules, IWorld world, string actorObjectId)
         {
