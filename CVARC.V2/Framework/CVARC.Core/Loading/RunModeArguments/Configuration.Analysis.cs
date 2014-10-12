@@ -62,6 +62,7 @@ namespace CVARC.V2
             
             arguments.EnableLog = GetArgument<bool>(cmd, "EnableLog", s => true, "", false);
             arguments.SpeedUp = GetArgument<bool>(cmd, "SpeedUp", s => true, "", false);
+            arguments.OperationalTimeLimit = GetArgument<double>(cmd, "OpTL", s => double.Parse(s), "Operational time limit must be floating point number", double.PositiveInfinity);
 
             var ControllerPrefix = "Controller.";
             foreach (var e in cmd.Named.Where(z=>z.Key.StartsWith(ControllerPrefix)))
