@@ -40,7 +40,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -78,17 +77,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CVARC.Engine\AIRLabs\AIRLabs.csproj">
-      <Project>{b1953d7f-0f62-400d-a77a-ff1ce4474a41}</Project>
-      <Name>AIRLabs</Name>
+    <ProjectReference Include="..\..\Framework\CVARC.Core\CVARC.Core.csproj">
+      <Project>{f7b5021f-09e8-4388-97a2-4b44b9770d03}</Project>
+      <Name>CVARC.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KroR.csproj">
-      <Project>{13695795-f82c-48df-86d7-eae60259f845}</Project>
-      <Name>CVARC.Engine.KroR</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Engine\CVARC\CVARC.csproj">
-      <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
-      <Name>CVARC %28CVARC.Engine\CVARC%29</Name>
+    <ProjectReference Include="..\..\Framework\CVARC.Engine.KR\CVARC.KroR.csproj">
+      <Project>{1c435b15-949f-420b-b5d5-f433439fb69c}</Project>
+      <Name>CVARC.KroR</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
