@@ -8,7 +8,7 @@ namespace CVARC.V2
     public abstract class StandardRunMode : IRunMode
     {
         protected Competitions Competitions { get; private set; }
-        public RunModeArguments Arguments { get; private set; }
+        public Configuration Arguments { get; private set; }
         public double TimeLimit { get; private set; }
     
         public virtual void InitializeCompetitions(Competitions competitions)
@@ -16,7 +16,7 @@ namespace CVARC.V2
             this.Competitions = competitions;
         }
 
-        public void CheckArguments(RunModeArguments arguments)
+        public void CheckArguments(Configuration arguments)
         {
             this.Arguments = arguments;
         }

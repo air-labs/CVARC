@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public partial class RunModeArguments
+    public partial class Configuration
     {
         public string Assembly { get; set; }
         public string Level { get; set; }

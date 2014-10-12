@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    partial class RunModeArguments
+    partial class Configuration
     {
         static T GetArgument<T>(CommandLineData data, string key, Func<string, T> parser, string exceptionMessage, T defaultValue)
         {
@@ -24,10 +24,10 @@ namespace CVARC.V2
         }
 
 
-        public static RunModeArguments Analyze(string[] args)
+        public static Configuration Analyze(string[] args)
         {
             var cmd = Parse(args);
-            var arguments = new RunModeArguments(); 
+            var arguments = new Configuration(); 
             
             if (cmd.Unnamed.Count == 3)
             {

@@ -21,7 +21,7 @@ namespace CVARC.V2
 
         }
 
-        public IWorld Create(RunModeArguments arguments, IRunMode environment)
+        public IWorld Create(Configuration arguments, IRunMode environment)
         {
             environment.InitializeCompetitions(this);
             Logic.World.Initialize(this, environment);
@@ -30,7 +30,7 @@ namespace CVARC.V2
 
         public static IWorld Create(string[] commandLineArguments)
         {
-            var arguments = RunModeArguments.Analyze(commandLineArguments);
+            var arguments = Configuration.Analyze(commandLineArguments);
             var environment = RunModes.Available[arguments.Mode]();
             environment.CheckArguments(arguments);
 

@@ -8,12 +8,12 @@ namespace CVARC.V2
 {
     public interface IRunMode
     {
-        void CheckArguments(RunModeArguments arguments);
+        void CheckArguments(Configuration arguments);
         void InitializeCompetitions(Competitions competitions);
         ISceneSettings GetSceneSettings();
         void PrepareControllers(string[] allControllersId);
         IController GetController(string controllerId);
-        RunModeArguments Arguments { get; }
+        Configuration Arguments { get; }
     }
 
 }
