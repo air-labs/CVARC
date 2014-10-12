@@ -10,7 +10,7 @@ namespace CVARC.V2
     {
         public string Assembly { get; set; }
         public string Level { get; set; }
-        public string Mode { get; set; }
+        public RunModes Mode { get; set; }
         public int Seed { get; set; }
         public double? TimeLimit { get; set; }
         public bool EnableLog { get; set; }

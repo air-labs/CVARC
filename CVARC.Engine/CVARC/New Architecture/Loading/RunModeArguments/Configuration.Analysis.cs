@@ -33,13 +33,25 @@ namespace CVARC.V2
             {
                 arguments.Assembly = cmd.Unnamed[0];
                 arguments.Level = cmd.Unnamed[1];
-                arguments.Mode = cmd.Unnamed[2];
+                try
+                {
+                    arguments.Mode = (RunModes)Enum.Parse(typeof(RunModes), cmd.Unnamed[2]);
+                }
+                catch
+                {
+                    var modes = Enum.GetNames(typeof(RunModes)).Aggregate((a, b) => a + ", " + b);
+                    throw new Exception("The mode " + cmd.Unnamed[2] + " is unknown. Try one of these: " + modes);
+                }
                 arguments.LogFile = GetArgument<string>(cmd, "LogFile", s => s, "", null);
             }
             else if (cmd.Unnamed.Count == 1)
             {
                 arguments.LogFile = cmd.Unnamed[0];
-                arguments.Mode = "Play";
+                arguments.Mode = RunModes.Play;
+            }
+            else
+            {
+                throw new Exception("The program requires 3 unnamed arguments for a normal work, or one argument for playing logs");
             }
 
 

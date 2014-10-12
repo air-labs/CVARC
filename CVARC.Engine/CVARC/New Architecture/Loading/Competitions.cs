@@ -31,7 +31,7 @@ namespace CVARC.V2
         public static IWorld Create(string[] commandLineArguments)
         {
             var arguments = Configuration.Analyze(commandLineArguments);
-            var environment = RunModes.Available[arguments.Mode]();
+            var environment = RunModeFactory.Create(arguments.Mode);
             environment.CheckArguments(arguments);
 
             var assemblyName = arguments.Assembly + ".dll";
@@ -50,12 +50,7 @@ namespace CVARC.V2
             var ctor = competitionsClass.GetConstructor(new Type[] { });
             var competitions = ctor.Invoke(new object[] { }) as Competitions;
 
-            if (!RunModes.Available.ContainsKey(arguments.Mode))
-                throw new Exception(string.Format(
-                    "Mode {0} is unknown, try one of these: {1}",
-                    arguments.Mode,
-                    RunModes.Available.Keys.Aggregate((a, b) => a + ", " + b)));
-
+            
             
             return competitions.Create(arguments, environment);
         }
