@@ -23,7 +23,7 @@ namespace CVARC.V2
 
         public IWorld Create(RunModeArguments arguments, IRunMode environment)
         {
-            environment.Initialize(arguments, this);
+            environment.InitializeCompetitions(this);
             Logic.World.Initialize(this, environment);
             return Logic.World;
         }
@@ -31,6 +31,8 @@ namespace CVARC.V2
         public static IWorld Create(string[] commandLineArguments)
         {
             var arguments = RunModeArguments.Analyze(commandLineArguments);
+            var environment = RunModes.Available[arguments.Mode]();
+            environment.CheckArguments(arguments);
 
             var assemblyName = arguments.Assembly + ".dll";
 
@@ -54,7 +56,7 @@ namespace CVARC.V2
                     arguments.Mode,
                     RunModes.Available.Keys.Aggregate((a, b) => a + ", " + b)));
 
-            var environment = RunModes.Available[arguments.Mode]();
+            
             return competitions.Create(arguments, environment);
         }
     }

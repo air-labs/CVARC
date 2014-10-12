@@ -23,18 +23,26 @@ namespace CVARC.V2
             return defaultValue;
         }
 
+
         public static RunModeArguments Analyze(string[] args)
         {
             var cmd = Parse(args);
-            if (cmd.Unnamed.Count != 3)
+            var arguments = new RunModeArguments(); 
+            
+            if (cmd.Unnamed.Count == 3)
             {
-                throw new Exception("Exactly three unnamed arguments are expected: CVARC.exe Assembly Level Mode");
+                arguments.Assembly = cmd.Unnamed[0];
+                arguments.Level = cmd.Unnamed[1];
+                arguments.Mode = cmd.Unnamed[2];
+            }
+            else if (cmd.Unnamed.Count == 1)
+            {
+                arguments.LogFile = cmd.Unnamed[0];
+                arguments.Mode = "PlayLog";
             }
 
-            var arguments = new RunModeArguments();
-            arguments.Assembly = cmd.Unnamed[0];
-            arguments.Level = cmd.Unnamed[1];
-            arguments.Mode = cmd.Unnamed[2];
+
+
 
             arguments.Seed = GetArgument<int>(cmd, "Seed", int.Parse, "The -Seed argument must be integer", 0);
             arguments.TimeLimit = GetArgument<double?>(cmd, "TimeLimit", s => double.Parse(s), "The -TimeLimit argument must be floating point", null);

@@ -15,9 +15,9 @@ namespace CVARC.V2
             return pool.CreateController(controllerId);
         }
 
-        override public void Initialize(RunModeArguments arguments, Competitions competitions)
+        override public void InitializeCompetitions(Competitions competitions)
         {
-            base.Initialize(arguments, competitions);
+            base.InitializeCompetitions(competitions);
             this.pool = competitions.Logic.KeyboardControllerPoolFactory();
             pool.Initialize(competitions.Logic.World, competitions.Engine.Keyboard);
         }
