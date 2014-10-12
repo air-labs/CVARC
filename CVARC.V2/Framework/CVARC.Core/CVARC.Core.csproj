@@ -108,7 +108,9 @@
     <Compile Include="Loading\RunModeArguments\CommandLineData.cs" />
     <Compile Include="Loading\RunModeArguments\Configuration.Analysis.cs" />
     <Compile Include="Loading\RunModeArguments\Configuration.cs" />
+    <Compile Include="Loading\RunModeArguments\Configuration.Merge.cs" />
     <Compile Include="Loading\RunModes\BotDemoRunMode.cs" />
+    <Compile Include="Loading\RunModes\DebugRunMode.cs" />
     <Compile Include="Loading\RunModes\IRunMode.cs" />
     <Compile Include="Loading\RunModes\LogPlayerRunMode.cs" />
     <Compile Include="Loading\RunModes\RunModeFactory.cs" />

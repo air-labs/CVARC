@@ -7,7 +7,7 @@ namespace CVARC.V2
 {
     public abstract class StandardRunMode : IRunMode
     {
-        protected Competitions Competitions { get; private set; }
+        public Competitions Competitions { get; private set; }
         public Configuration Configuration { get; private set; }
         public double TimeLimit { get; private set; }
     

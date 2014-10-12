@@ -46,7 +46,7 @@ namespace CVARC.V2
             var competitionsClass = list
                 .SingleOrDefault(a => a.IsSubclassOf(typeof(Competitions)) && a.Name == arguments.Level);
             if (competitionsClass == null)
-                throw new Exception(string.Format("The level {0} was not found il{1}", arguments.Level, arguments.Assembly));
+                throw new Exception(string.Format("The level {0} was not found in {1}", arguments.Level, arguments.Assembly));
             var ctor = competitionsClass.GetConstructor(new Type[] { });
             var competitions = ctor.Invoke(new object[] { }) as Competitions;
 

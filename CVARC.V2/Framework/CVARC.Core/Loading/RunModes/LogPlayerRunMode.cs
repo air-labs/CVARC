@@ -12,18 +12,13 @@ namespace CVARC.V2
         public void CheckArguments(Configuration arguments)
         {
             log = Log.Load(arguments.LogFile);
-            arguments.EnableLog = false;
-            arguments.LogFile = null;
-            arguments.Assembly = log.Configuration.Assembly;
-            arguments.Level = log.Configuration.Level;
-            arguments.Seed = log.Configuration.Seed;
-            arguments.TimeLimit = log.Configuration.TimeLimit;
+            arguments.Pull(log.Configuration, RunModes.Play);
             Configuration = arguments;
         }
 
         public void InitializeCompetitions(Competitions competitions)
         {
-            
+            Competitions = competitions;   
         }
 
         public IController GetController(string controllerId)
@@ -32,6 +27,14 @@ namespace CVARC.V2
         }
 
         public Configuration Configuration
+        {
+            get;
+            private set; 
+        }
+
+
+
+        public Competitions Competitions
         {
             get;
             private set; 

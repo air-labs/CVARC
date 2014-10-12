@@ -15,6 +15,11 @@ namespace CVARC.V2
             this.client = client;
         }
 
+        public Configuration ReadConfiguration()
+        {
+            return (Configuration)Serializer.Deserialize(typeof(Configuration), client.ReadToEnd());
+        }
+
         public void Initialize(IActor controllableActor)
         {
            

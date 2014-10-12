@@ -46,17 +46,22 @@ namespace CVARC.V2
             }
             else if (cmd.Unnamed.Count == 1)
             {
-                arguments.LogFile = cmd.Unnamed[0];
-                arguments.Mode = RunModes.Play;
+                if (cmd.Unnamed[0] == "-Debug")
+                {
+                    arguments.Mode = RunModes.Debug;
+                }
+                else
+                {
+                    arguments.LogFile = cmd.Unnamed[0];
+                    arguments.Mode = RunModes.Play;
+                }
             }
             else
             {
-                throw new Exception("The program requires 3 unnamed arguments for a normal work, or one argument for playing logs");
+                throw new Exception("The program requires 3 unnamed arguments for a normal work, or one filename for playing logs, or -Debug key to be configured from server");
             }
 
-
-
-
+            arguments.Port = GetArgument<int>(cmd, "Port", int.Parse, "Port number must be integer", 14000);
             arguments.Seed = GetArgument<int>(cmd, "Seed", int.Parse, "The -Seed argument must be integer", 0);
             arguments.TimeLimit = GetArgument<double?>(cmd, "TimeLimit", s => double.Parse(s), "The -TimeLimit argument must be floating point", null);
             
@@ -65,8 +70,25 @@ namespace CVARC.V2
             arguments.OperationalTimeLimit = GetArgument<double>(cmd, "OpTL", s => double.Parse(s), "Operational time limit must be floating point number", double.PositiveInfinity);
 
             var ControllerPrefix = "Controller.";
-            foreach (var e in cmd.Named.Where(z=>z.Key.StartsWith(ControllerPrefix)))
-                arguments.Controllers.Add(e.Key.Substring(ControllerPrefix.Length),e.Value);
+            foreach (var e in cmd.Named.Keys.Where(z=>z.StartsWith(ControllerPrefix)))
+            {
+                var record=new ControllerConfiguration();
+                record.ControllerId=e.Substring(ControllerPrefix.Length);
+                var parts=cmd.Named[e].Split('.');
+                if (parts.Length!=2)
+                    throw new Exception("When specifying a controller, two parts must be defined, like Bot.Azura or Client.Ivan");
+                try
+                {
+                    record.Type=(ControllerType)Enum.Parse(typeof(ControllerType),parts[0]);
+                }
+                catch
+                {
+                    throw new Exception("Unknown controller type '"+parts[0]+"', Bot or Client is expected");
+                }
+                record.Name=parts[1];
+                arguments.Controllers.Add(record);
+            }
+
             return arguments;
         }
 

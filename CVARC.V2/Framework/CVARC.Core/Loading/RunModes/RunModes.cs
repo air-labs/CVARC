@@ -9,6 +9,7 @@ namespace CVARC.V2
     {
         Tutorial,
         BotDemo,
-        Play
+        Play,
+        Debug
     }
 }
