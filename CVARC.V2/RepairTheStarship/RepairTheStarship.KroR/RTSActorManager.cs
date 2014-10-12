@@ -9,8 +9,6 @@ using AIRLab.Mathematics;
 using CVARC.Core;
 using CVARC.V2;
 using RepairTheStarship.Robot;
-using CVARC.Basic.Core;
-
 namespace RepairTheStarship.KroR
 {
     public class RTSActorManager : ActorManager<IRTSRobot>, IRTSActorManager

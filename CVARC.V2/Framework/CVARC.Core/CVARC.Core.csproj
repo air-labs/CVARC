@@ -91,6 +91,8 @@
     <Compile Include="Controllers\Keyboard\KeyboardControllerPool.cs" />
     <Compile Include="Controllers\Keyboard\WinformsKey.cs" />
     <Compile Include="Controllers\LogPlayController.cs" />
+    <Compile Include="Controllers\Network\GroboTcpClient.cs" />
+    <Compile Include="Controllers\Network\NetworkController.cs" />
     <Compile Include="Engine\ActorManager.cs" />
     <Compile Include="Engine\IActorManager.cs" />
     <Compile Include="Engine\IEngine.cs" />
@@ -136,6 +138,7 @@
     <Compile Include="World\Scores\ScoreRecord.cs" />
     <Compile Include="World\Scores\Scores.cs" />
     <Compile Include="World\World.cs" />
+    <Compile Include="__other\HelpExtensions.cs" />
     <Compile Include="__other\IImageSensorData.cs" />
     <Compile Include="__other\ImageSensorData.cs" />
     <Compile Include="__other\ISceneSettings.cs" />

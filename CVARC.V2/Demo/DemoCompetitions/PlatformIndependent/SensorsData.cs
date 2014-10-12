@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CVARC.Basic;
 
 namespace DemoCompetitions
 {
-    public class SensorsData : ISensorsData
+   public  class SensorsData
     {
     }
 }

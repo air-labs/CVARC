@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CVARC.Basic.Core;
+using CVARC.V2;
 
 namespace RepairTheStarship.MapBuilder
 {

@@ -102,13 +102,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CVARC.Engine\AIRLabs\AIRLabs.csproj">
-      <Project>{b1953d7f-0f62-400d-a77a-ff1ce4474a41}</Project>
-      <Name>AIRLabs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CVARC.Engine\CVARC\CVARC.csproj">
-      <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
-      <Name>CVARC %28CVARC.Engine\CVARC%29</Name>
+    <ProjectReference Include="..\..\Framework\CVARC.Core\CVARC.Core.csproj">
+      <Project>{f7b5021f-09e8-4388-97a2-4b44b9770d03}</Project>
+      <Name>CVARC.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
