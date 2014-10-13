@@ -20,7 +20,7 @@ start:		function() {
 		setTimeout(ReplayWindow.start, 100);
 },
 
-render:		function() {
+render: function () {
 	 var currentTime = Date.now();
 	 if(ReplayWindow.startTime == 0)
 		{
@@ -31,7 +31,7 @@ render:		function() {
 	 ReplayWindow.doMove();
 	 if(ReplayWindow.isEnd == false)
 		ReplayWindow.doPermit(time);
-	 ReplayWindow.doFPS(currentTime);
+//	 ReplayWindow.doFPS(currentTime);
 	 ReplayWindow.renderer.render(ReplayWindow.scene, ReplayWindow.camera);
 	 requestAnimationFrame(ReplayWindow.render);
 
@@ -62,13 +62,15 @@ doPermit:	function(time) {
 		}
 },
 process:	function(elem) {
-	 var body;
+    var body;
+    if (elem.name)
+        console.log(elem.name);
 	 switch(elem.name)
 		{
 		 case undefined:
 			 body = ReplayWindow.bodies[1*elem.id];	break;
-		 case "Box":
-			 body = ReplayWindow.addBox(elem);		break;
+	     case "Box":
+		    body = ReplayWindow.addBox(elem);		break;
 		 case "Cylinder":
 			 body = ReplayWindow.addCylinder(elem);		break;
 		 case "Ball":
@@ -76,7 +78,7 @@ process:	function(elem) {
 		 default:
 			 body = ReplayWindow.addBody(elem);
 		}
-		
+
 	 if(elem.x)
 		 body.position.x = parseFloat(elem.x);
 	 if(elem.y)
@@ -84,12 +86,18 @@ process:	function(elem) {
 	 if(elem.z)
 		 body.position.z = parseFloat(elem.z);
 
-	 if(elem.Z)
-		 body.rotation.z = parseFloat(elem.Z);
-	 if(elem.Y)
-		 body.rotation.y = parseFloat(elem.Y);
-	 if(elem.X)
-		 body.rotation.x = parseFloat(elem.X);
+    //выпилить дурость полная
+	 if (elem.name == "Cylinder" || elem.name == undefined) {
+	     body.rotation.x = 1.5;
+	     if (elem.Z)
+	         body.rotation.y = parseFloat(elem.Z);
+	 }
+//	 if (elem.Z)
+//	     body.rotation.z = parseFloat(elem.Z);
+//	 if (elem.Y)
+//	     body.rotation.y = parseFloat(elem.Y);
+//	 if (elem.X)
+//	     body.rotation.x = parseFloat(elem.X);
 },
 addBox:		function(elem) {
 	 var geometry = new THREE.CubeGeometry(1*elem.xSize, 1*elem.ySize, 1*elem.zSize);
@@ -106,11 +114,19 @@ addBox:		function(elem) {
 	 ReplayWindow.bodies[1*elem.parent].add(body);
 	 return body;
 },
-addCylinder:function(elem) {
+addCylinder: function (elem) {
+    elem.color = elem.id == "1" ? "red" : "blue";
 	 var radiusSegments = 5*elem.rTop + 5*elem.rBottom;
 	 var geometry = new THREE.CylinderGeometry(1*elem.rTop, 1*elem.rBottom, 1*elem.height, radiusSegments);
-	 var material = new THREE.MeshPhongMaterial( {color: elem.color} );
-	 var body = new THREE.Mesh( geometry, material );
+	 var material = new THREE.MeshLambertMaterial({ color: elem.color, side: THREE.DoubleSide });
+	 var body = new THREE.Mesh(geometry, material);
+    
+	 var geometry2 = new THREE.CubeGeometry(10, 10, 10);
+	 var material2 = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture('Other/' + elem.color + '.png')});
+	 var body2 = new THREE.Mesh(geometry2, material2);
+     body.add(body2);
+	 body2.position.y += 6;
+    
 	 ReplayWindow.bodies[1*elem.id] = body;
 	 ReplayWindow.bodies[1*elem.parent].add(body);
 	 return body;
@@ -153,7 +169,6 @@ addScene: function (div) {
 	 var light2 = new THREE.PointLight( 0xffffff, 1.5, 1000 );
 	 var rootBody = new THREE.Object3D();
 	 
-//    renderer.setSize(, window.outerHeight);
 	 renderer.setSize( width, height );
 	 scene.add(rootBody);
 	 light1.position.set(0,-300, 300 );
@@ -162,14 +177,18 @@ addScene: function (div) {
 	 scene.add( light2 );
 	 
 	 ReplayWindow.bodies[0] = rootBody;
-	 camera.position.z = 100;
+	 camera.position.z = 283;
+
 	 rootBody.rotation.x = -1.3;
 	 rootBody.rotation.z = -0.5;
+
+	 ReplayWindow.bodies[0].rotation.x = -0.72;
+	 ReplayWindow.bodies[0].rotation.y = 0;
+	 ReplayWindow.bodies[0].rotation.z = -0.004;
 
 	 ReplayWindow.camera = camera;
 	 ReplayWindow.renderer = renderer;
 	 ReplayWindow.scene = scene;
-	 
 	 div.appendChild( renderer.domElement );
 },
 

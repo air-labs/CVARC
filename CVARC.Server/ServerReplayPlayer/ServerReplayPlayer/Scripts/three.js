@@ -25281,13 +25281,17 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 	// Initialization
 
+    function getContextInternal(name) {
+        return _canvas.getContext('experimental-webgl', { alpha: _alpha, premultipliedAlpha: _premultipliedAlpha, antialias: _antialias, stencil: _stencil, preserveDrawingBuffer: _preserveDrawingBuffer });
+    }
+
 	function initGL () {
 
 		try {
 
-			if ( ! ( _gl = _canvas.getContext( 'experimental-webgl', { alpha: _alpha, premultipliedAlpha: _premultipliedAlpha, antialias: _antialias, stencil: _stencil, preserveDrawingBuffer: _preserveDrawingBuffer } ) ) ) {
+		    if (!(_gl = getContextInternal('experimental-webgl') || getContextInternal('webgl'))) {
 
-				throw 'Error creating WebGL context. Maybe your browser not supported WebGL';
+				throw 'Error creating WebGL context. Maybe your browser not supported WebGL.';
 
 			}
 
