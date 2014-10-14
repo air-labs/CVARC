@@ -116,6 +116,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
+    <Content Include="Other\blue.png" />
+    <Content Include="Other\red.png" />
     <Content Include="Scripts\logic.js" />
     <Content Include="Scripts\ReplayLoader.js" />
     <Content Include="Scripts\ReplayWindow.js" />
@@ -133,13 +135,25 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Replays\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\repairTheStarship.pubxml" />
+    <Content Include="Replays\Alexander Ponomarev.Blue" />
+    <Content Include="Replays\Alexander Ponomarev.Red" />
+    <Content Include="Replays\Alexey Malashkevich.Blue" />
+    <Content Include="Replays\Alexey Malashkevich.Red" />
+    <Content Include="Replays\Chichagin Artem.Blue" />
+    <Content Include="Replays\Chichagin Artem.Red" />
+    <Content Include="Replays\Dublin Roman.Blue" />
+    <Content Include="Replays\Dublin Roman.Red" />
+    <Content Include="Replays\Ivan Menchih.Blue" />
+    <Content Include="Replays\Ivan Menchih.Red" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
