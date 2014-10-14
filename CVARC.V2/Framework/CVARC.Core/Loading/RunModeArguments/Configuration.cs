@@ -38,7 +38,14 @@ namespace CVARC.V2
         [DataMember] public bool SpeedUp { get; set; }
         [DataMember] public int Port { get; set; }
         [DataMember] public double OperationalTimeLimit { get; set; }
-        [DataMember] public readonly List<ControllerConfiguration> Controllers = new List<ControllerConfiguration>();
+        
+        [DataMember]
+        public List<ControllerConfiguration> Controllers { get; private set; }
+
+        public Configuration()
+        {
+            Controllers = new List<ControllerConfiguration>();
+        }
     }
 
 

@@ -45,20 +45,18 @@ namespace CVARC.V2
                 arguments.LogFile = GetArgument<string>(cmd, "LogFile", s => s, "", null);
             }
             else if (cmd.Unnamed.Count == 1)
+            {   
+                arguments.LogFile = cmd.Unnamed[0];
+                arguments.Mode = RunModes.Play;
+            }
+            else
             {
-                if (cmd.Unnamed[0] == "-Debug")
+                if (cmd.Named.ContainsKey("Debug"))
                 {
                     arguments.Mode = RunModes.Debug;
                 }
                 else
-                {
-                    arguments.LogFile = cmd.Unnamed[0];
-                    arguments.Mode = RunModes.Play;
-                }
-            }
-            else
-            {
-                throw new Exception("The program requires 3 unnamed arguments for a normal work, or one filename for playing logs, or -Debug key to be configured from server");
+                    throw new Exception("The program requires 3 unnamed arguments for a normal work, or one filename for playing logs, or -Debug key to be configured from server");
             }
 
             arguments.Port = GetArgument<int>(cmd, "Port", int.Parse, "Port number must be integer", 14000);

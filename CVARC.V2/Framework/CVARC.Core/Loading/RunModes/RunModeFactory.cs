@@ -14,6 +14,7 @@ namespace CVARC.V2
                 case RunModes.Tutorial: return new TutorialRunMode();
                 case RunModes.BotDemo: return new BotDemoRunMode();
                 case RunModes.Play: return new LogPlayRunMode();
+                case RunModes.Debug: return new DebugRunMode();
             }
             throw new ArgumentException();
         }

@@ -34,13 +34,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BEPUphysics">
-      <HintPath>..\..\libs\BEPUphysics.dll</HintPath>
+      <HintPath>..\..\..\libs\BEPUphysics.dll</HintPath>
     </Reference>
     <Reference Include="FarseerPhysics">
-      <HintPath>..\..\libs\FarseerPhysics.dll</HintPath>
+      <HintPath>..\..\..\libs\FarseerPhysics.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\libs\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\libs\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>

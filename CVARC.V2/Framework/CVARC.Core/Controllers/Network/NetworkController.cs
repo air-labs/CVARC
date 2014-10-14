@@ -7,17 +7,17 @@ namespace CVARC.V2
 {
     public class NetworkController : IController
     {
-        GroboTcpClient client;
-        private static readonly ISerializer Serializer = new JsonSerializer();
+        CvarcTcpClient client;
+
     
-        public NetworkController(GroboTcpClient client)
+        public NetworkController(CvarcTcpClient client)
         {
             this.client = client;
         }
 
         public Configuration ReadConfiguration()
         {
-            return (Configuration)Serializer.Deserialize(typeof(Configuration), client.ReadToEnd());
+            return client.ReadObject<Configuration>();    
         }
 
         public void Initialize(IActor controllableActor)
@@ -30,8 +30,8 @@ namespace CVARC.V2
 
         public ICommand GetCommand(Type commandType)
         {
-            client.Send(Serializer.Serialize(sensorData));
-            var command = (ICommand)Serializer.Deserialize(commandType, client.ReadToEnd());
+            client.SerializeAndSend(sensorData);
+            var command = (ICommand)client.ReadObject(commandType);
             return command;
 
             // этот код проверял исключения и превышение операционного лимита. его нужно вернуть!

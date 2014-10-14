@@ -13,8 +13,9 @@ namespace CVARC.V2
         public void CheckArguments(Configuration arguments)
         {
             var tcpServer = new System.Net.Sockets.TcpListener(arguments.Port);
+            tcpServer.Start();
             var client = tcpServer.AcceptTcpClient();
-            var grobo = new GroboTcpClient(client);
+            var grobo = new CvarcTcpClient(client);
             controller = new NetworkController(grobo);
             arguments.Pull(controller.ReadConfiguration(), RunModes.Debug);
             Configuration = arguments;

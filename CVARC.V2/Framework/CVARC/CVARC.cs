@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CVARC.V2;
 
-namespace CVARC
+namespace CVARC.V2
 {
-    static class CVARC
+    public static class CVARCProgram
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var world = Competitions.Create(args);
             var form = new KroRForm(world);

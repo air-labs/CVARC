@@ -36,6 +36,7 @@ namespace CVARC.V2
                 this.Seed = Configuration.Seed;
                 this.SpeedUp = Configuration.SpeedUp;
                 this.TimeLimit = Configuration.TimeLimit;
+                this.Controllers = Configuration.Controllers;
 
 
             }
