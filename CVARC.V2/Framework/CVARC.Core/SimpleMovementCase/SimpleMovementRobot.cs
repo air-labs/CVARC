@@ -32,8 +32,7 @@ namespace CVARC.V2.SimpleMovement
 
             if (command.WaitForExit)
             {
-                ProcessCustomCommand(command.Command, out rightDuration);
-                command.Duration = rightDuration;
+                command.Duration = 1000000;
                 return;
             }
 

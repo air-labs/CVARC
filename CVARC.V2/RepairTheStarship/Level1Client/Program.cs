@@ -34,6 +34,7 @@ namespace Level1Example
             client.Exit();
         }
 
+        [STAThread]
         public static void Main()
         {
             DebugRun(Control);

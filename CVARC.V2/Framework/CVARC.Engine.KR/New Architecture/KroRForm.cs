@@ -64,14 +64,22 @@ namespace CVARC.V2
         {
             double time = 0;
             double oldTime = 0;
+            bool breakRequested = false;
             while (true)
             {
-                time = world.Clocks.GetNextEventTime();
-                if (time > world.Clocks.TimeLimit) break;
+                time=world.Clocks.GetNextEventTime();
+                if (time - oldTime > 1)
+                    time = oldTime+1;
+                if (time > world.Clocks.TimeLimit)
+                {
+                    time = world.Clocks.TimeLimit;
+                    breakRequested = true;
+                }
                 (world.Engine as KroREngine).Updates(oldTime, time);
                 world.Clocks.Tick(time);
                 oldTime = time;
                 BeginInvoke(new Action(UpdateClocks));
+                if (breakRequested) break;
             }
             world.OnExit();
             worldExited = true;
