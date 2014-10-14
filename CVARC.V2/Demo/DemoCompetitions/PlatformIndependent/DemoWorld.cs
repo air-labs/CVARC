@@ -54,5 +54,12 @@ namespace DemoCompetitions
                 };
         }
 
+
+        public static readonly SimpleMovementCommandHelper Helper = new SimpleMovementCommandHelper { LinearVelocityLimit=50, AngularVelocityLimit=Angle.FromGrad(90) };
+
+        public SimpleMovementCommandHelper CommandHelper
+        {
+            get { return Helper; }
+        }
     }
 }

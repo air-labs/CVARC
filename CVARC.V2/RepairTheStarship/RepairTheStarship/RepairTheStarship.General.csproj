@@ -58,8 +58,12 @@
     <Compile Include="Bots\MapHelper\StarshipObject.cs" />
     <Compile Include="Bots\MolagBal.cs" />
     <Compile Include="Bots\RepairTheStarshipBot.cs" />
+    <Compile Include="Bots\RepairTheStarshipBots.cs" />
     <Compile Include="Bots\Sanguine.cs" />
     <Compile Include="Bots\Vaermina.cs" />
+    <Compile Include="Clients\Level1Client.cs" />
+    <Compile Include="Clients\RTSAction.cs" />
+    <Compile Include="Clients\RTSClient.cs" />
     <Compile Include="RTSKeyboardControllerPool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Robot\IRTSActorManager.cs" />

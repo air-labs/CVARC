@@ -17,10 +17,10 @@ namespace RepairTheStarship
                 seed => SceneSettings.GetRandomMap(seed),
                 90)
         {
-            Bots["Azura"] = () => new Azura();
-            Bots["Vaermina"] = () => new Vaermina();
-            Bots["MolagBal"] = () => new MolagBal();
-            Bots["Sanguine"] = () => new Sanguine();
+            Bots[RepairTheStarshipBots.Azura.ToString()] = () => new Azura();
+            Bots[RepairTheStarshipBots.Vaermina.ToString()] = () => new Vaermina();
+            Bots[RepairTheStarshipBots.MolagBal.ToString()] = () => new MolagBal();
+            Bots[RepairTheStarshipBots.Sanguine.ToString()] = () => new Sanguine();
         
         }
     }

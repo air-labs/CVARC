@@ -9,53 +9,34 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using RepairTheStarship;
 
-namespace Level1Client
+namespace Level1Example
 {
     class Program
     {
-
-        static void StartCvarc()
+        static void DebugRun(Action action)
         {
-            try
-            {
-                CVARC.V2.CVARCProgram.Main(new string[] { "-Debug", "-Port", "14000" });
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                Console.ReadKey(false);
-            }
+            new Action(() =>
+                {
+                    Thread.Sleep(1000);
+                    action();
+                }).BeginInvoke(null, null);
+            CVARCProgram.Main(new string[] { "-Debug", "-Port", "14000" });
         }
 
-        static void RunClient()
+        static void Control()
         {
-            var client = new TcpClient();
-            client.Connect("127.0.0.1", 14000);
-            var grobo = new CvarcTcpClient(client);
-
-            var config = new Configuration()
-            {
-                Assembly = "RepairTheStarship",
-                Level = "Level1",
-                Controllers = 
-                { 
-                    new ControllerConfiguration { ControllerId="Left",  Type = ControllerType.Client, Name="This" },
-                    new ControllerConfiguration { ControllerId="Right",  Type = ControllerType.Bot, Name="Azura" }
-                }
-            };
-
-
-            grobo.SerializeAndSend(config);
-            var data = grobo.ReadObject<RepairTheStarship.Level1SensorData>();
-            grobo.SerializeAndSend(new SimpleMovementCommand { AngularVelocity = Angle.FromGrad(90), Duration = 1 });
-      
+            var client = new Level1Client();
+            client.Configurate(true, RepairTheStarshipBots.Azura);
+            client.Rotate(-90);
+            client.Move(100);
+            client.Exit();
         }
 
         public static void Main()
         {
-            new Action(RunClient).BeginInvoke(null, null);
-            StartCvarc();
+            DebugRun(Control);
         }
     }
 }

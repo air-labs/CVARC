@@ -38,10 +38,10 @@ namespace RepairTheStarship.MapBuilder
             currentDirection = direction;
             yield return CorrectRobotPosition();
             var directionAngle = direction.ToAngle();
-            yield return world.RotateCommand(Normilize(Angle.FromGrad(directionAngle - expectedRobotAngle)));
+            yield return world.CommandHelper.Rotate(Normilize(Angle.FromGrad(directionAngle - expectedRobotAngle)));
             expectedRobotAngle = currentDirection.ToAngle();
             yield return CorrectRobotPosition();
-            yield return world.MoveCommand(50);
+            yield return world.CommandHelper.Move(50);
         }
 
         public IEnumerable<SimpleMovementCommand> GetCommandsByDirection(Direction direction)
@@ -52,7 +52,7 @@ namespace RepairTheStarship.MapBuilder
         private SimpleMovementCommand CorrectRobotPosition()
         {
             var angleError = expectedRobotAngle - realRobotAngle;
-            return world.RotateCommand(Normilize(Angle.FromGrad(angleError)));
+            return world.CommandHelper.Rotate(Normilize(Angle.FromGrad(angleError)));
         }
 
         public Angle Normilize(Angle angle)

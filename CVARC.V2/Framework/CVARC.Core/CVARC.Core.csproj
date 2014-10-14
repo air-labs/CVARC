@@ -77,6 +77,7 @@
     <Compile Include="AIRLabs\Mathematics\Vectors\VectorBase\Unlocked.cs" />
     <Compile Include="AIRLabs\Mathematics\Vectors\VectorBase\Vector.cs" />
     <Compile Include="AIRLabs\Tuple.cs" />
+    <Compile Include="Client\CvarcClient.cs" />
     <Compile Include="Clocks\ControlTrigger.cs" />
     <Compile Include="Clocks\OneTimeTrigger.cs" />
     <Compile Include="Clocks\RenewableTrigger.cs" />

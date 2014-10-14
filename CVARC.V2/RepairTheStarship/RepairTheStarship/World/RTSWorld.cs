@@ -73,14 +73,10 @@ namespace RepairTheStarship
             yield return new Level1Robot(TwoPlayersId.Right);
         }
 
-        public double LinearVelocityLimit
+        public static SimpleMovementCommandHelper StaticCommandHelper = new SimpleMovementCommandHelper { LinearVelocityLimit = 50, AngularVelocityLimit = Angle.FromGrad(90) };
+        public SimpleMovementCommandHelper CommandHelper
         {
-            get { return 50; }
-        }
-
-        public AIRLab.Mathematics.Angle AngularVelocityLimit
-        {
-            get { return Angle.FromGrad(90); }
+            get { return StaticCommandHelper; } 
         }
     }
 }

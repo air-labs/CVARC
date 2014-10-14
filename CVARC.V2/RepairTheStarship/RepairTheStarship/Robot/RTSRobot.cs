@@ -18,13 +18,13 @@ namespace RepairTheStarship
         public override void ProcessCustomCommand(string commandName, out double nextRequestTimeSpan)
         {
             nextRequestTimeSpan=0.1;
-            if (commandName == "Grip")
+            if (commandName == RTSAction.Grip.ToString())
             {
                 if (GrippedObjectId != null) return;
                 GrippedObjectId = Manager.Grip();
                 return;
             }
-            if (commandName == "Release")
+            if (commandName == RTSAction.Release.ToString())
             {
                 if (GrippedObjectId == null) return;
                 if (Manager.Release())

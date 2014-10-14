@@ -24,7 +24,7 @@ namespace RepairTheStarship.Bots
                 return enumerator.Current;
             currentCommands = FindNextCommands();
             enumerator = currentCommands.GetEnumerator();
-            return enumerator.MoveNext() ? enumerator.Current : world.ExitCommand();
+            return enumerator.MoveNext() ? enumerator.Current : world.CommandHelper.ExitCommand();
         }
 
         override public void Initialize(IActor controllableActor)

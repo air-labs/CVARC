@@ -37,10 +37,10 @@ namespace CVARC.V2.SimpleMovement
                 return;
             }
 
-            if (Math.Abs(command.LinearVelocity) > World.LinearVelocityLimit)
-                command.LinearVelocity = Math.Sign(command.LinearVelocity) * World.LinearVelocityLimit;
-            if (Math.Abs(command.AngularVelocity.Grad) > World.AngularVelocityLimit.Grad)
-                command.AngularVelocity = Angle.FromGrad(Math.Sign(command.AngularVelocity.Grad) * World.AngularVelocityLimit.Grad);
+            if (Math.Abs(command.LinearVelocity) > World.CommandHelper.LinearVelocityLimit)
+                command.LinearVelocity = Math.Sign(command.LinearVelocity) * World.CommandHelper.LinearVelocityLimit;
+            if (Math.Abs(command.AngularVelocity.Grad) > World.CommandHelper.AngularVelocityLimit.Grad)
+                command.AngularVelocity = Angle.FromGrad(Math.Sign(command.AngularVelocity.Grad) * World.CommandHelper.AngularVelocityLimit.Grad);
 
 
 

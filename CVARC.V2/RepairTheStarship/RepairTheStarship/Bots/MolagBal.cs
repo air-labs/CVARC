@@ -19,7 +19,7 @@ namespace RepairTheStarship.Bots
 
         private IEnumerable<SimpleMovementCommand> GoBack()
         {
-            return RobotLocator.GetCommandsByDirection(lastCommand.Invert()).Concat(new[] {world.SleepCommand(3)});
+            return RobotLocator.GetCommandsByDirection(lastCommand.Invert()).Concat(new[] { world.CommandHelper.SleepCommand(3) });
         }
     }
 }

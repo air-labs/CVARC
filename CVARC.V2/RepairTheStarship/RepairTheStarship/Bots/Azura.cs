@@ -34,7 +34,7 @@ namespace RepairTheStarship.Bots
                 if (Map.CurrentPosition.Y - nearSocket.AbsoluteCoordinate.Y < -Epsilon)
                     return RobotLocator.GetCommandsByDirection(Direction.Up);
                 hasDetail = false;
-                return new[] {world.ActionCommand(world.ReleaseCommand)};
+                return new[] {world.CommandHelper.ActionCommand(world.ReleaseCommand)};
             }
             return RobotLocator.GetCommandsByDirection(path.First());
         }
@@ -47,7 +47,7 @@ namespace RepairTheStarship.Bots
             color = nearDetail.Type.Split(new[] {"Detail"}, StringSplitOptions.None).First().ToLower();
             var path = PathSearcher.FindPath(Map, OurCoordinates, nearDetail.DiscreteCoordinate);
             hasDetail = path.Length == 0;
-            return hasDetail ? new[]{ world.ActionCommand(world.GripCommand)} : RobotLocator.GetCommandsByDirection(path.First());
+            return hasDetail ? new[] { world.CommandHelper.ActionCommand(world.GripCommand) } : RobotLocator.GetCommandsByDirection(path.First());
         }
 
         private int GetDistance(StarshipObject starshipObject)
