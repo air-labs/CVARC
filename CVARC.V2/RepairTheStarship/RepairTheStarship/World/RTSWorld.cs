@@ -13,6 +13,11 @@ namespace RepairTheStarship
     {
         Dictionary<DetailColor, int> repairs = new Dictionary<DetailColor, int>();
 
+        public override SceneSettings CreateSceneState(int seed)
+        {
+            return RepairTheStarship.SceneSettings.GetRandomMap(seed);
+        }
+
         public RTSWorld()
         {
             repairs[DetailColor.Blue] = 0;

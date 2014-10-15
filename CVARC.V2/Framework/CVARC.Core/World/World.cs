@@ -25,6 +25,7 @@ namespace CVARC.V2
 
         public abstract IEnumerable<string> ControllersId { get; }
         public abstract IActor CreateActor(string controllerId);
+        public abstract TSceneState CreateSceneState(int seed);
 
         public void OnExit()
         {
@@ -59,7 +60,7 @@ namespace CVARC.V2
             
 
             //Initializing world
-            this.SceneSettings = (TSceneState)competitions.Logic.MapGenerator(environment.Configuration.Seed);
+            this.SceneSettings = CreateSceneState(environment.Configuration.Seed);
             this.Engine = competitions.Engine.Engine;
             this.Manager = (TWorldManager)competitions.Manager.WorldManager;
             Engine.Initialize(this);

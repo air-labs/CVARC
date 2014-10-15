@@ -14,7 +14,6 @@ namespace RepairTheStarship
             : base(
                 new RTSWorld(),
                 ()=>new RTSKeyboardControllerPool(),
-                seed => SceneSettings.GetRandomMap(seed),
                 90)
         {
             Bots["Azura"] = () => new Azura();

@@ -14,10 +14,22 @@ namespace DemoCompetitions
         DemoRobot robot1;
         DemoRobot robot2;
 
-        protected override IEnumerable<IActor> CreateActors()
+        public override IEnumerable<string> ControllersId
         {
-            yield return robot1 = new DemoRobot(TwoPlayersId.Left);
-            yield return robot2 = new DemoRobot(TwoPlayersId.Right);
+            get
+            {
+                yield return TwoPlayersId.Left;
+                yield return TwoPlayersId.Right;
+            }
+        }
+
+        public override IActor CreateActor(string controllerId)
+        {
+            return new DemoRobot(controllerId);
+        }
+        public override SceneSettings CreateSceneState(int seed)
+        {
+            return new SceneSettings();
         }
 
         public double LinearVelocityLimit
