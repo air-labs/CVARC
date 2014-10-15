@@ -21,9 +21,14 @@ namespace CVARC.V2
             var sensorData = controllable.GetSensorData();
             controller.SendSensorData(sensorData);
             var command = controller.GetCommand(controllable.ExpectedCommandType);
-            controllable.World.Logger.AccountCommand(controllable.ControllerId, command);
-            controllable.ExecuteCommand(command);
-            nextTime = base.ThisCall + command.Duration;
+            if (command != null)
+            {
+                controllable.World.Logger.AccountCommand(controllable.ControllerId, command);
+                controllable.ExecuteCommand(command);
+                nextTime = base.ThisCall + command.Duration;
+            }
+            else
+                nextTime = double.PositiveInfinity;
         }
     }
 }

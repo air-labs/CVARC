@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using AIRLab;
 
 namespace CVARC.V2
 {
+
     public class NetworkController : IController
     {
         CvarcTcpClient client;
 
-    
-        public NetworkController(CvarcTcpClient client)
+        public NetworkController(CvarcTcpClient client, double operationalLimitInSeconds)
         {
             this.client = client;
+            if (double.IsPositiveInfinity(operationalLimitInSeconds))
+                operationalLimit = int.MaxValue;
+            else
+                operationalLimit = (int)(operationalLimitInSeconds*1000);
         }
 
         public Configuration ReadConfiguration()
@@ -26,46 +32,47 @@ namespace CVARC.V2
         }
 
         object sensorData;
+        int operationalTime = 0;
+        int operationalLimit;
+        bool active = true;
 
+        Tuple<ICommand, Exception> GetCommandInternally(Type commandType)
+        {
+            try
+            {
+                client.SerializeAndSend(sensorData);
+                var command = (ICommand)client.ReadObject(commandType);
+                return new Tuple<ICommand,Exception>(command,null);
+            }
+            catch (Exception e)
+            {
+                return new Tuple<ICommand,Exception>(null,e);
+            }
+        }
 
         public ICommand GetCommand(Type commandType)
         {
-            client.SerializeAndSend(sensorData);
-            var command = (ICommand)client.ReadObject(commandType);
-            return command;
+            if (!active) return null;
 
-            // этот код проверял исключения и превышение операционного лимита. его нужно вернуть!
-               //var spentMilliseconds = p.OperationalMilliseconds;
-               //     var @delegate = new Func<Participant, Tuple<Command, Exception>>(MakeTurn);
+            var @delegate = new Func<Type, Tuple<ICommand, Exception>>(GetCommandInternally);
 
-               //     //асинхронно запускаем операцию и проверяем, что не вылезли за лимиты
-               //     var async = @delegate.BeginInvoke(p, null, null);
-               //     while (spentMilliseconds < operationalMilliseconds)
-               //     {
-               //         if (async.IsCompleted) break;
-               //         Thread.Sleep(1);
-               //         spentMilliseconds++;
-               //         Console.Write(spentMilliseconds+"\r");
-               //     }
-               //     Tuple<Command, Exception> result = new Tuple<Command, Exception>(null, null);
-               //     if (spentMilliseconds<operationalMilliseconds)
-               //         result = @delegate.EndInvoke(async);
-                    
-               //     p.OperationalMilliseconds = spentMilliseconds;
+            var async = @delegate.BeginInvoke(commandType, null, null);
 
-               //     //Проверяем ошибки и таймлимиты
-               //     if (spentMilliseconds >= operationalMilliseconds)
-               //         p.Exit(ExitReason.OperationalTimeLimit, GameTimeLimit - time, null);
-               //     else if (result.Item2 != null) //выкинут Exception
-               //         p.Exit(ExitReason.FormatException, GameTimeLimit - time, result.Item2);
+            while (operationalTime < operationalLimit)
+            {
+                if (async.IsCompleted) break;
+                operationalTime++;
+                Thread.Sleep(1);
+            }
 
-               //     if (!p.Active) continue;
+            if (operationalTime < operationalLimit)
+            {
+                var result = @delegate.EndInvoke(async);
+                if (result.Item2 != null) return null;
+                return result.Item1;
+            }
+            return null;
 
-               //     //применяем полученную команду
-               //     var cmd=result.Item1;
-               //     cmd.RobotId = p.ControlledRobot;
-               //     Robots[p.ControlledRobot].ProcessCommand(cmd);
-               //     p.WaitForNextCommandTime = cmd.Time;
         }
 
 

@@ -16,7 +16,7 @@ namespace CVARC.V2
             tcpServer.Start();
             var client = tcpServer.AcceptTcpClient();
             var grobo = new CvarcTcpClient(client);
-            controller = new NetworkController(grobo);
+            controller = new NetworkController(grobo, arguments.OperationalTimeLimit);
             arguments.Pull(controller.ReadConfiguration(), RunModes.Debug);
             Configuration = arguments;
         }

@@ -34,7 +34,7 @@ namespace CVARC.V2
 
         public byte[] ReadToEnd()
         {
-            var str= streamReader.ReadLine();
+            var str = streamReader.ReadLine();
             return Encoding.UTF8.GetBytes(str);
         }
 
