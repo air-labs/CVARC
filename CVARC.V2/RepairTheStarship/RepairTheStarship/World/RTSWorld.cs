@@ -13,6 +13,11 @@ namespace RepairTheStarship
     {
         Dictionary<DetailColor, int> repairs = new Dictionary<DetailColor, int>();
 
+        public override SceneSettings CreateSceneState(int seed)
+        {
+            return RepairTheStarship.SceneSettings.GetRandomMap(seed);
+        }
+
         public RTSWorld()
         {
             repairs[DetailColor.Blue] = 0;
@@ -67,10 +72,18 @@ namespace RepairTheStarship
             }
         }
 
-        protected override IEnumerable<IActor> CreateActors()
+        public override IEnumerable<string> ControllersId
         {
-            yield return new Level1Robot(TwoPlayersId.Left);
-            yield return new Level1Robot(TwoPlayersId.Right);
+            get
+            {
+                yield return TwoPlayersId.Left;
+                yield return TwoPlayersId.Right;
+            }
+        }
+
+        public override IActor CreateActor(string controllerId)
+        {
+            return new Level1Robot(controllerId);
         }
 
         public static SimpleMovementCommandHelper StaticCommandHelper = new SimpleMovementCommandHelper { LinearVelocityLimit = 50, AngularVelocityLimit = Angle.FromGrad(90) };

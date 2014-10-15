@@ -12,7 +12,6 @@ namespace DemoCompetitions
         public DemoLogicPart() : base(
             new DemoWorld(),
             ()=>new SimpleMovementTwoPlayersKeyboardControllerPool(),
-            seed=>new SceneSettings(),
             double.PositiveInfinity
             )
         {
