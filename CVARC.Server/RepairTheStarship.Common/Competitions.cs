@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using AIRLab.Mathematics;
 using CVARC.Basic;
 using CVARC.Core;
 using Gems.Bots;
@@ -12,8 +11,8 @@ namespace RepairTheStarship
 {
     public abstract class SRCompetitions : Competitions
     {
-        public const double MaxLinearVelocity = 50;
-        public const double MaxAngularVelocity = 50;
+        private const double MaxLinearVelocity = 50;
+        private const double MaxAngularVelocity = 90;
         public static readonly Color WallColor = Color.LightGray;
         private DateTime oldCollisionTime = DateTime.Now;
         private Dictionary<CollisionType, int> countRepairedWalls = new Dictionary<CollisionType, int>
@@ -34,11 +33,11 @@ namespace RepairTheStarship
             return new GemsRobot(this, robotNumber);
         }
 
-        public override Angle AngularVelocityLimit
+        public override double AngularVelocityLimit
         {
             get
             {
-                return Angle.FromGrad(MaxAngularVelocity);
+                return MaxAngularVelocity;
             }
         }
 

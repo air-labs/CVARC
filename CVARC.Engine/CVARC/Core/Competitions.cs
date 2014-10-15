@@ -19,8 +19,8 @@ namespace CVARC.Basic
         public IEngine Engine { get; private set; }
         public double GameTimeLimit { get; protected set; }
         public double NetworkTimeLimit { get; protected set; }
-        public virtual double LinearVelocityLimit { get { return 10; } }
-        public virtual Angle AngularVelocityLimit { get { return Angle.FromGrad(30); } }
+        public virtual double LinearVelocityLimit { get { return 50; } }
+        public virtual double AngularVelocityLimit { get { return 90; } }
         public Dictionary<string, Type> AvailableBots { get; private set; }
 
         public ScoreCollection Score { get; private set; }
@@ -32,7 +32,6 @@ namespace CVARC.Basic
         public List<Robot> Robots { get; private set; }
         public virtual int RobotCount { get { return 2; } }
         public virtual int CompetitionId { get { return 1; } }
-
 
         public Competitions()
         {
@@ -91,7 +90,18 @@ namespace CVARC.Basic
 
         Tuple<Command,Exception> MakeTurn(Participant participant)
         {
-            return new Tuple<Command, Exception>(participant.MakeTurn(), null);
+            var command = participant.MakeTurn();
+            if (command.Action != CommandAction.None)
+                command.Time = 1;
+            if (command.LinearVelocity != 0 && command.AngularVelocity.Grad != 0)
+                command.LinearVelocity = 0;
+            if (command.Time < 0)
+                command.Time = 0;
+            if (Math.Abs(command.LinearVelocity) > LinearVelocityLimit)
+               command.LinearVelocity = Math.Sign(command.LinearVelocity) * LinearVelocityLimit;
+            if (command.AngularVelocity.Grad > AngularVelocityLimit)
+                command.AngularVelocity = Angle.FromGrad(Math.Sign(command.AngularVelocity.Grad) * AngularVelocityLimit);
+            return new Tuple<Command, Exception>(command, null);
         }
 
         public void ProcessParticipants(bool realTime, int operationalMilliseconds, params Participant[] participants)
