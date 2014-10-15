@@ -6,12 +6,14 @@ using System.Text;
 
 namespace CVARC.V2
 {
+    [Serializable]
     public enum ControllerType
     {
         Bot,
         Client
     }
 
+    [Serializable]
     [DataContract]
     public class ControllerConfiguration
     {

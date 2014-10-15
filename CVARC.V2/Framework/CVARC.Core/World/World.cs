@@ -41,6 +41,7 @@ namespace CVARC.V2
 
         public virtual void Initialize(Competitions competitions, IRunMode environment)
         {
+
             RunMode = environment;
             Clocks = new WorldClocks();
             IdGenerator = new IdGenerator();
@@ -49,6 +50,7 @@ namespace CVARC.V2
 
             // setting up the parameters
             Logger.SaveLog = environment.Configuration.EnableLog;
+
             Logger.LogFileName = environment.Configuration.LogFile;
             Logger.Log.Configuration = environment.Configuration;
 
@@ -56,8 +58,10 @@ namespace CVARC.V2
                 Clocks.TimeLimit = environment.Configuration.TimeLimit.Value;
             else
                 Clocks.TimeLimit = competitions.Logic.TimeLimit;
-                 
+
+
             
+
 
             //Initializing world
             this.SceneSettings = CreateSceneState(environment.Configuration.Seed);
