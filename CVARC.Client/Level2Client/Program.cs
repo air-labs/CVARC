@@ -13,7 +13,7 @@ namespace Level2Client
                 BotName = Bots.Azura,
                 Side = Side.Left,
                 LevelName = LevelName.Level2,
-                MapNumber = 5
+                MapNumber = 4
             };
 
         private static void Main(string[] args)

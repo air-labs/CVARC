@@ -68,7 +68,6 @@
     <Compile Include="IO\Serialization\ISerializer.cs" />
     <Compile Include="Core\Participants\Participant.cs" />
     <Compile Include="Controllers\Command.cs" />
-    <Compile Include="Controllers\OBSOLETE NetworkController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Robot.cs" />
     <Compile Include="Scores.cs" />
