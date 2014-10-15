@@ -18,5 +18,6 @@ namespace CVARC.V2
         event Action Exit;
         IRunMode RunMode { get; }
         Logger Logger { get; }
+        IEnumerable<string> ControllersId { get; }
     }
 }

@@ -67,10 +67,18 @@ namespace RepairTheStarship
             }
         }
 
-        protected override IEnumerable<IActor> CreateActors()
+        public override IEnumerable<string> ControllersId
         {
-            yield return new Level1Robot(TwoPlayersId.Left);
-            yield return new Level1Robot(TwoPlayersId.Right);
+            get
+            {
+                yield return TwoPlayersId.Left;
+                yield return TwoPlayersId.Right;
+            }
+        }
+
+        public override IActor CreateActor(string controllerId)
+        {
+            return new Level1Robot(controllerId);
         }
 
         public double LinearVelocityLimit

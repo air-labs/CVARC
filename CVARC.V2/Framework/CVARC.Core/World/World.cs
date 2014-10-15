@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,10 @@ namespace CVARC.V2
         public WorldClocks Clocks { get; private set; }
         public Scores Scores { get; private set; }
         public Logger Logger { get; private set; }
-        protected abstract IEnumerable<IActor> CreateActors();
         public IRunMode RunMode { get; private set; }
+
+        public abstract IEnumerable<string> ControllersId { get; }
+        public abstract IActor CreateActor(string controllerId);
 
         public void OnExit()
         {
@@ -65,22 +68,19 @@ namespace CVARC.V2
 
 
             //Initializing actors
-            actors = CreateActors().ToList();
-            foreach (var e in actors)
+            actors = new List<IActor>();
+            foreach(var id in ControllersId)
             {
+                var e=CreateActor(id);
                 var actorObjectId = IdGenerator.CreateNewId(e);
                 var manager = competitions.Manager.CreateActorManagerFor(e);
                 e.Initialize(manager, this, actorObjectId);
                 manager.Initialize(e);
                 manager.CreateActorBody();
-            }
-
-
-            foreach (var e in actors.OfType<IActor>())
-            {
                 var controller = environment.GetController(e.ControllerId);
                 controller.Initialize(e);
                 Clocks.AddTrigger(new ControlTrigger(controller, e));
+                actors.Add(e);
             }
         }
 
