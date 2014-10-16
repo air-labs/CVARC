@@ -16,9 +16,6 @@ namespace CVARC.V2
         public LoadingData LoadingData { get; set; }
         [DataMember]
         public Settings Settings { get; set; }
-        [DataMember]
-        public RunModes Mode { get; set; }
-        
         
     }
 

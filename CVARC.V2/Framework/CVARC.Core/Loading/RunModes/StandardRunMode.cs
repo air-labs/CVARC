@@ -10,15 +10,11 @@ namespace CVARC.V2
         public Competitions Competitions { get; private set; }
         public Configuration Configuration { get; private set; }
         public double TimeLimit { get; private set; }
-    
-        public virtual void InitializeCompetitions(Competitions competitions)
+
+        public virtual void Initialize(Configuration configuration, Competitions competitions)
         {
             this.Competitions = competitions;
-        }
-
-        public void CheckArguments(Configuration arguments)
-        {
-            this.Configuration = arguments;
+            this.Configuration = configuration;
         }
 
         public abstract IController GetController(string controllerId);

@@ -103,7 +103,7 @@
     <Compile Include="Engine\IWorldManager.cs" />
     <Compile Include="Engine\WorldManager.cs" />
     <Compile Include="Loading\Competitions\Competitions.cs" />
-    <Compile Include="Loading\Configuration\CommandLineConfigurationPull.cs" />
+    <Compile Include="Loading\Configuration\ConfigurationProposal.cs" />
     <Compile Include="Loading\Configuration\IConfigurationPull.cs" />
     <Compile Include="Loading\Configuration\LoadingData.cs" />
     <Compile Include="Loading\Configuration\Settings.cs" />
@@ -112,6 +112,7 @@
     <Compile Include="Loading\Competitions\ManagerPart.cs" />
     <Compile Include="Loading\Configuration\CommandLineData.cs" />
     <Compile Include="Loading\Configuration\Configuration.cs" />
+    <Compile Include="Loading\Configuration\SettingsProposal.cs" />
     <Compile Include="Loading\Loader.cs" />
     <Compile Include="Loading\RunModes\BotDemoRunMode.cs" />
     <Compile Include="Loading\RunModes\DebugRunMode.cs" />

@@ -18,7 +18,7 @@ namespace CVARC.V2
             client = new CvarcTcpClient(tcpClient);
         }
 
-        public TSensorData Configurate(Configuration configuration)
+        public TSensorData Configurate(ConfigurationProposal configuration)
         {
             client.SerializeAndSend(configuration);
             return client.ReadObject<TSensorData>();

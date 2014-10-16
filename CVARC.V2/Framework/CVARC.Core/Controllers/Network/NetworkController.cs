@@ -12,18 +12,17 @@ namespace CVARC.V2
     {
         CvarcTcpClient client;
 
-        public NetworkController(CvarcTcpClient client, double operationalLimitInSeconds)
+        public double OperationalTimeLimit;
+        double OperationalTime;
+
+        public NetworkController(CvarcTcpClient client)
         {
             this.client = client;
-            if (double.IsPositiveInfinity(operationalLimitInSeconds))
-                operationalLimit = int.MaxValue;
-            else
-                operationalLimit = (int)(operationalLimitInSeconds*1000);
         }
 
-        public Configuration ReadConfiguration()
+        public ConfigurationProposal ReadConfiguration()
         {
-            return client.ReadObject<Configuration>();    
+            return client.ReadObject<ConfigurationProposal>();    
         }
 
         public void Initialize(IActor controllableActor)
@@ -32,8 +31,6 @@ namespace CVARC.V2
         }
 
         object sensorData;
-        int operationalTime = 0;
-        int operationalLimit;
         bool active = true;
 
         Tuple<ICommand, Exception> GetCommandInternally(Type commandType)
@@ -58,14 +55,14 @@ namespace CVARC.V2
 
             var async = @delegate.BeginInvoke(commandType, null, null);
 
-            while (operationalTime < operationalLimit)
+            while (OperationalTime < OperationalTimeLimit)
             {
                 if (async.IsCompleted) break;
-                operationalTime++;
+                OperationalTime += 0.001;
                 Thread.Sleep(1);
             }
 
-            if (operationalTime < operationalLimit)
+            if (OperationalTime < OperationalTimeLimit)
             {
                 var result = @delegate.EndInvoke(async);
                 if (result.Item2 != null) return null;

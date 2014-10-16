@@ -17,7 +17,8 @@ namespace CVARC.V2
         [STAThread]
         public static void Main(string[] args)
         {
-            var world = Competitions.Create(args);
+            var loader = new Loader();
+            var world = loader.Load(args);
             var form = new KroRForm(world);
             Application.Run(form);
         }

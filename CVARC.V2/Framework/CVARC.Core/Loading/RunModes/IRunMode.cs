@@ -8,8 +8,7 @@ namespace CVARC.V2
 {
     public interface IRunMode
     {
-        void CheckArguments(Configuration arguments);
-        void InitializeCompetitions(Competitions competitions);
+        void Initialize(Configuration configuration, Competitions competitions);
         IController GetController(string controllerId);
         Configuration Configuration { get; }
         Competitions Competitions { get; }
@@ -20,7 +19,7 @@ namespace CVARC.V2
     {
         public static ControllerSettings GetControllerConfigFor(this IRunMode mode, string controllerId)
         {
-            var record = mode.Configuration.Controllers.Where(z => z.ControllerId == controllerId).FirstOrDefault();
+            var record = mode.Configuration.Settings.Controllers.Where(z => z.ControllerId == controllerId).FirstOrDefault();
             if (record == null) 
                 throw new Exception(string.Format("The controller '{0}' is not specified by the configuration", controllerId));
             return record;

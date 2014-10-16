@@ -13,14 +13,18 @@ namespace RepairTheStarship
         public RTSLogicPart()
             : base(
                 new RTSWorld(),
-                ()=>new RTSKeyboardControllerPool(),
-                90)
+                () => new RTSKeyboardControllerPool())
         {
             Bots[RepairTheStarshipBots.Azura.ToString()] = () => new Azura();
             Bots[RepairTheStarshipBots.Vaermina.ToString()] = () => new Vaermina();
             Bots[RepairTheStarshipBots.MolagBal.ToString()] = () => new MolagBal();
             Bots[RepairTheStarshipBots.Sanguine.ToString()] = () => new Sanguine();
-        
+
+        }
+
+        public override Settings GetDefaultSettings()
+        {
+            return new Settings { OperationalTimeLimit = 1, TimeLimit = 90 };
         }
     }
 }

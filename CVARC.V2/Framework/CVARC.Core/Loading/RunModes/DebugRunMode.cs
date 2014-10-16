@@ -9,21 +9,27 @@ namespace CVARC.V2
     {
         int givenControllers = 0;
         NetworkController controller;
+        ConfigurationProposal proposal;
 
-        public void CheckArguments(Configuration arguments)
+
+        public DebugRunMode(int portNumber)
         {
-            var tcpServer = new System.Net.Sockets.TcpListener(arguments.Port);
+            var tcpServer = new System.Net.Sockets.TcpListener(portNumber);
             tcpServer.Start();
             var client = tcpServer.AcceptTcpClient();
             var grobo = new CvarcTcpClient(client);
-            controller = new NetworkController(grobo, arguments.OperationalTimeLimit);
-            arguments.Pull(controller.ReadConfiguration(), RunModes.Debug);
-            Configuration = arguments;
+            controller = new NetworkController(grobo);
+            proposal = controller.ReadConfiguration();
         }
 
-        public void InitializeCompetitions(Competitions competitions)
+        public ConfigurationProposal GetConfigurationProposal()
         {
-            Competitions = competitions;   
+            return proposal;
+        }
+
+        public void Initialize(Configuration configuration, Competitions competitions)
+        {
+            controller.OperationalTimeLimit = configuration.Settings.OperationalTimeLimit;
         }
 
         public IController GetController(string controllerId)
@@ -33,6 +39,7 @@ namespace CVARC.V2
                 return this.GetBotFor(record);
             if (givenControllers != 0)
                 throw new Exception("Only one network controller can be assigned in this mode");
+            givenControllers++;
             return controller;
         }
 

@@ -15,16 +15,17 @@ namespace RepairTheStarship
 
         public TSensorData Configurate(bool isOnLeftSide, RepairTheStarshipBots bot)
         {
-            var configuration = new Configuration();
-            configuration.Assembly = "RepairTheStarship";
-            configuration.Level = LevelName;
-            configuration.Controllers.Add(new ControllerSettings
+            var configuration = new ConfigurationProposal();
+            configuration.LoadingData.AssemblyName = "RepairTheStarship";
+            configuration.LoadingData.Level = LevelName;
+            configuration.SettingsProposal.Controllers = new List<ControllerSettings>();
+            configuration.SettingsProposal.Controllers.Add(new ControllerSettings
             {
                 ControllerId = isOnLeftSide ? TwoPlayersId.Left : TwoPlayersId.Right,
                 Name = "This",
                 Type = ControllerType.Client
             });
-            configuration.Controllers.Add(new ControllerSettings
+            configuration.SettingsProposal.Controllers.Add(new ControllerSettings
             {
                 ControllerId = isOnLeftSide ? TwoPlayersId.Right : TwoPlayersId.Left,
                 Name = bot.ToString(),

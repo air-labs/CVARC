@@ -11,8 +11,8 @@ namespace CVARC.V2
     public class LoadingData
     {
         [DataMember]
-        public string AssemblyName { get; private set; }
+        public string AssemblyName { get; set; }
         [DataMember]
-        public string Level { get; private set; }
+        public string Level { get; set; }
     }
 }

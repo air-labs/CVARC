@@ -31,11 +31,10 @@ namespace CVARC.V2
     public class Settings
     {
         [DataMember] public int Seed { get; set; }
-        [DataMember] public double? TimeLimit { get; set; }
+        [DataMember] public double TimeLimit { get; set; }
         [DataMember] public bool EnableLog { get; set; }
         [DataMember] public string LogFile { get; set; }
         [DataMember] public bool SpeedUp { get; set; }
-        [DataMember] public int Port { get; set; }
         [DataMember] public double OperationalTimeLimit { get; set; }
         
         [DataMember]

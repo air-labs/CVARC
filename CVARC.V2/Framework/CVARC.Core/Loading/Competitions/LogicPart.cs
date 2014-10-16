@@ -6,21 +6,20 @@ using CVARC.Basic;
 
 namespace CVARC.V2
 {
-    public class LogicPart
+    public abstract class LogicPart
     {
         public readonly IWorld World;
         public readonly Func<IKeyboardControllerPool> KeyboardControllerPoolFactory;
         public readonly Dictionary<string, Func<IController>> Bots = new Dictionary<string, Func<IController>>();
-        public readonly double TimeLimit;
         public LogicPart(
             IWorld world, 
-            Func<IKeyboardControllerPool> keyboardControllerPoolFactory,
-            double TimeLimit
+            Func<IKeyboardControllerPool> keyboardControllerPoolFactory
             )
         {
             this.World = world;
             this.KeyboardControllerPoolFactory = keyboardControllerPoolFactory;
-            this.TimeLimit = TimeLimit;
         }
+
+        public abstract Settings GetDefaultSettings();
     }
 }

@@ -7,17 +7,19 @@ namespace CVARC.V2
 {
     public class LogPlayRunMode : IRunMode
     {
-        Log log;
 
-        public void CheckArguments(Configuration arguments)
+        Log log;
+        Configuration configuration;
+
+        public LogPlayRunMode(Log log)
         {
-            log = Log.Load(arguments.LogFile);
-            arguments.Pull(log.Configuration, RunModes.Play);
-            Configuration = arguments;
+            this.log = log;
         }
 
-        public void InitializeCompetitions(Competitions competitions)
+
+        public void Initialize(Configuration configuration, Competitions competitions)
         {
+            Configuration = configuration;
             Competitions = competitions;   
         }
 

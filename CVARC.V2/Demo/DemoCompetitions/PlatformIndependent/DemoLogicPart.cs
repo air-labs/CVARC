@@ -11,12 +11,15 @@ namespace DemoCompetitions
     {
         public DemoLogicPart() : base(
             new DemoWorld(),
-            ()=>new SimpleMovementTwoPlayersKeyboardControllerPool(),
-            double.PositiveInfinity
-            )
+            ()=>new SimpleMovementTwoPlayersKeyboardControllerPool())
         {
             Bots["Square"]=()=>new SquareWalkingBot(50);
             Bots["Random"]=()=>new RandomWalkingBot(50);
+        }
+
+        public override Settings GetDefaultSettings()
+        {
+            return new Settings { OperationalTimeLimit = 5, TimeLimit = double.PositiveInfinity };
         }
     }
 }
