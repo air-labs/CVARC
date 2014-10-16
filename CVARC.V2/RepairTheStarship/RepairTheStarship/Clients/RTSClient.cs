@@ -18,13 +18,13 @@ namespace RepairTheStarship
             var configuration = new Configuration();
             configuration.Assembly = "RepairTheStarship";
             configuration.Level = LevelName;
-            configuration.Controllers.Add(new ControllerConfiguration
+            configuration.Controllers.Add(new ControllerSettings
             {
                 ControllerId = isOnLeftSide ? TwoPlayersId.Left : TwoPlayersId.Right,
                 Name = "This",
                 Type = ControllerType.Client
             });
-            configuration.Controllers.Add(new ControllerConfiguration
+            configuration.Controllers.Add(new ControllerSettings
             {
                 ControllerId = isOnLeftSide ? TwoPlayersId.Right : TwoPlayersId.Left,
                 Name = bot.ToString(),

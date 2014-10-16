@@ -18,7 +18,7 @@ namespace CVARC.V2
 
     public static class IRunModeExtensions
     {
-        public static ControllerConfiguration GetControllerConfigFor(this IRunMode mode, string controllerId)
+        public static ControllerSettings GetControllerConfigFor(this IRunMode mode, string controllerId)
         {
             var record = mode.Configuration.Controllers.Where(z => z.ControllerId == controllerId).FirstOrDefault();
             if (record == null) 
@@ -26,7 +26,7 @@ namespace CVARC.V2
             return record;
         }
 
-        public static IController GetBotFor(this IRunMode m, ControllerConfiguration record)
+        public static IController GetBotFor(this IRunMode m, ControllerSettings record)
         {
             if (!m.Competitions.Logic.Bots.ContainsKey(record.Name))
                 throw new Exception(string.Format("The bot '{0}' specified for controller '{1}' is not defined", record.Name, record.ControllerId));

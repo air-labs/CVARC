@@ -5,12 +5,8 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    [Serializable]
-    public enum RunModes
+    public class Loader
     {
-        Tutorial,
-        BotDemo,
-        Play,
-        Debug
+
     }
 }
