@@ -10,6 +10,7 @@ using System.Text;
 namespace CVARC.V2
 {
     [DataContract]
+    [Serializable]
     public class SettingsProposal
     {
         [DataMember]
@@ -28,41 +29,56 @@ namespace CVARC.V2
         [DataMember]
         public List<ControllerSettings> Controllers { get; set; }
 
-
-
-        public void Parse<T>(
-            CommandLineData data,
-            Expression<Func<SettingsProposal, T>> propertyLambda, 
-            Func<string, T> parser, 
-            string exceptionMessage)
+        class Parser
         {
-            var property = (propertyLambda.Body as MemberExpression).Member as PropertyInfo;
-            var propertyName = property.Name;
-            if (!data.Named.ContainsKey(propertyName)) return;
-            T arg;
-            try
+           public CommandLineData data;
+           public SettingsProposal proposal;
+           public List<string> unusedKeys;
+
+            public void Parse<T>(Expression<Func<SettingsProposal, T>> propertyLambda,
+            Func<string, T> parser,
+            string exceptionMessage)
             {
-                arg = parser(data.Named[propertyName]);
+                var property = (propertyLambda.Body as MemberExpression).Member as PropertyInfo;
+                var propertyName = property.Name;
+                if (!data.Named.ContainsKey(propertyName)) return;
+                T arg;
+                try
+                {
+                    arg = parser(data.Named[propertyName]);
+                }
+                catch
+                {
+                    throw new Exception(exceptionMessage);
+                }
+                property.SetValue(proposal, arg, new object[0]);
+                unusedKeys.Remove(propertyName);
             }
-            catch
-            {
-                throw new Exception(exceptionMessage);
-            }
-            property.SetValue(this, arg, new object[0]);
         }
 
 
         public static SettingsProposal FromCommandLineData(CommandLineData data)
         {
-            var proposal = new SettingsProposal();
-            proposal.Parse(data, z => z.EnableLog, s => true, "");
-            proposal.Parse(data, z => z.LogFile, s => s, "");
-            proposal.Parse(data, z => z.OperationalTimeLimit, s => double.Parse(s, CultureInfo.InvariantCulture), "OperationalTimeLimit must be floating point number");
-            proposal.Parse(data, z => z.Seed, s => int.Parse(s), "Seed must be integer number");
-            proposal.Parse(data, z => z.SpeedUp, s => true, "");
-            proposal.Parse(data, z => z.TimeLimit, s => double.Parse(s, CultureInfo.InvariantCulture), "TimeLimit must be floating point number");
+             var ControllerPrefix = "Controller.";
 
-            var ControllerPrefix = "Controller.";
+            var proposal = new SettingsProposal();
+            var parser = new Parser
+            {
+                data = data,
+                proposal = proposal,
+                unusedKeys = data.Named.Keys.Where(z => !z.StartsWith(ControllerPrefix)).ToList()
+            };
+            parser.Parse(z => z.EnableLog, s => s!="false", "");
+            parser.Parse(z => z.LogFile, s => s, "");
+            parser.Parse(z => z.OperationalTimeLimit, s => double.Parse(s, CultureInfo.InvariantCulture), "OperationalTimeLimit must be floating point number");
+            parser.Parse(z => z.Seed, s => int.Parse(s), "Seed must be integer number");
+            parser.Parse(z => z.SpeedUp, s => s!="false", "");
+            parser.Parse(z => z.TimeLimit, s => double.Parse(s, CultureInfo.InvariantCulture), "TimeLimit must be floating point number");
+
+            if (parser.unusedKeys.Any())
+            {
+                throw new Exception("The key '"+parser.unusedKeys[0]+"' is unknown");
+                }
 
             if (!data.Named.Keys.Any(s => s.StartsWith(ControllerPrefix))) return proposal;
             
@@ -92,11 +108,13 @@ namespace CVARC.V2
         public void Push(Settings settings, bool pushAllFields, params Expression<Func<Settings,object>>[] fieldsToPush)
         {
             PropertyInfo[] props;
-            if (!pushAllFields)
+            if (pushAllFields)
                 props = typeof(Settings).GetProperties();
             else
                 props = fieldsToPush
                     .Select(z => z.Body)
+                    .Cast<UnaryExpression>()
+                    .Select(z=>z.Operand)
                     .Cast<MemberExpression>()
                     .Select(z => z.Member)
                     .Cast<PropertyInfo>()
@@ -106,9 +124,7 @@ namespace CVARC.V2
                 var p1 = typeof(SettingsProposal).GetProperty(p.Name);
                 if (p1 == null) throw new Exception("Property " + p.Name + " is defined in Settings but not in SettingsProposal");
                 var value = p1.GetValue(this, new object[0]);
-                var flag = (bool)value.GetType().GetProperty("HasValue").GetValue(value, new object[0]);
-                if (!flag) continue;
-                value = value.GetType().GetProperty("Value").GetValue(value, new object[0]);
+                if (value == null) continue;
                 p.SetValue(settings, value, new object[0]);
             }
         }

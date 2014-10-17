@@ -36,12 +36,15 @@ namespace CVARC.V2
         void world_Exit()
         {
             if (!SaveLog) return;
-            string filename=null;
-            for (int i = 0; ; i++)
+            string filename=world.RunMode.Configuration.Settings.LogFile;
+            if (filename == null)
             {
-                filename = "log" + i + ".cvarclog";
-                if (!File.Exists(filename))
-                    break;
+                for (int i = 0; ; i++)
+                {
+                    filename = "log" + i + ".cvarclog";
+                    if (!File.Exists(filename))
+                        break;
+                }
             }
             Log.Save(filename);
         }

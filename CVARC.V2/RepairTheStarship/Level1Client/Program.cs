@@ -22,16 +22,16 @@ namespace Level1Example
                     Thread.Sleep(1000);
                     action();
                 }).BeginInvoke(null, null);
-            CVARCProgram.Main(new string[] { "-Debug", "-Port", "14000" });
+            CVARCProgram.Main(new string[] { "Debug", "14000" });
         }
 
         static void Control()
         {
             var client = new Level1Client();
             client.Configurate(true, RepairTheStarshipBots.Azura);
-        //    client.Rotate(-90);
-        //    client.Move(100);
-        //    client.Exit();
+            client.Rotate(-90);
+            client.Move(100);
+            client.Exit();
         }
 
         [STAThread]
