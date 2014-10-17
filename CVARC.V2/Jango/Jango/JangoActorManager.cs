@@ -26,7 +26,7 @@ namespace Jango
 
             var joint = new Ball
             {
-                Radius = 30,
+                Radius = 10,
                 NewId = generator.CreateNewId(Parts.BaseJoint),
                 Location = new Frame3D(0, 0, 0),
                 DefaultColor = Color.Red
@@ -38,8 +38,8 @@ namespace Jango
             {
                 NewId = generator.CreateNewId(Parts.BaseBone),
                 XSize = 100,
-                YSize = 20,
-                ZSize = 20,
+                YSize = 15,
+                ZSize = 15,
                 DefaultColor = Color.Green,
                 Location = new Frame3D(-50, 0, 0)
             };

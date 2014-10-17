@@ -52,6 +52,11 @@ namespace CVARC.V2
             return idToKey[id] is TKey;
         }
 
+        public IEnumerable<string> GetIdFor(object key)
+        {
+            return idToKey.Where(z => z.Value.Equals(key)).Select(z => z.Key);
+        }
+
 
         public IEnumerable<string> GetAllId()
         {

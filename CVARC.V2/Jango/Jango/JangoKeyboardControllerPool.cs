@@ -13,19 +13,21 @@ namespace Jango
     {
         public JangoKeyboardControllerPool()
         {
+            double grad = 0.5;
+            double duration = 1;
             Add(Keys.W, "Robot", ()=>new JangoCommand { 
-                Duration=1, 
-                RequestedAngleDeltas=new Angle[] { Angle.Zero, Angle.FromGrad(10) }});
+                Duration=duration, 
+                RequestedAngleDeltas=new Angle[] { Angle.Zero, Angle.FromGrad(grad) }});
 
             Add(Keys.E, "Robot", ()=>new JangoCommand { 
-                Duration=1, 
-                RequestedAngleDeltas=new Angle[] { Angle.Zero, Angle.FromGrad(-10) }});
+                Duration=duration, 
+                RequestedAngleDeltas=new Angle[] { Angle.Zero, Angle.FromGrad(-grad) }});
 Add(Keys.S, "Robot", ()=>new JangoCommand { 
-                Duration=1, 
-                RequestedAngleDeltas=new Angle[] { Angle.FromGrad(10), Angle.Zero }});
+                Duration=duration, 
+                RequestedAngleDeltas=new Angle[] { Angle.FromGrad(grad), Angle.Zero }});
 Add(Keys.D, "Robot", ()=>new JangoCommand { 
-                Duration=1, 
-                RequestedAngleDeltas=new Angle[] { Angle.FromGrad(-10), Angle.Zero }});
+                Duration=duration, 
+                RequestedAngleDeltas=new Angle[] { Angle.FromGrad(-grad), Angle.Zero }});
         
             StopCommandFactory=()=>new JangoCommand { Duration=1, RequestedAngleDeltas=new Angle[] { Angle.Zero,Angle.Zero}};
         }
