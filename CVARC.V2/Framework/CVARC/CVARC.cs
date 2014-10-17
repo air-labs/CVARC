@@ -21,6 +21,7 @@ namespace CVARC.V2
 
             loader.AddLevel("RepairTheStarship", "Level1", () => new RepairTheStarship.KroR.Level1());
             loader.AddLevel("Demo", "Level1", () => new DemoCompetitions.KroR.Level1());
+            loader.AddLevel("Jango", "Level1", () => new Jango.Level1());
 
             var world = loader.Load(args);
             var form = new KroRForm(world);

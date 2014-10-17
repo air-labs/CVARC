@@ -62,6 +62,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Legacy", "Legacy", "{05AE76
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Level1Client", "CVARC.V2\RepairTheStarship\Level1Client\Level1Client.csproj", "{C0294814-98C4-4FAD-B947-15822961684E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jango", "Jango", "{A2E47305-555E-4560-B45C-331CF55A1A52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jango", "CVARC.V2\Jango\Jango\Jango.csproj", "{A96171F0-225C-44A0-AF58-3E03268AAE79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -292,6 +296,16 @@ Global
 		{C0294814-98C4-4FAD-B947-15822961684E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C0294814-98C4-4FAD-B947-15822961684E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C0294814-98C4-4FAD-B947-15822961684E}.Release|x86.ActiveCfg = Release|Any CPU
+		{A96171F0-225C-44A0-AF58-3E03268AAE79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A96171F0-225C-44A0-AF58-3E03268AAE79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A96171F0-225C-44A0-AF58-3E03268AAE79}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A96171F0-225C-44A0-AF58-3E03268AAE79}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A96171F0-225C-44A0-AF58-3E03268AAE79}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A96171F0-225C-44A0-AF58-3E03268AAE79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A96171F0-225C-44A0-AF58-3E03268AAE79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A96171F0-225C-44A0-AF58-3E03268AAE79}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A96171F0-225C-44A0-AF58-3E03268AAE79}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A96171F0-225C-44A0-AF58-3E03268AAE79}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -322,5 +336,6 @@ Global
 		{11B6A7C1-E6AA-4F81-9710-EC84069CA858} = {4D4F32D0-FD69-48E4-8764-1589D8CA80AA}
 		{748DB258-2D25-42A4-AF68-F852DA397324} = {4D4F32D0-FD69-48E4-8764-1589D8CA80AA}
 		{C0294814-98C4-4FAD-B947-15822961684E} = {4D4F32D0-FD69-48E4-8764-1589D8CA80AA}
+		{A96171F0-225C-44A0-AF58-3E03268AAE79} = {A2E47305-555E-4560-B45C-331CF55A1A52}
 	EndGlobalSection
 EndGlobal

@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{16FA1ED5-6AE6-4347-91EE-C52E7F22BBC9}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{A96171F0-225C-44A0-AF58-3E03268AAE79}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Client</RootNamespace>
-    <AssemblyName>Client</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>Jango</RootNamespace>
+    <AssemblyName>Jango</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,8 +31,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,29 +41,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="JangoActorManager.cs" />
+    <Compile Include="JangoCommand.cs" />
+    <Compile Include="JangoKeyboardControllerPool.cs" />
+    <Compile Include="JangoRobot.cs" />
+    <Compile Include="JangoWorld.cs" />
+    <Compile Include="JangoWorldManager.cs" />
+    <Compile Include="Level1.cs" />
+    <Compile Include="Level1LogicPart.cs" />
+    <Compile Include="Level1ManagerPart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CVARC.Engine\AIRLabs\AIRLabs.csproj">
-      <Project>{B1953D7F-0F62-400D-A77A-FF1CE4474A41}</Project>
-      <Name>AIRLabs</Name>
+    <ProjectReference Include="..\..\Framework\CVARC.Core\CVARC.Core.csproj">
+      <Project>{f7b5021f-09e8-4388-97a2-4b44b9770d03}</Project>
+      <Name>CVARC.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Engine\CVARC\CVARC.csproj">
-      <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
-      <Name>CVARC %28Legacy\CVARC.Engine\CVARC%29</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Server\RepairTheStarship.Common\RepairTheStarship.Common.csproj">
-      <Project>{6B20B01B-360B-410C-95F3-0AC88E907281}</Project>
-      <Name>RepairTheStarship.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\CVARC.Server\RepairTheStarship\RepairTheStarship.csproj">
-      <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
-      <Name>RepairTheStarship %28Legacy\CVARC.Server\RepairTheStarship%29</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ClientBase\ClientBase.csproj">
-      <Project>{5177F2A5-6BA0-4EB6-91DA-5C4CAB84DCF8}</Project>
-      <Name>ClientBase</Name>
+    <ProjectReference Include="..\..\Framework\CVARC.Engine.KR\CVARC.KroR.csproj">
+      <Project>{1c435b15-949f-420b-b5d5-f433439fb69c}</Project>
+      <Name>CVARC.KroR</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

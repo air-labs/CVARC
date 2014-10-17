@@ -77,6 +77,10 @@
       <Project>{ce636d44-57a4-48fa-a178-88ca2c3e9dd4}</Project>
       <Name>DemoCompetitions.General</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Jango\Jango\Jango.csproj">
+      <Project>{a96171f0-225c-44a0-af58-3e03268aae79}</Project>
+      <Name>Jango %28Jango\Jango%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\RepairTheStarship\RepairTheStarship.KroR\RepairTheStarship.KroR.csproj">
       <Project>{748db258-2d25-42a4-af68-f852da397324}</Project>
       <Name>RepairTheStarship.KroR</Name>
