@@ -32,7 +32,7 @@ namespace CVARC.V2
             Root = new Body();
             Root.ChildAdded += Root_ChildAdded;
             DrawerFactory = new DrawerFactory(Root);
-            PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
+            PhysicalManager.InitializeEngine(PhysicalEngines.No, Root);
             Logger = new ReplayLogger(Root, 0.1);
         }
 
