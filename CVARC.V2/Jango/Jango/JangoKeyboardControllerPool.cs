@@ -26,6 +26,8 @@ Add(Keys.S, "Robot", ()=>new JangoCommand {
 Add(Keys.D, "Robot", ()=>new JangoCommand { 
                 Duration=1, 
                 RequestedAngleDeltas=new Angle[] { Angle.FromGrad(-10), Angle.Zero }});
+        
+            StopCommandFactory=()=>new JangoCommand { Duration=1, RequestedAngleDeltas=new Angle[] { Angle.Zero,Angle.Zero}};
         }
     }
 }

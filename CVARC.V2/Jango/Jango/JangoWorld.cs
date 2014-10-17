@@ -9,6 +9,12 @@ namespace Jango
 {
     public class JangoWorld : World<object, JangoWorldManager>
     {
+        public override void Initialize(Competitions competitions, IRunMode environment)
+        {
+            base.Initialize(competitions, environment);
+            Scores.Add("Robot", 0, "Initial score");
+        }
+
         public override IEnumerable<string> ControllersId
         {
             get { yield return "Robot"; }
