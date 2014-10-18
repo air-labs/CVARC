@@ -28,15 +28,21 @@ namespace CVARC.V2
             loader.AddLevel("Demo", "Level1", () => new DemoCompetitions.KroR.Level1());
 
             IWorld world;
-            try
+
+            if (false)
             {
+                try
+                {
+                    world = loader.Load(args);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Initialization failed. " + e.Message, "CVARC", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            else
                 world = loader.Load(args);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Initialization failed. " + e.Message, "CVARC", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
             var form = new KroRForm(world);
             Application.Run(form);
         }
