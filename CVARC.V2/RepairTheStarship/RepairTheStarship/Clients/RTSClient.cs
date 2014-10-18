@@ -10,6 +10,7 @@ namespace RepairTheStarship
 {
 
     public abstract class RTSClient<TSensorData> : CvarcClient<TSensorData, SimpleMovementCommand>
+        where TSensorData : class
     {
         public abstract string LevelName { get; }
 

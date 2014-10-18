@@ -8,6 +8,7 @@ using System.Threading;
 namespace CVARC.V2
 {
     public class CvarcClient<TSensorData, TCommand> 
+        where TSensorData : class
     {
         CvarcTcpClient client;
 
@@ -27,7 +28,10 @@ namespace CVARC.V2
         public TSensorData Act(TCommand command)
         {
                 client.SerializeAndSend(command);
-                return client.ReadObject<TSensorData>();
+                var sensorData = client.ReadObject<TSensorData>();
+                if (sensorData == null)
+                    Environment.Exit(0);
+                return sensorData;
         }
     }
 }

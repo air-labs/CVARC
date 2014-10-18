@@ -28,19 +28,22 @@ namespace Level1Example
             }
             else
             {
-                Console.WriteLine("X");
                 action();
             }
         }
 
         static void Control()
         {
-            Console.WriteLine("!");
             var client = new Level1Client();
             client.Configurate(true, RepairTheStarshipBots.Azura);
-            client.Rotate(-90);
-            client.Move(100);
-            Console.WriteLine("!");
+            for (int i = 0; i < 1; i++)
+            {
+                var sensors = client.Rotate(90);
+                Console.WriteLine(sensors.RobotId);
+                sensors = client.Move(50);
+                Console.WriteLine(sensors.RobotId);
+            }
+            client.Exit();
         }
 
         [STAThread]
