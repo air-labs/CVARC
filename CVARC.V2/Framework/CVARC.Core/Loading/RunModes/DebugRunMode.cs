@@ -29,6 +29,8 @@ namespace CVARC.V2
 
         public void Initialize(Configuration configuration, Competitions competitions)
         {
+            this.Configuration = configuration; 
+            this.Competitions = competitions;
             controller.OperationalTimeLimit = configuration.Settings.OperationalTimeLimit;
         }
 

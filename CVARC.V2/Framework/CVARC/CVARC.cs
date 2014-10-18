@@ -23,6 +23,10 @@ namespace CVARC.V2
                 return;
             }
             var loader = new Loader();
+
+            loader.AddLevel("RepairTheStarship", "Level1", () => new RepairTheStarship.KroR.Level1());
+            loader.AddLevel("Demo", "Level1", () => new DemoCompetitions.KroR.Level1());
+
             var world = loader.Load(args);
             var form = new KroRForm(world);
             Application.Run(form);

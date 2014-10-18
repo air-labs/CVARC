@@ -29,9 +29,9 @@ namespace Level1Example
         {
             var client = new Level1Client();
             client.Configurate(true, RepairTheStarshipBots.Azura);
-        //    client.Rotate(-90);
-        //    client.Move(100);
-        //    client.Exit();
+            client.Rotate(-90);
+            client.Move(100);
+            client.Exit();
         }
 
         [STAThread]

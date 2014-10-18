@@ -28,6 +28,7 @@ namespace CVARC.V2
 
 
     [DataContract]
+    [Serializable]
     public class Settings
     {
         [DataMember] public int Seed { get; set; }

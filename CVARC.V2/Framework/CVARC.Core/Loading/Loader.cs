@@ -7,12 +7,22 @@ namespace CVARC.V2
 {
     public class Loader
     {
-        public Competitions GetCompetitions(LoadingData data)
+        public readonly Dictionary<string, Dictionary<string, Func<Competitions>>> Levels = new Dictionary<string, Dictionary<string, Func<Competitions>>>();
+
+        public void AddLevel(string competitions, string level, Func<Competitions> factory)
         {
-            throw new NotImplementedException();
+            if (!Levels.ContainsKey(competitions))
+                Levels[competitions] = new Dictionary<string, Func<Competitions>>();
+            Levels[competitions][level] = factory;
         }
 
-        IWorld CreateWorld(Configuration configuration, IRunMode runMode, Competitions competitions)
+
+        public Competitions GetCompetitions(LoadingData data)
+        {
+            return Levels[data.AssemblyName][data.Level]();
+        }
+
+        public IWorld CreateWorld(Configuration configuration, IRunMode runMode, Competitions competitions)
         {
             runMode.Initialize(configuration, competitions);
             competitions.Logic.World.Initialize(competitions, runMode);
@@ -29,11 +39,13 @@ namespace CVARC.V2
             }
             catch
             {
-                throw new Exception("Could not load file '" + cmdLineData.Unnamed[0] + "')");
+                throw new Exception("Could not load file '" + cmdLineData.Unnamed[0] + "'");
             }
             var configuration = log.Configuration;
             var proposal=SettingsProposal.FromCommandLineData(cmdLineData);
             proposal.Push(configuration.Settings, false, z => z.SpeedUp);
+            configuration.Settings.EnableLog = false;
+            configuration.Settings.LogFile = null;
             var mode = new LogPlayRunMode(log);
             var competitions = GetCompetitions(configuration.LoadingData);
             return CreateWorld(configuration, mode, competitions);
@@ -76,7 +88,15 @@ namespace CVARC.V2
             var loadingData = new LoadingData();
             loadingData.AssemblyName = cmdLineData.Unnamed[0];
             loadingData.Level = cmdLineData.Unnamed[1];
-            var modeType = (RunModes)Enum.Parse(typeof(RunModes), cmdLineData.Unnamed[2]);
+            RunModes modeType;
+            try
+            {
+                modeType = (RunModes)Enum.Parse(typeof(RunModes), cmdLineData.Unnamed[2]);
+            }
+            catch
+            {
+                throw new Exception("The mode '" + cmdLineData.Unnamed[2] + "' is unknown");
+            }
             var mode = RunModeFactory.Create(modeType);
             var proposal = SettingsProposal.FromCommandLineData(cmdLineData);
             return LoadNonLogFile(mode, loadingData, proposal);
