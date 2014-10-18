@@ -10,6 +10,9 @@ bin
 CVARC.V2/Binaries/*.pdb
 CVARC.V2/Binaries/*.dll
 CVARC.V2/Binaries/*.exe
+CVARC.V2/Binaries/*.manifest
+CVARC.V2/Binaries/*.config
+
 CVARC.V2/Binaries/Solutions/A/*.pdb
 CVARC.V2/Binaries/Solutions/A/*.dll
 CVARC.V2/Binaries/Solutions/A/*.exe

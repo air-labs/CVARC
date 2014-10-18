@@ -84,10 +84,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy *.exe ..\..\..\..\Binaries\Solutions\B\
-xcopy *.dll ..\..\..\..\Binaries\Solutions\B\
-xcopy *.exe ..\..\..\..\Binaries\Solutions\A\
-xcopy *.dll ..\..\..\..\Binaries\Solutions\A\
+    <PostBuildEvent>xcopy *.exe ..\..\..\..\Binaries\Solutions\B\ /y
+xcopy *.dll ..\..\..\..\Binaries\Solutions\B\ /y
+xcopy *.exe ..\..\..\..\Binaries\Solutions\A\ /y
+xcopy *.dll ..\..\..\..\Binaries\Solutions\A\ /y
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
