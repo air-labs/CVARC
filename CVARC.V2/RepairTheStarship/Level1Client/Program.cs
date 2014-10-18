@@ -22,7 +22,7 @@ namespace Level1Example
                     Thread.Sleep(1000);
                     action();
                 }).BeginInvoke(null, null);
-            CVARCProgram.Main(new string[] { "-Debug", "-Port", "14000" });
+            CVARCProgram.Main(new string[] { "Debug", "14000" });
         }
 
         static void Control()

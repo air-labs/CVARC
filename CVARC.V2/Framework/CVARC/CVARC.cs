@@ -17,6 +17,11 @@ namespace CVARC.V2
         [STAThread]
         public static void Main(string[] args)
         {
+            if (args.Length == 0)
+            {
+                MessageBox.Show(Loader.Help, "CVARC", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             var loader = new Loader();
             var world = loader.Load(args);
             var form = new KroRForm(world);
