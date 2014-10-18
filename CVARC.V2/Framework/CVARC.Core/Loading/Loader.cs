@@ -118,28 +118,7 @@ namespace CVARC.V2
         }
 
         public static string Help = @"
-Call with the command line parameters:
-CVARC [Competitions] [Level] [Mode] -key1 value1 -key2 value2 ...
-or, to play logs:
-CVARC [filename] -key1 -value1
-or, to set up the network server:
-CVARC Debug [PortNumber]
 
-Mode is 'Tutorial' or 'BotDemo'
-
-Keys are:
--EnableLog
--LogFileName [filename]
--Seed [number] to set up random seed for map's generation
--TimeLimit [time in seconds] to limit the time of the round
--OperationalTimeLimit [time in seconds] to limit the time the client works
--SpeedUp to make the simulation faster
--Controller.[ControllerId] [Bot|Client].[Name] sets the controller for robot ControllerId to bot or remote client with the specified name
-
-Examples:
-CVARC RepairTheStarship Level1 Tutorial 
-CVARC RepairTheStarship Level1 BotDemo -Controller.Left Bot.Azura -Controller.Right Bot.Sanguine
-CVARC Debug 14000 
 ";
 
 

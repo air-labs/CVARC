@@ -25,6 +25,10 @@ namespace CVARC.V2
         public bool? SpeedUp { get;  set; }
         [DataMember]
         public double? OperationalTimeLimit { get; set; }
+        [DataMember]
+        public int? Port { get; set; }
+        [DataMember]
+        public string SolutionsFolder { get; set; }
 
         [DataMember]
         public List<ControllerSettings> Controllers { get; set; }
