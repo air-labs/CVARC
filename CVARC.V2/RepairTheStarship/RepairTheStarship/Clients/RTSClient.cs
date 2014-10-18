@@ -12,6 +12,11 @@ namespace RepairTheStarship
     public abstract class RTSClient<TSensorData> : CvarcClient<TSensorData, SimpleMovementCommand>
         where TSensorData : class
     {
+        public RTSClient(bool runServer) : base(runServer, 14000)
+        {
+            
+        }
+
         public abstract string LevelName { get; }
 
         public TSensorData Configurate(bool isOnLeftSide, RepairTheStarshipBots bot)

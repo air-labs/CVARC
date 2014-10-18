@@ -15,26 +15,30 @@ namespace Level1Example
 {
     class Program
     {
-        static void DebugRun(string[] args, Action action)
+        //For debugging the CVARC framework. Do not use.
+        static void DebugMain(string[] args)
         {
             if (args.Length == 0)
             {
                 new Action(() =>
                 {
                     Thread.Sleep(1000);
-                    action();
+                    Control(false);
                 }).BeginInvoke(null, null);
                 CVARCProgram.Main(new string[] { "Debug", "14000" });
             }
             else
             {
-                action();
+                Control(false);
             }
+
         }
 
-        static void Control()
+
+
+        static void Control(bool runServer)
         {
-            var client = new Level1Client();
+            var client = new Level1Client(runServer);
             client.Configurate(true, RepairTheStarshipBots.Azura);
             for (int i = 0; i < 10; i++)
             {
@@ -49,7 +53,7 @@ namespace Level1Example
         [STAThread]
         public static void Main(string[] args)
         {
-            DebugRun(args,Control);
+            Control(args.Length == 0);
         }
     }
 }
