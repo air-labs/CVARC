@@ -5,12 +5,11 @@ using System.Text;
 using AIRLab.Mathematics;
 using CVARC.V2;
 using CVARC.V2.SimpleMovement;
-using RepairTheStarship.Robot;
 
 namespace RepairTheStarship
 {
-    public class RTSWorld : World<SceneSettings,IRTSWorldManager>, ISimpleMovementWorld
-    {
+    public abstract class RTSWorld : World<SceneSettings,IRTSWorldManager>, ISimpleMovementWorld
+     {
         Dictionary<DetailColor, int> repairs = new Dictionary<DetailColor, int>();
 
         public override SceneSettings CreateSceneState(int seed)
@@ -83,15 +82,20 @@ namespace RepairTheStarship
             }
         }
 
-        public override IActor CreateActor(string controllerId)
-        {
-            return new Level1Robot();
-        }
-
         public static SimpleMovementCommandHelper StaticCommandHelper = new SimpleMovementCommandHelper { LinearVelocityLimit = 50, AngularVelocityLimit = Angle.FromGrad(90) };
         public SimpleMovementCommandHelper CommandHelper
         {
             get { return StaticCommandHelper; } 
+        }
+    }
+
+    public class RTSWorld<TRobot> : RTSWorld
+        where TRobot : IActor,new ()
+    {
+        public override IActor CreateActor(string controllerId)
+        {
+ 	
+            return new TRobot();
         }
     }
 }

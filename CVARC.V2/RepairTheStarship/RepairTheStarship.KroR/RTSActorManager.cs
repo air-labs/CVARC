@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using AIRLab.Mathematics;
 using CVARC.Core;
 using CVARC.V2;
-using RepairTheStarship.Robot;
+
 namespace RepairTheStarship.KroR
 {
     public class RTSActorManager : ActorManager<IRTSRobot>, IRTSActorManager
