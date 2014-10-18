@@ -15,29 +15,38 @@ namespace Level1Example
 {
     class Program
     {
-        static void DebugRun(Action action)
+        static void DebugRun(string[] args, Action action)
         {
-            new Action(() =>
+            if (args.Length == 0)
+            {
+                new Action(() =>
                 {
                     Thread.Sleep(1000);
                     action();
                 }).BeginInvoke(null, null);
-            CVARCProgram.Main(new string[] { "Debug", "14000" });
+                CVARCProgram.Main(new string[] { "Debug", "14000" });
+            }
+            else
+            {
+                Console.WriteLine("X");
+                action();
+            }
         }
 
         static void Control()
         {
+            Console.WriteLine("!");
             var client = new Level1Client();
             client.Configurate(true, RepairTheStarshipBots.Azura);
             client.Rotate(-90);
             client.Move(100);
-            client.Exit();
+            Console.WriteLine("!");
         }
 
         [STAThread]
-        public static void Main()
+        public static void Main(string[] args)
         {
-            DebugRun(Control);
+            DebugRun(args,Control);
         }
     }
 }

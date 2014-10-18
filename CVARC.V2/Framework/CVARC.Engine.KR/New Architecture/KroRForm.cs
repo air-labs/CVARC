@@ -88,9 +88,9 @@ namespace CVARC.V2
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
-            thread.Abort();
             if (!worldExited)
                 world.OnExit();
+            thread.Abort();
         }
 
 

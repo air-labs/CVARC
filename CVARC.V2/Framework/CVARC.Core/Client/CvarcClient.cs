@@ -26,8 +26,8 @@ namespace CVARC.V2
 
         public TSensorData Act(TCommand command)
         {
-            client.SerializeAndSend(command);
-            return client.ReadObject<TSensorData>();
+                client.SerializeAndSend(command);
+                return client.ReadObject<TSensorData>();
         }
     }
 }
