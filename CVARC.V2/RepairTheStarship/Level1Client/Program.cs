@@ -36,7 +36,7 @@ namespace Level1Example
         {
             var client = new Level1Client();
             client.Configurate(true, RepairTheStarshipBots.Azura);
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 10; i++)
             {
                 var sensors = client.Rotate(90);
                 Console.WriteLine(sensors.RobotId);

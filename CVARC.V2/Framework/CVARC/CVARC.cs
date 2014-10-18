@@ -27,7 +27,16 @@ namespace CVARC.V2
             loader.AddLevel("RepairTheStarship", "Level1", () => new RepairTheStarship.KroR.Level1());
             loader.AddLevel("Demo", "Level1", () => new DemoCompetitions.KroR.Level1());
 
-            var world = loader.Load(args);
+            IWorld world;
+            try
+            {
+                world = loader.Load(args);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Initialization failed. " + e.Message, "CVARC", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             var form = new KroRForm(world);
             Application.Run(form);
         }
