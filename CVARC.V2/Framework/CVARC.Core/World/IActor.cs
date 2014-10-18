@@ -11,7 +11,7 @@ namespace CVARC.V2
         Type ExpectedCommandType { get; }
         string ObjectId { get; }
         IWorld World { get; }
-        void Initialize(IActorManager manager, IWorld world, string objectId);
+        void Initialize(IActorManager manager, IWorld world, string objectId, string controllerId);
         string ControllerId { get; }
         void ExecuteCommand(ICommand command);
         object GetSensorData();

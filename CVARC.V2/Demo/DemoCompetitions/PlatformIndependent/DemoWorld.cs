@@ -25,7 +25,7 @@ namespace DemoCompetitions
 
         public override IActor CreateActor(string controllerId)
         {
-            return new DemoRobot(controllerId);
+            return new DemoRobot();
         }
         public override SceneSettings CreateSceneState(int seed)
         {

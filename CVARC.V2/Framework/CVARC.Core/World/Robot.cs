@@ -13,16 +13,13 @@ namespace CVARC.V2
         where TCommand : ICommand
     {
 
-        public Robot(string controlledId)
-        {
-            ControllerId = controlledId;
-        }
+      
 
         SensorPack<TSensorsData> sensors;
 
-        public override void Initialize(IActorManager rules, IWorld world, string actorObjectId)
+        public override void Initialize(IActorManager rules, IWorld world, string actorObjectId, string controllerId)
         {
-            base.Initialize(rules, world, actorObjectId);
+            base.Initialize(rules, world, actorObjectId, controllerId);
             sensors = new SensorPack<TSensorsData>(this);
         }
 

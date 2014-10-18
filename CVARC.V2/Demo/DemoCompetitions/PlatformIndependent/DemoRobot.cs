@@ -9,7 +9,6 @@ namespace DemoCompetitions
 {
     public class DemoRobot : SimpleMovementRobot<IActorManager, DemoWorld, SensorsData>
     {
-        public DemoRobot(string controllerId) : base(controllerId) { }
 
         public override void ProcessCustomCommand(string commandName, out double nextRequestTimeSpan)
         {

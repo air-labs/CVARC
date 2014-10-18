@@ -12,7 +12,6 @@ namespace RepairTheStarship
         where TSensorsData : new()
     {
 
-        public RTSRobot(string controllerName) : base(controllerName) { }
 
         public string GrippedObjectId { get; private set; }
 

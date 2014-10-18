@@ -85,7 +85,7 @@ namespace RepairTheStarship
 
         public override IActor CreateActor(string controllerId)
         {
-            return new Level1Robot(controllerId);
+            return new Level1Robot();
         }
 
         public static SimpleMovementCommandHelper StaticCommandHelper = new SimpleMovementCommandHelper { LinearVelocityLimit = 50, AngularVelocityLimit = Angle.FromGrad(90) };
