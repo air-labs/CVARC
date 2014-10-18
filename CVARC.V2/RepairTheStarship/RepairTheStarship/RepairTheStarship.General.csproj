@@ -68,7 +68,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Robot\IRTSActorManager.cs" />
     <Compile Include="Robot\IRTSRobot.cs" />
-    <Compile Include="Robot\Level1Robot.cs" />
     <Compile Include="Robot\RTSRobot.cs" />
     <Compile Include="RTSLogic.cs" />
     <Compile Include="SceneSettings\DataClasses.cs" />

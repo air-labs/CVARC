@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AIRLab;
 
 namespace CVARC.V2
 {
@@ -50,6 +51,16 @@ namespace CVARC.V2
         {
             if (!idToKey.ContainsKey(id)) throw new ArgumentException("Unrecognized object ID");
             return idToKey[id] is TKey;
+        }
+
+        public IEnumerable<Tuple<object, string>> GetAllPairs()
+        {
+            return idToKey.Select(z => new Tuple<object, string>(z.Value, z.Key));
+        }
+
+        public IEnumerable<Tuple<T, string>> GetAllPairsOfType<T>()
+        {
+            return GetAllPairs().Where(z => z.Item1 is T).Select(z => new Tuple<T, string>((T)z.Item1, z.Item2));
         }
 
 

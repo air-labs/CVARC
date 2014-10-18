@@ -8,11 +8,12 @@ using RepairTheStarship.Bots;
 
 namespace RepairTheStarship
 {
-    public class RTSLogicPart : LogicPart
+    public class RTSLogicPart<TSensorData> : LogicPart
+        where TSensorData : new()
     {
         public RTSLogicPart()
             : base(
-                new RTSWorld(),
+                new RTSWorld<RTSRobot<TSensorData>>(),
                 () => new RTSKeyboardControllerPool())
         {
             Bots[RepairTheStarshipBots.Azura.ToString()] = () => new Azura();
@@ -20,7 +21,6 @@ namespace RepairTheStarship
             Bots[RepairTheStarshipBots.MolagBal.ToString()] = () => new MolagBal();
             Bots[RepairTheStarshipBots.Sanguine.ToString()] = () => new Sanguine();
             Bots[RepairTheStarshipBots.None.ToString()] = () => new StandingBot();
-
         }
 
         public override Settings GetDefaultSettings()

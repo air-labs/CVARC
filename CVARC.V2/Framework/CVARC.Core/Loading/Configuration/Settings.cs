@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using AIRLab.Mathematics;
 
 namespace CVARC.V2
 {
@@ -58,8 +59,12 @@ namespace CVARC.V2
         [DataMember]
         public List<ControllerSettings> Controllers { get; private set; }
 
+        [DataMember]
+        public Frame3D ObserverCameraLocation { get; set; }
+
         public Settings()
         {
+            ObserverCameraLocation = new Frame3D(0, 0, 150, -Angle.HalfPi, Angle.Zero, -Angle.HalfPi);
             Controllers = new List<ControllerSettings>();
             Port = 14000;
             SolutionsFolder = "Solutions";

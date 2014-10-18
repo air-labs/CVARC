@@ -8,112 +8,19 @@ using System.Threading.Tasks;
 using AIRLab.Mathematics;
 using CVARC.Core;
 using CVARC.V2;
-using RepairTheStarship.Robot;
+
 namespace RepairTheStarship.KroR
 {
     public class RTSActorManager : ActorManager<IRTSRobot>, IRTSActorManager
     {
 
+        KroREngine Engine { get { return Actor.World.Engine as KroREngine; } }
 
-        public bool Release()
+        public void Capture(string detailId)
         {
-            var Body = (Actor.World.Engine as KroREngine).GetBody(Actor.ObjectId);
-            var latestGripped = Body.FirstOrDefault(z => Actor.World.IdGenerator.KeyOfType<DetailColor>(z.NewId) );
-            
-            if (latestGripped == null) return false;
-            var grippedColor = Actor.World.IdGenerator.GetKey<DetailColor>(latestGripped.NewId);
+            var box=Engine.GetBody(Actor.ObjectId);
+            var newChild = Engine.GetBody(detailId);
 
-            var absoluteLocation = latestGripped.GetAbsoluteLocation();
-            Body.Remove(latestGripped);
-
-            latestGripped.FrictionCoefficient = frictionCoefficientsById.SafeGet(latestGripped.Id);
-          
-            latestGripped.Location = absoluteLocation;
-            latestGripped.Velocity = Body.Velocity;
-            var toAtt = Body.TreeRoot.GetSubtreeChildrenFirst()
-                            .Where(a => Distance(latestGripped,a)<30)
-                            .Where(a => Actor.World.IdGenerator.KeyOfType<WallData>(a.NewId))
-                            .Where(a => Actor.World.IdGenerator.GetKey<WallData>(a.NewId).Match(grippedColor))
-                            .OfType<Box>()
-                            .FirstOrDefault();
-
-            
-
-            if (toAtt != null)
-            {
-                var oldWallData = Actor.World.IdGenerator.GetKey<WallData>(toAtt.NewId);
-                Body.TreeRoot.Remove(toAtt);
-                var wall = new Box
-                {
-                    XSize = toAtt.XSize,
-                    YSize = toAtt.YSize,
-                    ZSize = toAtt.ZSize,
-                    Location = toAtt.Location,
-                    DefaultColor = RTSWorldManager.DefaultWallColor,
-                    IsStatic = true,
-                    IsMaterial = true,
-                    NewId = Actor.World.IdGenerator.CreateNewId(new WallData { Orientation=oldWallData.Orientation, Type= WallSettings.Wall })
-                };
-                Body.TreeRoot.Add(wall);
-                return true;
-            }
-        
-            Body.TreeRoot.Add(latestGripped);
-            return false;
-        }
-
-
-        public string Grip()
-        {
-            //TODO: тут была какая-то очень сложная логика, проверяющая, что происходит в случае, если тело уже захвачено. 
-            //Сейчас это невозможно, и логику эту я выпилил. Проверить, ничего ли я не упустил
-            var Body = (Actor.World.Engine as KroREngine).GetBody(Actor.ObjectId);
-            var gripped = Body.ToList();
-            if (gripped.Any())
-                throw new Exception("Should not be here. The control to prevent the second gripping is on the logic side");
-
-            var found = Body.TreeRoot.GetSubtreeChildrenFirst().FirstOrDefault(a => CanBeAttached(Body, a) && (a.Parent.NewId == a.TreeRoot.NewId));
-            if (found == null) return null;
-            CaptureDevicet(Body, found);
-            return found.NewId;
-            
-        }
-
-        private bool CanBeAttached(Body to, Body body)
-        {
-            return body != to &&
-                !body.IsStatic &&
-                !to.SubtreeContainsChild(body) &&
-                !to.ParentsContain(body) &&
-                Actor.World.IdGenerator.KeyOfType<DetailColor>(body.NewId) &&
-                Distance(body, to) < 30 && IsDetailAheadRobot(to.Location, body.Location);
-        }
-
-        private bool IsDetailAheadRobot(Frame3D robot, Frame3D detail)
-        {
-            var angle = robot.Yaw.Grad;
-            while (angle < 0)
-                angle += 360;
-            while (angle > 360)
-                angle -= 360;
-            const int angleLatitude = 40;
-            const int detailDistance = 10;
-            var detailAbove = detail.Y > robot.Y && Math.Abs(detail.Y - robot.Y) > detailDistance && angle >= 90 - angleLatitude && angle <= 90 + angleLatitude;
-            var detailBelow = detail.Y < robot.Y && Math.Abs(detail.Y - robot.Y) > detailDistance && angle >= 270 - angleLatitude && angle <= 270 + angleLatitude;
-            var detailLeft = detail.X < robot.X && Math.Abs(detail.X - robot.X) > detailDistance && angle >= 180 - angleLatitude && angle <= 180 + angleLatitude;
-            var detailRight = detail.X > robot.X && Math.Abs(detail.X - robot.X) > detailDistance && ((angle >= 360 - angleLatitude && angle <= 360) || (angle >= 0 && angle <= angleLatitude));
-            return detailAbove || detailBelow || detailLeft || detailRight;
-        }
-
-        private double Distance(Body from, Body to)
-        {
-            return Geometry.Hypot(from.GetAbsoluteLocation() - to.GetAbsoluteLocation());
-        }
-
-        private readonly Dictionary<int, double> frictionCoefficientsById = new Dictionary<int, double>();
-
-        private void CaptureDevicet(Body box, Body newChild)
-        {
             var childAbsolute = newChild.GetAbsoluteLocation();
             if (newChild.Parent != null)
                 newChild.Parent.Remove(newChild);
@@ -126,12 +33,27 @@ namespace RepairTheStarship.KroR
             box.Add(newChild);
         }
 
-        private Stream GetResourceStream(string resourceName)
+        public void Release(string detailId)
         {
-            var assembly = GetType().Assembly;
-            var names = assembly.GetManifestResourceNames();
-            return assembly.GetManifestResourceStream("RepairTheStarship.KroR.Resources." + resourceName);
+            var latestGripped = Engine.GetBody(detailId);
+            var absoluteLocation = latestGripped.GetAbsoluteLocation();
+            var robot = Engine.GetBody(Actor.ObjectId);
+
+            robot.Remove(latestGripped);
+            latestGripped.FrictionCoefficient = frictionCoefficientsById.SafeGet(latestGripped.Id);
+            latestGripped.Location = absoluteLocation;
+            latestGripped.Velocity = new Frame3D(0, 0, 0);
+            Engine.Root.Add(latestGripped);
+            
         }
+
+        public bool IsDetailFree(string detailId)
+        {
+            var detailBody = Engine.GetBody(detailId);
+            return detailBody.Parent == Engine.Root; 
+        }
+
+        private readonly Dictionary<int, double> frictionCoefficientsById = new Dictionary<int, double>();
 
         public override void CreateActorBody()
         {
@@ -175,5 +97,120 @@ namespace RepairTheStarship.KroR
             }
             root.Add(robot);
         }
+
+        private Stream GetResourceStream(string resourceName)
+        {
+            var assembly = GetType().Assembly;
+            var names = assembly.GetManifestResourceNames();
+            return assembly.GetManifestResourceStream("RepairTheStarship.KroR.Resources." + resourceName);
+        }
+
+
+        //public bool Release()
+        //{
+        //    var Body = (Actor.World.Engine as KroREngine).GetBody(Actor.ObjectId);
+        //    var latestGripped = Body.FirstOrDefault(z => Actor.World.IdGenerator.KeyOfType<DetailColor>(z.NewId) );
+            
+        //    if (latestGripped == null) return false;
+        //    var grippedColor = Actor.World.IdGenerator.GetKey<DetailColor>(latestGripped.NewId);
+
+        //    var absoluteLocation = latestGripped.GetAbsoluteLocation();
+        //    Body.Remove(latestGripped);
+
+        //    latestGripped.FrictionCoefficient = frictionCoefficientsById.SafeGet(latestGripped.Id);
+          
+        //    latestGripped.Location = absoluteLocation;
+        //    latestGripped.Velocity = Body.Velocity;
+        //    var toAtt = Body.TreeRoot.GetSubtreeChildrenFirst()
+        //                    .Where(a => Distance(latestGripped,a)<30)
+        //                    .Where(a => Actor.World.IdGenerator.KeyOfType<WallData>(a.NewId))
+        //                    .Where(a => Actor.World.IdGenerator.GetKey<WallData>(a.NewId).Match(grippedColor))
+        //                    .OfType<Box>()
+        //                    .FirstOrDefault();
+
+            
+
+        //    if (toAtt != null)
+        //    {
+        //        var oldWallData = Actor.World.IdGenerator.GetKey<WallData>(toAtt.NewId);
+        //        Body.TreeRoot.Remove(toAtt);
+        //        var wall = new Box
+        //        {
+        //            XSize = toAtt.XSize,
+        //            YSize = toAtt.YSize,
+        //            ZSize = toAtt.ZSize,
+        //            Location = toAtt.Location,
+        //            DefaultColor = RTSWorldManager.DefaultWallColor,
+        //            IsStatic = true,
+        //            IsMaterial = true,
+        //            NewId = Actor.World.IdGenerator.CreateNewId(new WallData { Orientation=oldWallData.Orientation, Type= WallSettings.Wall })
+        //        };
+        //        Body.TreeRoot.Add(wall);
+        //        return true;
+        //    }
+        
+        //    Body.TreeRoot.Add(latestGripped);
+        //    return false;
+        //}
+
+
+        //public string Grip()
+        //{
+        //    //TODO: тут была какая-то очень сложная логика, проверяющая, что происходит в случае, если тело уже захвачено. 
+        //    //Сейчас это невозможно, и логику эту я выпилил. Проверить, ничего ли я не упустил
+        //    var Body = (Actor.World.Engine as KroREngine).GetBody(Actor.ObjectId);
+        //    var gripped = Body.ToList();
+        //    if (gripped.Any())
+        //        throw new Exception("Should not be here. The control to prevent the second gripping is on the logic side");
+
+        //    var found = Body.TreeRoot.GetSubtreeChildrenFirst().FirstOrDefault(a => CanBeAttached(Body, a) && (a.Parent.NewId == a.TreeRoot.NewId));
+        //    if (found == null) return null;
+        //    CaptureDevicet(Body, found);
+        //    return found.NewId;
+            
+        //}
+
+        //private bool CanBeAttached(Body to, Body body)
+        //{
+        //    return body != to &&
+        //        !body.IsStatic &&
+        //        !to.SubtreeContainsChild(body) &&
+        //        !to.ParentsContain(body) &&
+        //        Actor.World.IdGenerator.KeyOfType<DetailColor>(body.NewId) &&
+        //        Distance(body, to) < 30 && IsDetailAheadRobot(to.Location, body.Location);
+        //}
+
+        //private bool IsDetailAheadRobot(Frame3D robot, Frame3D detail)
+        //{
+        //    var angle = robot.Yaw.Grad;
+        //    while (angle < 0)
+        //        angle += 360;
+        //    while (angle > 360)
+        //        angle -= 360;
+        //    const int angleLatitude = 40;
+        //    const int detailDistance = 10;
+        //    var detailAbove = detail.Y > robot.Y && Math.Abs(detail.Y - robot.Y) > detailDistance && angle >= 90 - angleLatitude && angle <= 90 + angleLatitude;
+        //    var detailBelow = detail.Y < robot.Y && Math.Abs(detail.Y - robot.Y) > detailDistance && angle >= 270 - angleLatitude && angle <= 270 + angleLatitude;
+        //    var detailLeft = detail.X < robot.X && Math.Abs(detail.X - robot.X) > detailDistance && angle >= 180 - angleLatitude && angle <= 180 + angleLatitude;
+        //    var detailRight = detail.X > robot.X && Math.Abs(detail.X - robot.X) > detailDistance && ((angle >= 360 - angleLatitude && angle <= 360) || (angle >= 0 && angle <= angleLatitude));
+        //    return detailAbove || detailBelow || detailLeft || detailRight;
+        //}
+
+        //private double Distance(Body from, Body to)
+        //{
+        //    return Geometry.Hypot(from.GetAbsoluteLocation() - to.GetAbsoluteLocation());
+        //}
+
+        //private readonly Dictionary<int, double> frictionCoefficientsById = new Dictionary<int, double>();
+
+        //private void CaptureDevicet(Body box, Body newChild)
+        //{
+
+        //}
+
+
+
+       
+
     }
 }

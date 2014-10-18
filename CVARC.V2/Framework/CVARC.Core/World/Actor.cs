@@ -17,7 +17,7 @@ namespace CVARC.V2
         public string ObjectId { get; private set; }
         public Type ExpectedCommandType { get { return typeof(TCommand); } }
 
-        public virtual void Initialize(IActorManager rules, IWorld world, string actorObjectId)
+        public virtual void Initialize(IActorManager rules, IWorld world, string actorObjectId, string controllerId)
         {
             try
             {
@@ -31,6 +31,7 @@ namespace CVARC.V2
             catch { throw new Exception("The actor " + GetType().Name + " is not designed for world " + world.GetType().Name); }
 
             ObjectId = actorObjectId;
+            ControllerId = controllerId;
         }
 
 
@@ -39,7 +40,7 @@ namespace CVARC.V2
         public string ControllerId
         {
             get;
-            protected set;
+            private set;
         }
 
         void IActor.ExecuteCommand(ICommand command)

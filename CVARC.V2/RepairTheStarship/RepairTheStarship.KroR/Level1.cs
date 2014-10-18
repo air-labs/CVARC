@@ -10,7 +10,7 @@ namespace RepairTheStarship.KroR
     public class Level1 : Competitions
     {
         public Level1()
-            : base(new RTSLogicPart(), new KroREnginePart(), new RTSManagerPart())
+            : base(new RTSLogicPart<Level1SensorData>(), new KroREnginePart(), new RTSManagerPart())
         { }
     }
 }
