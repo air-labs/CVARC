@@ -39,7 +39,15 @@ namespace CVARC.V2
             Controls.Add(scores);
             
             var engine = world.Engine as KroREngine;
-            var control = new DrawerControl(new DirectXFormDrawer(engine.DrawerFactory.GetDirectXScene(), new DrawerSettings { ViewMode = ViewModes.Top }));
+            var control = new DrawerControl(new DirectXFormDrawer(engine.DrawerFactory.GetDirectXScene(), new DrawerSettings
+            {
+                ViewMode = ViewModes.FirstPerson,
+                BodyCameraLocation = world.RunMode.Configuration.Settings.ObserverCameraLocation,
+                Robot = engine.Root
+            }));
+
+
+
             control.Size = new Size(ClientSize.Width,ClientSize.Height-scores.Height);
             control.Location = new Point(0, scores.Height);
             Controls.Add(control);
@@ -88,9 +96,9 @@ namespace CVARC.V2
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
-            thread.Abort();
             if (!worldExited)
                 world.OnExit();
+            thread.Abort();
         }
 
 

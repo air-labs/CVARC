@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 
 namespace CVARC.V2
@@ -10,13 +11,13 @@ namespace CVARC.V2
         int givenControllers = 0;
         NetworkController controller;
         ConfigurationProposal proposal;
-
+        TcpClient client;
 
         public DebugRunMode(int portNumber)
         {
             var tcpServer = new System.Net.Sockets.TcpListener(portNumber);
             tcpServer.Start();
-            var client = tcpServer.AcceptTcpClient();
+            client = tcpServer.AcceptTcpClient();
             var grobo = new CvarcTcpClient(client);
             controller = new NetworkController(grobo);
             proposal = controller.ReadConfiguration();
@@ -32,6 +33,12 @@ namespace CVARC.V2
             this.Configuration = configuration; 
             this.Competitions = competitions;
             controller.OperationalTimeLimit = configuration.Settings.OperationalTimeLimit;
+            competitions.Logic.World.Exit += World_Exit;
+        }
+
+        void World_Exit()
+        {
+            client.Close();
         }
 
         public IController GetController(string controllerId)

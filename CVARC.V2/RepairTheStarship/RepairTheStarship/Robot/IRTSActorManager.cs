@@ -8,7 +8,8 @@ namespace RepairTheStarship
 {
     public interface IRTSActorManager : IActorManager
     {
-        string Grip();
-        bool Release();
+        void Capture(string detailId);
+        void Release(string detailId);
+        bool IsDetailFree(string detailId);
     }
 }

@@ -17,6 +17,33 @@ namespace RepairTheStarship.KroR
         SceneSettings Settings;
         IdGenerator generator;
 
+        public void RemoveDetail(string detailId)
+        {
+            var engine = (Engine as KroREngine);
+            var detailBody = engine.GetBody(detailId);
+            engine.Root.Remove(detailBody);
+        }
+
+        public void ShutTheWall(string wallId)
+        {
+            var engine = (Engine as KroREngine);
+            var wall = engine.GetBody(wallId) as Box;
+            var wallData = World.IdGenerator.GetKey<WallData>(wallId);
+            var newWall = new Box
+            {
+                XSize = wall.XSize,
+                YSize = wall.YSize,
+                ZSize = wall.ZSize,
+                Location = wall.Location,
+                DefaultColor = RTSWorldManager.DefaultWallColor,
+                IsStatic = true,
+                IsMaterial = true,
+                NewId = World.IdGenerator.CreateNewId(new WallData { Orientation = wallData.Orientation, Type = WallSettings.Wall })
+            };
+            engine.Root.Remove(wall);
+            engine.Root.Add(newWall);
+        }
+
         public override void CreateWorld(IdGenerator generator)
         {
             this.generator = generator;
@@ -127,7 +154,8 @@ namespace RepairTheStarship.KroR
                 });
             }
         }
-   
+
+
 
     }
 }

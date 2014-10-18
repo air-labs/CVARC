@@ -116,5 +116,11 @@ namespace CVARC.V2
             else 
                 return LoadNormally(cmdLineData);
         }
+
+        public static string Help = @"
+
+";
+
+
     }
 }

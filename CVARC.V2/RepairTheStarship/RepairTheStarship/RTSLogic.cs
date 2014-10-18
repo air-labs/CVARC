@@ -19,6 +19,7 @@ namespace RepairTheStarship
             Bots[RepairTheStarshipBots.Vaermina.ToString()] = () => new Vaermina();
             Bots[RepairTheStarshipBots.MolagBal.ToString()] = () => new MolagBal();
             Bots[RepairTheStarshipBots.Sanguine.ToString()] = () => new Sanguine();
+            Bots[RepairTheStarshipBots.None.ToString()] = () => new StandingBot();
 
         }
 

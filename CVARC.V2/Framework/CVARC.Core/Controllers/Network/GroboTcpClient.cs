@@ -3,6 +3,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace CVARC.V2
 {
@@ -35,15 +36,19 @@ namespace CVARC.V2
         public byte[] ReadToEnd()
         {
             var str = streamReader.ReadLine();
+            if (str == null) return null;
             return Encoding.UTF8.GetBytes(str);
         }
 
         public object ReadObject(Type type)
         {
-            return Serializer.Deserialize(type, ReadToEnd());
+            var bytes = ReadToEnd();
+            if (bytes == null) return null;
+            return Serializer.Deserialize(type, bytes);
         }
 
         public T ReadObject<T>()
+            where T : class
         {
             return (T)ReadObject(typeof(T));
         }

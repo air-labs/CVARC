@@ -13,6 +13,7 @@ namespace CVARC.V2
             {
                 case RunModes.Tutorial: return new TutorialRunMode();
                 case RunModes.BotDemo: return new BotDemoRunMode();
+                case RunModes.Tournament: return new TournamentRunMode();
             }
             throw new ArgumentException();
         }

@@ -9,10 +9,15 @@ namespace CVARC.V2
     {
         public LoadingData LoadingData { get; set; }
         public SettingsProposal SettingsProposal { get; set; }
+<<<<<<< HEAD
+
         public ConfigurationProposal()
         {
             LoadingData = new LoadingData();
             SettingsProposal = new SettingsProposal();
         }
+=======
+        public ConfigurationProposal() { LoadingData = new LoadingData(); SettingsProposal = new SettingsProposal(); }
+>>>>>>> 708c3205839d707e3c08389661691a4a8c3d4e5c
     }
 }

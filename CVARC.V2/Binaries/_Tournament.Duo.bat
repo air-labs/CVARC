@@ -1,0 +1,1 @@
+CVARC RepairTheStarship Level1 Tournament -Controller.Left Client.A -Controller.Right Client.B -TimeLimit 10 -EnableLog -LogFile tournament.cvarclog

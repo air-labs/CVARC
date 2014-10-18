@@ -25,6 +25,10 @@ namespace CVARC.V2
         public bool? SpeedUp { get;  set; }
         [DataMember]
         public double? OperationalTimeLimit { get; set; }
+        [DataMember]
+        public int? Port { get; set; }
+        [DataMember]
+        public string SolutionsFolder { get; set; }
 
         [DataMember]
         public List<ControllerSettings> Controllers { get; set; }
@@ -122,7 +126,9 @@ namespace CVARC.V2
             foreach (var p in props)
             {
                 var p1 = typeof(SettingsProposal).GetProperty(p.Name);
-                if (p1 == null) throw new Exception("Property " + p.Name + " is defined in Settings but not in SettingsProposal");
+                if (p1 == null)
+                    continue;
+                    //throw new Exception("Property " + p.Name + " is defined in Settings but not in SettingsProposal");
                 var value = p1.GetValue(this, new object[0]);
                 if (value == null) continue;
                 p.SetValue(settings, value, new object[0]);

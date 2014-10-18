@@ -53,6 +53,11 @@ namespace CVARC.V2
             return idToKey[id] is TKey;
         }
 
+<<<<<<< HEAD
+        public IEnumerable<string> GetIdFor(object key)
+        {
+            return idToKey.Where(z => z.Value.Equals(key)).Select(z => z.Key);
+=======
         public IEnumerable<Tuple<object, string>> GetAllPairs()
         {
             return idToKey.Select(z => new Tuple<object, string>(z.Value, z.Key));
@@ -61,11 +66,7 @@ namespace CVARC.V2
         public IEnumerable<Tuple<T, string>> GetAllPairsOfType<T>()
         {
             return GetAllPairs().Where(z => z.Item1 is T).Select(z => new Tuple<T, string>((T)z.Item1, z.Item2));
-        }
-
-        public IEnumerable<string> GetIdFor(object key)
-        {
-            return idToKey.Where(z => z.Value.Equals(key)).Select(z => z.Key);
+>>>>>>> Refactoring
         }
 
 

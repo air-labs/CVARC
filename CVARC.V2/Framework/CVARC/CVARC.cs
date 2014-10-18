@@ -17,13 +17,33 @@ namespace CVARC.V2
         [STAThread]
         public static void Main(string[] args)
         {
+            if (args.Length == 0)
+            {
+                MessageBox.Show(Loader.Help, "CVARC", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             var loader = new Loader();
 
             loader.AddLevel("RepairTheStarship", "Level1", () => new RepairTheStarship.KroR.Level1());
             loader.AddLevel("Demo", "Level1", () => new DemoCompetitions.KroR.Level1());
             loader.AddLevel("Jango", "Level1", () => new Jango.Level1());
 
-            var world = loader.Load(args);
+            IWorld world;
+
+            if (false)
+            {
+                try
+                {
+                    world = loader.Load(args);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Initialization failed. " + e.Message, "CVARC", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            else
+                world = loader.Load(args);
             var form = new KroRForm(world);
             Application.Run(form);
         }
