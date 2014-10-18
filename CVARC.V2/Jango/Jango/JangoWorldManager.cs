@@ -16,8 +16,8 @@ namespace Jango
             Root.Add(new Box
             {
                 XSize = 100,
-                YSize = 3,
-                ZSize = 100,
+                YSize = 100,
+                ZSize = 3,
                 DefaultColor = Color.White,
                 Top = new SolidColorBrush { Color = Color.Yellow },
                 IsStatic = true,

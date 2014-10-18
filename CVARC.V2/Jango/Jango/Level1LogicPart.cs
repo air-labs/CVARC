@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AIRLab.Mathematics;
 
 namespace Jango
 {
@@ -11,7 +12,11 @@ namespace Jango
     {
         public override Settings GetDefaultSettings()
         {
-            return new Settings { TimeLimit = double.PositiveInfinity };
+            return new Settings {
+                TimeLimit = double.PositiveInfinity,
+                ObserverCameraLocation = new AIRLab.Mathematics.Frame3D(0,100,30,Angle.Zero,-Angle.HalfPi,Angle.Zero)
+            
+            };
         }
 
         public Level1LogicPart()
