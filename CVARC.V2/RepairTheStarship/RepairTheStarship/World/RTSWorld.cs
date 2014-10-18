@@ -56,8 +56,10 @@ namespace RepairTheStarship
         }
 
 
-        public void DetailInstalled(DetailColor color, string robotId)
+        public void InstallDetail(DetailColor color, string detailId, string wallId, string robotId)
         {
+            Manager.RemoveDetail(detailId);
+            Manager.ShutTheWall(wallId);
             Scores.Add(robotId, 10, "Repaired " + color);
             repairs[color]++;
             if (repairs[color] == 2)

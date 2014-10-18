@@ -8,5 +8,7 @@ namespace RepairTheStarship
 {
     public interface IRTSWorldManager : IWorldManager
     {
+        void RemoveDetail(string detailId);
+        void ShutTheWall(string wallId);
     }
 }

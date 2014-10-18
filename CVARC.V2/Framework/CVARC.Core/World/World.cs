@@ -38,6 +38,7 @@ namespace CVARC.V2
         {
             get { return actors; }
         }
+        
 
         public virtual void Initialize(Competitions competitions, IRunMode environment)
         {
