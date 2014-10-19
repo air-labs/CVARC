@@ -13,7 +13,7 @@ namespace CVARC.V2
     {
         CvarcTcpClient client;
 
-        public CvarcClient(bool runServer, int port)
+        protected TSensorData Configurate(bool runServer, int port, ConfigurationProposal configuration)
         {
             if (runServer)
             {
@@ -31,10 +31,6 @@ namespace CVARC.V2
             var tcpClient = new TcpClient();
             tcpClient.Connect("127.0.0.1", port);
             client = new CvarcTcpClient(tcpClient);
-        }
-
-        public TSensorData Configurate(ConfigurationProposal configuration)
-        {
             client.SerializeAndSend(configuration);
             return client.ReadObject<TSensorData>();
         }
