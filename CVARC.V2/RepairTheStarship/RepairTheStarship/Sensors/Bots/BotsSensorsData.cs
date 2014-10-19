@@ -18,7 +18,7 @@ namespace RepairTheStarship
         public string RobotId { get; set; }
 
         [DataMember]
-        [FromSensor(typeof(MapSensor))]
+        [FromSensor(typeof(InternalMapSensor))]
         public MapItem[] Map { get; set; }
 
         [DataMember]
