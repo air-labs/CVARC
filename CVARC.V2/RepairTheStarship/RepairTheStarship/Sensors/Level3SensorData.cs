@@ -12,6 +12,6 @@ namespace RepairTheStarship
     {
         [DataMember]
         [FromSensor(typeof(MapSensorLimited))]
-        public MapItem[] Map { get; set; }
+        public Map Map { get; set; }
     }
 }

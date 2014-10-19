@@ -10,8 +10,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using RepairTheStarship;
+using System.Windows.Forms;
 
-namespace Level1Example
+namespace Level2Example
 {
     class Program
     {
@@ -23,24 +24,38 @@ namespace Level1Example
 
         }
 
+        static Level2ClientForm form;
+
         static void Control(bool runServer)
         {
-            var client = new Level1Client();
+            var client = new Level3Client();
             client.Configurate(runServer, true);
-            for (int i = 0; i < 10; i++)
+            client.Rotate(-90);
+            client.Move(100);
+            client.Rotate(90);
+            client.Move(100);
+            for (int i = 0; i < 100; i++)
             {
-                var sensors = client.Rotate(90);
-                PrintLocation(sensors);
-                sensors = client.Move(50);
-                PrintLocation(sensors);
+                var sensors = client.Rotate(10);
+                form.ShowMap(sensors.Map);
             }
             client.Exit();
         }
 
+        static void Run(bool runServer)
+        {
+            form = new Level2ClientForm();
+            new Action<bool>(Control).BeginInvoke(runServer, null, null);
+            Application.Run(form);
+        }
+
+            
+
         [STAThread]
         public static void Main(string[] args)
         {
-            Control(args.Length == 0);
+           // Run(args.Length == 0);
+            CVARC.V2.CVARCProgram.RunServerInTheSameThread(args, Run);
         }
     }
 }

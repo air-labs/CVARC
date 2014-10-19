@@ -7,29 +7,73 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using RepairTheStarship;
 
-namespace Level2Client
+namespace Level2Example
 {
     class Level2ClientForm : Form
     {
-        double multiplier=2;
+        float multiplier=2;
 
-        Level2SensorData sensorData;
+        Map map;
 
         public Level2ClientForm()
         {
-            ClientSize = new Size((int)(200 * multiplier), (int)(300 * multiplier));
+            ClientSize = new Size((int)(300 * multiplier), (int)(200 * multiplier));
+        }
+
+        Color DetailColor(DetailColor color)
+        {
+            switch (color)
+            {
+                case RepairTheStarship.DetailColor.Blue: return Color.Blue;
+                case RepairTheStarship.DetailColor.Green: return Color.Green;
+                case RepairTheStarship.DetailColor.Red: return Color.Red;
+            }
+            throw new ArgumentException();
+        }
+
+        Color WallColor(WallSettings wall)
+        {
+            switch (wall)
+            {
+                case WallSettings.Wall: return Color.DarkGray;
+                case WallSettings.RedSocket: return Color.DarkRed;
+                case WallSettings.GreenSocket: return Color.DarkGreen;
+                case WallSettings.BlueSocket: return Color.DarkBlue;
+            }
+            throw new ArgumentException();
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            if (sensorData==null) return;
-            foreach (var item in sensorData.Map)
+            if (map==null) return;
+            var graphics = e.Graphics;
+            graphics.TranslateTransform(ClientSize.Width / 2, ClientSize.Height / 2);
+            graphics.ScaleTransform(multiplier, -multiplier);
+            foreach (var item in map.Details)
             {
-
+                graphics.FillEllipse(
+                    new SolidBrush(DetailColor(item.Color)),
+                    item.Location.X  - 5,
+                    item.Location.Y  - 5,
+                    10, 10);
+            }
+            foreach (var item in map.Walls)
+            {
+                graphics.DrawLine(
+                    new Pen(WallColor(item.Type), 5),
+                    item.FirstEnd.X ,
+                    item.FirstEnd.Y ,
+                    item.SecondEnd.X ,
+                    item.SecondEnd.Y );
             }
         }
 
+        public void ShowMap(Map map)
+        {
+            this.map = map;
+            Invalidate();
+        }
 
     }
 }

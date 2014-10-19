@@ -62,7 +62,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Legacy", "Legacy", "{05AE76
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Level1Client", "CVARC.V2\RepairTheStarship\Level1Client\Level1Client.csproj", "{C0294814-98C4-4FAD-B947-15822961684E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Level2Client", "Level2Client\Level2Client.csproj", "{6E5805B4-E867-44C6-B684-51278BF75C63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Level23Client", "Level2Client\Level23Client.csproj", "{6E5805B4-E867-44C6-B684-51278BF75C63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

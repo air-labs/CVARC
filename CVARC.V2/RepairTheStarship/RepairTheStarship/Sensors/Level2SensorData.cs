@@ -12,7 +12,7 @@ namespace RepairTheStarship
     {
         [DataMember]
         [FromSensor(typeof(MapSensor))]
-        public MapItem[] Map { get; set; }
+        public Map Map { get; set; }
 
     }
 }

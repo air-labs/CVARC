@@ -41,7 +41,7 @@ namespace RepairTheStarship
             map.Walls = Actor.World.IdGenerator.GetAllPairsOfType<WallData>()
                 .Where(z => Actor.World.Engine.ContainBody(z.Item2))
                 .Select(z => new Tuple<WallData, Frame3D>(z.Item1, Actor.World.Engine.GetAbsoluteLocation(z.Item2)))
-                .Select(z => CreateWallMapData(z.Item1, z.Item1))
+                .Select(z => CreateWallMapData(z.Item1, z.Item2))
                 .ToArray();
             return map;
         }
