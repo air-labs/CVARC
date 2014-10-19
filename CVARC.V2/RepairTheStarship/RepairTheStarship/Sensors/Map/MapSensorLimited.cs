@@ -12,7 +12,7 @@ namespace RepairTheStarship
 {
     public class MapSensorLimited : MapSensor
     {
-        const double SensorLimit = 100;
+        const double SensorLimit = 50;
 
         Frame3D robotLocation;
 
