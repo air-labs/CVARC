@@ -34,7 +34,7 @@ namespace CVARC.Basic
 
         public Competitions()
         {
-            GameTimeLimit = 10;
+            GameTimeLimit = 90;
             NetworkTimeLimit = 1;
             AvailableBots = new Dictionary<string, Type>();
         }
