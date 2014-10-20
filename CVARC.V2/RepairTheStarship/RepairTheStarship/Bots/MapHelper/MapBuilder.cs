@@ -8,9 +8,9 @@ namespace RepairTheStarship.MapBuilder
         private const int MapHeight = 200;
         private const int CellSize = 50;
 
-        public static Map BuildMap(this BotsSensorsData positionSensorsData)
+        public static InternalMap BuildMap(this BotsSensorsData positionSensorsData)
         {
-            var map = new Map(positionSensorsData);
+            var map = new InternalMap(positionSensorsData);
             map.AvailableDirectionsByCoordinates = GetAvailableDirections(map.Walls);
             return map;
         }

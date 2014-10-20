@@ -48,7 +48,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CVARC.Engine\CVARC\CVARC.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
-      <Name>CVARC %28CVARC.Engine\CVARC%29</Name>
+      <Name>CVARC %28Legacy\CVARC.Engine\CVARC%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CVARC.Server\RepairTheStarship.Common\RepairTheStarship.Common.csproj">
       <Project>{6B20B01B-360B-410C-95F3-0AC88E907281}</Project>
@@ -56,7 +56,7 @@
     </ProjectReference>
     <ProjectReference Include="..\..\CVARC.Server\RepairTheStarship\RepairTheStarship.csproj">
       <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
-      <Name>RepairTheStarship</Name>
+      <Name>RepairTheStarship %28Legacy\CVARC.Server\RepairTheStarship%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\ClientBase\ClientBase.csproj">
       <Project>{5177F2A5-6BA0-4EB6-91DA-5C4CAB84DCF8}</Project>

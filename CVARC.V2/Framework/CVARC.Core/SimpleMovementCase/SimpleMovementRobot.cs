@@ -30,6 +30,7 @@ namespace CVARC.V2.SimpleMovement
 
             if (command.WaitForExit)
             {
+                Manager.SetSpeed(new Frame3D(0, 0, 0, Angle.Zero, Angle.Zero, Angle.Zero));
                 command.Duration = 1000000;
                 return;
             }

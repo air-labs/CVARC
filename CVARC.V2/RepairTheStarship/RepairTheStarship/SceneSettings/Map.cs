@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace RepairTheStarship.Sensors
 {
-    public class Map
+    public class SettingsMap
     {
         private WallSettings[,] _wallsV;
         private WallSettings[,] _wallsH;

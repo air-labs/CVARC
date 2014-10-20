@@ -10,7 +10,7 @@ namespace RepairTheStarship.MapBuilder
         private static HashSet<InternalPoint> handled;
         private static Queue<InternalPoint> queue;
 
-        public static Direction[] FindPath(Map map, Point from, Point to)
+        public static Direction[] FindPath(InternalMap map, Point from, Point to)
         {
             var lastDirection = Bfs(map, from, to);
             var directions = new List<Direction>();
@@ -24,7 +24,7 @@ namespace RepairTheStarship.MapBuilder
             return directions.ToArray();
         }
 
-        private static Direction Bfs(Map map, Point from, Point to)
+        private static Direction Bfs(InternalMap map, Point from, Point to)
         {
             queue = new Queue<InternalPoint>();
             parents = new Dictionary<InternalPoint, InternalPoint>();
@@ -50,7 +50,7 @@ namespace RepairTheStarship.MapBuilder
             handled.Add(point);
         }
 
-        private static void TryAddPosition(Map map, Direction direction, InternalPoint position, int xOffset, int yOffset)
+        private static void TryAddPosition(InternalMap map, Direction direction, InternalPoint position, int xOffset, int yOffset)
         {
             var availableDirections = map.AvailableDirectionsByCoordinates[position.X, position.Y];
             var point = new InternalPoint(position.X + xOffset, position.Y + yOffset, direction);

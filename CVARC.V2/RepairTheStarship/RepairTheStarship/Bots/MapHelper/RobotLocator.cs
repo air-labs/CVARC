@@ -11,14 +11,14 @@ namespace RepairTheStarship.MapBuilder
 {
     public class RobotLocator
     {
-        private readonly Map map;
+        private readonly InternalMap map;
 
         private Direction currentDirection;
         private double realRobotAngle;
         private double expectedRobotAngle;
         private RTSWorld world;
 
-        public RobotLocator(Map map, RTSWorld world)
+        public RobotLocator(InternalMap map, RTSWorld world)
         {
             this.world = world;
             this.map = map;

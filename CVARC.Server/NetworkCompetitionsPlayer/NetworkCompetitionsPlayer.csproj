@@ -53,11 +53,11 @@
     </ProjectReference>
     <ProjectReference Include="..\RepairTheStarship\RepairTheStarship.csproj">
       <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
-      <Name>RepairTheStarship</Name>
+      <Name>RepairTheStarship %28Legacy\CVARC.Server\RepairTheStarship%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CVARC.Engine\CVARC\CVARC.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
-      <Name>CVARC %28CVARC.Engine\CVARC%29</Name>
+      <Name>CVARC %28Legacy\CVARC.Engine\CVARC%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\NetworkServer\NetworkServer.csproj">
       <Project>{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}</Project>

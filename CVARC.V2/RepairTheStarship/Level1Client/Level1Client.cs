@@ -15,37 +15,24 @@ namespace Level1Example
 {
     class Program
     {
-        //For debugging the CVARC framework. Do not use.
-        static void DebugMain(string[] args)
+
+        static void PrintLocation(Level1SensorData sensors)
         {
-            if (args.Length == 0)
-            {
-                new Action(() =>
-                {
-                    Thread.Sleep(1000);
-                    Control(false);
-                }).BeginInvoke(null, null);
-                CVARCProgram.Main(new string[] { "Debug", "14000" });
-            }
-            else
-            {
-                Control(false);
-            }
+            var location=sensors.RobotsLocations.Single(z=>z.Id==sensors.RobotId);
+            Console.WriteLine("{0} {1}", location.X, location.Y);
 
         }
 
-
-
         static void Control(bool runServer)
         {
-            var client = new Level1Client(runServer);
-            client.Configurate(true, RepairTheStarshipBots.Azura);
+            var client = new Level1Client();
+            client.Configurate(runServer, true);
             for (int i = 0; i < 10; i++)
             {
                 var sensors = client.Rotate(90);
-                Console.WriteLine(sensors.RobotId);
+                PrintLocation(sensors);
                 sensors = client.Move(50);
-                Console.WriteLine(sensors.RobotId);
+                PrintLocation(sensors);
             }
             client.Exit();
         }

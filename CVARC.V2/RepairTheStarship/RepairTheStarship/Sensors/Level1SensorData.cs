@@ -18,9 +18,6 @@ namespace RepairTheStarship
         [FromSensor(typeof(SelfIdSensor))]
         public string RobotId { get; set; }
 
-        [DataMember]
-        [FromSensor(typeof(MapSensor))]
-        public MapItem[] Map { get; set; }
 
         [DataMember]
         [FromSensor(typeof(GripSensor))]

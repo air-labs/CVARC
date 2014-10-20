@@ -2,14 +2,14 @@
 using CVARC.V2;
 using CVARC.V2.SimpleMovement;
 using RepairTheStarship.MapBuilder;
-using Map = RepairTheStarship.MapBuilder.Map;
+using Map = RepairTheStarship.MapBuilder.InternalMap;
 
 namespace RepairTheStarship.Bots
 {
     public abstract class RepairTheStarshipBot : Controller<SimpleMovementCommand>
     {
         SensorPack<BotsSensorsData> sensors;
-        protected Map Map;
+        protected InternalMap Map;
         protected RobotLocator RobotLocator;
         protected Point OpponentCoordinates;
         protected Point OurCoordinates;

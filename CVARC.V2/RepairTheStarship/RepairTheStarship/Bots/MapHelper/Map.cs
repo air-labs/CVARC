@@ -4,7 +4,7 @@ using RepairTheStarship;
 
 namespace RepairTheStarship.MapBuilder
 {
-    public class Map
+    public class InternalMap
     {
         public StarshipObject[] Details { get; set; }
         public StarshipObject[] Walls { get; set; }
@@ -14,7 +14,7 @@ namespace RepairTheStarship.MapBuilder
         public LocatorItem CurrentPosition { get; set; }
         public LocatorItem OpponentPosition { get; set; }
 
-        public Map(BotsSensorsData data)
+        public InternalMap(BotsSensorsData data)
         {
             Init(data);
             Update(data);

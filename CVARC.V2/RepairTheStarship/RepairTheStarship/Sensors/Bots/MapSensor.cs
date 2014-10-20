@@ -9,7 +9,7 @@ using CVARC.V2;
 
 namespace RepairTheStarship
 {
-    public class MapSensor : Sensor<MapItem[],IActor>
+    public class InternalMapSensor : Sensor<MapItem[],IActor>
     {
         string GetType(string id)
         {

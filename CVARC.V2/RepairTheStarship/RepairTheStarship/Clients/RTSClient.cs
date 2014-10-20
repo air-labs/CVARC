@@ -12,14 +12,9 @@ namespace RepairTheStarship
     public abstract class RTSClient<TSensorData> : CvarcClient<TSensorData, SimpleMovementCommand>
         where TSensorData : class
     {
-        public RTSClient(bool runServer) : base(runServer, 14000)
-        {
-            
-        }
-
         public abstract string LevelName { get; }
 
-        public TSensorData Configurate(bool isOnLeftSide, RepairTheStarshipBots bot)
+        public TSensorData Configurate(bool runServer, bool isOnLeftSide, RepairTheStarshipBots bot=RepairTheStarshipBots.None, int seed=0)
         {
             var configuration = new ConfigurationProposal();
             configuration.LoadingData.AssemblyName = "RepairTheStarship";
@@ -37,7 +32,8 @@ namespace RepairTheStarship
                 Name = bot.ToString(),
                 Type = ControllerType.Bot
             });
-            return Configurate(configuration);
+            configuration.SettingsProposal.Seed = seed;
+            return Configurate(runServer,14000,configuration);
         }
 
         public TSensorData Move(double distance)
