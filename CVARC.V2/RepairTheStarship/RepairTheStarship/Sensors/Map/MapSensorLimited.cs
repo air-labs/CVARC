@@ -12,7 +12,7 @@ namespace RepairTheStarship
 {
     public class MapSensorLimited : MapSensor
     {
-        const double SensorLimit = 50;
+        const double SensorLimit = 70;
 
         Frame3D robotLocation;
 
@@ -23,30 +23,47 @@ namespace RepairTheStarship
             return new PointF((float)frame.X, (float)frame.Y);
         }
 
-        double Distance(PointF point)
+        double Hypot(PointF point)
         {
-            return Math.Sqrt(Math.Pow(point.X - robotLocation.X, 2) + Math.Pow(point.Y - robotLocation.Y, 2));
+            return Math.Sqrt(Math.Pow(point.X, 2) + Math.Pow(point.Y, 2));
         }
+
+        bool Visible(PointF point)
+        {
+            if (point.X < Math.Abs(point.Y)) return false;
+            return Hypot(point) < SensorLimit;
+        }
+
+        
+
+        DetailMapData Process(DetailMapData data)
+        {
+            data.Location = Turn(data.Location);
+            if (!Visible(data.Location)) return null;
+            return data;
+        }
+
+        WallMapData Process(WallMapData data)
+        {
+            data.Center = Turn(data.Center);
+            data.FirstEnd = Turn(data.FirstEnd);
+            data.SecondEnd = Turn(data.SecondEnd);
+            if (Visible(data.Center) || Visible(data.FirstEnd) || Visible(data.SecondEnd)) return data;
+            return null;
+        }
+
 
         public override Map Measure()
         {
             robotLocation = Actor.World.Engine.GetAbsoluteLocation(Actor.ObjectId);
             var map=base.Measure();
             map.Details = map.Details
-                .Where(z => Distance(z.Location) < 100)
-                .Select(z => {
-                    z.Location = Turn(z.Location);
-                    return z;
-                }).ToArray();
+                .Select(Process)
+                .Where(z=>z!=null)
+                .ToArray();
             map.Walls = map.Walls
-                .Where(z => Math.Min(Distance(z.Center), Math.Min(Distance(z.FirstEnd), Distance(z.SecondEnd))) < SensorLimit)
-                .Select(z =>
-                {
-                    z.Center = Turn(z.Center);
-                    z.FirstEnd = Turn(z.FirstEnd);
-                    z.SecondEnd = Turn(z.SecondEnd);
-                    return z;
-                })
+                .Select(Process)
+                .Where(z => z != null)
                 .ToArray();
             return map;
         }
