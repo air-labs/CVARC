@@ -5,7 +5,7 @@ Side = {"Left":0,"Right":1,"Random":2}
 Action = {"None":0,"Grip":1,"Release":2,"WaitForExit":3}
 
 def GetHelloPackage():
-	return {"LevelName":"Level1","Opponent":"Azura","Side":Side["Left"]}
+	return {"LevelName":"Level1","Opponent":"None","Side":Side["Left"]}
 
 def GetCommand(time, linearVelocity, angularVelocityGrad, action):
 	return {"Action":action,"AngularVelocity":{"Grad":angularVelocityGrad},"LinearVelocity":linearVelocity,"Time":time}
