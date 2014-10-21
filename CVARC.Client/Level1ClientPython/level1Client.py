@@ -19,9 +19,10 @@ def Send(server, jsonObj):
 	
 def RunServer():
 	if 'noRunServer' not in sys.argv:
-		serverPath = "\\Cvarc\\CVARC.Server\\NetworkServer\\bin\\Debug\\"
+		serverPath = "\\Cvarc\\build\\"
+		print os.listdir(serverPath)
 		os.chdir(serverPath)
-		os.startfile(serverPath + "CVARC.Network.exe")
+		os.startfile(serverPath + "NetworkServer.exe.lnk")
 	server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	server.connect(('localhost', 14000))
 	return server
