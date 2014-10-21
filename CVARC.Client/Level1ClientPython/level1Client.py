@@ -19,7 +19,7 @@ def Send(server, jsonObj):
 	
 def RunServer():
 	if 'noRunServer' not in sys.argv:
-		serverPath = "\\Cvarc\\CVARC\\NetworkServer\\bin\\Debug\\"
+		serverPath = "\\Cvarc\\CVARC.Server\\NetworkServer\\bin\\Debug\\"
 		os.chdir(serverPath)
 		os.startfile(serverPath + "CVARC.Network.exe")
 	server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -34,4 +34,4 @@ sensorData = Send(server, GetCommand(1, 0, 0, Action["Grip"]))
 sensorData = Send(server, GetCommand(1, -50, 0, Action["None"]))
 sensorData = Send(server, GetCommand(1, 0, 90, Action["None"]))
 sensorData = Send(server, GetCommand(1, 0, 0, Action["Release"]))
-sensorData = Send(server, GetCommand(0, 0, 0, Action["WaitForExit"]))#WaitForExit
+sensorData = Send(server, GetCommand(0, 0, 0, Action["WaitForExit"]))
