@@ -8,7 +8,7 @@ def GetHelloPackage():
 	return {"LevelName":"Level1","Opponent":"Azura","Side":Side["Left"]}
 
 def GetCommand(time, linearVelocity, angularVelocityGrad, action):
-	return {"Action":action,"AngularVelocity":{"Grad":angularVelocityGrad},"LinearVelocity":linearVelocity,"RobotId":0,"Time":time}
+	return {"Action":action,"AngularVelocity":{"Grad":angularVelocityGrad},"LinearVelocity":linearVelocity,"Time":time}
 	
 def Send(server, jsonObj):
 	length = len(str(jsonObj))
@@ -20,7 +20,6 @@ def Send(server, jsonObj):
 def RunServer():
 	if 'noRunServer' not in sys.argv:
 		serverPath = "\\Cvarc\\build\\"
-		print os.listdir(serverPath)
 		os.chdir(serverPath)
 		os.startfile(serverPath + "NetworkServer.exe.lnk")
 	server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
