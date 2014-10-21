@@ -36,7 +36,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
-    <OutputPath>..\..\build\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <DefineConstants>TRACE</DefineConstants>
@@ -178,8 +178,8 @@
     <EmbeddedResource Include="Models\testtexture.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\airlabs-cope\AIRLabs.csproj">
-      <Project>{b1953d7f-0f62-400d-a77a-ff1ce4474a41}</Project>
+    <ProjectReference Include="..\airlabs-cope\AIRLabs.csproj">
+      <Project>{B1953D7F-0F62-400D-A77A-FF1CE4474A41}</Project>
       <Name>AIRLabs</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bodies\Bodies.csproj">

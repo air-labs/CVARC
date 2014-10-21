@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{475BD26B-2456-4DB4-8DC5-BA9D05088FCB}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{16FA1ED5-6AE6-4347-91EE-C52E7F22BBC9}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EndEngine1</RootNamespace>
-    <AssemblyName>EndEngine1</AssemblyName>
+    <RootNamespace>Client</RootNamespace>
+    <AssemblyName>Client</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -21,9 +22,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,62 +33,43 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\libs\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migration\CompetitionsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Migration\CompetitionsForm.Designer.cs">
-      <DependentUpon>CompetitionsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migration\CVARCEngine.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCEngineCamera.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\Kinect.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\KinectSensor.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\SensorRotation.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Integration\SimpleSonar.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\BallIntersection.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\BoxIntersection.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\CylinderIntersection.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\Intersector.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\PlaneIntersection.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\QuadEquation.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Intersections\Ray.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Tests\BodyIntersectionTests.cs" />
-    <Compile Include="Migration\CVARKDevices\CVARCKinect\Tests\SimpleSonarTests.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CVARC.Engine\airlabs-cope\AIRLabs.csproj">
+      <Project>{B1953D7F-0F62-400D-A77A-FF1CE4474A41}</Project>
+      <Name>AIRLabs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CVARC.Engine\Bodies\Bodies.csproj">
+      <Project>{a316853c-7f60-4c7f-8fb5-6bafbc417a68}</Project>
+      <Name>Bodies</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CVARC.Engine\Graphics\Graphics.csproj">
+      <Project>{4dc31792-db9f-4a7e-9454-473a030076db}</Project>
+      <Name>Graphics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CVARC.Server\Basic\Basic.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
       <Name>Basic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\airlabs-cope\AIRLabs.csproj">
-      <Project>{B1953D7F-0F62-400D-A77A-FF1CE4474A41}</Project>
-      <Name>AIRLabs</Name>
+    <ProjectReference Include="..\..\CVARC.Server\RepairTheStarship.Common\RepairTheStarship.Common.csproj">
+      <Project>{6B20B01B-360B-410C-95F3-0AC88E907281}</Project>
+      <Name>RepairTheStarship.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Bodies\Bodies.csproj">
-      <Project>{a316853c-7f60-4c7f-8fb5-6bafbc417a68}</Project>
-      <Name>Bodies</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Graphics\Graphics.csproj">
-      <Project>{4dc31792-db9f-4a7e-9454-473a030076db}</Project>
-      <Name>Graphics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Physics\Physics.csproj">
-      <Project>{4fad9255-3334-4c61-b8d8-97ba4f6e351b}</Project>
-      <Name>Physics</Name>
+    <ProjectReference Include="..\ClientBase\ClientBase.csproj">
+      <Project>{5177F2A5-6BA0-4EB6-91DA-5C4CAB84DCF8}</Project>
+      <Name>ClientBase</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

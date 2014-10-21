@@ -1,18 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <OutputPath>$(SolutionDir)\bin</OutputPath>
-  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4FAD9255-3334-4C61-B8D8-97BA4F6E351B}</ProjectGuid>
+    <ProjectGuid>{7969E0E7-00AF-4627-8D93-F6D022C99167}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CVARC.Physics</RootNamespace>
-    <AssemblyName>CVARC.Physics</AssemblyName>
+    <RootNamespace>Gems</RootNamespace>
+    <AssemblyName>Fall2013.0</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,62 +16,65 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <OutputPath>bin\Debug\</OutputPath>
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
+    <OutputPath>..\build\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <OutputPath>..\..\Competitions\build\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BEPUphysics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31f6a8732a21de19, processorArchitecture=MSIL">
+    <Reference Include="SlimDX, Version=4.0.11.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\libs\BEPUphysics.dll</HintPath>
-    </Reference>
-    <Reference Include="FarseerPhysics, Version=3.3.4463.28301, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\libs\FarseerPhysics.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.6.1.12217, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\nunit.framework.dll</HintPath>
+      <HintPath>..\..\libs\SlimDX.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\PhysicsException.cs" />
-    <Compile Include="BodyCreatorVisitor.cs" />
-    <Compile Include="IWorld.cs" />
-    <Compile Include="IPhysical.cs" />
-    <Compile Include="PhysicalManager.cs" />
-    <Compile Include="Bepu\BepuBody.cs" />
-    <Compile Include="Bepu\BepuConverter.cs" />
-    <Compile Include="Bepu\BepuWorld.cs" />
-    <Compile Include="Farseer\FarseerBody.cs" />
-    <Compile Include="Farseer\FarseerConverter.cs" />
-    <Compile Include="Farseer\FarseerWorld.cs" />
+    <Compile Include="Bundles.cs" />
+    <Compile Include="CvarcEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Exceptions\UnknownBodyTypeException.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\airlabs-cope\AIRLabs.csproj">
+    <ProjectReference Include="..\..\CVARC.Engine\airlabs-cope\AIRLabs.csproj">
       <Project>{B1953D7F-0F62-400D-A77A-FF1CE4474A41}</Project>
       <Name>AIRLabs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Bodies\Bodies.csproj">
-      <Project>{a316853c-7f60-4c7f-8fb5-6bafbc417a68}</Project>
+    <ProjectReference Include="..\Basic\Basic.csproj">
+      <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
+      <Name>Basic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CVARC.Engine\Bodies\Bodies.csproj">
+      <Project>{A316853C-7F60-4C7F-8FB5-6BAFBC417A68}</Project>
       <Name>Bodies</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CVARC.Engine\Graphics\Graphics.csproj">
+      <Project>{4DC31792-DB9F-4A7E-9454-473A030076DB}</Project>
+      <Name>Graphics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RepairTheStarship.Common\RepairTheStarship.Common.csproj">
+      <Project>{6b20b01b-360b-410c-95f3-0ac88e907281}</Project>
+      <Name>RepairTheStarship.Common</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\blue.png" />
+    <EmbeddedResource Include="Resources\red.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
