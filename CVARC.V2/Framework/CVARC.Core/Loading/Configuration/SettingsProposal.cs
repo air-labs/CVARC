@@ -29,7 +29,8 @@ namespace CVARC.V2
         public int? Port { get; set; }
         [DataMember]
         public string SolutionsFolder { get; set; }
-
+        [DataMember]
+        public string LegacyLogFile { get; set; }
         [DataMember]
         public List<ControllerSettings> Controllers { get; set; }
 
@@ -78,6 +79,7 @@ namespace CVARC.V2
             parser.Parse(z => z.Seed, s => int.Parse(s), "Seed must be integer number");
             parser.Parse(z => z.SpeedUp, s => s!="false", "");
             parser.Parse(z => z.TimeLimit, s => double.Parse(s, CultureInfo.InvariantCulture), "TimeLimit must be floating point number");
+            parser.Parse(z => z.LegacyLogFile, s => s, "");
 
             if (parser.unusedKeys.Any())
             {
