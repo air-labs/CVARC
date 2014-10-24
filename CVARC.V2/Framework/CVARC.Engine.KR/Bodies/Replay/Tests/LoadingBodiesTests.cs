@@ -37,8 +37,8 @@ namespace CVARC.Core.Replay
 			[TestCase(false)]
 			public void TestVisibility(bool startVisible)
 			{
-				var root = new Body {Type = "oldRoot"};
-				var box = new Body {Type = "oldBox"};
+				var root = new Body {NewId = "oldRoot"};
+				var box = new Body {NewId = "oldBox"};
 				if(startVisible)
 					root.Add(box);
 				LoggingObject lo = SerializeAndDeserialize(new LoggingObject(box, root));

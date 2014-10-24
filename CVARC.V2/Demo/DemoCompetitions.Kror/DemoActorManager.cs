@@ -48,7 +48,6 @@ namespace DemoCompetitions
                 Density = Density.Iron,
                 FrictionCoefficient = 0,
                 Top = new PlaneImageBrush { Image = Bitmap.FromStream(GetResourceStream(fileName)) },
-                Type = "Robot",
                 NewId = Actor.ObjectId
             };
             root.Add(cyllinder);

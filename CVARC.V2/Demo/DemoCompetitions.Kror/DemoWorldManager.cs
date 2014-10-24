@@ -21,7 +21,7 @@ namespace DemoCompetitions
                 DefaultColor = Color.White,
                 Top = new SolidColorBrush { Color = Color.Yellow },
                 IsStatic = true,
-                Type = "floor",
+                NewId = "floor",
             });
         }
     }
