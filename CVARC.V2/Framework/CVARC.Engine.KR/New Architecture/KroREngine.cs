@@ -43,7 +43,17 @@ namespace CVARC.V2
             if (World.RunMode.Configuration.Settings.LegacyLogFile == null) return;
             var engine = World.Engine as KroREngine;
             var replay = engine.GetReplay();
-            File.WriteAllText(World.RunMode.Configuration.Settings.LegacyLogFile, replay);
+            var finalScores = World.Scores.GetAllScores().Select(z => z.Item2.ToString()).Aggregate((a, b) => a + ":" + b);
+            var time = World.Clocks.CurrentTime;
+
+            File.WriteAllLines(World.RunMode.Configuration.Settings.LegacyLogFile,
+                new string[]
+                {
+                    "Language",
+                    finalScores,
+                    time.ToString(),
+                    replay
+                });
         }
 
 
