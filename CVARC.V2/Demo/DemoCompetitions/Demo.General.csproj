@@ -4,20 +4,21 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{570F2CCC-CB76-4A27-B1CA-D38888D34A5E}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{CE636D44-57A4-48FA-A178-88CA2C3E9DD4}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CVARC</RootNamespace>
-    <AssemblyName>CVARC</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>Demo</RootNamespace>
+    <AssemblyName>Demo.General</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Binaries\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,15 +32,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -47,7 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CVARC.cs" />
+    <Compile Include="Interaction\LogicPart.cs" />
+    <Compile Include="Interaction\MovingForwardBot.cs" />
+    <Compile Include="Movement\LogicPart.cs" />
+    <Compile Include="Movement\Robot.cs" />
+    <Compile Include="Movement\World.cs" />
+    <Compile Include="Movement\SceneSettings.cs" />
+    <Compile Include="Movement\SensorsData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -57,8 +63,8 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -73,36 +79,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Demo\DemoCompetitions.Kror\Demo.Kror.csproj">
-      <Project>{b9aaef76-ad12-4593-b665-66db19ad03c8}</Project>
-      <Name>Demo.Kror</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Demo\DemoCompetitions\Demo.General.csproj">
-      <Project>{ce636d44-57a4-48fa-a178-88ca2c3e9dd4}</Project>
-      <Name>Demo.General</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\RepairTheStarship\RepairTheStarship.KroR\RepairTheStarship.KroR.csproj">
-      <Project>{748db258-2d25-42a4-af68-f852da397324}</Project>
-      <Name>RepairTheStarship.KroR</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\RepairTheStarship\RepairTheStarship\RepairTheStarship.General.csproj">
-      <Project>{11b6a7c1-e6aa-4f81-9710-ec84069ca858}</Project>
-      <Name>RepairTheStarship.General</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CVARC.Core\CVARC.Core.csproj">
+    <ProjectReference Include="..\..\Framework\CVARC.Core\CVARC.Core.csproj">
       <Project>{f7b5021f-09e8-4388-97a2-4b44b9770d03}</Project>
       <Name>CVARC.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CVARC.Engine.KR\CVARC.KroR.csproj">
-      <Project>{1c435b15-949f-420b-b5d5-f433439fb69c}</Project>
-      <Name>CVARC.KroR</Name>
-    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

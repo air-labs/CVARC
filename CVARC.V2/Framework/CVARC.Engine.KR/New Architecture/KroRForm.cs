@@ -106,11 +106,13 @@ namespace CVARC.V2
 
         void UpdateScores()
         {
-            var text = world.Scores
+            var sc = world.Scores
                             .GetAllScores()
                             .Select(z => string.Format("{0}:{1}", z.Item1, z.Item2))
-                            .Aggregate((a, b) => a + "            " + b);
-            scores.Text = text;
+                            .ToArray();
+            if (sc.Length==0) 
+                scores.Text="";
+            else scores.Text=sc.Aggregate((a, b) => a + "            " + b);
         }
 
         void UpdateClocks()

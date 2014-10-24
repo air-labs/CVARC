@@ -48,9 +48,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVARC", "CVARC.V2\Framework
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{44087801-91D5-4C4D-B1E9-9A3291094CD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoCompetitions.General", "CVARC.V2\Demo\DemoCompetitions\DemoCompetitions.General.csproj", "{CE636D44-57A4-48FA-A178-88CA2C3E9DD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.General", "CVARC.V2\Demo\DemoCompetitions\Demo.General.csproj", "{CE636D44-57A4-48FA-A178-88CA2C3E9DD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoCompetitions.Kror", "CVARC.V2\Demo\DemoCompetitions.Kror\DemoCompetitions.Kror.csproj", "{B9AAEF76-AD12-4593-B665-66DB19AD03C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Kror", "CVARC.V2\Demo\DemoCompetitions.Kror\Demo.Kror.csproj", "{B9AAEF76-AD12-4593-B665-66DB19AD03C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RepairTheStarship", "RepairTheStarship", "{4D4F32D0-FD69-48E4-8764-1589D8CA80AA}"
 EndProject
