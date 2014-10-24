@@ -123,7 +123,8 @@ namespace CVARC.V2
 
         public void DefineCamera(string cameraName, string host, RobotCameraSettings settings)
         {
-            Cameras[cameraName] = new CVARCEngineCamera(GetBody(host), DrawerFactory, settings);
+            var hostBody = GetBody(host);
+            Cameras[cameraName] = new CVARCEngineCamera(hostBody, DrawerFactory, settings);
         }
 
         public byte[] GetImageFromCamera(string cameraName)

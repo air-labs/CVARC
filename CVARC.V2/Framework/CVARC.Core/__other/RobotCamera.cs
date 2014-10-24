@@ -2,48 +2,47 @@
 using System.IO;
 using AIRLab.Mathematics;
 using System.Drawing;
+using CVARC.V2;
 
 
-namespace CVARC.Basic.Sensors
+namespace CVARC.V2
 {
-    //public class RobotCamera : Sensor<ImageSensorData>
-    //{
-    //    public readonly string CameraName;
+    public class RobotCamera : Sensor<byte[],IActor>
+    {
+        string CameraName;
 
-    //    public RobotCamera(Robot robot) 
-    //        : base(robot)
-    //    {
-    //        CameraName=robot.Name + "Camera";
-    //        Engine.DefineCamera(CameraName, robot.Name, new RobotCameraSettings());
-    //    }
+        public override void Initialize(IActor actor)
+        {
+            base.Initialize(actor);
+            CameraName = actor.ObjectId + ".Camera";
+            actor.World.Engine.DefineCamera(CameraName, actor.ObjectId, new RobotCameraSettings());
+        }
 
-    //    public RobotCameraSettings Settings { get; private set; }
-
-    //    /// <summary>
-    //    /// Снимает изображение с камеры и возвращает объект с данными камеры. 
-    //    /// </summary>
-    //    /// <returns></returns>
-    //    public override ImageSensorData Measure()
-    //    {
-    //        return new ImageSensorData(Engine.GetImageFromCamera(CameraName));
-    //    }
+        /// <summary>
+        /// Снимает изображение с камеры и возвращает объект с данными камеры. 
+        /// </summary>
+        /// <returns></returns>
+        public override byte[] Measure()
+        {
+            return Actor.World.Engine.GetImageFromCamera(CameraName);
+        }
 
 
-    //    public const int DefaultHeight = 600;
-    //    public const int DefaultWidth = 800;
+        public const int DefaultHeight = 600;
+        public const int DefaultWidth = 800;
 
-    //    private static void WriteToFile(byte[] bitmap)
-    //    {
-    //        const string tempDir = "CameraTestImages";
-    //        if(!Directory.Exists(tempDir))
-    //            Directory.CreateDirectory(tempDir);
-    //        var guid = Guid.NewGuid();
-    //        string path = Path.Combine(tempDir,
-    //            string.Format("test{0}.png", guid));
-    //        File.WriteAllBytes(path, bitmap);
-    //    }
+        private static void WriteToFile(byte[] bitmap)
+        {
+            const string tempDir = "CameraTestImages";
+            if (!Directory.Exists(tempDir))
+                Directory.CreateDirectory(tempDir);
+            var guid = Guid.NewGuid();
+            string path = Path.Combine(tempDir,
+                string.Format("test{0}.png", guid));
+            File.WriteAllBytes(path, bitmap);
+        }
 
-    //}
+    }
 	
 	
     //[Serializable]

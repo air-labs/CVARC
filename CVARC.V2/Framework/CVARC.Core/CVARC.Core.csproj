@@ -85,6 +85,7 @@
     <Compile Include="Clocks\Trigger.cs" />
     <Compile Include="Clocks\WorldClocks.cs" />
     <Compile Include="CollisionDetector\CollisionDetector.cs" />
+    <Compile Include="CompatibilityException.cs" />
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\IController.cs" />
     <Compile Include="Controllers\Keyboard\IKeyboard.cs" />

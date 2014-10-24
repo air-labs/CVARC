@@ -43,6 +43,7 @@ namespace CVARC.V2
             loader.AddLevel("RepairTheStarship", "Level3", () => new RepairTheStarship.KroR.Level3());
             loader.AddLevel("Demo", "Movement", () => new Demo.KroR.Movement());
             loader.AddLevel("Demo", "Interaction", () => new Demo.KroR.Interaction());
+            loader.AddLevel("Demo", "Camera", () => new Demo.KroR.Camera());
 
             IWorld world;
 

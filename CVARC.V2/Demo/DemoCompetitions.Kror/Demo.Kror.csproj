@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera\ActorManager.cs" />
+    <Compile Include="Camera\Camera.cs" />
+    <Compile Include="Camera\ManagerPart.cs" />
+    <Compile Include="Camera\WorldManager.cs" />
     <Compile Include="Interaction\WorldManager.cs" />
     <Compile Include="Movement\ActorManager.cs" />
     <Compile Include="Interaction\Interaction.cs" />
