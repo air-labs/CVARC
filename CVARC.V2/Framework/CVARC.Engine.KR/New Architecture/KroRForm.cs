@@ -55,7 +55,6 @@ namespace CVARC.V2
 
 
             world.Scores.ScoresChanged += Scores_ScoresChanged;
-            world.Exit += world_Exit;
             UpdateScores();
             thread= new Thread(RunCompetitions) { IsBackground = true };
             thread.Start();
@@ -64,13 +63,6 @@ namespace CVARC.V2
 
         }
 
-        void world_Exit()
-        {
-            if (world.RunMode.Configuration.Settings.LegacyLogFile == null) return;
-            var engine = world.Engine as KroREngine;
-            var replay = engine.GetReplay();
-            File.WriteAllText(world.RunMode.Configuration.Settings.LegacyLogFile, replay);
-        }
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             base.OnClosing(e);
