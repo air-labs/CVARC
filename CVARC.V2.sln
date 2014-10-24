@@ -64,6 +64,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Level1Client", "CVARC.V2\Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Level23Client", "Level2Client\Level23Client.csproj", "{6E5805B4-E867-44C6-B684-51278BF75C63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerReplayPlayer", "CVARC.Server\ServerReplayPlayer\ServerReplayPlayer\ServerReplayPlayer.csproj", "{A90699EC-C2F6-44F8-BEA9-A723EC9A5173}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -304,6 +306,16 @@ Global
 		{6E5805B4-E867-44C6-B684-51278BF75C63}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6E5805B4-E867-44C6-B684-51278BF75C63}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6E5805B4-E867-44C6-B684-51278BF75C63}.Release|x86.ActiveCfg = Release|Any CPU
+		{A90699EC-C2F6-44F8-BEA9-A723EC9A5173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A90699EC-C2F6-44F8-BEA9-A723EC9A5173}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A90699EC-C2F6-44F8-BEA9-A723EC9A5173}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A90699EC-C2F6-44F8-BEA9-A723EC9A5173}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A90699EC-C2F6-44F8-BEA9-A723EC9A5173}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A90699EC-C2F6-44F8-BEA9-A723EC9A5173}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A90699EC-C2F6-44F8-BEA9-A723EC9A5173}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A90699EC-C2F6-44F8-BEA9-A723EC9A5173}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A90699EC-C2F6-44F8-BEA9-A723EC9A5173}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A90699EC-C2F6-44F8-BEA9-A723EC9A5173}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
