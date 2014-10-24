@@ -1,7 +1,6 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Diagnostics;
+using System.Linq;
 using CVARC.Basic;
-using CVARC.Network;
 
 namespace ClientBase
 {
@@ -23,7 +22,11 @@ namespace ClientBase
 
         private void StartServer()
         {
-            ThreadPool.QueueUserWorkItem(o => Program.InternalMain());
+            Process.Start(new ProcessStartInfo("NetworkServer.bat")
+                {
+                    WorkingDirectory = ".\\..\\..\\..\\..\\build\\"
+                });
+//            ThreadPool.QueueUserWorkItem(o => Program.InternalMain());
         }
     }
 }

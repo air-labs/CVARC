@@ -1,4 +1,5 @@
-﻿using AIRLab.Mathematics;
+﻿using System;
+using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
 using CVARC.Network;
 using ClientBase;
@@ -19,6 +20,7 @@ namespace Client
         {
             var server = new CvarcClient(args, Settings).GetServer<BaseSensorData>();
             var helloPackageAns = server.Run();
+            Console.WriteLine("Your Side: {0}", helloPackageAns.RealSide);
             server.SendCommand(new Command { AngularVelocity = Angle.FromGrad(-90), Time = 1 });
             server.SendCommand(new Command { LinearVelocity = 50, Time = 1 });
             server.SendCommand(new Command { Action = CommandAction.Grip, Time = 1 });

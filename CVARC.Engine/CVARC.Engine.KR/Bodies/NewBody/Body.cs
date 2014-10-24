@@ -198,6 +198,15 @@ namespace CVARC.Core
             result.Insert(0, 0);
             return result;
         }
+        
+        public virtual List<object> GetDeleteJson()
+        {
+            return new List<object>
+            {
+                _id,
+                "remove"
+            };
+        }
 
 		/// <summary>
 		/// Корень дерева тел. Если тело не добавлено ни к чему, равен this (самому телу)

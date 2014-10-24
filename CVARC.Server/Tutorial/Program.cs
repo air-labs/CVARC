@@ -6,6 +6,7 @@ using CVARC.Basic;
 using CVARC.Basic.Controllers;
 using CVARC.Basic.Core.Participants;
 using CVARC.Network;
+using Gems;
 
 namespace CVARC.Tutorial
 {
@@ -19,6 +20,7 @@ namespace CVARC.Tutorial
         [STAThread]
         static void Main(string[] args)
         {
+            SimpleLogger.Run();
             competitionsBundle = CompetitionsBundle.Load(CompetitionsName, "Level1");
             competitionsBundle.competitions.HelloPackage = new HelloPackage { MapSeed = 1 };
             competitionsBundle.competitions.Initialize(new CVARCEngine(competitionsBundle.Rules),
