@@ -20,7 +20,16 @@ namespace Demo
 
         public override Settings GetDefaultSettings()
         {
-            return new Settings { OperationalTimeLimit = 5, TimeLimit = double.PositiveInfinity };
+            return new Settings
+            {
+                TimeLimit = double.PositiveInfinity,
+                OperationalTimeLimit = double.PositiveInfinity,
+                Controllers = 
+                {
+                    new ControllerSettings { ControllerId=TwoPlayersId.Left, Name="Square", Type= ControllerType.Bot },
+                    new ControllerSettings { ControllerId=TwoPlayersId.Right, Name="Random", Type= ControllerType.Bot }
+                }
+            };
         }
     }
 }

@@ -15,12 +15,13 @@ namespace Demo
         {
             Root.Add(new Box
             {
-                XSize = 10,
-                YSize = 100,
+                XSize = 100,
+                YSize = 10,
                 ZSize = 50,
-                DefaultColor = Color.Gray,
+                DefaultColor = Color.Black,
                 IsStatic = true,
-                NewId = "floor",
+                IsMaterial=true,
+                NewId = "border",
             });
         }
     }
