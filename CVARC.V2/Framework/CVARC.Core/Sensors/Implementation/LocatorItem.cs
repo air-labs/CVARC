@@ -11,7 +11,7 @@ namespace CVARC.V2
     {
         [DataMember]
         public string Id { get; set; }
-
+        
         [DataMember]
         public double X { get; set; }
 

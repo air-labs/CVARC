@@ -10,6 +10,7 @@ using CVARC.Core.Replay;
 using CVARC.Graphics;
 using CVARC.Physics;
 using kinect.Integration;
+using System.IO;
 
 namespace CVARC.V2
 {
@@ -34,6 +35,25 @@ namespace CVARC.V2
             DrawerFactory = new DrawerFactory(Root);
             PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
             Logger = new ReplayLogger(Root, 0.1);
+            World.Exit += World_Exit;
+        }
+
+        void World_Exit()
+        {
+            if (World.RunMode.Configuration.Settings.LegacyLogFile == null) return;
+            var engine = World.Engine as KroREngine;
+            var replay = engine.GetReplay();
+            var finalScores = World.Scores.GetAllScores().Select(z => z.Item2.ToString()).Aggregate((a, b) => a + ":" + b);
+            var time = World.Clocks.CurrentTime;
+
+            File.WriteAllLines(World.RunMode.Configuration.Settings.LegacyLogFile,
+                new string[]
+                {
+                    "Language",
+                    finalScores,
+                    time.ToString(),
+                    replay
+                });
         }
 
 
@@ -60,6 +80,7 @@ namespace CVARC.V2
 
             while (dt > 1e-5)
             {
+                Logger.LogBodies();
                 foreach (var e in RequestedSpeeds)
                     GetBody(e.Key).Velocity = e.Value;
                 PhysicalManager.MakeIteration(Math.Min(InternalDeltaTime,dt), Root);
@@ -102,7 +123,8 @@ namespace CVARC.V2
 
         public void DefineCamera(string cameraName, string host, RobotCameraSettings settings)
         {
-            Cameras[cameraName] = new CVARCEngineCamera(GetBody(host), DrawerFactory, settings);
+            var hostBody = GetBody(host);
+            Cameras[cameraName] = new CVARCEngineCamera(hostBody, DrawerFactory, settings);
         }
 
         public byte[] GetImageFromCamera(string cameraName)

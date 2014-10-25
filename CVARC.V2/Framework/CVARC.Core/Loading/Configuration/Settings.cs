@@ -62,6 +62,9 @@ namespace CVARC.V2
         [DataMember]
         public Frame3D ObserverCameraLocation { get; set; }
 
+        [DataMember]
+        public string LegacyLogFile { get; set; }
+
         public Settings()
         {
             ObserverCameraLocation = new Frame3D(0, 0, 150, -Angle.HalfPi, Angle.Zero, -Angle.HalfPi);

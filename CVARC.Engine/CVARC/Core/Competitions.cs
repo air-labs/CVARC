@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading;
 using AIRLab.Mathematics;
 using CVARC.Basic.Controllers;
@@ -32,7 +30,7 @@ namespace CVARC.Basic
         public List<Robot> Robots { get; private set; }
         public virtual int RobotCount { get { return 2; } }
         public virtual int CompetitionId { get { return 1; } }
-
+        private const bool NeedSaveReplay = true;
 
         public Competitions()
         {
@@ -170,7 +168,9 @@ namespace CVARC.Basic
 
                 time -= minTime;
                 if (time <= 0) break;
-            }
+            } 
+            if (NeedSaveReplay)
+                SaveReplay(time);
         }
         
         public bool BotIsAvailable(string name)
@@ -195,39 +195,21 @@ namespace CVARC.Basic
             return bot;
         }
 
-        public string SendPostReplay(string key, int robotNumber)
+        private void SaveReplay(double gameTime)
         {
-            try
-            {
-                using (var wb = new WebClient())
+            var replay = Engine.GetReplay();
+            var scores = Score.GetFullSumForRobot(0) + ":" + Score.GetFullSumForRobot(1);
+            var lines = new[]
                 {
-                    var data = new NameValueCollection();
-                    data["key"] = key;
-                    data["competitions"] = CompetitionId.ToString();
-                    data["robotNumber"] = robotNumber.ToString();
-                    data["results"] = "[" +
-                                      string.Join(",",
-                                                  Enumerable.Range(0, RobotCount)
-                                                            .Select(
-                                                                a =>
-                                                                "{\"num\":\"" + a + "\", \"score\": \"" +   
-                                                                Score.GetFullSumForRobot(a) + "\"}")
-                                                                .ToArray()
-                                                                ) + "]";
-                    var replay = Engine.GetReplay();
-                    data["log"] = replay;
-                    wb.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36");
-                    wb.Headers.Add(HttpRequestHeader.Accept, "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-                    var res = wb.UploadValues("http://air-labs.ru/index.php/match/save", "POST", data);
-                    var str = Encoding.UTF8.GetString(res);
-                    return str; 
-                }
-            } 
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return "";
-            }
+                    "C#",
+                    scores,
+                    (GameTimeLimit - gameTime).ToString(),
+                    replay
+                };
+            const string path = "C:\\RawReplays\\";
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            File.WriteAllLines(path + Guid.NewGuid().ToString(), lines);
         }
     }
 }

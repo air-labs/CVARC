@@ -8,6 +8,7 @@ using CVARC.Basic.Sensors;
 using CVARC.Core;
 using CVARC.Graphics;
 using CVARC.Graphics.DirectX;
+using CVARC.V2;
 
 namespace CVARC.Basic.Engine
 {

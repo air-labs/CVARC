@@ -11,8 +11,12 @@ namespace RepairTheStarship
     public class Level1SensorData
     {
         [DataMember]
-        [FromSensor(typeof(LocatorSensor))]
-        public LocatorItem[] RobotsLocations { get; set; }
+        [FromSensor(typeof(SelfLocationSensor))]
+        public RTSLocatorItem SelfLocation { get; set; }
+
+        [DataMember]
+        [FromSensor(typeof(OpponentLocationSensor))]
+        public RTSLocatorItem OpponentLocation { get; set; }
 
         [DataMember]
         [FromSensor(typeof(SelfIdSensor))]

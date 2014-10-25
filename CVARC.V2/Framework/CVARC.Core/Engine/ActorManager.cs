@@ -17,7 +17,7 @@ namespace CVARC.V2
 
         public void Initialize(IActor actor)
         {
-            Actor = (TActor)actor;
+            Actor = Compatibility.Check<TActor>(this, actor);
         }
 
         public abstract void CreateActorBody();

@@ -43,6 +43,7 @@ namespace CVARC.Core.Replay
 
                 result.Add(replayPlayer.DT);
                 rootBody.ChildAdded += BodyAdded;
+                rootBody.ChildRemoved += ChildRemoved;
 
                 while (!replayPlayer.IsAtEnd)
                 {
@@ -54,6 +55,11 @@ namespace CVARC.Core.Replay
                 //replace id of root body to 0
                 res = res.Replace(","+rootBody.Id+",", ",0,");
                 return res;
+            }
+
+            private static void ChildRemoved(Body body)
+            {
+                iter.Add(Convert(body.GetDeleteJson()));
             }
 
             private static void BodyAdded(Body body)
@@ -106,8 +112,7 @@ namespace CVARC.Core.Replay
                     return null;
                 else
                     //TODO: было так: string.Join(",", array.GetRange(0, count)); - я не знаю, эквивалентно ли это
-                    return string.Join(",", array.GetRange(0, count).Select(z=>z.ToString()).ToArray()); 
+                    return string.Join(",", array.GetRange(0, count).ToArray()); 
             }
-
     }
 }

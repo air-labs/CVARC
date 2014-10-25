@@ -19,17 +19,8 @@ namespace CVARC.V2
 
         public virtual void Initialize(IActorManager rules, IWorld world, string actorObjectId, string controllerId)
         {
-            try
-            {
-                Manager = (TActorManager)rules;
-            }
-            catch { throw new Exception("This should not happen, because rules are checked to match this robot"); }
-            try
-            {
-                World = (TWorld)world;
-            }
-            catch { throw new Exception("The actor " + GetType().Name + " is not designed for world " + world.GetType().Name); }
-
+            Manager = Compatibility.Check<TActorManager>(this, rules);
+            World = Compatibility.Check<TWorld>(this, world);
             ObjectId = actorObjectId;
             ControllerId = controllerId;
         }

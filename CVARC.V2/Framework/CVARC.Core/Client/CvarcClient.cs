@@ -13,7 +13,7 @@ namespace CVARC.V2
     {
         CvarcTcpClient client;
 
-        protected TSensorData Configurate(bool runServer, int port, ConfigurationProposal configuration)
+        public TSensorData Configurate(bool runServer, int port, ConfigurationProposal configuration)
         {
             if (runServer)
             {

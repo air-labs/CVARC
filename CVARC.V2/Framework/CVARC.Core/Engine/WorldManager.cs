@@ -12,7 +12,7 @@ namespace CVARC.V2
 
         public virtual void Initialize(IWorld world)
         {
-            World = (TWorld)world;
+            World = Compatibility.Check<TWorld>(this,world);
         }
 
         public abstract void CreateWorld(IdGenerator generator);

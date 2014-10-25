@@ -85,6 +85,7 @@
     <Compile Include="Clocks\Trigger.cs" />
     <Compile Include="Clocks\WorldClocks.cs" />
     <Compile Include="CollisionDetector\CollisionDetector.cs" />
+    <Compile Include="CompatibilityException.cs" />
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\IController.cs" />
     <Compile Include="Controllers\Keyboard\IKeyboard.cs" />
@@ -155,7 +156,7 @@
     <Compile Include="__other\ImageSensorData.cs" />
     <Compile Include="__other\ISceneSettings.cs" />
     <Compile Include="__other\ISensorData.cs" />
-    <Compile Include="__other\RobotCamera.cs" />
+    <Compile Include="Sensors\Implementation\RobotCamera.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

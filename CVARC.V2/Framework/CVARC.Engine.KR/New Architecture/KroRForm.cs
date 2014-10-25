@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using CVARC.Graphics;
 using CVARC.Graphics.DirectX;
 using System.Threading;
+using System.IO;
 
 namespace CVARC.V2
 {
@@ -61,6 +62,7 @@ namespace CVARC.V2
            
 
         }
+
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             base.OnClosing(e);
@@ -104,11 +106,13 @@ namespace CVARC.V2
 
         void UpdateScores()
         {
-            var text = world.Scores
+            var sc = world.Scores
                             .GetAllScores()
                             .Select(z => string.Format("{0}:{1}", z.Item1, z.Item2))
-                            .Aggregate((a, b) => a + "            " + b);
-            scores.Text = text;
+                            .ToArray();
+            if (sc.Length==0) 
+                scores.Text="";
+            else scores.Text=sc.Aggregate((a, b) => a + "            " + b);
         }
 
         void UpdateClocks()

@@ -12,6 +12,6 @@ namespace CVARC.V2
         BotDemo,
         Play,
         Debug,
-        Tournament
+        Tournament,
     }
 }

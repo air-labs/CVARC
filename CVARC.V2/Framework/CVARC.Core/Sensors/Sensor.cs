@@ -18,7 +18,7 @@ namespace CVARC.V2
             return Measure();
         }
 
-        public void Initialize(IActor actor)
+        public virtual void Initialize(IActor actor)
         {
             Actor = (TActor)actor;
         }

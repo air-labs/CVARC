@@ -212,9 +212,7 @@ namespace CVARC.Core
 
 		public Action<Body, double> CustomAnimationDelegate;
 		
-		[NonSerialized]
-        [Obsolete]
-		public string Type;
+
 
         [Obsolete]
 		public int Id { get { return _id; } }
