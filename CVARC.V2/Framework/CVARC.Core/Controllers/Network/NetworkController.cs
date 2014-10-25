@@ -44,7 +44,7 @@ namespace CVARC.V2
             }
         }
 
-        public ICommand GetCommand()
+        public object GetCommand()
         {
             if (!active) return null;
 
