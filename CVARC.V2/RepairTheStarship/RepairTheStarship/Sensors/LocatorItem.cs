@@ -7,11 +7,9 @@ using System.Text;
 namespace CVARC.V2
 {
     [DataContract]
-    public class LocatorItem
+    public class RTSLocatorItem
     {
-        [DataMember]
-        public string Id { get; set; }
-        
+
         [DataMember]
         public double X { get; set; }
 

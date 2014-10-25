@@ -19,7 +19,7 @@ namespace Level2Example
 
         static void PrintLocation(Level1SensorData sensors)
         {
-            var location = sensors.RobotsLocations.Single(z => z.Id == sensors.RobotId);
+            var location = sensors.SelfLocation;
             Console.WriteLine("{0} {1}", location.X, location.Y);
 
         }

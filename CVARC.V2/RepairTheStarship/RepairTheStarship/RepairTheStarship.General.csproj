@@ -72,6 +72,7 @@
     <Compile Include="RTSLogic.cs" />
     <Compile Include="SceneSettings\DataClasses.cs" />
     <Compile Include="Sensors\Bots\BotsSensorsData.cs" />
+    <Compile Include="Sensors\LocatorItem.cs" />
     <Compile Include="Sensors\Map\DetailMapData.cs" />
     <Compile Include="Sensors\Map\Map.cs" />
     <Compile Include="Sensors\Map\MapSensor.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Sensors\Bots\MapSensor.cs" />
     <Compile Include="Sensors\Level1SensorData.cs" />
     <Compile Include="Sensors\Map\WallMapData.cs" />
+    <Compile Include="Sensors\LocationSensor.cs" />
     <Compile Include="World\RTSWorld.cs" />
     <Compile Include="World\IRTSWorldManager.cs" />
     <Compile Include="SceneSettings\Node.cs" />
