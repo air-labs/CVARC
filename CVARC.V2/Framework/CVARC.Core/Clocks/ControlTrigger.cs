@@ -20,7 +20,7 @@ namespace CVARC.V2
         {
             var sensorData = controllable.GetSensorData();
             controller.SendSensorData(sensorData);
-            var command = controller.GetCommand(controllable.ExpectedCommandType);
+            var command = controller.GetCommand();
             if (command != null)
             {
                 controllable.World.Logger.AccountCommand(controllable.ControllerId, command);

@@ -44,13 +44,13 @@ namespace CVARC.V2
             }
         }
 
-        public ICommand GetCommand(Type commandType)
+        public ICommand GetCommand()
         {
             if (!active) return null;
 
             var @delegate = new Func<Type, Tuple<ICommand, Exception>>(GetCommandInternally);
 
-            var async = @delegate.BeginInvoke(commandType, null, null);
+            var async = @delegate.BeginInvoke(typeof(TCommand), null, null);
 
             while (OperationalTime < OperationalTimeLimit)
             {

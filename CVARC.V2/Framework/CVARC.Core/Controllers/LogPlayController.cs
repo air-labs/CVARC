@@ -20,7 +20,7 @@ namespace CVARC.V2
           
         }
 
-        public ICommand GetCommand(Type CommandType)
+        public ICommand GetCommand()
         {
             var command=commands[pointeer];
             pointeer++;

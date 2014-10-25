@@ -13,7 +13,7 @@ namespace CVARC.V2
             
         }
 
-        ICommand IController.GetCommand(Type CommandType)
+        ICommand IController.GetCommand()
         {
             return GetCommand();
         }
