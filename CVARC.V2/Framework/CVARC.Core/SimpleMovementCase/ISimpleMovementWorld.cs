@@ -15,35 +15,33 @@ namespace CVARC.V2.SimpleMovement
         public Angle AngularVelocityLimit { get; set; }
         public SimpleMovementCommand ExitCommand()
         {
-            return new SimpleMovementCommand { WaitForExit = true };
+            return SimpleMovementCommand.Exit();
         }
 
         public SimpleMovementCommand Move(double distance)
         {
-            return new SimpleMovementCommand
-            {
-                LinearVelocity = Math.Sign(distance) * LinearVelocityLimit,
-                Duration = Math.Abs(distance / LinearVelocityLimit)
-            };
+            return SimpleMovementCommand.Move(
+                Math.Sign(distance) * LinearVelocityLimit,
+                Math.Abs(distance / LinearVelocityLimit)
+            );
         }
 
         public SimpleMovementCommand Rotate(Angle angle)
         {
-            return new SimpleMovementCommand
-            {
-                AngularVelocity = Math.Sign(angle.Grad) * AngularVelocityLimit,
-                Duration = Math.Abs(angle / AngularVelocityLimit)
-            };
+            return SimpleMovementCommand.Rotate(
+                Math.Sign(angle.Grad) * AngularVelocityLimit,
+                Math.Abs(angle / AngularVelocityLimit)
+            );
         }
 
         public SimpleMovementCommand ActionCommand(string action)
         {
-            return new SimpleMovementCommand { Command = action };
+            return SimpleMovementCommand.Action(action);
         }
 
         public SimpleMovementCommand SleepCommand(double time)
         {
-            return new SimpleMovementCommand { Duration = time };
+            return SimpleMovementCommand.Move(0, time);
         }
     }
 

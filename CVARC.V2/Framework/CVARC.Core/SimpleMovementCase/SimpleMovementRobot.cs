@@ -14,7 +14,8 @@ namespace CVARC.V2.SimpleMovement
         where TSensorsData : new()
     {
 
-        public abstract void ProcessCustomCommand(string commandName, out double rightDuration);
+        public virtual void ProcessCustomCommand(string commandName)
+        { }
 
         public override ICommandPreprocessor CreateCommandPreprocessor()
         {
@@ -29,28 +30,18 @@ namespace CVARC.V2.SimpleMovement
             if (command.Command != null)
             {
                 Manager.SetSpeed(new Frame3D(0, 0, 0, Angle.Zero, Angle.Zero, Angle.Zero));
-                ProcessCustomCommand(command.Command, out rightDuration);
-                command.Duration = rightDuration;
+                ProcessCustomCommand(command.Command);
                 return;
             }
 
             if (command.WaitForExit)
             {
                 Manager.SetSpeed(new Frame3D(0, 0, 0, Angle.Zero, Angle.Zero, Angle.Zero));
-                command.Duration = 1000000;
                 return;
             }
 
-            if (Math.Abs(command.LinearVelocity) > World.CommandHelper.LinearVelocityLimit)
-                command.LinearVelocity = Math.Sign(command.LinearVelocity) * World.CommandHelper.LinearVelocityLimit;
-            if (Math.Abs(command.AngularVelocity.Grad) > World.CommandHelper.AngularVelocityLimit.Grad)
-                command.AngularVelocity = Angle.FromGrad(Math.Sign(command.AngularVelocity.Grad) * World.CommandHelper.AngularVelocityLimit.Grad);
-
-
-
             var location = Manager.GetAbsoluteLocation();
 
-            if (command.LinearVelocity != 0) command.AngularVelocity = Angle.Zero;
             var requestedSpeed = new Frame3D(command.LinearVelocity * Math.Cos(location.Yaw.Radian),
                                    command.LinearVelocity * Math.Sin(location.Yaw.Radian), 0, Angle.Zero, command.AngularVelocity,
                                    Angle.Zero);

@@ -11,7 +11,7 @@ namespace CVARC.V2.SimpleMovement
         
         override public SimpleMovementCommand GetCommand()
         {
-            return new SimpleMovementCommand { WaitForExit = true };
+            return SimpleMovementCommand.Exit();
         }
 
     }

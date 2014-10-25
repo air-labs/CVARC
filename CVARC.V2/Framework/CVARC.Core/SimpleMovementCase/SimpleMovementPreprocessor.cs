@@ -17,17 +17,15 @@ namespace CVARC.V2.SimpleMovement
                 throw new Exception("SimpleMovementCommand is expected, but the command was " + cmd.GetType().Name);
             var command = cmd as SimpleMovementCommand;
 
-            double rightDuration;
             if (command.Command != null)
             {
-                yield return new SimpleMovementCommand { LinearVelocity = 0, AngularVelocity = Angle.Zero, Duration = 0 };
-                yield return new SimpleMovementCommand { Command = command.Command, Duration = GetDurationForCustomCommand(command) };
+                yield return SimpleMovementCommand.Action(command.Command, GetDurationForCustomCommand(command));
                 yield break;
             }
 
             if (command.WaitForExit)
             {
-                yield return new SimpleMovementCommand { LinearVelocity = 0, AngularVelocity = Angle.Zero, Duration = double.PositiveInfinity };
+                yield return SimpleMovementCommand.Move(0, double.PositiveInfinity);
                 yield break;
             }
             var World = Actor.World;
@@ -40,8 +38,10 @@ namespace CVARC.V2.SimpleMovement
             if (Math.Abs(angular.Grad) > World.CommandHelper.AngularVelocityLimit.Grad)
                 angular = Angle.FromGrad(Math.Sign(angular.Grad) * World.CommandHelper.AngularVelocityLimit.Grad);
 
-            if (linear != 0) angular = Angle.Zero;
-            yield return new SimpleMovementCommand { LinearVelocity = linear, AngularVelocity = angular, Duration = command.Duration };
+            if (linear != 0)
+                yield return SimpleMovementCommand.Move(linear, command.Duration);
+            else
+                yield return SimpleMovementCommand.Rotate(angular, command.Duration);
         }
 
         public virtual int GetDurationForCustomCommand(SimpleMovementCommand command)

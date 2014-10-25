@@ -16,17 +16,17 @@ namespace CVARC.V2.SimpleMovement
             double time = 0.1;
             double linear = 50;
             Angle angular=Angle.Pi;
-            Add(Keys.W, TwoPlayersId.Left, () => new SimpleMovementCommand { LinearVelocity = v.CommandHelper.LinearVelocityLimit, Duration = time });
-            Add(Keys.S, TwoPlayersId.Left, () => new SimpleMovementCommand { LinearVelocity = -v.CommandHelper.LinearVelocityLimit, Duration = time });
-            Add(Keys.I, TwoPlayersId.Right, () => new SimpleMovementCommand { LinearVelocity = v.CommandHelper.LinearVelocityLimit, Duration = time });
-            Add(Keys.K, TwoPlayersId.Right, () => new SimpleMovementCommand { LinearVelocity = -v.CommandHelper.LinearVelocityLimit, Duration = time });
+            Add(Keys.W, TwoPlayersId.Left, () => SimpleMovementCommand.Move(v.CommandHelper.LinearVelocityLimit, time ));
+            Add(Keys.S, TwoPlayersId.Left, () => SimpleMovementCommand.Move (-v.CommandHelper.LinearVelocityLimit,  time ));
+            Add(Keys.I, TwoPlayersId.Right, () => SimpleMovementCommand.Move (v.CommandHelper.LinearVelocityLimit,  time ));
+            Add(Keys.K, TwoPlayersId.Right, () => SimpleMovementCommand.Move (-v.CommandHelper.LinearVelocityLimit,  time ));
 
-            Add(Keys.A, TwoPlayersId.Left, () => new SimpleMovementCommand { AngularVelocity = v.CommandHelper.AngularVelocityLimit, Duration = time });
-            Add(Keys.D, TwoPlayersId.Left, () => new SimpleMovementCommand { AngularVelocity = -v.CommandHelper.AngularVelocityLimit, Duration = time });
-            Add(Keys.J, TwoPlayersId.Right, () => new SimpleMovementCommand { AngularVelocity = v.CommandHelper.AngularVelocityLimit, Duration = time });
-            Add(Keys.L, TwoPlayersId.Right, () => new SimpleMovementCommand { AngularVelocity = -v.CommandHelper.AngularVelocityLimit, Duration = time });
+            Add(Keys.A, TwoPlayersId.Left, () => SimpleMovementCommand.Rotate(v.CommandHelper.AngularVelocityLimit,  time ));
+            Add(Keys.D, TwoPlayersId.Left, () => SimpleMovementCommand.Rotate(-v.CommandHelper.AngularVelocityLimit,  time ));
+            Add(Keys.J, TwoPlayersId.Right, () => SimpleMovementCommand.Rotate(v.CommandHelper.AngularVelocityLimit,  time ));
+            Add(Keys.L, TwoPlayersId.Right, () => SimpleMovementCommand.Rotate(-v.CommandHelper.AngularVelocityLimit,  time ));
 
-            StopCommandFactory = ()=>new SimpleMovementCommand { Duration = time };
+            StopCommandFactory = ()=>SimpleMovementCommand.Move(0,time);
         }
 
     }

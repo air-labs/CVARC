@@ -79,9 +79,8 @@ namespace RepairTheStarship
                 World.InstallDetail(detailColor, detailId, wall.Item2, ControllerId);
         }
 
-        public override void ProcessCustomCommand(string commandName, out double nextRequestTimeSpan)
+        public override void ProcessCustomCommand(string commandName)
         {
-            nextRequestTimeSpan=0.1;
             if (commandName == RTSAction.Grip.ToString())
                 Grip();
             else if (commandName == RTSAction.Release.ToString())

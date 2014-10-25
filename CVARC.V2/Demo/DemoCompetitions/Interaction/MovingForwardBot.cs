@@ -11,7 +11,7 @@ namespace Demo
     {
         public override SimpleMovementCommand GetCommand()
         {
-            return new SimpleMovementCommand { LinearVelocity = 50, Duration = 1 };
+            return SimpleMovementCommand.Move(50, 1);
         }
     }
 }
