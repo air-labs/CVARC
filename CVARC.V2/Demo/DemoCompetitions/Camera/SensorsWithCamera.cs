@@ -11,7 +11,7 @@ namespace Demo
     public class SensorsWithCamera
     {
         [DataMember]
-        [FromSensor(typeof(RobotCamera))]
+        [FromSensor(typeof(CameraSensor))]
         public byte[] Image { get; set; }
     }
 }

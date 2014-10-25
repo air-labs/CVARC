@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera\CameraSensor.cs" />
     <Compile Include="Camera\LogicPart.cs" />
     <Compile Include="Camera\Robot.cs" />
     <Compile Include="Camera\SensorsWithCamera.cs" />

@@ -7,10 +7,15 @@ using CVARC.V2;
 
 namespace CVARC.V2
 {
-    public class RobotCamera : Sensor<byte[],IActor>
+    public abstract class RobotCamera : Sensor<byte[],IActor>
     {
         string CameraName;
+        RobotCameraSettings settings;
 
+        protected RobotCamera(RobotCameraSettings settings)
+        {
+            this.settings = settings;
+        }
 
         /// <summary>
         /// Снимает изображение с камеры и возвращает объект с данными камеры. 
@@ -21,7 +26,7 @@ namespace CVARC.V2
             if (CameraName == null)
             {
                 CameraName = Actor.ObjectId + ".Camera";
-                Actor.World.Engine.DefineCamera(CameraName, Actor.ObjectId, new RobotCameraSettings());
+                Actor.World.Engine.DefineCamera(CameraName, Actor.ObjectId, settings);
             }
             return Actor.World.Engine.GetImageFromCamera(CameraName);
         }
