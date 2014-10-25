@@ -12,10 +12,8 @@ namespace CVARC.V2.SimpleMovement
         public override void Initialize(IWorld world, IKeyboard keyboard)
         {
             base.Initialize(world, keyboard);
-            var v = world as ISimpleMovementWorld;
+            var v = Compatibility.Check<ISimpleMovementWorld>(this, world);
             double time = 0.1;
-            double linear = 50;
-            Angle angular=Angle.Pi;
             Add(Keys.W, TwoPlayersId.Left, () => SimpleMovementCommand.Move(v.CommandHelper.LinearVelocityLimit, time ));
             Add(Keys.S, TwoPlayersId.Left, () => SimpleMovementCommand.Move (-v.CommandHelper.LinearVelocityLimit,  time ));
             Add(Keys.I, TwoPlayersId.Right, () => SimpleMovementCommand.Move (v.CommandHelper.LinearVelocityLimit,  time ));
