@@ -8,14 +8,20 @@ using CVARC.Basic;
 namespace CVARC.V2.SimpleMovement
 {
     public abstract class SimpleMovementRobot<TActorManager,TWorld,TSensorsData>
-        : Robot<TActorManager,TWorld,TSensorsData,SimpleMovementCommand>
+        : Robot<TActorManager,TWorld,TSensorsData,SimpleMovementCommand>, ISimpleMovementRobot
         where TActorManager : IActorManager
         where TWorld : ISimpleMovementWorld, IWorld
         where TSensorsData : new()
     {
 
-
         public abstract void ProcessCustomCommand(string commandName, out double rightDuration);
+
+        public override ICommandPreprocessor CreateCommandPreprocessor()
+        {
+            return new SimpleMovementPreprocessor();
+        }
+            
+
 
         public override void ExecuteCommand(SimpleMovementCommand command)
         {
@@ -50,6 +56,12 @@ namespace CVARC.V2.SimpleMovement
                                    Angle.Zero);
 
             Manager.SetSpeed(requestedSpeed);
+        }
+
+
+        ISimpleMovementWorld ISimpleMovementRobot.World
+        {
+            get { return World; }
         }
     }
 }
