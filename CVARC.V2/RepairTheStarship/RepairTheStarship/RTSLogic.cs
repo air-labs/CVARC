@@ -27,5 +27,10 @@ namespace RepairTheStarship
         {
             return new Settings { OperationalTimeLimit = 1, TimeLimit = 90 };
         }
+
+        public override INetworkController CreateNetworkController(CvarcTcpClient client)
+        {
+            return new NetworkController<SimpleMovementCommand>(client);
+        }
     }
 }

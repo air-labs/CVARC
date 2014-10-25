@@ -30,5 +30,10 @@ namespace Demo
                 }
             };
         }
+
+        public override INetworkController CreateNetworkController(CvarcTcpClient client)
+        {
+            return new NetworkController<SimpleMovementCommand>(client);
+        }
     }
 }

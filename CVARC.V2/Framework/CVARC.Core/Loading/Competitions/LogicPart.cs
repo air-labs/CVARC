@@ -10,6 +10,7 @@ namespace CVARC.V2
     {
         public readonly IWorld World;
         public readonly Func<IKeyboardControllerPool> KeyboardControllerPoolFactory;
+        
         public readonly Dictionary<string, Func<IController>> Bots = new Dictionary<string, Func<IController>>();
         public LogicPart(
             IWorld world, 
@@ -19,6 +20,8 @@ namespace CVARC.V2
             this.World = world;
             this.KeyboardControllerPoolFactory = keyboardControllerPoolFactory;
         }
+
+        public abstract INetworkController CreateNetworkController(CvarcTcpClient client);
 
         public abstract Settings GetDefaultSettings();
     }

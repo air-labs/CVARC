@@ -95,6 +95,7 @@
     <Compile Include="Controllers\Keyboard\WinformsKey.cs" />
     <Compile Include="Controllers\LogPlayController.cs" />
     <Compile Include="Controllers\Network\GroboTcpClient.cs" />
+    <Compile Include="Controllers\Network\INetworkController.cs" />
     <Compile Include="Controllers\Network\ISerializer.cs" />
     <Compile Include="Controllers\Network\JSonSerializer.cs" />
     <Compile Include="Controllers\Network\NetworkController.cs" />

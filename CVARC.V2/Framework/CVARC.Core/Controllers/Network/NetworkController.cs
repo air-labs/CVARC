@@ -8,11 +8,11 @@ using AIRLab;
 namespace CVARC.V2
 {
 
-    public class NetworkController : IController
+    public class NetworkController<TCommand> : INetworkController
     {
         CvarcTcpClient client;
 
-        public double OperationalTimeLimit;
+        public double OperationalTimeLimit { get; set; }
         double OperationalTime;
 
         public NetworkController(CvarcTcpClient client)
@@ -20,10 +20,7 @@ namespace CVARC.V2
             this.client = client;
         }
 
-        public ConfigurationProposal ReadConfiguration()
-        {
-            return client.ReadObject<ConfigurationProposal>();    
-        }
+
 
         public void Initialize(IActor controllableActor)
         {
