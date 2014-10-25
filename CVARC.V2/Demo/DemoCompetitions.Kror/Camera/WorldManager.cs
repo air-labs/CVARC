@@ -13,7 +13,10 @@ namespace Demo
     {
         public override void CreateWorld(IdGenerator generator)
         {
-            for (double a = 0; a < 2*Math.PI; a += Math.PI/3)
+            var colors = new Color[] { Color.Red, Color.Green, Color.Blue, Color.Yellow };
+            var count =10;
+            double a = 0;
+            for (int i=0;i<count;i++)
             {
                 Root.Add(new Cylinder
                 {
@@ -21,8 +24,9 @@ namespace Demo
                     Height = 10,
                     RTop = 10,
                     RBottom = 10,
-                    DefaultColor = Color.Red
+                    DefaultColor = colors[i%colors.Length]
                 });
+                a += Math.PI * 2.0 / count;
             }
         }
     }
