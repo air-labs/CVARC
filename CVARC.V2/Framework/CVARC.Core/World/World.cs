@@ -82,7 +82,9 @@ namespace CVARC.V2
                 manager.CreateActorBody();
                 var controller = environment.GetController(e.ControllerId);
                 controller.Initialize(e);
-                Clocks.AddTrigger(new ControlTrigger(controller, e));
+                var preprocessor = e.CreateCommandPreprocessor();
+                preprocessor.Initialize(e);
+                Clocks.AddTrigger(new ControlTrigger(controller, e, preprocessor));
                 actors.Add(e);
             }
         }
