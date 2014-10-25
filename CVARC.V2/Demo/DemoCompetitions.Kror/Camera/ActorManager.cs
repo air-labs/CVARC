@@ -34,7 +34,6 @@ namespace Demo
                 X = 50;
                 fileName = "blue.png";
             }
-            
 
             var cyllinder = new Cylinder
             {

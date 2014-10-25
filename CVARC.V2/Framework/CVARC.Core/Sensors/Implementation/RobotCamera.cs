@@ -11,12 +11,6 @@ namespace CVARC.V2
     {
         string CameraName;
 
-        public override void Initialize(IActor actor)
-        {
-            base.Initialize(actor);
-            CameraName = actor.ObjectId + ".Camera";
-            actor.World.Engine.DefineCamera(CameraName, actor.ObjectId, new RobotCameraSettings());
-        }
 
         /// <summary>
         /// Снимает изображение с камеры и возвращает объект с данными камеры. 
@@ -24,6 +18,11 @@ namespace CVARC.V2
         /// <returns></returns>
         public override byte[] Measure()
         {
+            if (CameraName == null)
+            {
+                CameraName = Actor.ObjectId + ".Camera";
+                Actor.World.Engine.DefineCamera(CameraName, Actor.ObjectId, new RobotCameraSettings());
+            }
             return Actor.World.Engine.GetImageFromCamera(CameraName);
         }
 
