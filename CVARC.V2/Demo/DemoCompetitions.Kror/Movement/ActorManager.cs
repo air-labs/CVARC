@@ -11,7 +11,7 @@ using CVARC.V2;
 
 namespace Demo
 {
-    public class ActorManager : ActorManager<MovementRobot>
+    public class ActorManager : ActorManager<IActor>
     {
 
 

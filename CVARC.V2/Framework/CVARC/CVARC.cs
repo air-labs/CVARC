@@ -45,6 +45,7 @@ namespace CVARC.V2
             loader.AddLevel("Demo", "Interaction", () => new Demo.KroR.Interaction());
             loader.AddLevel("Demo", "Camera", () => new Demo.KroR.Camera());
             loader.AddLevel("Demo", "MultiControl", () => new Demo.KroR.MultiControl());
+            loader.AddLevel("Demo", "Collision", () => new Demo.KroR.Collision());
             IWorld world;
 
             if (false)
