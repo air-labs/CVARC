@@ -52,7 +52,6 @@
     <Compile Include="Camera\LogicPart.cs" />
     <Compile Include="Camera\Robot.cs" />
     <Compile Include="Camera\SensorsWithCamera.cs" />
-    <Compile Include="Camera\World.cs" />
     <Compile Include="Interaction\LogicPart.cs" />
     <Compile Include="Interaction\MovingForwardBot.cs" />
     <Compile Include="Movement\LogicPart.cs" />

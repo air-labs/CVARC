@@ -8,7 +8,7 @@ using CVARC.V2.SimpleMovement;
 namespace Demo
 {
     public class CameraLogicPart : LogicPart <
-                                                    CameraWorld,
+                                                    MovementWorld,
                                                     SimpleMovementTwoPlayersKeyboardControllerPool,
                                                     CameraRobot,
                                                     SimpleMovementPreprocessor,
