@@ -51,10 +51,12 @@ namespace CVARC.V2
             get { return controllersId; } 
         }
 
-        public LogicPart(IEnumerable<string> controllersId, Func<Settings> defaultSettingsFactory)
+        public LogicPart(IEnumerable<string> controllersId, Func<Settings> settingsFactory=null)
         {
             this.controllersId = controllersId.ToArray();
-            this.defaultSettingsFactory = defaultSettingsFactory;
+            if (settingsFactory == null)
+                settingsFactory = () => new Settings { TimeLimit = double.PositiveInfinity, OperationalTimeLimit=double.PositiveInfinity };
+            this.defaultSettingsFactory = settingsFactory;
         }
 
     }
