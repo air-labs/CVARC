@@ -59,6 +59,10 @@
     <Compile Include="Movement\World.cs" />
     <Compile Include="Movement\SceneSettings.cs" />
     <Compile Include="Movement\SensorsData.cs" />
+    <Compile Include="MultiControl\DisplacementCommand.cs" />
+    <Compile Include="MultiControl\MultiCommandKeyboardPool.cs" />
+    <Compile Include="MultiControl\MultiCommandPreprocessir.cs" />
+    <Compile Include="MultiControl\MultiControlLogicPart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

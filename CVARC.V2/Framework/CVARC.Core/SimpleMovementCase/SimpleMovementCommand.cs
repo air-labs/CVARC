@@ -20,9 +20,19 @@ namespace CVARC.V2.SimpleMovement
             return new SimpleMovementCommand { LinearVelocity = linearVelocity, Duration = duration };
         }
 
+        public static SimpleMovementCommand MoveWithVelocity(double path, double linearVelocity)
+        {
+            return Move(Math.Sign(path) * linearVelocity, Math.Abs(path / linearVelocity));
+        }
+
         public static SimpleMovementCommand Rotate(Angle angularVelocity, double duration)
         {
             return new SimpleMovementCommand { AngularVelocity = angularVelocity, Duration = duration };
+        }
+
+        public static SimpleMovementCommand RotateWithVelocity(Angle angle, Angle angularVelocity)
+        {
+            return Rotate(Math.Sign(angle.Grad) * angularVelocity, Math.Abs(angle.Grad / angularVelocity.Grad));
         }
 
         public static SimpleMovementCommand Exit()
