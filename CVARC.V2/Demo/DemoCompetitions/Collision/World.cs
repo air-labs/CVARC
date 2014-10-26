@@ -13,13 +13,16 @@ namespace Demo
 
     public class CollisionWorld : MovementWorld
     {
+        public static Dictionary<string, string> Objects = new Dictionary<string, string> { { "Left", "ObjectLeft" }, { "Right", "ObjectRight" } };
+
+
         public override void Initialize(Competitions competitions, IRunMode environment)
         {
             base.Initialize(competitions, environment);
             var detector = new CollisionDetector(this);
             detector.FindControllableObject = side =>
             {
-                var actor = Actors.OfType<MovementRobot>().Where(z => z.ObjectId == side.ObjectId).FirstOrDefault();
+                var actor = Actors.OfType<CollisionRobot>().Where(z => z.ObjectId == side.ObjectId || Objects[z.ControllerId]==side.ObjectId).FirstOrDefault();
                 if (actor != null)
                 {
                     side.ControlledObjectId = actor.ObjectId;

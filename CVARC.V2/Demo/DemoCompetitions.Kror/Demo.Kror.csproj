@@ -50,7 +50,10 @@
     <Compile Include="Camera\Camera.cs" />
     <Compile Include="Camera\ManagerPart.cs" />
     <Compile Include="Camera\WorldManager.cs" />
+    <Compile Include="Collision\ActorManager.cs" />
     <Compile Include="Collision\Collision.cs" />
+    <Compile Include="Collision\CollisionManagerPart.cs" />
+    <Compile Include="Collision\WorldManager.cs" />
     <Compile Include="Interaction\WorldManager.cs" />
     <Compile Include="Movement\ActorManager.cs" />
     <Compile Include="Interaction\Interaction.cs" />

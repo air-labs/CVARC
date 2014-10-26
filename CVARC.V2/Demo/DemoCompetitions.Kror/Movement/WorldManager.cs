@@ -23,6 +23,8 @@ namespace Demo
                 IsStatic = true,
                 NewId = "floor",
             });
+
+          
         }
     }
 }

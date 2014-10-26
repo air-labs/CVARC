@@ -12,8 +12,7 @@ namespace Demo
     {
         bool forward;
         bool take;
-        int stage;
-
+   
         public PushingBot(bool take, bool forward)
         {
             this.forward = forward;
@@ -26,9 +25,16 @@ namespace Demo
             this.actor = controllableActor;
         }
 
+        int collisionTime = 0;
+        bool firstTime = true;
+
         public override SimpleMovementCommand GetCommand()
         {
-            if (take && stage == 0) return SimpleMovementCommand.Action("Grip");
+            if (take && firstTime)
+            {
+                firstTime = false;
+                return SimpleMovementCommand.Action("Grip");
+            }
             var thatLocation = actor.World.Engine.GetAbsoluteLocation(actor.World.Actors.Where(z => z.ControllerId != actor.ControllerId).FirstOrDefault().ObjectId);
             var selfLocation = actor.World.Engine.GetAbsoluteLocation(actor.ObjectId);
             var relative = selfLocation.Invert().Apply(thatLocation);
@@ -37,8 +43,18 @@ namespace Demo
             if (!forward) targetAngle += Angle.Pi;
             targetAngle=targetAngle.Simplify180();
             if (Math.Abs(targetAngle.Grad) > 1)
-                return SimpleMovementCommand.RotateWithVelocity(targetAngle, Angle.FromGrad(50));
-            return SimpleMovementCommand.Move(forward ? 50 : -50, 1);
+                return SimpleMovementCommand.RotateWithVelocity(targetAngle, Angle.FromGrad(90));
+
+
+            if (Math.Abs(relative.X) < 22)
+                collisionTime++;
+            if (collisionTime > 10)
+            {
+                collisionTime = 0;
+                return SimpleMovementCommand.Move(forward ? -50 : 50, 0.5);
+            }
+                
+            return SimpleMovementCommand.Move(forward ? 50 : -50, 0.1);
         }
     }
 }
