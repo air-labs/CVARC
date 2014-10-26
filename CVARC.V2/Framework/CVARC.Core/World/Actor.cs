@@ -24,8 +24,6 @@ namespace CVARC.V2
             ObjectId = actorObjectId;
             ControllerId = controllerId;
         }
-        public abstract ICommandPreprocessor CreateCommandPreprocessor();
-
 
 
         public string ControllerId

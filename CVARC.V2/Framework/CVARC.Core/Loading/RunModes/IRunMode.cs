@@ -8,7 +8,7 @@ namespace CVARC.V2
 {
     public interface IRunMode
     {
-        void Initialize(Configuration configuration, Competitions competitions);
+        void Initialize(IWorld world, Configuration configuration, Competitions competitions);
         IController GetController(string controllerId);
         Configuration Configuration { get; }
         Competitions Competitions { get; }

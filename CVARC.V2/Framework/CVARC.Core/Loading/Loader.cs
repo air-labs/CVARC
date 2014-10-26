@@ -24,9 +24,10 @@ namespace CVARC.V2
 
         public IWorld CreateWorld(Configuration configuration, IRunMode runMode, Competitions competitions)
         {
-            runMode.Initialize(configuration, competitions);
-            competitions.Logic.World.Initialize(competitions, runMode);
-            return competitions.Logic.World;
+            var world = competitions.Logic.CreateWorld(); 
+            runMode.Initialize(world, configuration, competitions);
+            world.Initialize(competitions, runMode);
+            return world;
         }
 
         IWorld LoadFromLogFile(CommandLineData cmdLineData)

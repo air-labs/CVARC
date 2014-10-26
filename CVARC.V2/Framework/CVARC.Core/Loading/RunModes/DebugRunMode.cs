@@ -27,14 +27,14 @@ namespace CVARC.V2
             return proposal;
         }
 
-        public void Initialize(Configuration configuration, Competitions competitions)
+        public void Initialize(IWorld world, Configuration configuration, Competitions competitions)
         {
             this.Configuration = configuration; 
             this.Competitions = competitions;
             controller = Competitions.Logic.CreateNetworkController();
             controller.InitializeClient(grobo);
             controller.OperationalTimeLimit = configuration.Settings.OperationalTimeLimit;
-            competitions.Logic.World.Exit += World_Exit;
+            world.Exit += World_Exit;
         }
 
         void World_Exit()

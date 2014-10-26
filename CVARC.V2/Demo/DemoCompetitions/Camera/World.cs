@@ -14,19 +14,6 @@ namespace Demo
         MovementRobot robot1;
         MovementRobot robot2;
 
-        public override IEnumerable<string> ControllersId
-        {
-            get
-            {
-                yield return TwoPlayersId.Left;
-                yield return TwoPlayersId.Right;
-            }
-        }
-
-        public override IActor CreateActor(string controllerId)
-        {
-            return new CameraRobot();
-        }
         public override SceneSettings CreateSceneState(int seed)
         {
             return new SceneSettings();

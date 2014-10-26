@@ -11,11 +11,6 @@ namespace RepairTheStarship
     public class RTSRobot<TSensorsData> : SimpleMovementRobot<IRTSActorManager,RTSWorld,TSensorsData>, IRTSRobot
         where TSensorsData : new()
     {
-        public override CVARC.V2.ICommandPreprocessor CreateCommandPreprocessor()
-        {
-            return new RTSCommandPreprocessor();
-        }
-
 
         public string GrippedObjectId { get; private set; }
 

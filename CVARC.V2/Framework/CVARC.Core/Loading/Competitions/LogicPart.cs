@@ -8,8 +8,7 @@ namespace CVARC.V2
 {
     public abstract class LogicPart
     {
-        public readonly IWorld World;
-        
+
         public readonly Dictionary<string, Func<IController>> Bots = new Dictionary<string, Func<IController>>();
 
         public abstract INetworkController CreateNetworkController();

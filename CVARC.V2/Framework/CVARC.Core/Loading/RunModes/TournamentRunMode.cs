@@ -15,12 +15,12 @@ namespace CVARC.V2
         List<Process> processes = new List<Process>();
         List<TcpClient> clients = new List<TcpClient>();
 
-        public override void Initialize(Configuration configuration, Competitions competitions)
+        public override void Initialize(IWorld world, Configuration configuration, Competitions competitions)
         {
-            base.Initialize(configuration, competitions);
+            base.Initialize(world, configuration, competitions);
             tcpServer = new System.Net.Sockets.TcpListener(configuration.Settings.Port);
             tcpServer.Start();
-            Competitions.Logic.World.Exit += World_Exit;
+            world.Exit += World_Exit;
         }
 
         void World_Exit()

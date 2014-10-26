@@ -9,7 +9,7 @@ using RepairTheStarship.Bots;
 namespace RepairTheStarship
 {
     public class RTSLogicPart<TSensorData> : LogicPart<
-                                                           RTSWorld<RTSRobot<TSensorData>>,
+                                                           RTSWorld,
                                                            RTSKeyboardControllerPool,
                                                            RTSRobot<TSensorData>,
                                                            RTSCommandPreprocessor,

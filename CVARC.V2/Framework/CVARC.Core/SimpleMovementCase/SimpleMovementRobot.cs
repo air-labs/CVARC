@@ -17,11 +17,6 @@ namespace CVARC.V2.SimpleMovement
         public virtual void ProcessCustomCommand(string commandName)
         { }
 
-        public override ICommandPreprocessor CreateCommandPreprocessor()
-        {
-            return new SimpleMovementPreprocessor();
-        }
-            
 
 
         public override void ExecuteCommand(SimpleMovementCommand command)
