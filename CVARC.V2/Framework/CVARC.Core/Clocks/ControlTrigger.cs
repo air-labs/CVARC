@@ -9,26 +9,40 @@ namespace CVARC.V2
     {
         IController controller;
         IActor controllable;
+        ICommandPreprocessor preprocessor;
+        IEnumerator<ICommand> currentBuffer;
 
-        public ControlTrigger(IController controller, IActor controllable)
+        public ControlTrigger(IController controller, IActor controllable, ICommandPreprocessor preprocessor)
         {
             this.controller = controller;
             this.controllable = controllable;
+            this.preprocessor = preprocessor;
+        }
+
+
+        void FillBuffer()
+        {
+            var sensorData = controllable.GetSensorData();
+            controller.SendSensorData(sensorData);
+            var command = controller.GetCommand();
+            controllable.World.Logger.AccountCommand(controllable.ControllerId, command);
+            var processedCommands = preprocessor.Preprocess(command);
+            currentBuffer = processedCommands.GetEnumerator();
+            if (!currentBuffer.MoveNext())
+            {
+                throw new Exception("The preprocessor has returned an empty set of commands. Unable to processd");
+            }
         }
 
         public override void Act(out double nextTime)
         {
-            var sensorData = controllable.GetSensorData();
-            controller.SendSensorData(sensorData);
-            var command = controller.GetCommand(controllable.ExpectedCommandType);
-            if (command != null)
-            {
-                controllable.World.Logger.AccountCommand(controllable.ControllerId, command);
-                controllable.ExecuteCommand(command);
-                nextTime = base.ThisCall + command.Duration;
-            }
-            else
-                nextTime = double.PositiveInfinity;
+            if (currentBuffer == null)
+                FillBuffer();
+            var currentCommand = currentBuffer.Current;
+            controllable.ExecuteCommand(currentCommand);
+            nextTime = base.ThisCall + currentCommand.Duration;
+            if (!currentBuffer.MoveNext())
+                currentBuffer = null;
         }
     }
 }

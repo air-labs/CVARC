@@ -19,7 +19,7 @@ namespace Demo
         {
             var assembly = GetType().Assembly;
             var names = assembly.GetManifestResourceNames();
-            return assembly.GetManifestResourceStream("DemoCompetitions.Kror.Resourses."+resourceName);
+            return assembly.GetManifestResourceStream("Demo.KroR.Resourses."+resourceName);
         }
 
         public override void CreateActorBody()

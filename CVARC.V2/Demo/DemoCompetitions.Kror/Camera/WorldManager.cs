@@ -9,7 +9,7 @@ using CVARC.V2;
 
 namespace Demo
 {
-    public class CameraWorldManager : KroRWorldManager<CameraWorld>
+    public class CameraWorldManager : KroRWorldManager<MovementWorld>
     {
         public override void CreateWorld(IdGenerator generator)
         {

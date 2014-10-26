@@ -7,18 +7,22 @@ using CVARC.V2.SimpleMovement;
 
 namespace Demo
 {
-    public class MovementLogicPart : LogicPart
+    public class MovementLogicPart :  LogicPart<
+                                                           MovementWorld,
+                                                           SimpleMovementTwoPlayersKeyboardControllerPool,
+                                                           MovementRobot,
+                                                           SimpleMovementPreprocessor,
+                                                           NetworkController<SimpleMovementCommand> 
+                                                >
     {
         public MovementLogicPart()
-            : base(
-            new MovementWorld(),
-            ()=>new SimpleMovementTwoPlayersKeyboardControllerPool())
+            : base(TwoPlayersId.Ids, GetDefaultSettings)
         {
             Bots["Square"]=()=>new SquareWalkingBot(50);
             Bots["Random"]=()=>new RandomWalkingBot(50);
         }
 
-        public override Settings GetDefaultSettings()
+        static Settings GetDefaultSettings()
         {
             return new Settings
             {
@@ -31,5 +35,7 @@ namespace Demo
                 }
             };
         }
+
+     
     }
 }

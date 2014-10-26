@@ -9,18 +9,17 @@ namespace CVARC.V2
     public class DebugRunMode : IRunMode
     {
         int givenControllers = 0;
-        NetworkController controller;
+        INetworkController controller;
         ConfigurationProposal proposal;
         TcpClient client;
-
+        CvarcTcpClient grobo;
         public DebugRunMode(int portNumber)
         {
             var tcpServer = new System.Net.Sockets.TcpListener(portNumber);
             tcpServer.Start();
             client = tcpServer.AcceptTcpClient();
-            var grobo = new CvarcTcpClient(client);
-            controller = new NetworkController(grobo);
-            proposal = controller.ReadConfiguration();
+            grobo = new CvarcTcpClient(client);
+            proposal = grobo.ReadObject<ConfigurationProposal>();
         }
 
         public ConfigurationProposal GetConfigurationProposal()
@@ -28,12 +27,14 @@ namespace CVARC.V2
             return proposal;
         }
 
-        public void Initialize(Configuration configuration, Competitions competitions)
+        public void Initialize(IWorld world, Configuration configuration, Competitions competitions)
         {
             this.Configuration = configuration; 
             this.Competitions = competitions;
+            controller = Competitions.Logic.CreateNetworkController();
+            controller.InitializeClient(grobo);
             controller.OperationalTimeLimit = configuration.Settings.OperationalTimeLimit;
-            competitions.Logic.World.Exit += World_Exit;
+            world.Exit += World_Exit;
         }
 
         void World_Exit()

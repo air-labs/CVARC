@@ -40,7 +40,7 @@ namespace CameraClient
             });
             for (int i = 0; i < 100; i++)
             {
-                var sensorsData = client.Act(new SimpleMovementCommand { AngularVelocity = Angle.FromGrad(30), Duration = 0.2 });
+                var sensorsData = client.Act(SimpleMovementCommand.Rotate(Angle.Pi/20,0.1));
                 var stream = new MemoryStream(sensorsData.Image);
                 var bitmap = (Bitmap)Bitmap.FromStream(stream);
                 form.UpdateBitmap(bitmap);

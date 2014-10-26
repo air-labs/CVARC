@@ -11,22 +11,8 @@ namespace Demo
 {
     public class MovementWorld : World<SceneSettings, IWorldManager>, ISimpleMovementWorld
     {
-        MovementRobot robot1;
-        MovementRobot robot2;
 
-        public override IEnumerable<string> ControllersId
-        {
-            get
-            {
-                yield return TwoPlayersId.Left;
-                yield return TwoPlayersId.Right;
-            }
-        }
 
-        public override IActor CreateActor(string controllerId)
-        {
-            return new MovementRobot();
-        }
         public override SceneSettings CreateSceneState(int seed)
         {
             return new SceneSettings();

@@ -8,7 +8,7 @@ using CVARC.V2.SimpleMovement;
 
 namespace RepairTheStarship
 {
-    public abstract class RTSWorld : World<SceneSettings,IRTSWorldManager>, ISimpleMovementWorld
+    public class RTSWorld : World<SceneSettings,IRTSWorldManager>, ISimpleMovementWorld
      {
         Dictionary<DetailColor, int> repairs = new Dictionary<DetailColor, int>();
 
@@ -73,14 +73,6 @@ namespace RepairTheStarship
             }
         }
 
-        public override IEnumerable<string> ControllersId
-        {
-            get
-            {
-                yield return TwoPlayersId.Left;
-                yield return TwoPlayersId.Right;
-            }
-        }
 
         public static SimpleMovementCommandHelper StaticCommandHelper = new SimpleMovementCommandHelper { LinearVelocityLimit = 50, AngularVelocityLimit = Angle.FromGrad(90) };
         public SimpleMovementCommandHelper CommandHelper
@@ -89,13 +81,4 @@ namespace RepairTheStarship
         }
     }
 
-    public class RTSWorld<TRobot> : RTSWorld
-        where TRobot : IActor,new ()
-    {
-        public override IActor CreateActor(string controllerId)
-        {
- 	
-            return new TRobot();
-        }
-    }
 }

@@ -10,11 +10,6 @@ namespace Demo
     public class MovementRobot : SimpleMovementRobot<IActorManager, MovementWorld, SensorsData>
     {
 
-        public override void ProcessCustomCommand(string commandName, out double nextRequestTimeSpan)
-        {
-            nextRequestTimeSpan = 1;
-        }
-
      
     }
 }

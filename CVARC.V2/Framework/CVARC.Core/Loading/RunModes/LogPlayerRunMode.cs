@@ -17,7 +17,7 @@ namespace CVARC.V2
         }
 
 
-        public void Initialize(Configuration configuration, Competitions competitions)
+        public void Initialize(IWorld world, Configuration configuration, Competitions competitions)
         {
             Configuration = configuration;
             Competitions = competitions;   

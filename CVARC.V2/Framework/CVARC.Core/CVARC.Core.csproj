@@ -95,6 +95,7 @@
     <Compile Include="Controllers\Keyboard\WinformsKey.cs" />
     <Compile Include="Controllers\LogPlayController.cs" />
     <Compile Include="Controllers\Network\GroboTcpClient.cs" />
+    <Compile Include="Controllers\Network\INetworkController.cs" />
     <Compile Include="Controllers\Network\ISerializer.cs" />
     <Compile Include="Controllers\Network\JSonSerializer.cs" />
     <Compile Include="Controllers\Network\NetworkController.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Engine\IWorldManager.cs" />
     <Compile Include="Engine\WorldManager.cs" />
     <Compile Include="Loading\Competitions\Competitions.cs" />
+    <Compile Include="Loading\Competitions\LogicPart{}.cs" />
     <Compile Include="Loading\Configuration\ConfigurationProposal.cs" />
     <Compile Include="Loading\Configuration\IConfigurationPull.cs" />
     <Compile Include="Loading\Configuration\LoadingData.cs" />
@@ -134,6 +136,8 @@
     <Compile Include="Sensors\ISensor.cs" />
     <Compile Include="Sensors\Sensor.cs" />
     <Compile Include="Sensors\SensorPack.cs" />
+    <Compile Include="SimpleMovementCase\ISimpleMovementRobot.cs" />
+    <Compile Include="SimpleMovementCase\SimpleMovementPreprocessor.cs" />
     <Compile Include="SimpleMovementCase\StandingBot.cs" />
     <Compile Include="SimpleMovementCase\ISimpleMovementWorld.cs" />
     <Compile Include="SimpleMovementCase\RandomWalkingBot.cs" />
@@ -143,8 +147,10 @@
     <Compile Include="SimpleMovementCase\SquareWalkingBot.cs" />
     <Compile Include="SimpleMovementCase\TwoPlayersId.cs" />
     <Compile Include="World\Actor.cs" />
+    <Compile Include="World\CommandPreprocessor.cs" />
     <Compile Include="World\IActor.cs" />
     <Compile Include="World\ICommand.cs" />
+    <Compile Include="World\ICommandPreprocessor.cs" />
     <Compile Include="World\IdGenerator.cs" />
     <Compile Include="World\IWorld.cs" />
     <Compile Include="World\Robot.cs" />

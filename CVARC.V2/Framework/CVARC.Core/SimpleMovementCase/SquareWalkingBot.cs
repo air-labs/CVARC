@@ -20,8 +20,8 @@ namespace CVARC.V2.SimpleMovement
         override public SimpleMovementCommand GetCommand()
         {
             turn = (turn + 1) % 2;
-            if (turn==0) return new SimpleMovementCommand { LinearVelocity = distance, Duration = 1 };
-            else return new SimpleMovementCommand { AngularVelocity =- Angle.Pi/2, Duration = 1 };
+            if (turn == 0) return SimpleMovementCommand.Move(distance, 1);
+            else return SimpleMovementCommand.Rotate(Angle.Pi / 2, 1);
             
         }
 

@@ -49,10 +49,10 @@ namespace CVARC.V2
             Log.Save(filename);
         }
 
-        public void AccountCommand(string controllerId, ICommand command)
+        public void AccountCommand(string controllerId, object command)
         {
             if (!Log.Commands.ContainsKey(controllerId))
-                Log.Commands[controllerId] = new List<ICommand>();
+                Log.Commands[controllerId] = new List<object>();
             Log.Commands[controllerId].Add(command);
         }
 

@@ -13,11 +13,11 @@ namespace RepairTheStarship
         public override void Initialize(IWorld world, IKeyboard keyboard)
         {
             base.Initialize(world, keyboard);
-            Add(Keys.Q, TwoPlayersId.Left, () => new SimpleMovementCommand { Command = "Grip" });
-            Add(Keys.E, TwoPlayersId.Left, () => new SimpleMovementCommand { Command = "Release" });
+            Add(Keys.Q, TwoPlayersId.Left, () => SimpleMovementCommand.Action("Grip"));
+            Add(Keys.E, TwoPlayersId.Left, () => SimpleMovementCommand.Action("Release"));
 
-            Add(Keys.U, TwoPlayersId.Right, () => new SimpleMovementCommand { Command = "Grip" });
-            Add(Keys.O, TwoPlayersId.Right, () => new SimpleMovementCommand { Command = "Release" });
+            Add(Keys.U, TwoPlayersId.Right, () => SimpleMovementCommand.Action("Grip"));
+            Add(Keys.O, TwoPlayersId.Right, () => SimpleMovementCommand.Action("Release"));
         }
     }
 }

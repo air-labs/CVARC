@@ -7,14 +7,8 @@ using CVARC.V2;
 
 namespace Demo
 {
-    public class CameraRobot : SimpleMovementRobot<IActorManager, CameraWorld, SensorsWithCamera>
+    public class CameraRobot : SimpleMovementRobot<IActorManager, MovementWorld, SensorsWithCamera>
     {
 
-        public override void ProcessCustomCommand(string commandName, out double nextRequestTimeSpan)
-        {
-            nextRequestTimeSpan = 1;
-        }
-
-     
     }
 }

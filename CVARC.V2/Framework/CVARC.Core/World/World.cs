@@ -23,8 +23,6 @@ namespace CVARC.V2
         public Logger Logger { get; private set; }
         public IRunMode RunMode { get; private set; }
 
-        public abstract IEnumerable<string> ControllersId { get; }
-        public abstract IActor CreateActor(string controllerId);
         public abstract TSceneState CreateSceneState(int seed);
 
         public void OnExit()
@@ -72,9 +70,9 @@ namespace CVARC.V2
 
             //Initializing actors
             actors = new List<IActor>();
-            foreach(var id in ControllersId)
+            foreach(var id in competitions.Logic.ControllersId)
             {
-                var e=CreateActor(id);
+                var e = competitions.Logic.CreateActor(id);
                 var actorObjectId = IdGenerator.CreateNewId(e);
                 var manager = competitions.Manager.CreateActorManagerFor(e);
                 e.Initialize(manager, this, actorObjectId, id);
@@ -82,7 +80,9 @@ namespace CVARC.V2
                 manager.CreateActorBody();
                 var controller = environment.GetController(e.ControllerId);
                 controller.Initialize(e);
-                Clocks.AddTrigger(new ControlTrigger(controller, e));
+                var preprocessor = competitions.Logic.CreateCommandPreprocessor(id);
+                preprocessor.Initialize(e);
+                Clocks.AddTrigger(new ControlTrigger(controller, e, preprocessor));
                 actors.Add(e);
             }
         }

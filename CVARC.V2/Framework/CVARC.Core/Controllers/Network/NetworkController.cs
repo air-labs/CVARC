@@ -8,26 +8,21 @@ using AIRLab;
 namespace CVARC.V2
 {
 
-    public class NetworkController : IController
+    public class NetworkController<TCommand> : INetworkController
     {
         CvarcTcpClient client;
 
-        public double OperationalTimeLimit;
+        public double OperationalTimeLimit { get; set; }
         double OperationalTime;
 
-        public NetworkController(CvarcTcpClient client)
+        public void InitializeClient(CvarcTcpClient client)
         {
             this.client = client;
         }
 
-        public ConfigurationProposal ReadConfiguration()
-        {
-            return client.ReadObject<ConfigurationProposal>();    
-        }
-
         public void Initialize(IActor controllableActor)
         {
-           
+            
         }
 
         object sensorData;
@@ -47,13 +42,13 @@ namespace CVARC.V2
             }
         }
 
-        public ICommand GetCommand(Type commandType)
+        public object GetCommand()
         {
             if (!active) return null;
 
             var @delegate = new Func<Type, Tuple<ICommand, Exception>>(GetCommandInternally);
 
-            var async = @delegate.BeginInvoke(commandType, null, null);
+            var async = @delegate.BeginInvoke(typeof(TCommand), null, null);
 
             while (OperationalTime < OperationalTimeLimit)
             {

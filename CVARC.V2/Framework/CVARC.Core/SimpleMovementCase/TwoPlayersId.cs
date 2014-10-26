@@ -9,5 +9,15 @@ namespace CVARC.V2
     {
         public static readonly string Left = "Left";
         public static readonly string Right = "Right";
+        public static IEnumerable<string> Ids
+        {
+            get
+            {
+                yield return Left;
+                yield return Right;
+            }
+        }
+
+
     }
 }
