@@ -8,13 +8,16 @@ using RepairTheStarship.Bots;
 
 namespace RepairTheStarship
 {
-    public class RTSLogicPart<TSensorData> : LogicPart
+    public class RTSLogicPart<TSensorData> : LogicPart<
+                                                           RTSWorld<RTSRobot<TSensorData>>,
+                                                           RTSKeyboardControllerPool,
+                                                           RTSRobot<TSensorData>,
+                                                           RTSCommandPreprocessor,
+                                                           NetworkController<SimpleMovementCommand> 
+                                                       >
         where TSensorData : new()
     {
-        public RTSLogicPart()
-            : base(
-                new RTSWorld<RTSRobot<TSensorData>>(),
-                () => new RTSKeyboardControllerPool())
+        public RTSLogicPart() : base( TwoPlayersId.Ids, GetDefaultSettings)
         {
             Bots[RepairTheStarshipBots.Azura.ToString()] = () => new Azura();
             Bots[RepairTheStarshipBots.Vaermina.ToString()] = () => new Vaermina();
@@ -23,14 +26,9 @@ namespace RepairTheStarship
             Bots[RepairTheStarshipBots.None.ToString()] = () => new StandingBot();
         }
 
-        public override Settings GetDefaultSettings()
+        static Settings GetDefaultSettings()
         {
             return new Settings { OperationalTimeLimit = 1, TimeLimit = 90 };
-        }
-
-        public override INetworkController CreateNetworkController(CvarcTcpClient client)
-        {
-            return new NetworkController<SimpleMovementCommand>(client);
         }
     }
 }

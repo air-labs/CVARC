@@ -15,16 +15,14 @@ namespace CVARC.V2
         public double OperationalTimeLimit { get; set; }
         double OperationalTime;
 
-        public NetworkController(CvarcTcpClient client)
+        public void InitializeClient(CvarcTcpClient client)
         {
             this.client = client;
         }
 
-
-
         public void Initialize(IActor controllableActor)
         {
-           
+            
         }
 
         object sensorData;

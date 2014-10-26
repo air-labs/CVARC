@@ -105,6 +105,7 @@
     <Compile Include="Engine\IWorldManager.cs" />
     <Compile Include="Engine\WorldManager.cs" />
     <Compile Include="Loading\Competitions\Competitions.cs" />
+    <Compile Include="Loading\Competitions\LogicPart{}.cs" />
     <Compile Include="Loading\Configuration\ConfigurationProposal.cs" />
     <Compile Include="Loading\Configuration\IConfigurationPull.cs" />
     <Compile Include="Loading\Configuration\LoadingData.cs" />

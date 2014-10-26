@@ -31,7 +31,8 @@ namespace CVARC.V2
         {
             this.Configuration = configuration; 
             this.Competitions = competitions;
-            controller = Competitions.Logic.CreateNetworkController(grobo);
+            controller = Competitions.Logic.CreateNetworkController();
+            controller.InitializeClient(grobo);
             controller.OperationalTimeLimit = configuration.Settings.OperationalTimeLimit;
             competitions.Logic.World.Exit += World_Exit;
         }

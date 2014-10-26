@@ -18,7 +18,7 @@ namespace CVARC.V2
         override public void Initialize(Configuration configuration, Competitions competitions)
         {
             base.Initialize(configuration, competitions);
-            this.pool = competitions.Logic.KeyboardControllerPoolFactory();
+            this.pool = competitions.Logic.CreateKeyboardControllerPool();
             pool.Initialize(competitions.Logic.World, competitions.Engine.Keyboard);
         }
 

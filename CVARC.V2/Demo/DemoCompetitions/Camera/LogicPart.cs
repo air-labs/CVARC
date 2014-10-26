@@ -7,18 +7,22 @@ using CVARC.V2.SimpleMovement;
 
 namespace Demo
 {
-    public class CameraLogicPart : LogicPart
+    public class CameraLogicPart : LogicPart <
+                                                    CameraWorld,
+                                                    SimpleMovementTwoPlayersKeyboardControllerPool,
+                                                    CameraRobot,
+                                                    SimpleMovementPreprocessor,
+                                                    NetworkController<SimpleMovementCommand>
+                                             >
     {
         public CameraLogicPart()
-            : base(
-            new CameraWorld(),
-            ()=>new SimpleMovementTwoPlayersKeyboardControllerPool())
+            : base(TwoPlayersId.Ids, GetDefaultSettings)
         {
             Bots["Square"]=()=>new SquareWalkingBot(50);
             Bots["Random"]=()=>new RandomWalkingBot(50);
         }
 
-        public override Settings GetDefaultSettings()
+        static Settings GetDefaultSettings()
         {
             return new Settings
             {
@@ -32,9 +36,6 @@ namespace Demo
             };
         }
 
-        public override INetworkController CreateNetworkController(CvarcTcpClient client)
-        {
-            return new NetworkController<SimpleMovementCommand>(client);
-        }
+       
     }
 }
