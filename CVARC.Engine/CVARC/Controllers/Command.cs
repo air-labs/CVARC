@@ -26,12 +26,14 @@ namespace CVARC.Basic.Controllers
             return new Command { Action = action, Time = 1 };
         }
 
-        public static Command Rot(double grad, double velocity=MaxAngularVelocity)
+        public static Command Rot(double grad, double velocity = MaxAngularVelocity)
         {
-            var rot= Angle.FromGrad(grad).Normilize();
-            return new Command { AngularVelocity = 
-                 Angle.FromGrad(MaxAngularVelocity*Math.Sign(rot.Grad)), 
-                 Time = Math.Abs(rot.Grad/MaxAngularVelocity) }; 
+            var rot = Angle.FromGrad(grad).Normilize();
+            return new Command
+                {
+                    AngularVelocity = Angle.FromGrad(MaxAngularVelocity*Math.Sign(rot.Grad)),
+                    Time = Math.Abs(rot.Grad/MaxAngularVelocity)
+                };
         }
 
         public static Command Sleep(int time = 1)
