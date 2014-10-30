@@ -34,10 +34,18 @@ namespace CVARC.Network
             Application.Run(form);
         }
 
+        private static readonly HelloPackage CustomHelloPackage = new HelloPackage
+        {
+            LevelName = "Level2",
+            MapSeed = 276,
+            Opponent = "None",
+            Side = Side.Left
+        };
+
         private static Participant[] InitCompetition()
         {
             var participantsServer = new ParticipantsServer(CompetitionsName);
-            var participant = participantsServer.GetParticipant();
+            var participant = participantsServer.GetParticipant(CustomHelloPackage);
             competitionsBundle = participantsServer.CompetitionsBundle;
             var participants = new Participant[2];
             participants[participant.ControlledRobot] = participant;

@@ -19,10 +19,10 @@ namespace CVARC.Basic.Core.Participants
             listener.Start();
         }
 
-        public NetworkParticipant GetParticipant()
+        public NetworkParticipant GetParticipant(HelloPackage helloPackage = null)
         {
             var client = new ClientWithPackage(listener.AcceptTcpClient());
-            CompetitionsBundle = GetCompetitionsBundle(client.HelloPackage);
+            CompetitionsBundle = GetCompetitionsBundle(helloPackage ?? client.HelloPackage);
             int controlledRobot = client.HelloPackage.Side == Side.Random ? new Random().Next(2) : (int)client.HelloPackage.Side;
             return new NetworkParticipant(CompetitionsBundle.competitions, controlledRobot, client.Client);
         }
@@ -51,7 +51,7 @@ namespace CVARC.Basic.Core.Participants
             private static readonly ISerializer Serializer = new JsonSerializer();
             public HelloPackage HelloPackage { get; set; }
             public GroboTcpClient Client { get; set; }
-            
+
             public ClientWithPackage(TcpClient client)
             {
                 Client = new GroboTcpClient(client);
