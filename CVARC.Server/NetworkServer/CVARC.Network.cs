@@ -28,7 +28,7 @@ namespace CVARC.Network
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var form = new TutorialForm(competitionsBundle.competitions);
-            Task.Factory.StartNew(() => competitionsBundle.competitions.ProcessParticipants(true, 1000, participants));
+            Task.Factory.StartNew(() => competitionsBundle.competitions.ProcessParticipants(true, 60 * 1000, participants));
             Application.Run(form);
         }
 
