@@ -37,7 +37,7 @@ namespace CVARC.Network
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 form = new TutorialForm(competitionsBundle.competitions);
-                new Thread(() => competitionsBundle.competitions.ProcessParticipants(realTime, 1000, participants))
+                new Thread(() => competitionsBundle.competitions.ProcessParticipants(realTime, 60 * 1000, participants))
                 {
                     IsBackground = true
                 }.Start();
