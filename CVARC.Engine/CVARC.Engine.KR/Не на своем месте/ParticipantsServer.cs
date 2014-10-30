@@ -23,7 +23,7 @@ namespace CVARC.Basic.Core.Participants
         {
             var client = new ClientWithPackage(listener.AcceptTcpClient());
             CompetitionsBundle = GetCompetitionsBundle(helloPackage ?? client.HelloPackage);
-            int controlledRobot = client.HelloPackage.Side == Side.Random ? new Random().Next(2) : (int)client.HelloPackage.Side;
+            int controlledRobot = CompetitionsBundle.competitions.HelloPackage.Side == Side.Random ? new Random().Next(2) : (int)CompetitionsBundle.competitions.HelloPackage.Side;
             return new NetworkParticipant(CompetitionsBundle.competitions, controlledRobot, client.Client);
         }
 
