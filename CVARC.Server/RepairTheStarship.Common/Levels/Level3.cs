@@ -13,7 +13,7 @@ namespace Gems.Levels
 
         public override Robot CreateRobot(int robotNumber)
         {
-            return new DestinationGemsRobot(this, robotNumber);
+            return new MapGemsRobot(this, robotNumber);
         }
     };
 }
