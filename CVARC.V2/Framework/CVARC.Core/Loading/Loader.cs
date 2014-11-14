@@ -63,6 +63,13 @@ namespace CVARC.V2
             return CreateWorld(configuration, mode, competitions);
         }
 
+        IWorld LoadFromNetwork(IMessagingClient client)
+        {
+            var mode = new DebugRunMode(client);
+            var configProposal = mode.GetConfigurationProposal();
+            return LoadNonLogFile(mode, configProposal.LoadingData, configProposal.SettingsProposal);
+       
+        }
         IWorld LoadFromNetwork(CommandLineData data)
         {
             int port;
@@ -79,9 +86,12 @@ namespace CVARC.V2
             }
             else
                 port = 14000;
-            var mode = new DebugRunMode(port);
-            var configProposal = mode.GetConfigurationProposal();
-            return LoadNonLogFile(mode, configProposal.LoadingData, configProposal.SettingsProposal);
+
+            var tcpServer = new System.Net.Sockets.TcpListener(port);
+            tcpServer.Start();
+            var client = tcpServer.AcceptTcpClient();
+            var messagingClient = new CvarcTcpClient(client);
+            return LoadFromNetwork(messagingClient);
         }
 
         IWorld LoadNormally(CommandLineData cmdLineData)

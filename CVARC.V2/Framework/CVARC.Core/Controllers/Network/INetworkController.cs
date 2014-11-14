@@ -8,6 +8,6 @@ namespace CVARC.V2
     public  interface INetworkController : IController
     {
         double OperationalTimeLimit { get; set; }
-        void InitializeClient(CvarcTcpClient client);
+        void InitializeClient(IMessagingClient client);
     }
 }

@@ -10,12 +10,12 @@ namespace CVARC.V2
 
     public class NetworkController<TCommand> : INetworkController
     {
-        CvarcTcpClient client;
+        IMessagingClient client;
 
         public double OperationalTimeLimit { get; set; }
         double OperationalTime;
 
-        public void InitializeClient(CvarcTcpClient client)
+        public void InitializeClient(IMessagingClient client)
         {
             this.client = client;
         }
@@ -32,8 +32,8 @@ namespace CVARC.V2
         {
             try
             {
-                client.SerializeAndSend(sensorData);
-                var command = (ICommand)client.ReadObject(commandType);
+                client.Write(sensorData);
+                var command = (ICommand)client.Read(commandType);
                 return new Tuple<ICommand,Exception>(command,null);
             }
             catch (Exception e)

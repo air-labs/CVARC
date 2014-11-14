@@ -61,7 +61,7 @@ namespace CVARC.V2
             var cvarcClient = new CvarcTcpClient(client);
             var controller = Competitions.Logic.CreateNetworkController();
             controller.InitializeClient(cvarcClient);
-            cvarcClient.ReadObject<ConfigurationProposal>();
+            cvarcClient.Read<ConfigurationProposal>();
             controller.OperationalTimeLimit = Configuration.Settings.OperationalTimeLimit;
             return controller;
         }

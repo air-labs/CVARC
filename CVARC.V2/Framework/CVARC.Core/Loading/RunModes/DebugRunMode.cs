@@ -11,19 +11,16 @@ namespace CVARC.V2
         int givenControllers = 0;
         INetworkController controller;
         ConfigurationProposal proposal;
-        TcpClient client;
-        CvarcTcpClient grobo;
-        public DebugRunMode(int portNumber)
+        IMessagingClient grobo;
+        public DebugRunMode(IMessagingClient client)
         {
-            var tcpServer = new System.Net.Sockets.TcpListener(portNumber);
-            tcpServer.Start();
-            client = tcpServer.AcceptTcpClient();
-            grobo = new CvarcTcpClient(client);
-            proposal = grobo.ReadObject<ConfigurationProposal>();
+            grobo = client;
         }
 
         public ConfigurationProposal GetConfigurationProposal()
         {
+            if (proposal==null)
+                proposal = grobo.Read<ConfigurationProposal>();
             return proposal;
         }
 
@@ -39,7 +36,7 @@ namespace CVARC.V2
 
         void World_Exit()
         {
-            client.Close();
+            grobo.Close();
         }
 
         public IController GetController(string controllerId)

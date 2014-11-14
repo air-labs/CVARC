@@ -31,14 +31,14 @@ namespace CVARC.V2
             var tcpClient = new TcpClient();
             tcpClient.Connect("127.0.0.1", port);
             client = new CvarcTcpClient(tcpClient);
-            client.SerializeAndSend(configuration);
-            return client.ReadObject<TSensorData>();
+            client.Write(configuration);
+            return client.Read<TSensorData>();
         }
 
         public TSensorData Act(TCommand command)
         {
-                client.SerializeAndSend(command);
-                var sensorData = client.ReadObject<TSensorData>();
+                client.Write(command);
+                var sensorData = client.Read<TSensorData>();
                 if (sensorData == null)
                     Environment.Exit(0);
                 return sensorData;

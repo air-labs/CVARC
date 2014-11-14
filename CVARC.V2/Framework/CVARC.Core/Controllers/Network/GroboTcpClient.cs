@@ -7,22 +7,29 @@ using System.Windows.Forms;
 
 namespace CVARC.V2
 {
-    public class CvarcTcpClient : IDisposable
+    public class CvarcTcpClient : IDisposable, IMessagingClient
     {
         private readonly Stream stream;
         private const byte EndLine = (byte)'\n';
         private StreamReader streamReader;
         private static readonly ISerializer Serializer = new JsonSerializer();
+        TcpClient client;
 
         public CvarcTcpClient(TcpClient client)
         {
+            this.client=client;
             stream = client.GetStream();
             streamReader = new StreamReader(stream);
         }
 
-        public void SerializeAndSend(object obj)
+        public void Write(object obj)
         {
             Send(Serializer.Serialize(obj));
+        }
+
+       public  void Close()
+        {
+            client.Close();
         }
 
         public void Send(byte[] message)
@@ -40,18 +47,13 @@ namespace CVARC.V2
             return Encoding.UTF8.GetBytes(str);
         }
 
-        public object ReadObject(Type type)
+        public object Read(Type type)
         {
             var bytes = ReadToEnd();
             if (bytes == null) return null;
             return Serializer.Deserialize(type, bytes);
         }
 
-        public T ReadObject<T>()
-            where T : class
-        {
-            return (T)ReadObject(typeof(T));
-        }
 
         public void Dispose()
         {
