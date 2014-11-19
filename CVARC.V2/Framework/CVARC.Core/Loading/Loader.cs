@@ -53,7 +53,7 @@ namespace CVARC.V2
         }
 
 
-        IWorld LoadNonLogFile(IRunMode mode, LoadingData loadingData, SettingsProposal proposal)
+        public IWorld LoadNonLogFile(IRunMode mode, LoadingData loadingData, SettingsProposal proposal)
         {
             var configuration = new Configuration();
             configuration.LoadingData = loadingData;
@@ -63,7 +63,7 @@ namespace CVARC.V2
             return CreateWorld(configuration, mode, competitions);
         }
 
-        IWorld LoadFromNetwork(IMessagingClient client)
+        public IWorld LoadFromNetwork(IMessagingClient client)
         {
             var mode = new DebugRunMode(client);
             var configProposal = mode.GetConfigurationProposal();
