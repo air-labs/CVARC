@@ -20,11 +20,12 @@ namespace CVARC.V2
         }
 
 
-        void FillBuffer()
+        bool FillBuffer()
         {
             var sensorData = controllable.GetSensorData();
             controller.SendSensorData(sensorData);
             var command = controller.GetCommand();
+            if (command == null) return false;
             controllable.World.Logger.AccountCommand(controllable.ControllerId, command);
             var processedCommands = preprocessor.Preprocess(command);
             currentBuffer = processedCommands.GetEnumerator();
@@ -32,12 +33,17 @@ namespace CVARC.V2
             {
                 throw new Exception("The preprocessor has returned an empty set of commands. Unable to processd");
             }
+            return true;
         }
 
         public override void Act(out double nextTime)
         {
             if (currentBuffer == null)
-                FillBuffer();
+                if (!FillBuffer())
+                {
+                    nextTime = double.PositiveInfinity;
+                    return;
+                }
             var currentCommand = currentBuffer.Current;
             controllable.ExecuteCommand(currentCommand);
             nextTime = base.ThisCall + currentCommand.Duration;
