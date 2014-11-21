@@ -101,16 +101,28 @@ namespace CVARC.V2
             return LoadFromNetwork(messagingClient);
         }
 
-        void SelfTestThread(ICvarcTest test, int port, IAsserter asserter, TestAsyncLock holder)
+        void SelfTestClientThread(ICvarcTest test, int port, IAsserter asserter, TestAsyncLock holder)
         {
             holder.WaitForServer();
             test.Run(port, holder, asserter);
         }
 
-        public IWorld LoadSelfTest(string assemblyName, string level, string testName, IAsserter asserter)
+        IWorld CreateSelfTestServer(int port, TestAsyncLock holder, Action<IWorld> worldCallback)
         {
-            int port=14000;
-            var holder = new TestAsyncLock();
+            var tcpServer = new System.Net.Sockets.TcpListener(port);
+            tcpServer.Start();
+            holder.ServerLoaded = true;
+
+            var client = tcpServer.AcceptTcpClient();
+            var messagingClient = new CvarcTcpClient(client);
+            var world = LoadFromNetwork(messagingClient);
+            holder.World = world;
+            if (worldCallback != null) worldCallback(world);
+            return world;
+        }
+
+        public ICvarcTest GetTest(string assemblyName, string level, string testName)
+        {
             Competitions competitions;
             try
             {
@@ -123,24 +135,32 @@ namespace CVARC.V2
             ICvarcTest test;
             try
             {
-                test=competitions.Logic.Tests[testName];
+                test = competitions.Logic.Tests[testName];
             }
             catch
             {
-                throw new Exception(string.Format("The test with name '{0}' was not found in competitions {1}.{2}",testName,assemblyName,level));
+                throw new Exception(string.Format("The test with name '{0}' was not found in competitions {1}.{2}", testName, assemblyName, level));
             }
-            new Action<ICvarcTest, int, IAsserter, TestAsyncLock>(SelfTestThread).BeginInvoke(test, port, asserter, holder, null, null);
-            
+            return test;
+        }
+        public IWorld LoadSelfTest(string assemblyName, string level, string testName, IAsserter asserter)
+        {
 
-            var tcpServer = new System.Net.Sockets.TcpListener(port);
-            tcpServer.Start();
-            holder.ServerLoaded = true;
-            
-            var client = tcpServer.AcceptTcpClient();
-            var messagingClient = new CvarcTcpClient(client);
-            var world = LoadFromNetwork(messagingClient);
-            holder.World=world;
-            return world;
+            var test = GetTest(assemblyName, level, testName);
+            int port = 14000;
+            var holder = new TestAsyncLock();
+            new Action<ICvarcTest, int, IAsserter, TestAsyncLock>(SelfTestClientThread).BeginInvoke(test, port, asserter, holder, null, null);
+            return CreateSelfTestServer(port, holder, null);
+        }
+
+        public void RunSelfTestInTheSameThread(string assemblyName, string level, string testName, IAsserter asserter, Action<IWorld> worldCallback)
+        {
+            var test = GetTest(assemblyName, level, testName);
+            int port = 14000;
+            var holder = new TestAsyncLock();
+            new Func<int, TestAsyncLock, Action<IWorld>, IWorld>(CreateSelfTestServer)
+                .BeginInvoke(port, holder, worldCallback, null, null);
+            SelfTestClientThread(test, port, asserter, holder);
         }
 
         IWorld LoadNormally(CommandLineData cmdLineData)

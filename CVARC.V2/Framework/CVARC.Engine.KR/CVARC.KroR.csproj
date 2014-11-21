@@ -155,7 +155,7 @@
     <Compile Include="Engine\Implementation\CVARCEngine.cs" />
     <Compile Include="Engine\Implementation\CVARKDevices\CVARCEngineCamera.cs" />
     <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Integration\Kinect.cs" />
-    <Compile Include="IWorldExtensions.cs" />
+    <Compile Include="New Architecture\IWorldExtensions.cs" />
     <Compile Include="Legacy\KinectSensor.cs" />
     <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Integration\SensorRotation.cs" />
     <Compile Include="Engine\Implementation\CVARKDevices\CVARCKinect\Integration\SimpleSonar.cs" />
