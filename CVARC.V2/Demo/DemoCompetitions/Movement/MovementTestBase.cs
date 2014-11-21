@@ -24,7 +24,8 @@ namespace Demo
                     Controllers = new List<ControllerSettings> 
                     {
                         new ControllerSettings  { ControllerId=MovementLogicPart.ControllerId, Name="This", Type= ControllerType.Client}
-                    }
+                    },
+                    SpeedUp=true
                 }
             };
         }
