@@ -107,7 +107,7 @@ namespace CVARC.V2
             test.Run(port, holder, asserter);
         }
 
-        IWorld LoadSelfTest(string assemblyName, string level, string testName, IAsserter asserter)
+        public IWorld LoadSelfTest(string assemblyName, string level, string testName, IAsserter asserter)
         {
             int port=14000;
             var holder = new TestAsyncLock();

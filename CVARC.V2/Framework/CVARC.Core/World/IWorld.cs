@@ -19,4 +19,19 @@ namespace CVARC.V2
         IRunMode RunMode { get; }
         Logger Logger { get; }
     }
+
+    public static class IWorldExtensions
+    {
+        public static void RunWithoutInterface(this IWorld world)
+        {
+            bool stop = false;
+            world.Exit += () => stop = true;
+            while (!stop)
+            {
+                var time = world.Clocks.GetNextEventTime();
+                if (time > world.RunMode.Configuration.Settings.TimeLimit) break;
+                world.Clocks.Tick(time);
+            }
+        }
+    }
 }

@@ -50,8 +50,26 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="Movement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\CVARC.Core\CVARC.Core.csproj">
+      <Project>{f7b5021f-09e8-4388-97a2-4b44b9770d03}</Project>
+      <Name>CVARC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\CVARC.Engine.KR\CVARC.KroR.csproj">
+      <Project>{1c435b15-949f-420b-b5d5-f433439fb69c}</Project>
+      <Name>CVARC.KroR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DemoCompetitions.Kror\Demo.Kror.csproj">
+      <Project>{b9aaef76-ad12-4593-b665-66db19ad03c8}</Project>
+      <Name>Demo.Kror</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DemoCompetitions\Demo.General.csproj">
+      <Project>{ce636d44-57a4-48fa-a178-88ca2c3e9dd4}</Project>
+      <Name>Demo.General</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

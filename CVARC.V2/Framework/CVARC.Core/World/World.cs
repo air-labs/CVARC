@@ -86,8 +86,5 @@ namespace CVARC.V2
                 actors.Add(e);
             }
         }
-
-
-
     }
 }
