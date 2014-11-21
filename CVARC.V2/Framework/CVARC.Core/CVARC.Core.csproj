@@ -124,6 +124,7 @@
     <Compile Include="Loading\Competitions\ManagerPart.cs" />
     <Compile Include="Loading\Configuration\CommandLineData.cs" />
     <Compile Include="Loading\Configuration\Configuration.cs" />
+    <Compile Include="Loading\Configuration\SettingsOrSettingsProposal.cs" />
     <Compile Include="Loading\Configuration\SettingsProposal.cs" />
     <Compile Include="Loading\Loader.cs" />
     <Compile Include="Loading\RunModes\BotDemoRunMode.cs" />

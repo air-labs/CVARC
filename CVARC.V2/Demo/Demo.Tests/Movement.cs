@@ -11,7 +11,7 @@ namespace Demo.Tests
         {
             var loader = new Loader();
             loader.AddLevel("Demo", "Movement", () => new Demo.KroR.Movement());
-            loader.RunSelfTestInTheSameThread(assemblyName, level, testName, new MSAsserter(), w => { w.RunWithoutInterface(); });
+            loader.RunSelfTestInVSContext(assemblyName, level, testName, new MSAsserter(), w => { w.RunWithoutInterface(); });
         }
 
         [TestMethod]

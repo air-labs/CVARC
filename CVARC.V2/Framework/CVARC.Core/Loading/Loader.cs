@@ -107,7 +107,7 @@ namespace CVARC.V2
             test.Run(port, holder, asserter);
         }
 
-        IWorld CreateSelfTestServer(int port, TestAsyncLock holder)
+        IWorld CreateSelfTestServer(int port, TestAsyncLock holder, SettingsProposal additionalSettingsProposal)
         {
             var tcpServer = new System.Net.Sockets.TcpListener(port);
             tcpServer.Start();
@@ -115,7 +115,10 @@ namespace CVARC.V2
 
             var client = tcpServer.AcceptTcpClient();
             var messagingClient = new CvarcTcpClient(client);
-            var world = LoadFromNetwork(messagingClient);
+            var mode = new DebugRunMode(messagingClient);
+            var configProposal = mode.GetConfigurationProposal();
+            additionalSettingsProposal.Push(configProposal.SettingsProposal,true);
+            var world = LoadNonLogFile(mode, configProposal.LoadingData, configProposal.SettingsProposal);
             holder.World = world;
             return world;
         }
@@ -142,25 +145,25 @@ namespace CVARC.V2
             }
             return test;
         }
-        public IWorld LoadSelfTest(string assemblyName, string level, string testName, IAsserter asserter)
+        public IWorld RunTestInCommandLineContext(CommandLineData data, IAsserter asserter)
         {
-
-            var test = GetTest(assemblyName, level, testName);
+            var proposal = SettingsProposal.FromCommandLineData(data);
+            var test = GetTest(data.Unnamed[0], data.Unnamed[1], data.Unnamed[3]);
             int port = 14000;
             var holder = new TestAsyncLock();
             new Action<ICvarcTest, int, IAsserter, TestAsyncLock>(SelfTestClientThread).BeginInvoke(test, port, asserter, holder, null, null);
-            return CreateSelfTestServer(port, holder);
+            return CreateSelfTestServer(port, holder, proposal);
         }
 
-        public void RunSelfTestInTheSameThread(string assemblyName, string level, string testName, IAsserter asserter, Action<IWorld> worldCallback)
+        public void RunSelfTestInVSContext(string assemblyName, string level, string testName, IAsserter asserter, Action<IWorld> worldCallback)
         {
             var test = GetTest(assemblyName, level, testName);
             int port = 14000;
             var holder = new TestAsyncLock();
-
+            var proposal = new SettingsProposal { SpeedUp = true };
             var thread = new Thread(() =>
             {
-                var world = CreateSelfTestServer(port, holder);
+                var world = CreateSelfTestServer(port, holder, proposal);
                 worldCallback(world);
             }) { IsBackground = true };
             thread.Start();
@@ -201,7 +204,7 @@ namespace CVARC.V2
             else if (cmdLineData.Unnamed.Count == 1)
                 return LoadFromLogFile(cmdLineData);
             else if (cmdLineData.Unnamed.Count == 4 && cmdLineData.Unnamed[2] == "SelfTest")
-                return LoadSelfTest(cmdLineData.Unnamed[0], cmdLineData.Unnamed[1], cmdLineData.Unnamed[3], new EmptyAsserter());
+                return RunTestInCommandLineContext(cmdLineData, new EmptyAsserter());
             else
                 return LoadNormally(cmdLineData);
         }

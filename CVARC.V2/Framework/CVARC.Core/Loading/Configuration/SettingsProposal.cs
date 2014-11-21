@@ -11,7 +11,7 @@ namespace CVARC.V2
 {
     [DataContract]
     [Serializable]
-    public class SettingsProposal
+    public class SettingsProposal : SettingsOrSettingsProposal
     {
         [DataMember]
         public int? Seed { get; set; }
@@ -111,11 +111,12 @@ namespace CVARC.V2
         }
 
 
-        public void Push(Settings settings, bool pushAllFields, params Expression<Func<Settings,object>>[] fieldsToPush)
+        public void Push<T>(T settings, bool pushAllFields, params Expression<Func<T,object>>[] fieldsToPush)
+            where T : SettingsOrSettingsProposal
         {
             PropertyInfo[] props;
             if (pushAllFields)
-                props = typeof(Settings).GetProperties();
+                props = typeof(T).GetProperties();
             else
                 props = fieldsToPush
                     .Select(z => z.Body)

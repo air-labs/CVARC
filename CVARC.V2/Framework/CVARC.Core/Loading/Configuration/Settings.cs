@@ -17,7 +17,7 @@ namespace CVARC.V2
 
     [Serializable]
     [DataContract]
-    public class ControllerSettings
+    public class ControllerSettings 
     {
         [DataMember]
         public string ControllerId { get; set; }
@@ -30,7 +30,7 @@ namespace CVARC.V2
 
     [DataContract]
     [Serializable]
-    public class Settings
+    public class Settings : SettingsOrSettingsProposal
     {
         [DataMember] 
         public int Seed { get; set; }
