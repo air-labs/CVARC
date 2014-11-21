@@ -28,10 +28,9 @@ namespace Demo
         {
             Tests["Forward"] = new MovementTestBase((client, world, asserter) =>
                 {
-                    client.Act(SimpleMovementCommand.Move(10, 10));
-                    //var location = world.Engine.GetAbsoluteLocation(world.Actors.First().ObjectId);
-                    //asserter.IsEqual(10, location.X, 1e-10);
-                    client.Act(SimpleMovementCommand.Exit());
+                    client.Act(SimpleMovementCommand.Move(10, 1));
+                    var location = world.Engine.GetAbsoluteLocation(world.Actors.First().ObjectId);
+                    asserter.IsEqual(10, location.X, 1e-3);
                 });
         }
 

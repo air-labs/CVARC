@@ -107,7 +107,7 @@ namespace CVARC.V2
             test.Run(port, holder, asserter);
         }
 
-        IWorld CreateSelfTestServer(int port, TestAsyncLock holder, Action<IWorld> worldCallback)
+        IWorld CreateSelfTestServer(int port, TestAsyncLock holder)
         {
             var tcpServer = new System.Net.Sockets.TcpListener(port);
             tcpServer.Start();
@@ -117,7 +117,6 @@ namespace CVARC.V2
             var messagingClient = new CvarcTcpClient(client);
             var world = LoadFromNetwork(messagingClient);
             holder.World = world;
-            if (worldCallback != null) worldCallback(world);
             return world;
         }
 
@@ -150,7 +149,7 @@ namespace CVARC.V2
             int port = 14000;
             var holder = new TestAsyncLock();
             new Action<ICvarcTest, int, IAsserter, TestAsyncLock>(SelfTestClientThread).BeginInvoke(test, port, asserter, holder, null, null);
-            return CreateSelfTestServer(port, holder, null);
+            return CreateSelfTestServer(port, holder);
         }
 
         public void RunSelfTestInTheSameThread(string assemblyName, string level, string testName, IAsserter asserter, Action<IWorld> worldCallback)
@@ -158,9 +157,17 @@ namespace CVARC.V2
             var test = GetTest(assemblyName, level, testName);
             int port = 14000;
             var holder = new TestAsyncLock();
-            new Func<int, TestAsyncLock, Action<IWorld>, IWorld>(CreateSelfTestServer)
-                .BeginInvoke(port, holder, worldCallback, null, null);
+
+            var thread = new Thread(() =>
+            {
+                var world = CreateSelfTestServer(port, holder);
+                worldCallback(world);
+            }) { IsBackground = true };
+            thread.Start();
+
             SelfTestClientThread(test, port, asserter, holder);
+
+            thread.Abort();
         }
 
         IWorld LoadNormally(CommandLineData cmdLineData)
