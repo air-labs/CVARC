@@ -8,6 +8,7 @@ namespace CVARC.V2
 {
     public abstract class LogicPart
     {
+        public readonly Dictionary<string, ICvarcTest> Tests = new Dictionary<string, ICvarcTest>();
 
         public readonly Dictionary<string, Func<IController>> Bots = new Dictionary<string, Func<IController>>();
 

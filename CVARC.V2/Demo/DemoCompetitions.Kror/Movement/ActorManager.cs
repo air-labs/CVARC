@@ -26,15 +26,7 @@ namespace Demo
         {
             var root=(Actor.World.Engine as KroREngine).Root;
 
-            double X = -50;
             string fileName = "red.png";
-
-            if (Actor.ControllerId == TwoPlayersId.Right)
-            {
-                X = 50;
-                fileName = "blue.png";
-            }
-            
 
             var cyllinder = new Cylinder
             {
@@ -42,7 +34,7 @@ namespace Demo
                 Height = 20,
                 RTop = 10,
                 RBottom = 10,
-                Location = new Frame3D(X, 50, 3,Angle.Zero,-Angle.Pi/2,Angle.Zero),
+                Location = new Frame3D(0, 0, 3,Angle.Zero,Angle.Zero,Angle.Zero),
                 DefaultColor = Color.DarkViolet,
                 IsMaterial = true,
                 Density = Density.Iron,

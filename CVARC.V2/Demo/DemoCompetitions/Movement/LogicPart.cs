@@ -16,11 +16,25 @@ namespace Demo
                                                 >
     {
         public MovementLogicPart()
-            : base(TwoPlayersId.Ids, GetDefaultSettings)
+            : base(new[] { ControllerId }, GetDefaultSettings)
         {
             Bots["Square"]=()=>new SquareWalkingBot(50);
             Bots["Random"]=()=>new RandomWalkingBot(50);
+
+            LoadTests();
         }
+
+        void LoadTests()
+        {
+            Tests["Forward"] = new MovementTestBase((client, world, asserter) =>
+                {
+                    client.Act(SimpleMovementCommand.Move(1, 1));
+                    var location = world.Engine.GetAbsoluteLocation(world.Actors.First().ObjectId);
+                    asserter.IsEqual(1, location.X, 1e-6);
+                });
+        }
+
+        public const string ControllerId = "Robot";
 
         static Settings GetDefaultSettings()
         {
@@ -30,12 +44,9 @@ namespace Demo
                 OperationalTimeLimit = double.PositiveInfinity,
                 Controllers = 
                 {
-                    new ControllerSettings { ControllerId=TwoPlayersId.Left, Name="Square", Type= ControllerType.Bot },
-                    new ControllerSettings { ControllerId=TwoPlayersId.Right, Name="Random", Type= ControllerType.Bot }
+                    new ControllerSettings { ControllerId=ControllerId, Name="Square", Type= ControllerType.Bot },
                 }
             };
         }
-
-     
     }
 }
