@@ -7,6 +7,6 @@ namespace CVARC.V2
 {
     public interface ICvarcTest
     {
-        void Run(int port, IWorldHolder holder, IAsserter asserter);
+        void Run(int port, TestAsyncLock holder, IAsserter asserter);
     }
 }

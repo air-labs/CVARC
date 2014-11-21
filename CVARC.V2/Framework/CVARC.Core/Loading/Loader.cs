@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace CVARC.V2
 {
@@ -16,10 +17,13 @@ namespace CVARC.V2
             Levels[competitions][level] = factory;
         }
 
-
+        public Competitions GetCompetitions(string assemblyName, string level)
+        {
+            return Levels[assemblyName][level]();
+        }
         public Competitions GetCompetitions(LoadingData data)
         {
-            return Levels[data.AssemblyName][data.Level]();
+            return GetCompetitions(data.AssemblyName, data.Level);   
         }
 
         public IWorld CreateWorld(Configuration configuration, IRunMode runMode, Competitions competitions)
@@ -70,6 +74,8 @@ namespace CVARC.V2
             return LoadNonLogFile(mode, configProposal.LoadingData, configProposal.SettingsProposal);
        
         }
+
+
         IWorld LoadFromNetwork(CommandLineData data)
         {
             int port;
@@ -91,7 +97,50 @@ namespace CVARC.V2
             tcpServer.Start();
             var client = tcpServer.AcceptTcpClient();
             var messagingClient = new CvarcTcpClient(client);
+
             return LoadFromNetwork(messagingClient);
+        }
+
+        void SelfTestThread(ICvarcTest test, int port, IAsserter asserter, TestAsyncLock holder)
+        {
+            holder.WaitForServer();
+            test.Run(port, holder, asserter);
+        }
+
+        IWorld LoadSelfTest(string assemblyName, string level, string testName, IAsserter asserter)
+        {
+            int port=14000;
+            var holder = new TestAsyncLock();
+            Competitions competitions;
+            try
+            {
+                competitions = GetCompetitions(assemblyName, level);
+            }
+            catch
+            {
+                throw new Exception(string.Format("The competition '{0}'.'{1}' were not found", assemblyName, level));
+            }
+            ICvarcTest test;
+            try
+            {
+                test=competitions.Logic.Tests[testName];
+            }
+            catch
+            {
+                throw new Exception(string.Format("The test with name '{0}' was not found in competitions {1}.{2}",testName,assemblyName,level));
+            }
+            new Action<ICvarcTest, int, IAsserter, TestAsyncLock>(SelfTestThread).BeginInvoke(test, port, asserter, holder, null, null);
+            
+
+            var tcpServer = new System.Net.Sockets.TcpListener(port);
+            tcpServer.Start();
+            holder.ServerLoaded = true;
+            
+            var client = tcpServer.AcceptTcpClient();
+            var messagingClient = new CvarcTcpClient(client);
+            var world = LoadFromNetwork(messagingClient);
+            holder.World=world;
+            return world;
         }
 
         IWorld LoadNormally(CommandLineData cmdLineData)
@@ -124,7 +173,9 @@ namespace CVARC.V2
                 return LoadFromNetwork(cmdLineData);
             else if (cmdLineData.Unnamed.Count == 1)
                 return LoadFromLogFile(cmdLineData);
-            else 
+            else if (cmdLineData.Unnamed.Count == 4 && cmdLineData.Unnamed[2] == "SelfTest")
+                return LoadSelfTest(cmdLineData.Unnamed[0], cmdLineData.Unnamed[1], cmdLineData.Unnamed[3], new EmptyAsserter());
+            else
                 return LoadNormally(cmdLineData);
         }
 

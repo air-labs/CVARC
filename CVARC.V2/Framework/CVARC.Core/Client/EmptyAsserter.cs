@@ -6,11 +6,11 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public class MSAsserter : IAsserter
+    public class EmptyAsserter : IAsserter
     {
         public void IsEqual(double expected, double actual, double delta)
         {
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(expected, actual, delta);
+            
         }
     }
 }

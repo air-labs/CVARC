@@ -13,6 +13,8 @@ namespace CVARC.V2.SimpleMovement
 
         public override IEnumerable<SimpleMovementCommand> Preprocess(object cmd)
         {
+            if (cmd == null)
+                throw new Exception("Null command received");
             if (!(cmd is SimpleMovementCommand))
                 throw new Exception("SimpleMovementCommand is expected, but the command was " + cmd.GetType().Name);
             var command = cmd as SimpleMovementCommand;

@@ -56,6 +56,7 @@
     <Compile Include="Interaction\MovingForwardBot.cs" />
     <Compile Include="Movement\LogicPart.cs" />
     <Compile Include="Movement\Robot.cs" />
+    <Compile Include="Movement\MovementTestBase.cs" />
     <Compile Include="Movement\World.cs" />
     <Compile Include="Movement\SceneSettings.cs" />
     <Compile Include="Movement\SensorsData.cs" />

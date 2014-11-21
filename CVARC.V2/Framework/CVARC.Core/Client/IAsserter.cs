@@ -7,6 +7,6 @@ namespace CVARC.V2
 {
     public interface IAsserter
     {
-        public void IsEqual(double expected, double actual, double delta);
+        void IsEqual(double expected, double actual, double delta);
     }
 }
