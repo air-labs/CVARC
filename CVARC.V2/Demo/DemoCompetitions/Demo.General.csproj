@@ -52,6 +52,11 @@
     <Compile Include="Camera\LogicPart.cs" />
     <Compile Include="Camera\Robot.cs" />
     <Compile Include="Camera\SensorsWithCamera.cs" />
+    <Compile Include="Collision\ICollisionActorManager.cs" />
+    <Compile Include="Collision\LogicPart.cs" />
+    <Compile Include="Collision\PushingBot.cs" />
+    <Compile Include="Collision\Robot.cs" />
+    <Compile Include="Collision\World.cs" />
     <Compile Include="Interaction\LogicPart.cs" />
     <Compile Include="Interaction\MovingForwardBot.cs" />
     <Compile Include="Movement\LogicPart.cs" />
@@ -95,7 +100,10 @@
       <Name>CVARC.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Camera\readme.txt" />
+    <Content Include="Collision\readme.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
