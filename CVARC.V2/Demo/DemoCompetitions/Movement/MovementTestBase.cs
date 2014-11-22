@@ -7,6 +7,8 @@ using System.Text;
 
 namespace Demo
 {
+    public delegate void MovementTestEntry(CvarcClient<SensorsData, SimpleMovementCommand> client, MovementWorld world, IAsserter asserter);
+
     public class MovementTestBase : DelegatedCvarcTest<SensorsData,SimpleMovementCommand,MovementWorld>
     {
         public override ConfigurationProposal GetConfiguration()
@@ -29,8 +31,8 @@ namespace Demo
             };
         }
 
-        public MovementTestBase(Action<CvarcClient<SensorsData, SimpleMovementCommand>, MovementWorld, IAsserter> test)
-            : base(test)
+        public MovementTestBase(MovementTestEntry entry)
+            : base((client, world, asserter) => { entry(client, world, asserter); })
         { }
     }
 }
