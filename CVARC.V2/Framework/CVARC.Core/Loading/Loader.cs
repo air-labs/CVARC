@@ -109,12 +109,12 @@ namespace CVARC.V2
 
         IWorld CreateSelfTestServer(int port, TestAsyncLock holder, SettingsProposal additionalSettingsProposal)
         {
-            var tcpServer = new System.Net.Sockets.TcpListener(port);
-            tcpServer.Start();
+            holder.Listener = new System.Net.Sockets.TcpListener(port);
+            holder.Listener.Start();
             holder.ServerLoaded = true;
 
-            var client = tcpServer.AcceptTcpClient();
-            var messagingClient = new CvarcTcpClient(client);
+            holder.Client = holder.Listener.AcceptTcpClient();
+            var messagingClient = new CvarcTcpClient(holder.Client);
             var mode = new DebugRunMode(messagingClient);
             var configProposal = mode.GetConfigurationProposal();
             additionalSettingsProposal.Push(configProposal.SettingsProposal,true);
@@ -170,6 +170,8 @@ namespace CVARC.V2
 
             SelfTestClientThread(test, port, asserter, holder);
 
+            holder.Client.Close();
+            holder.Listener.Stop();
             thread.Abort();
         }
 
