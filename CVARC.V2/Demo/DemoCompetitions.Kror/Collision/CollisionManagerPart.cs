@@ -10,7 +10,7 @@ namespace Demo.KroR
     public class CollisionManagerPart : ManagerPart
     {
         public CollisionManagerPart()
-            : base(new CollisionWorldManager())
+            : base(()=>new CollisionWorldManager())
         { }
 
         public override IActorManager CreateActorManagerFor(IActor actor)
