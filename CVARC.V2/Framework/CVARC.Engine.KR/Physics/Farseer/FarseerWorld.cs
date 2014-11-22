@@ -16,6 +16,7 @@ namespace CVARC.Core.Physics.FarseerWrap
 	{
 		public FarseerWorld()
 		{
+            World = new World(Microsoft.Xna.Framework.Vector2.Zero);
 			FarseerPhysics.Settings.VelocityIterations = 5;
 			FarseerPhysics.Settings.PositionIterations = 3;
 			//FarseerPhysics.Settings.TOIPositionIterations = 100;

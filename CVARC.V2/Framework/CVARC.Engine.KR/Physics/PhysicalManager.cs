@@ -44,7 +44,6 @@ namespace CVARC.Physics
 		/// <param name="root">Мир тел</param>
 		public static void InitializeEngine(PhysicalEngines physicalEngine, Body root)
 		{
-            BodiesToPhysical.Clear();
 
 			switch(physicalEngine)
 			{
