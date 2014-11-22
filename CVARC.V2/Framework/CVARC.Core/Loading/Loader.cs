@@ -6,6 +6,9 @@ using System.Threading;
 
 namespace CVARC.V2
 {
+
+
+
     public class Loader
     {
         public readonly Dictionary<string, Dictionary<string, Func<Competitions>>> Levels = new Dictionary<string, Dictionary<string, Func<Competitions>>>();
@@ -101,15 +104,16 @@ namespace CVARC.V2
             return LoadFromNetwork(messagingClient);
         }
 
-        void SelfTestClientThread(ICvarcTest test, int port, IAsserter asserter, TestAsyncLock holder)
+
+        void SelfTestClientThread(ICvarcTest test, IAsserter asserter, SelfTestSharedData holder)
         {
             holder.WaitForServer();
-            test.Run(port, holder, asserter);
+            test.Run(holder, asserter);
         }
 
-        IWorld CreateSelfTestServer(int port, TestAsyncLock holder, SettingsProposal additionalSettingsProposal)
+        IWorld CreateSelfTestServer(SelfTestSharedData holder, SettingsProposal additionalSettingsProposal)
         {
-            holder.Listener = new System.Net.Sockets.TcpListener(port);
+            holder.Listener = new System.Net.Sockets.TcpListener(holder.Port);
             holder.Listener.Start();
             holder.ServerLoaded = true;
 
@@ -123,8 +127,10 @@ namespace CVARC.V2
             return world;
         }
 
-        public ICvarcTest GetTest(string assemblyName, string level, string testName)
+        public ICvarcTest GetTest(LoadingData data, string testName)
         {
+            var assemblyName = data.AssemblyName;
+            var level = data.Level;
             Competitions competitions;
             try
             {
@@ -148,27 +154,29 @@ namespace CVARC.V2
         public IWorld RunTestInCommandLineContext(CommandLineData data, IAsserter asserter)
         {
             var proposal = SettingsProposal.FromCommandLineData(data);
-            var test = GetTest(data.Unnamed[0], data.Unnamed[1], data.Unnamed[3]);
-            int port = 14000;
-            var holder = new TestAsyncLock();
-            new Action<ICvarcTest, int, IAsserter, TestAsyncLock>(SelfTestClientThread).BeginInvoke(test, port, asserter, holder, null, null);
-            return CreateSelfTestServer(port, holder, proposal);
+            var holder = new SelfTestSharedData();
+            holder.Port = 14001; 
+            holder.LoadingData = new LoadingData { AssemblyName = data.Unnamed[0], Level = data.Unnamed[1] };
+            var test = GetTest(holder.LoadingData, data.Unnamed[3]);
+            new Action<ICvarcTest, IAsserter, SelfTestSharedData>(SelfTestClientThread).BeginInvoke(test, asserter, holder, null, null);
+            return CreateSelfTestServer(holder, proposal);
         }
 
         public void RunSelfTestInVSContext(string assemblyName, string level, string testName, IAsserter asserter, Action<IWorld> worldCallback)
         {
-            var test = GetTest(assemblyName, level, testName);
-            int port = 14000;
-            var holder = new TestAsyncLock();
+            var holder = new SelfTestSharedData();
+            holder.Port = 14001;
+            holder.LoadingData = new LoadingData { AssemblyName = assemblyName, Level = level };
+            var test = GetTest(holder.LoadingData, testName);
             var proposal = new SettingsProposal { SpeedUp = true };
             var thread = new Thread(() =>
             {
-                var world = CreateSelfTestServer(port, holder, proposal);
+                var world = CreateSelfTestServer(holder, proposal);
                 worldCallback(world);
             }) { IsBackground = true };
             thread.Start();
 
-            SelfTestClientThread(test, port, asserter, holder);
+            SelfTestClientThread(test, asserter, holder);
 
             holder.Client.Close();
             holder.Listener.Stop();

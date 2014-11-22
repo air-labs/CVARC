@@ -7,8 +7,12 @@ using System.Threading;
 
 namespace CVARC.V2
 {
-    public class TestAsyncLock
+    public class SelfTestSharedData
     {
+        public LoadingData LoadingData { get; set; }
+
+        public int Port { get; set; }
+
         public bool ServerLoaded { get; set; }
 
         public IWorld World { get; set; }

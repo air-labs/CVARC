@@ -9,13 +9,18 @@ namespace CVARC.V2
     public abstract class CvarcTest<TSensorData,TCommand,TWorld> : ICvarcTest
         where TSensorData : class
     {
-        public abstract ConfigurationProposal GetConfiguration();
+        public abstract SettingsProposal GetSettings();
         public abstract void Test(CvarcClient<TSensorData, TCommand> client, TWorld world, IAsserter asserter);
      
-        public void Run(int port, TestAsyncLock holder, IAsserter asserter)
+        public void Run(SelfTestSharedData holder, IAsserter asserter)
         {
             var client=new CvarcClient<TSensorData,TCommand>();
-            client.Configurate(false, port, GetConfiguration());
+            var configurationProposal = new ConfigurationProposal
+            {
+                LoadingData = holder.LoadingData,
+                SettingsProposal = GetSettings()
+            };
+            client.Configurate(false, holder.Port, configurationProposal);
             var iworld = holder.WaitForWorld();
             var world = Compatibility.Check<TWorld>(this, iworld);
             Test(client,world,asserter);

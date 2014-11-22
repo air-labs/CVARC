@@ -11,23 +11,15 @@ namespace Demo
 
     public class MovementTestBase : DelegatedCvarcTest<SensorsData,SimpleMovementCommand,MovementWorld>
     {
-        public override ConfigurationProposal GetConfiguration()
+        public override SettingsProposal GetSettings()
         {
-            return new ConfigurationProposal
-            {
-                LoadingData = new LoadingData
-                {
-                    AssemblyName = "Demo",
-                    Level = "Movement"
-                },
-                SettingsProposal = new SettingsProposal
+            return new SettingsProposal
                 {
                     TimeLimit = 10,
                     Controllers = new List<ControllerSettings> 
                     {
                         new ControllerSettings  { ControllerId=MovementLogicPart.ControllerId, Name="This", Type= ControllerType.Client}
                     }
-                }
             };
         }
 
