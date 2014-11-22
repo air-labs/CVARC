@@ -7,12 +7,12 @@ namespace CVARC.V2
 {
     public class EnginePart
     {
-        public readonly IEngine Engine;
-        public readonly IKeyboard Keyboard;
-        public EnginePart(IEngine engine, IKeyboard keyboard)
+        public readonly Func<IEngine> EngineFactory;
+        public readonly Func<IKeyboard> KeyboardFactory;
+        public EnginePart(Func<IEngine> engineFactory, Func<IKeyboard> keyboardFactory)
         {
-            this.Engine = engine;
-            this.Keyboard = keyboard;
+            this.EngineFactory = engineFactory;
+            this.KeyboardFactory = keyboardFactory;
         }
     }
 }

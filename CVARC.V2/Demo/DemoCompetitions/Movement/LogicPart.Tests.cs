@@ -21,6 +21,12 @@ namespace Demo
                     asserter.IsEqual(0, location.Y, 1e-3);
                     asserter.IsEqual(0, location.Yaw.Grad, 1e-3);
 
+                    var speed = world.Engine.GetSpeed(world.Actors.First().ObjectId);
+                    asserter.IsEqual(0, speed.X, 1e-3);
+                    asserter.IsEqual(0, speed.Y, 1e-3);
+                    asserter.IsEqual(0, speed.Yaw.Grad, 1e-3);
+
+
                     SensorsData data = null;
                     foreach(var c in command)
                         data=client.Act(c);
@@ -31,7 +37,6 @@ namespace Demo
                     asserter.IsEqual(X, data.Locations[0].X, 1e-3);
                     asserter.IsEqual(Y, data.Locations[0].Y, 1e-3);
                     asserter.IsEqual(angleInGrad, data.Locations[0].Angle, 1e-3);
-
                 };
         }
 

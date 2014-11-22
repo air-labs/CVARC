@@ -10,7 +10,7 @@ namespace Demo
     public class MovementManagerPart : ManagerPart 
     {
         public MovementManagerPart()
-            : base(new MovementWorldManager())
+            : base(() => new MovementWorldManager())
         { }
 
         public override IActorManager CreateActorManagerFor(IActor actor)

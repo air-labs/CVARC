@@ -7,13 +7,13 @@ namespace CVARC.V2
 {
     public abstract class ManagerPart
     {
-        public readonly IWorldManager WorldManager;
+        public readonly Func<IWorldManager> WorldManagerFactory;
 
         public abstract IActorManager CreateActorManagerFor(IActor actor);
 
-        public ManagerPart(IWorldManager worldManager)
+        public ManagerPart(Func<IWorldManager> worldManagerFactory)
         {
-            WorldManager = worldManager;
+            WorldManagerFactory = worldManagerFactory;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace CVARC.V2
         {
             base.Initialize(world, configuration, competitions);
             this.pool = competitions.Logic.CreateKeyboardControllerPool();
-            pool.Initialize(world, competitions.Engine.Keyboard);
+            pool.Initialize(world, competitions.Engine.KeyboardFactory());
         }
 
     }

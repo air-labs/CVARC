@@ -10,7 +10,7 @@ namespace Demo
     public class CameraManagerPart : ManagerPart 
     {
         public CameraManagerPart()
-            : base(new CameraWorldManager())
+            : base(()=>new CameraWorldManager())
         { }
 
         public override IActorManager CreateActorManagerFor(IActor actor)

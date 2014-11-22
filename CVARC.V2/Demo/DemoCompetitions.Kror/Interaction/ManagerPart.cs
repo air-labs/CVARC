@@ -10,7 +10,7 @@ namespace Demo
     public class InteractionManagerPart : ManagerPart 
     {
         public InteractionManagerPart()
-            : base(new InteractionWorldManager())
+            : base(()=>new InteractionWorldManager())
         { }
 
         public override IActorManager CreateActorManagerFor(IActor actor)

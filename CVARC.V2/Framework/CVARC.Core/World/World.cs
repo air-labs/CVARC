@@ -61,8 +61,8 @@ namespace CVARC.V2
 
             //Initializing world
             this.SceneSettings = CreateSceneState(environment.Configuration.Settings.Seed);
-            this.Engine = competitions.Engine.Engine;
-            this.Manager = Compatibility.Check<TWorldManager>(this,competitions.Manager.WorldManager);
+            this.Engine = competitions.Engine.EngineFactory();  
+            this.Manager = Compatibility.Check<TWorldManager>(this,competitions.Manager.WorldManagerFactory());
             Engine.Initialize(this);
             Manager.Initialize(this);
             Manager.CreateWorld(IdGenerator);

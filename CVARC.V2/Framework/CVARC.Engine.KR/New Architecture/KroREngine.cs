@@ -104,7 +104,9 @@ namespace CVARC.V2
         {
             lock (RequestedSpeeds)
             {
-                return RequestedSpeeds[id];
+                if (RequestedSpeeds.ContainsKey(id))
+                    return RequestedSpeeds[id];
+                return new Frame3D();
             }
         }
 

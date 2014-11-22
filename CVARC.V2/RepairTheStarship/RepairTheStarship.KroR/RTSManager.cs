@@ -9,7 +9,7 @@ namespace RepairTheStarship.KroR
 {
     public class RTSManagerPart : ManagerPart
     {
-        public RTSManagerPart() : base(new RTSWorldManager())
+        public RTSManagerPart() : base(()=>new RTSWorldManager())
         {
 
         }

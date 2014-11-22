@@ -8,7 +8,7 @@ namespace CVARC.V2
     public class KroREnginePart : EnginePart
     {
         public KroREnginePart()
-            : base(new KroREngine(), new WinformsKeyboard())
+            : base(()=>new KroREngine(), ()=>new WinformsKeyboard())
         { }
     }
 }
