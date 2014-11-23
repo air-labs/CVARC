@@ -26,7 +26,7 @@ namespace Demo
 
 
 
-        public const string ControllerId = "Robot";
+        public const string ControllerId = "Left";
 
         static Settings GetDefaultSettings()
         {
