@@ -14,9 +14,6 @@ namespace RepairTheStarship.KroR
 
     public class RTSWorldManager : KroRWorldManager<RTSWorld>, IRTSWorldManager
     {
-        SceneSettings Settings;
-        IdGenerator generator;
-
         public void RemoveDetail(string detailId)
         {
             var engine = (Engine as KroREngine);
@@ -44,13 +41,24 @@ namespace RepairTheStarship.KroR
             engine.Root.Add(newWall);
         }
 
+
+
         public override void CreateWorld(IdGenerator generator)
         {
-            this.generator = generator;
-            Settings = World.SceneSettings;
-            
+          
+        }
 
-            
+        public static Color DefaultWallColor { get { return Color.LightGray; } }
+
+
+
+   
+
+
+
+        public void CreateEmptyTable()
+        {
+
             Root.Add(new Box
             {
                 XSize = 300,
@@ -59,78 +67,9 @@ namespace RepairTheStarship.KroR
                 DefaultColor = Color.White,
                 Top = new SolidColorBrush { Color = Color.Yellow },
                 IsStatic = true,
-                NewId="floor"
+                NewId = "floor"
             });
 
-            foreach (var detail in Settings.Details)
-            {
-                Color color = Color.White;
-               
-                switch (detail.Color)
-                {
-                    case DetailColor.Red: color = Color.Red; break;
-                    case DetailColor.Blue: color = Color.Blue; break;
-                    case DetailColor.Green: color = Color.Green; break;
-                }
-
-                var box = new Box
-                {
-                    XSize = 15,
-                    YSize = 15,
-                    ZSize = 15,
-                    Location = new Frame3D(-150 + 25 + detail.Location.X * 50, 100 - 25 - 50 * detail.Location.Y, 0),
-                    DefaultColor = color,
-                    NewId = generator.CreateNewId(detail.Color),
-                    IsMaterial = true,
-                    IsStatic = false,
-                    FrictionCoefficient = 8
-                };
-                Root.Add(box);
-            }
-
-            CreateWalls(Settings.HorizontalWalls, 50, 10, 15, WallOrientation.Horizontal, (x, y) => new Point(-150 + 25 + x * 50, 100 - (y + 1) * 50));
-            CreateWalls(Settings.VerticalWalls, 10, 50, 14, WallOrientation.Vertical, (x, y) => new Point(-150 + (x + 1) * 50, 100 - 25 - y * 50));
-            CreateBorders();
-        }
-
-        public static Color DefaultWallColor { get { return Color.LightGray; } }
-
-        void CreateWalls(WallSettings[,] array, int width, int height, int weight, WallOrientation orientation, Func<int, int, Point> cooMaker)
-        {
-            for (int x = 0; x < array.GetLength(0); x++)
-                for (int y = 0; y < array.GetLength(1); y++)
-                {
-                    var wall = array[x, y];
-                    if (wall == WallSettings.NoWall) continue;
-
-                    Color color = DefaultWallColor;
-                    switch (wall)
-                    {
-                        case WallSettings.RedSocket: color = Color.DarkRed; break;
-                        case WallSettings.BlueSocket: color = Color.DarkBlue; break;
-                        case WallSettings.GreenSocket: color = Color.DarkGreen; break;
-                    }
-
-                    var data = new WallData { Orientation = orientation, Type = wall };
-                    var coo = cooMaker(x, y);
-                    Root.Add(new Box
-                    {
-                        XSize = width,
-                        YSize = height,
-                        ZSize = weight,
-                        Location = new Frame3D(coo.X, coo.Y, 0),
-                        DefaultColor = color,
-                        NewId = generator.CreateNewId(data),
-                        IsMaterial = true,
-                        IsStatic = true,
-                    });
-                }
-        }
-
-   
-
-        private void CreateBorders()
-        {
             Color wallsColor = Color.FromArgb(50, 0, 0, 0);
             for (int i = 0; i < 4; ++i)
             {
@@ -155,7 +94,66 @@ namespace RepairTheStarship.KroR
             }
         }
 
+        public void CreateWall(string wallId, Point2D centerLocation, WallData settings)
+        {
+                    Color color = DefaultWallColor;
+                    switch (settings.Type)
+                    {
+                        case WallSettings.RedSocket: color = Color.DarkRed; break;
+                        case WallSettings.BlueSocket: color = Color.DarkBlue; break;
+                        case WallSettings.GreenSocket: color = Color.DarkGreen; break;
+                    }
 
+            int width = 50;
+            int height = 10;
+            int weigth = 15;
 
+            if (settings.Orientation == WallOrientation.Vertical)
+            {
+                width=10;
+                height=50;
+                weigth=14;
+            }
+
+                    Root.Add(new Box
+                    {
+                        XSize = width,
+                        YSize = height,
+                        ZSize = 15,
+                        Location = new Frame3D(centerLocation.X,centerLocation.Y,0),
+                        DefaultColor = color,
+                        NewId = wallId,
+                        IsMaterial = true,
+                        IsStatic = true,
+                    });
+        }
+
+        public void CreateDetail(string detailId, Point2D detailLocation, DetailColor dcolor)
+        {
+            Color color = Color.White;
+
+            switch (dcolor)
+            {
+                case DetailColor.Red: color = Color.Red; break;
+                case DetailColor.Blue: color = Color.Blue; break;
+                case DetailColor.Green: color = Color.Green; break;
+            }
+
+            var box = new Box
+            {
+                XSize = 15,
+                YSize = 15,
+                ZSize = 15,
+                Location = new Frame3D(detailLocation.X,detailLocation.Y,0),
+                DefaultColor = color,
+                NewId = detailId,
+                IsMaterial = true,
+                IsStatic = false,
+                FrictionCoefficient = 8
+            };
+            Root.Add(box);
+        }
+
+     
     }
 }

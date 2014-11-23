@@ -24,6 +24,7 @@ namespace CVARC.V2
         public IRunMode RunMode { get; private set; }
 
         public abstract TSceneState CreateSceneState(int seed);
+        public abstract void CreateWorld();
 
         public void OnExit()
         {
@@ -65,7 +66,7 @@ namespace CVARC.V2
             this.Manager = Compatibility.Check<TWorldManager>(this,competitions.Manager.WorldManagerFactory());
             Engine.Initialize(this);
             Manager.Initialize(this);
-            Manager.CreateWorld(IdGenerator);
+            CreateWorld();
 
 
             //Initializing actors

@@ -18,6 +18,7 @@ namespace CVARC.V2
         event Action Exit;
         IRunMode RunMode { get; }
         Logger Logger { get; }
+        void CreateWorld();
     }
 
 }

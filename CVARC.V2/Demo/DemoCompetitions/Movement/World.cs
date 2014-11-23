@@ -28,6 +28,10 @@ namespace Demo
             get { return Angle.FromGrad(200); }
         }
 
+        public override void CreateWorld()
+        {
+           Manager.CreateWorld(IdGenerator);
+        }
 
 
         public override void Initialize(Competitions competitions, IRunMode environment)

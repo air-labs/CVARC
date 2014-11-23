@@ -73,6 +73,39 @@ namespace RepairTheStarship
             }
         }
 
+        override public void CreateWorld()
+        {
+            Manager.CreateEmptyTable();
+            foreach (var e in SceneSettings.Details)
+                Manager.CreateDetail(
+                    IdGenerator.CreateNewId(e.Color),
+                    new Point2D(-150 + e.Location.X * 50, 100 - 25 - 50 * e.Location.Y),
+                    e.Color);
+            for (int x = 0; x < SceneSettings.HorizontalWalls.GetLength(0); x++)
+                for (int y = 0; y < SceneSettings.HorizontalWalls.GetLength(1); y++)
+                    if (SceneSettings.HorizontalWalls[x, y] != WallSettings.NoWall)
+                    {
+                        var settings = new WallData { Orientation = WallOrientation.Horizontal, Type = SceneSettings.HorizontalWalls[x, y] };
+                        var id = IdGenerator.CreateNewId(settings);
+                        Manager.CreateWall(id, new Point2D(-150 + 25 + x * 50, 100 - (y + 1) * 50), settings);
+                    }
+            for (int x = 0; x < SceneSettings.HorizontalWalls.GetLength(0); x++)
+                for (int y = 0; y < SceneSettings.HorizontalWalls.GetLength(1); y++)
+                    if (SceneSettings.HorizontalWalls[x, y] != WallSettings.NoWall)
+                    {
+                        var settings = new WallData { Orientation = WallOrientation.Horizontal, Type = SceneSettings.HorizontalWalls[x, y] };
+                        var id = IdGenerator.CreateNewId(settings);
+                        Manager.CreateWall(id, new Point2D(-150 + 25 + x * 50, 100 - (y + 1) * 50), settings);
+                    }
+            for (int x = 0; x < SceneSettings.VerticalWalls.GetLength(0); x++)
+                for (int y = 0; y < SceneSettings.VerticalWalls.GetLength(1); y++)
+                    if (SceneSettings.VerticalWalls[x, y] != WallSettings.NoWall)
+                    {
+                        var settings = new WallData { Orientation = WallOrientation.Vertical, Type = SceneSettings.VerticalWalls[x, y] };
+                        var id = IdGenerator.CreateNewId(settings);
+                        Manager.CreateWall(id, new Point2D(-150 + (x + 1) * 50, 100 - 25 - y * 50), settings);
+                    }
+        }
 
         public static SimpleMovementCommandHelper StaticCommandHelper = new SimpleMovementCommandHelper { LinearVelocityLimit = 50, AngularVelocityLimit = Angle.FromGrad(90) };
         public SimpleMovementCommandHelper CommandHelper
