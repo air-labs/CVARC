@@ -14,46 +14,14 @@ namespace RepairTheStarship.KroR
     public class RTSActorManager : ActorManager<IRTSRobot>, IRTSActorManager
     {
 
-        KroREngine Engine { get { return Actor.World.Engine as KroREngine; } }
-
-        public void Capture(string detailId)
+        public void EffectOnCapture(string detailId)
         {
-            var box=Engine.GetBody(Actor.ObjectId);
-            var newChild = Engine.GetBody(detailId);
-
-            var childAbsolute = newChild.GetAbsoluteLocation();
-            if (newChild.Parent != null)
-                newChild.Parent.Remove(newChild);
-            newChild.Location = box.GetAbsoluteLocation().Invert().Apply(childAbsolute);
-            newChild.Location = newChild.Location.NewYaw(Angle.Zero);
-            newChild.Location = newChild.Location.NewX(14);
-            newChild.Location = newChild.Location.NewY(0);
-            frictionCoefficientsById.SafeAdd(newChild.Id, newChild.FrictionCoefficient);
-            newChild.FrictionCoefficient = 0;
-            box.Add(newChild);
-        }
-
-        public void Release(string detailId)
-        {
-            var latestGripped = Engine.GetBody(detailId);
-            var absoluteLocation = latestGripped.GetAbsoluteLocation();
-            var robot = Engine.GetBody(Actor.ObjectId);
-
-            robot.Remove(latestGripped);
-            latestGripped.FrictionCoefficient = frictionCoefficientsById.SafeGet(latestGripped.Id);
-            latestGripped.Location = absoluteLocation;
-            latestGripped.Velocity = new Frame3D(0, 0, 0);
-            Engine.Root.Add(latestGripped);
             
         }
 
-        public bool IsDetailFree(string detailId)
+        public void EffectOnUnsuccessfullRelease(string detailId)
         {
-            var detailBody = Engine.GetBody(detailId);
-            return detailBody.Parent == Engine.Root; 
         }
-
-        private readonly Dictionary<int, double> frictionCoefficientsById = new Dictionary<int, double>();
 
         public override void CreateActorBody()
         {
@@ -210,7 +178,9 @@ namespace RepairTheStarship.KroR
 
 
 
-       
 
+
+
+       
     }
 }

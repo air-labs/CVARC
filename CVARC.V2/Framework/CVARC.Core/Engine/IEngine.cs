@@ -24,6 +24,8 @@ namespace CVARC.V2
         void Attach(string objectToAttach, string host, Frame3D relativePosition);
         void Detach(string objectToDetach, Frame3D absolutePosition);
         string FindParent(string objectId);
+
+        void DeleteObject(string objectId);
     }
 
     public static class IEngineExtensions
