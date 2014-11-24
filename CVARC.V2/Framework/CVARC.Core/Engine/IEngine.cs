@@ -19,6 +19,18 @@ namespace CVARC.V2
         byte[] GetImageFromCamera(string cameraName);
         void DefineKinect(string kinectName, string host);
         ImageSensorData GetImageFromKinect(string kinectName);
+
         event Action<string, string> Collision;
+        void Attach(string objectToAttach, string host, Frame3D relativePosition);
+        void Detach(string objectToDetach, Frame3D absolutePosition);
+        string FindParent(string objectId);
+    }
+
+    public static class IEngineExtensions
+    {
+        public static bool IsAttached(this IEngine engine, string objectId)
+        {
+            return engine.FindParent(objectId) != null;
+        }
     }
 }

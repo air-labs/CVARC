@@ -164,5 +164,49 @@ namespace CVARC.V2
         {
             return GetBody(id) != null;
         }
+
+
+        private readonly Dictionary<int, double> frictionCoefficientsById = new Dictionary<int, double>();
+
+
+        public void Attach(string _objectToAttach, string _host, Frame3D relativePosition)
+        {
+            var objectToAttach = GetBody(_objectToAttach);
+            if (objectToAttach == null)
+                throw new Exception("ObjectToAttach was not found");
+            var host = GetBody(_host);
+            if (host==null)
+                throw new Exception("Host was not found");
+
+            if (objectToAttach.Parent != null)
+                throw new Exception("Object '" + _objectToAttach + "' is already attached");
+            objectToAttach.Location = relativePosition;
+            frictionCoefficientsById.SafeAdd(objectToAttach.Id, objectToAttach.FrictionCoefficient);
+            objectToAttach.FrictionCoefficient = 0;
+            host.Add(objectToAttach);
+        }
+
+        public void Detach(string _objectToDetach, Frame3D absolutePosition)
+        {
+            var objectToDetach = GetBody(_objectToDetach);
+            var host = objectToDetach.Parent;
+            if (host == null)
+                throw new Exception("Cannot detach '" + _objectToDetach + "' - it is not attached");
+            host.Remove(objectToDetach);
+            objectToDetach.FrictionCoefficient = frictionCoefficientsById.SafeGet(objectToDetach.Id);
+            objectToDetach.Location = absolutePosition;
+            objectToDetach.Velocity = new Frame3D(0, 0, 0);
+            Root.Add(objectToDetach);
+        }
+
+        public string FindParent(string objectId)
+        {
+            var obj = GetBody(objectId);
+            if (obj == null)
+                throw new Exception("The object '" + obj + "'was not found");
+            var parent = obj.Parent;
+            if (parent == null) return null;
+            return parent.NewId;
+        }
     }
 }
