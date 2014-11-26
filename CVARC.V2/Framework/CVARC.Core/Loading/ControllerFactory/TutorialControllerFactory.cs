@@ -5,18 +5,21 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public class TutorialControllerFactory : IControllerFactory
+    public class TutorialControllerFactory : ControllerFactory
     {
         IKeyboardControllerPool pool;
-        public TutorialControllerFactory(IKeyboardControllerPool pool)
+
+        public override void Initialize(IWorld world)
         {
-            this.pool = pool;
+            base.Initialize(world);
+            var pool = world.Competitions.Logic.CreateKeyboardControllerPool();
+            pool.Initialize(world, world.Competitions.Engine.KeyboardFactory());
         }
 
 
-        public IController Create(ControllerRequest request)
+        override public IController Create(string controllerId)
         {
-            return pool.CreateController(request.ControllerId);
+            return pool.CreateController(controllerId);
         }
     }
 }

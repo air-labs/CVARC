@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public class LogPlayerControllerFactory : IControllerFactory
+    public class LogPlayerControllerFactory : ControllerFactory
     {
         Log log;
 
@@ -14,11 +14,11 @@ namespace CVARC.V2
             this.log = log;
         }
 
-        public IController Create(ControllerRequest request)
+        override public IController Create(string controllerId)
         {
-            if (!log.Commands.ContainsKey(request.ControllerId))
-                throw new Exception("The log does not contain records for '"+request.ControllerId+"'");
-            return new LogPlayController(log.Commands[request.ControllerId]);
+            if (!log.Commands.ContainsKey(controllerId))
+                throw new Exception("The log does not contain records for '" + controllerId + "'");
+            return new LogPlayController(log.Commands[controllerId]);
         }
     }
 }

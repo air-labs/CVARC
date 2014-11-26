@@ -30,7 +30,7 @@ namespace Demo
         }
 
 
-        public override void Initialize(Competitions competitions, Configuration configuration, IControllerFactory controllerFactory)
+        public override void Initialize(Competitions competitions, Configuration configuration, ControllerFactory controllerFactory)
         {
             base.Initialize(competitions, configuration, controllerFactory);
             var detector = new CollisionDetector(this);

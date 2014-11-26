@@ -5,12 +5,12 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public class BotDemoControllerFactory : IControllerFactory
+    public class BotDemoControllerFactory : ControllerFactory
     {
 
-        public IController Create(ControllerRequest request)
+        override public IController Create(string controllerId)
         {
-            return request.CreateBot();
+            return CreateBot(controllerId);
         }
     }
 }

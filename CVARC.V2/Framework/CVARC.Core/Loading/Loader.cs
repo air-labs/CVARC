@@ -34,6 +34,53 @@ namespace CVARC.V2
         
         #endregion
 
+        public IWorld CreateWorld(Competitions competitions, Configuration configuration, ControllerFactory controllerFactory)
+        {
+            var world = competitions.Logic.CreateWorld();
+            world.Initialize(competitions, configuration, controllerFactory);
+            return world;
+        }
+
+        public IWorld CreateLogPlayer(CommandLineData cmdLineData)
+        {
+
+            Log log;
+            try
+            {
+                log = Log.Load(cmdLineData.Unnamed[0]);
+            }
+            catch
+            {
+                throw new Exception("Could not load file '" + cmdLineData.Unnamed[0] + "'");
+            }
+            var configuration = log.Configuration;
+            var proposal = SettingsProposal.FromCommandLineData(cmdLineData);
+            proposal.Push(configuration.Settings, false, z => z.SpeedUp);
+            configuration.Settings.EnableLog = false;
+            configuration.Settings.LogFile = null;
+            var factory = new LogPlayerControllerFactory(log);
+            var competitions = GetCompetitions(configuration.LoadingData);
+            return CreateWorld(competitions, configuration, factory);
+        }
+
+        public IWorld CreateSimpleMode(CommandLineData cmdLineData)
+        {
+            var configuration = new Configuration();
+            configuration.LoadingData.AssemblyName = cmdLineData.Unnamed[0];
+            configuration.LoadingData.Level = cmdLineData.Unnamed[1];
+            var competitions = GetCompetitions(configuration.LoadingData);
+            configuration.Settings=competitions.Logic.GetDefaultSettings();
+            ControllerFactory factory = null;
+            if (cmdLineData.Unnamed[2] == "BotDemo")
+                factory = new BotDemoControllerFactory();
+            else if (cmdLineData.Unnamed[2] == "Tutorial")
+                factory = new TutorialControllerFactory();
+            else throw new Exception("Mode '" + cmdLineData.Unnamed[2] + "' is unknown");
+            var proposal = SettingsProposal.FromCommandLineData(cmdLineData);
+            proposal.Push(configuration.Settings,true);
+            return CreateWorld(competitions, configuration, factory);
+
+        }
 
 
         

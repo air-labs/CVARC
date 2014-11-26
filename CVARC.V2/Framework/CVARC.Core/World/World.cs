@@ -21,6 +21,7 @@ namespace CVARC.V2
         public Scores Scores { get; private set; }
         public Logger Logger { get; private set; }
         public Configuration Configuration { get; private set; }
+        public Competitions Competitions { get; private set; }
 
         public abstract void CreateWorld();
 
@@ -37,9 +38,10 @@ namespace CVARC.V2
         }
         
 
-        public virtual void Initialize(Competitions competitions, Configuration configuration, IControllerFactory controllerFactory)
+        public virtual void Initialize(Competitions competitions, Configuration configuration, ControllerFactory controllerFactory)
         {
 
+            Competitions = competitions;
             Configuration = configuration;
             Clocks = new WorldClocks();
             IdGenerator = new IdGenerator();
@@ -63,6 +65,7 @@ namespace CVARC.V2
             this.Manager = Compatibility.Check<TWorldManager>(this,competitions.Manager.WorldManagerFactory());
             Engine.Initialize(this);
             Manager.Initialize(this);
+            controllerFactory.Initialize(this);
             CreateWorld();
 
 
@@ -76,8 +79,7 @@ namespace CVARC.V2
                 e.Initialize(manager, this, actorObjectId, id);
                 manager.Initialize(e);
                 manager.CreateActorBody();
-                var controllerRequest = new ControllerRequest(competitions,Configuration.Settings,e.ControllerId);
-                var controller = controllerFactory.Create(controllerRequest);
+                var controller = controllerFactory.Create(e.ControllerId);
                 controller.Initialize(e);
                 var preprocessor = competitions.Logic.CreateCommandPreprocessor(id);
                 preprocessor.Initialize(e);

@@ -5,35 +5,36 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public class ControllerRequest
+    public abstract class ControllerFactory
     {
-        public readonly Competitions Competitions;
-        public readonly Settings Settings;
-        public readonly string ControllerId;
-        public readonly ControllerSettings ControllerSettings;
-        public ControllerRequest(Competitions competitions, Settings settings, string controllerId)
+        public IWorld World;
+        
+        public virtual void Initialize(IWorld world)
         {
-            Competitions = competitions;
-            Settings = settings;
-            ControllerId = controllerId;
-            ControllerSettings = Settings.Controllers.Where(z => z.ControllerId == ControllerId).FirstOrDefault();
-            if (ControllerSettings == null)
-                throw new Exception("The controller '" + ControllerId + "' is not defined in settings");
+            this.World = world;
         }
-        public IController CreateBot()
-        {
-            if (ControllerSettings.Type != ControllerType.Bot)
-                throw new Exception("Internal error: trying to create bot for '" + ControllerId + "', but settings define '" + ControllerSettings.Type + "'");
-            var botName=ControllerSettings.Name;
-            if (!Competitions.Logic.Bots.ContainsKey(botName))
-                throw new Exception("Bot '"+botName+"' is not defined");
-            return Competitions.Logic.Bots[botName]();
-        }
-    }
 
-    public interface IControllerFactory
-    {
-        IController Create(ControllerRequest request);
+        protected ControllerSettings GetSettings(string controllerId)
+        {
+            var result = World.Configuration.Settings.Controllers.Where(z => z.ControllerId == controllerId).FirstOrDefault();
+            if (result == null)
+                throw new Exception("The controller '" + controllerId + "' is not defined in settings");
+            return result;
+        }
+
+        protected IController CreateBot(string controllerId)
+        {
+            var sets = GetSettings(controllerId);
+            if (sets.Type != ControllerType.Bot)
+                throw new Exception("Internal error: trying to create bot for '" + controllerId + "', but settings define '" + sets.Type + "'");
+            var botName=sets.Name;
+            if (!World.Competitions.Logic.Bots.ContainsKey(botName))
+                throw new Exception("Bot '"+botName+"' is not defined");
+            return World.Competitions.Logic.Bots[botName]();
+        }
+
+
+        public abstract IController Create(string controllerId);
     }
 
 }

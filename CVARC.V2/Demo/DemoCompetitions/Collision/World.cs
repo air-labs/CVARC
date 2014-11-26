@@ -16,7 +16,7 @@ namespace Demo
         public static Dictionary<string, string> Objects = new Dictionary<string, string> { { "Left", "ObjectLeft" }, { "Right", "ObjectRight" } };
 
 
-        public override void Initialize(Competitions competitions, Configuration configuration, IControllerFactory controllerFactory)
+        public override void Initialize(Competitions competitions, Configuration configuration, ControllerFactory controllerFactory)
         {
             base.Initialize(competitions, configuration, controllerFactory);
             var detector = new CollisionDetector(this);
