@@ -6,10 +6,6 @@ using CVARC.V2;
 
 namespace Demo
 {
-    public class GameObject
-    {
-        public string ControllerId;
-    }
 
     public class CollisionWorld : MovementWorld
     {
