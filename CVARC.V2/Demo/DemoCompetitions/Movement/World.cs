@@ -9,14 +9,10 @@ using CVARC.V2.SimpleMovement;
 
 namespace Demo
 {
-    public class MovementWorld : World<SceneSettings, IWorldManager>, ISimpleMovementWorld
+    public class MovementWorld : World<IWorldManager>, ISimpleMovementWorld
     {
 
 
-        public override SceneSettings CreateSceneState(int seed)
-        {
-            return new SceneSettings();
-        }
 
         public double LinearVelocityLimit
         {
@@ -34,9 +30,9 @@ namespace Demo
         }
 
 
-        public override void Initialize(Competitions competitions, IRunMode environment)
+        public override void Initialize(Competitions competitions, Configuration configuration, IControllerFactory controllerFactory)
         {
-            base.Initialize(competitions, environment);
+            base.Initialize(competitions, configuration, controllerFactory);
             var detector = new CollisionDetector(this);
             detector.FindControllableObject = side =>
                 {

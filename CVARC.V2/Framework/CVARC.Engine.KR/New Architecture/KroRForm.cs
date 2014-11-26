@@ -43,7 +43,7 @@ namespace CVARC.V2
             var control = new DrawerControl(new DirectXFormDrawer(engine.DrawerFactory.GetDirectXScene(), new DrawerSettings
             {
                 ViewMode = ViewModes.FirstPerson,
-                BodyCameraLocation = world.RunMode.Configuration.Settings.ObserverCameraLocation,
+                BodyCameraLocation = world.Configuration.Settings.ObserverCameraLocation,
                 Robot = engine.Root
             }));
 

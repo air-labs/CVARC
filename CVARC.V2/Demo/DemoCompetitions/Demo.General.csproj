@@ -64,7 +64,6 @@
     <Compile Include="Movement\Robot.cs" />
     <Compile Include="Movement\MovementTestBase.cs" />
     <Compile Include="Movement\World.cs" />
-    <Compile Include="Movement\SceneSettings.cs" />
     <Compile Include="Movement\SensorsData.cs" />
     <Compile Include="MultiControl\DisplacementCommand.cs" />
     <Compile Include="MultiControl\MultiCommandKeyboardPool.cs" />

@@ -126,6 +126,11 @@
     <Compile Include="Loading\Configuration\Configuration.cs" />
     <Compile Include="Loading\Configuration\SettingsOrSettingsProposal.cs" />
     <Compile Include="Loading\Configuration\SettingsProposal.cs" />
+    <Compile Include="Loading\ControllerFactory\BotDemoControllerFactory.cs" />
+    <Compile Include="Loading\ControllerFactory\IControllerFactory.cs" />
+    <Compile Include="Loading\ControllerFactory\LogPlayerControllerFactory.cs" />
+    <Compile Include="Loading\ControllerFactory\SoloNetworkControllerFactory.cs" />
+    <Compile Include="Loading\ControllerFactory\TutorialControllerFactory.cs" />
     <Compile Include="Loading\Loader.cs" />
     <Compile Include="Loading\RunModes\BotDemoRunMode.cs" />
     <Compile Include="Loading\RunModes\DebugRunMode.cs" />

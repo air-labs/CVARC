@@ -23,7 +23,7 @@ namespace CVARC.V2
         public IController CreateBot()
         {
             if (ControllerSettings.Type != ControllerType.Bot)
-                throw new Exception("Internal error: trying to create bot for '"+ControllerId+"', but settings define '"+ControllerSettings.Type+"'";
+                throw new Exception("Internal error: trying to create bot for '" + ControllerId + "', but settings define '" + ControllerSettings.Type + "'");
             var botName=ControllerSettings.Name;
             if (!Competitions.Logic.Bots.ContainsKey(botName))
                 throw new Exception("Bot '"+botName+"' is not defined");
@@ -33,7 +33,7 @@ namespace CVARC.V2
 
     public interface IControllerFactory
     {
-        public IController Create(ControllerRequest request);
+        IController Create(ControllerRequest request);
     }
 
 }

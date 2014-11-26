@@ -9,14 +9,14 @@ namespace CVARC.V2
     {
         IEngine Engine { get; }
         IWorldManager Manager { get; }
-        void Initialize(Competitions competitions, IRunMode environment);
+        void Initialize(Competitions competitions, Configuration configuration, IControllerFactory controllerFactory);
         WorldClocks Clocks { get; }
         IdGenerator IdGenerator { get; }
         Scores Scores { get; }
         IEnumerable<IActor> Actors { get; }
         void OnExit();
         event Action Exit;
-        IRunMode RunMode { get; }
+        Configuration Configuration { get; }
         Logger Logger { get; }
         void CreateWorld();
     }

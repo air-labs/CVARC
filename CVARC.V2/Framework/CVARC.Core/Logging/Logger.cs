@@ -36,7 +36,7 @@ namespace CVARC.V2
         void world_Exit()
         {
             if (!SaveLog) return;
-            string filename=world.RunMode.Configuration.Settings.LogFile;
+            string filename=world.Configuration.Settings.LogFile;
             if (filename == null)
             {
                 for (int i = 0; ; i++)

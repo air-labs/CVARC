@@ -8,12 +8,11 @@ namespace CVARC.V2
 {
 
 
-    public abstract class World<TSceneState,TWorldManager> : IWorld
+    public abstract class World<TWorldManager> : IWorld
         where TWorldManager : IWorldManager
     {
         List<IActor> actors;
 
-        public TSceneState SceneSettings { get; private set; }
         public IEngine Engine { get; private set; }
         public TWorldManager Manager { get; private set; }
         IWorldManager IWorld.Manager { get { return Manager; } }
@@ -21,9 +20,8 @@ namespace CVARC.V2
         public WorldClocks Clocks { get; private set; }
         public Scores Scores { get; private set; }
         public Logger Logger { get; private set; }
-        public IRunMode RunMode { get; private set; }
+        public Configuration Configuration { get; private set; }
 
-        public abstract TSceneState CreateSceneState(int seed);
         public abstract void CreateWorld();
 
         public void OnExit()
@@ -39,29 +37,28 @@ namespace CVARC.V2
         }
         
 
-        public virtual void Initialize(Competitions competitions, IRunMode environment)
+        public virtual void Initialize(Competitions competitions, Configuration configuration, IControllerFactory controllerFactory)
         {
 
-            RunMode = environment;
+            Configuration = configuration;
             Clocks = new WorldClocks();
             IdGenerator = new IdGenerator();
             Scores = new Scores(this);
             Logger = new Logger(this);
 
             // setting up the parameters
-            Logger.SaveLog = environment.Configuration.Settings.EnableLog;
+            Logger.SaveLog = Configuration.Settings.EnableLog;
 
-            Logger.LogFileName = environment.Configuration.Settings.LogFile;
-            Logger.Log.Configuration = environment.Configuration;
+            Logger.LogFileName = Configuration.Settings.LogFile;
+            Logger.Log.Configuration = Configuration;
 
-            Clocks.TimeLimit = environment.Configuration.Settings.TimeLimit;
+            Clocks.TimeLimit = Configuration.Settings.TimeLimit;
                  
 
             
 
 
             //Initializing world
-            this.SceneSettings = CreateSceneState(environment.Configuration.Settings.Seed);
             this.Engine = competitions.Engine.EngineFactory();  
             this.Manager = Compatibility.Check<TWorldManager>(this,competitions.Manager.WorldManagerFactory());
             Engine.Initialize(this);
@@ -79,7 +76,8 @@ namespace CVARC.V2
                 e.Initialize(manager, this, actorObjectId, id);
                 manager.Initialize(e);
                 manager.CreateActorBody();
-                var controller = environment.GetController(e.ControllerId);
+                var controllerRequest = new ControllerRequest(competitions,Configuration.Settings,e.ControllerId);
+                var controller = controllerFactory.Create(controllerRequest);
                 controller.Initialize(e);
                 var preprocessor = competitions.Logic.CreateCommandPreprocessor(id);
                 preprocessor.Initialize(e);

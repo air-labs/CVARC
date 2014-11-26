@@ -40,13 +40,13 @@ namespace CVARC.V2
 
         void World_Exit()
         {
-            if (World.RunMode.Configuration.Settings.LegacyLogFile == null) return;
+            if (World.Configuration.Settings.LegacyLogFile == null) return;
             var engine = World.Engine as KroREngine;
             var replay = engine.GetReplay();
             var finalScores = World.Scores.GetAllScores().Select(z => z.Item2.ToString()).Aggregate((a, b) => a + ":" + b);
             var time = World.Clocks.CurrentTime;
 
-            File.WriteAllLines(World.RunMode.Configuration.Settings.LegacyLogFile,
+            File.WriteAllLines(World.Configuration.Settings.LegacyLogFile,
                 new string[]
                 {
                     "Language",
@@ -87,7 +87,7 @@ namespace CVARC.V2
                 foreach (Body body in Root)
                     body.Update(dt);
                 dt -= InternalDeltaTime;
-                if (!World.RunMode.Configuration.Settings.SpeedUp)
+                if (!World.Configuration.Settings.SpeedUp)
                     Thread.Sleep((int)(InternalDeltaTime * 1000));
             }
         }
