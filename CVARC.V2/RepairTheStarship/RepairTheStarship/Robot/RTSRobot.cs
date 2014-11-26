@@ -5,6 +5,7 @@ using System.Text;
 using AIRLab.Mathematics;
 using CVARC.Basic;
 using CVARC.V2.SimpleMovement;
+using CVARC.V2;
 
 namespace RepairTheStarship
 {
@@ -43,15 +44,18 @@ namespace RepairTheStarship
             if (GrippedObjectId != null) return;
             var found = World.IdGenerator.GetAllPairsOfType<DetailColor>()
                 .Where(z => World.Engine.ContainBody(z.Item2))
-                .Where(z => Manager.IsDetailFree(z.Item2))
+                .Where(z => !World.Engine.IsAttached(z.Item2))
                 .Where(z => Distance(ObjectId, z.Item2) < 30)
                 .Where(z => IsDetailAheadRobot(ObjectId, z.Item2))
                 .FirstOrDefault();
 
             if (found == null) return;
-
             GrippedObjectId = found.Item2;
-            Manager.Capture(found.Item2);
+            World.Engine.Attach(
+                GrippedObjectId,
+                ObjectId,
+                new Frame3D(14,0,0,Angle.Zero,Angle.Zero,Angle.Zero)
+                );
         }
 
         void Release()
@@ -61,15 +65,15 @@ namespace RepairTheStarship
             GrippedObjectId = null;
 
             var detailColor = World.IdGenerator.GetKey<DetailColor>(detailId);
-
-            Manager.Release(detailId);
-
+      
             var wall = World.IdGenerator.GetAllPairsOfType<WallData>()
                 .Where(z => World.Engine.ContainBody(z.Item2))
                 .Where(z => z.Item1.Match(detailColor))
                 .Where(z => Distance(detailId, z.Item2) < 30)
                 .FirstOrDefault();
 
+            var location = World.Engine.GetAbsoluteLocation(detailId);
+            World.Engine.Detach(detailId, location);
             if (wall != null)
                 World.InstallDetail(detailColor, detailId, wall.Item2, ControllerId);
         }

@@ -115,17 +115,23 @@ namespace CVARC.V2
             return Root.GetSubtreeChildrenFirst().FirstOrDefault(z => z.NewId == name);
         }
 
+        public Body GetBodyOrException(string name)
+        {
+            var body = GetBody(name);
+            if (body == null) throw new Exception("The body with id '" + name + "' was not found in the world");
+            return body;
+        }
+
         public Frame3D GetAbsoluteLocation(string id)
         {
-            var body = GetBody(id);
-            if (body == null) throw new Exception("Id not found in Engine");
-            return body.Location;
+            var body = GetBodyOrException(id);
+            return body.GetAbsoluteLocation();
         }
 
 
         public void DefineCamera(string cameraName, string host, RobotCameraSettings settings)
         {
-            var hostBody = GetBody(host);
+            var hostBody = GetBodyOrException(host);
             Cameras[cameraName] = new CVARCEngineCamera(hostBody, DrawerFactory, settings);
         }
 
@@ -142,7 +148,7 @@ namespace CVARC.V2
 
         public void DefineKinect(string kinectName, string host)
         {
-            Kinects[kinectName] = new Kinect(GetBody(host));
+            Kinects[kinectName] = new Kinect(GetBodyOrException(host));
         }
 
         public event System.Action<string, string> Collision;
@@ -163,6 +169,52 @@ namespace CVARC.V2
         public bool ContainBody(string id)
         {
             return GetBody(id) != null;
+        }
+
+
+        private readonly Dictionary<int, double> frictionCoefficientsById = new Dictionary<int, double>();
+
+
+        public void Attach(string _objectToAttach, string _host, Frame3D relativePosition)
+        {
+            var objectToAttach = GetBodyOrException(_objectToAttach);
+            var host = GetBodyOrException(_host);
+           
+            if (objectToAttach.Parent != Root)
+                throw new Exception("Object '" + _objectToAttach + "' is already attached");
+            Root.Remove(objectToAttach);
+            objectToAttach.Location = relativePosition;
+            frictionCoefficientsById.SafeAdd(objectToAttach.Id, objectToAttach.FrictionCoefficient);
+            objectToAttach.FrictionCoefficient = 0;
+            host.Add(objectToAttach);
+        }
+
+        public void Detach(string _objectToDetach, Frame3D absolutePosition)
+        {
+            var objectToDetach = GetBodyOrException(_objectToDetach);
+            var host = objectToDetach.Parent;
+            if (host == Root)
+                throw new Exception("Cannot detach '" + _objectToDetach + "' - it is not attached");
+            host.Remove(objectToDetach);
+
+            objectToDetach.FrictionCoefficient = frictionCoefficientsById.SafeGet(objectToDetach.Id);
+            objectToDetach.Location = absolutePosition;
+            objectToDetach.Velocity = new Frame3D(0, 0, 0);
+            Root.Add(objectToDetach);
+        }
+
+        public string FindParent(string objectId)
+        {
+            var obj = GetBodyOrException(objectId);
+            var parent = obj.Parent;
+            if (parent == Root) return null;
+            return parent.NewId;
+        }
+
+        public void DeleteObject(string objectId)
+        {
+            var obj = GetBodyOrException(objectId);
+            obj.Parent.Remove(obj);
         }
     }
 }
