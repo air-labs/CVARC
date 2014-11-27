@@ -212,20 +212,29 @@ namespace CVARC.V2
             holder.Port = defaultPort;
             holder.LoadingData = new LoadingData { AssemblyName = assemblyName, Level = level };
             var test = GetTest(holder.LoadingData, testName);
-            
+
             var thread = new Thread(() =>
             {
                 var proposal = new SettingsProposal { SpeedUp = true };
-                CreateSelfTestServer(holder,proposal);
+                CreateSelfTestServer(holder, proposal);
                 worldCallback(holder.World);
             }) { IsBackground = true };
             thread.Start();
 
-            SelfTestClientThread(test, asserter, holder);
-            
-            if (holder.StopServer != null)
-                holder.StopServer();
-            thread.Abort();
+            try
+            {
+                SelfTestClientThread(test, asserter, holder);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                if (holder.StopServer != null)
+                    holder.StopServer();
+                thread.Abort();
+            }
         }
 
         #endregion

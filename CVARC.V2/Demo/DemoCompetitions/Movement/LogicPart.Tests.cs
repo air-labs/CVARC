@@ -43,7 +43,7 @@ namespace Demo
 
         void LoadTests()
         {
-            Tests["Forward"] = new MovementTestBase(LocationTest(10, 0, 0, SimpleMovementCommand.Move(10, 1)));
+            Tests["Forward"] = new MovementTestBase(LocationTest(10,0, 0, SimpleMovementCommand.Move(10, 1)));
             Tests["Backward"] = new MovementTestBase(LocationTest(-10, 0, 0, SimpleMovementCommand.Move(-10, 1)));
         }
     }
