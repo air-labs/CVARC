@@ -15,7 +15,7 @@ using System.IO;
 namespace CVARC.V2
 {
 
-    public class KroREngine : IEngine
+    public class KroREngine : IPassiveEngine
     {
         const double InternalDeltaTime = 0.01;
         public DrawerFactory DrawerFactory { get; private set; }
@@ -72,7 +72,7 @@ namespace CVARC.V2
         }
 
  
-        internal void Updates(double lastTime, double thisTime)
+        public void Update(double lastTime, double thisTime)
         {
             var dt = thisTime-lastTime;
 

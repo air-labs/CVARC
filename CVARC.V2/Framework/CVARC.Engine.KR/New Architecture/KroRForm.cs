@@ -85,7 +85,7 @@ namespace CVARC.V2
                     time = world.Clocks.TimeLimit;
                     breakRequested = true;
                 }
-                (world.Engine as KroREngine).Updates(oldTime, time);
+                (world.Engine as KroREngine).Update(oldTime, time);
                 world.Clocks.Tick(time);
                 oldTime = time;
                 BeginInvoke(new Action(UpdateClocks));

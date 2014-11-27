@@ -57,8 +57,6 @@ namespace CVARC.V2
             Clocks.TimeLimit = Configuration.Settings.TimeLimit;
                  
 
-            
-
 
             //Initializing world
             this.Engine = competitions.Engine.EngineFactory();  

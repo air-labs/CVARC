@@ -17,7 +17,7 @@ namespace CVARC.V2
             {
                 var time = world.Clocks.GetNextEventTime();
                 if (time > world.Configuration.Settings.TimeLimit) break;
-                (world.Engine as KroREngine).Updates(oldTime, time);
+                (world.Engine as KroREngine).Update(oldTime, time);
                 world.Clocks.Tick(time);
                 oldTime = time;
             }
