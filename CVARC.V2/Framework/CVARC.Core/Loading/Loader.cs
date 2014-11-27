@@ -121,7 +121,7 @@ namespace CVARC.V2
             server.Start();
             data.ServerLoaded = true;
             var client = server.AcceptTcpClient();
-            data.ClientOnServerSide = new CvarcServerSideTcpClient(client);
+            data.ClientOnServerSide = new CvarcClient(client);
             data.StopServer = () =>
                 {
                     client.Close();

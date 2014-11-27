@@ -7,16 +7,27 @@ namespace CVARC.V2
 {
     public interface IMessagingClient
     {
-        object Read(Type type);
-        void Write(object @object);
+        void WriteLine(byte[] bytes);
+        byte[] ReadLine();
         void Close();
     }
 
     public static class IMessagingClientExtensions
     {
+        static readonly ISerializer Serializer = new JsonSerializer();
+
+        public static object Read(this IMessagingClient client, Type type)
+        {
+            return Serializer.Deserialize(type, client.ReadLine());
+        }
+
         public static T Read<T>(this IMessagingClient client)
         {
             return (T)client.Read(typeof(T));
+        }
+        public static void Write(this IMessagingClient client, object obj)
+        {
+            client.WriteLine(Serializer.Serialize(obj));
         }
     }
 }
