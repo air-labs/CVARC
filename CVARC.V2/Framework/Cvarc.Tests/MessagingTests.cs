@@ -49,10 +49,10 @@ namespace Cvarc.Tests
         public void ServerReceivesThenSends()
         {
             RunScenarioServerBackground(
-                client =>
+                server =>
                 {
-                    var msg = client.ReadLine();
-                    client.WriteLine(msg);
+                    var msg = server.ReadLine();
+                    server.WriteLine(msg);
                 },
                 client =>
                 {
@@ -67,10 +67,10 @@ namespace Cvarc.Tests
         public void ServerSendsThenReceives()
         {
             RunScenarioServerBackground(
-                client =>
+                server =>
                 {
-                    client.WriteLine(message);
-                    var data=client.ReadLine();
+                    server.WriteLine(message);
+                    var data=server.ReadLine();
                     Assert.AreEqual(message.Length, data.Length);
                 },
                 client =>
@@ -84,10 +84,10 @@ namespace Cvarc.Tests
         public void ServerWaitsThenSend()
         {
             RunScenarioServerBackground(
-               client =>
+               server =>
                {
                    Thread.Sleep(1000);
-                   client.WriteLine(message);
+                   server.WriteLine(message);
              
                },
                client =>
@@ -103,10 +103,10 @@ namespace Cvarc.Tests
         public void ServerReceivesThenCloses()
         {
             RunScenarioServerBackground(
-                client =>
+                server =>
                 {
-                    client.ReadLine();
-                    client.Close();
+                    server.ReadLine();
+                    server.Close();
                 },
                 client =>
                 {
@@ -123,9 +123,9 @@ namespace Cvarc.Tests
         public void ServerReceivesThenDies()
         {
             RunScenarioServerBackground(
-                client =>
+                server =>
                 {
-                    client.ReadLine();
+                    server.ReadLine();
                 },
                 client =>
                 {
@@ -142,13 +142,13 @@ namespace Cvarc.Tests
         public void ClientSendsThenCloses()
         {
             RunScenarioClientBackground(
-                client =>
+                server =>
                 {
-                    client.ReadLine();
+                    server.ReadLine();
                     try
                     {
-                        client.WriteLine(message);
-                        client.ReadLine();
+                        server.WriteLine(message);
+                        server.ReadLine();
                         Assert.Fail();
                     }
                     catch { }
@@ -163,13 +163,13 @@ namespace Cvarc.Tests
         public void ClientSendsThenDies()
         {
             RunScenarioClientBackground(
-                client =>
+                server =>
                 {
-                    client.ReadLine();
+                    server.ReadLine();
                     try
                     {
-                        client.WriteLine(message);
-                        client.ReadLine();
+                        server.WriteLine(message);
+                        server.ReadLine();
                         Assert.Fail();
                     }
                     catch { }
