@@ -84,7 +84,7 @@
     <Compile Include="Client\CvarcClient.cs" />
     <Compile Include="Client\CvarcTest.cs" />
     <Compile Include="Client\ICvarcTest.cs" />
-    <Compile Include="Client\TestAsyncLock.cs" />
+    <Compile Include="Loading\NetworkServerData.cs" />
     <Compile Include="Client\MSAsserter.cs" />
     <Compile Include="Clocks\ControlTrigger.cs" />
     <Compile Include="Clocks\OneTimeTrigger.cs" />

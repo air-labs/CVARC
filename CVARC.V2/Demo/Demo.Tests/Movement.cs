@@ -12,7 +12,7 @@ namespace Demo.Tests
         {
             var loader = new Loader();
             loader.AddLevel("Demo", "Movement", () => new Demo.KroR.Movement());
-            //loader.RunSelfTestInVSContext("Demo", "Movement", testName, new MSAsserter(), w => { w.RunWithoutInterface(); });
+            loader.RunSelfTestInVSContext("Demo", "Movement", testName, new MSAsserter(), w => { w.RunWithoutInterface(); });
         }
 
         [TestMethod]

@@ -12,8 +12,8 @@ namespace CVARC.V2
     {
         IMessagingClient client;
 
-        public double OperationalTimeLimit { get; set; }
         double OperationalTime;
+        double OperationalTimeLimit;
 
         public void InitializeClient(IMessagingClient client)
         {
@@ -22,7 +22,7 @@ namespace CVARC.V2
 
         public void Initialize(IActor controllableActor)
         {
-            
+            OperationalTimeLimit = controllableActor.World.Configuration.Settings.OperationalTimeLimit;
         }
 
         object sensorData;

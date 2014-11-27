@@ -71,6 +71,7 @@ namespace CVARC.V2
             Controllers = new List<ControllerSettings>();
             Port = 14000;
             SolutionsFolder = "Solutions";
+            OperationalTimeLimit = 1;
         }
     }
 }

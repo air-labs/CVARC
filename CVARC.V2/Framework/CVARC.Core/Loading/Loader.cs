@@ -222,7 +222,7 @@ namespace CVARC.V2
             thread.Start();
 
             SelfTestClientThread(test, asserter, holder);
-
+            
             if (holder.StopServer != null)
                 holder.StopServer();
             thread.Abort();
