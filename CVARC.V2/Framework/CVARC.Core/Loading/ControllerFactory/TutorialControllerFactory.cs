@@ -12,7 +12,7 @@ namespace CVARC.V2
         public override void Initialize(IWorld world)
         {
             base.Initialize(world);
-            var pool = world.Competitions.Logic.CreateKeyboardControllerPool();
+            pool = world.Competitions.Logic.CreateKeyboardControllerPool();
             pool.Initialize(world, world.Competitions.Engine.KeyboardFactory());
         }
 

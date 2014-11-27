@@ -66,8 +66,7 @@ namespace CVARC.V2
         public IWorld CreateSimpleMode(CommandLineData cmdLineData)
         {
             var configuration = new Configuration();
-            configuration.LoadingData.AssemblyName = cmdLineData.Unnamed[0];
-            configuration.LoadingData.Level = cmdLineData.Unnamed[1];
+            configuration.LoadingData = new LoadingData { AssemblyName = cmdLineData.Unnamed[0], Level = cmdLineData.Unnamed[1] };
             var competitions = GetCompetitions(configuration.LoadingData);
             configuration.Settings=competitions.Logic.GetDefaultSettings();
             ControllerFactory factory = null;
@@ -259,20 +258,19 @@ namespace CVARC.V2
 
         public IWorld Load(string[] arguments)
         {
-            return null;
-            //var cmdLineData = CommandLineData.Parse(arguments);
+            var cmdLineData = CommandLineData.Parse(arguments);
             
-            //if (cmdLineData.Unnamed.Count==0)
-            //    throw new Exception("CVARC required parameters to run. See manual");
+            if (cmdLineData.Unnamed.Count==0)
+                throw new Exception("CVARC required parameters to run. See manual");
 
             //if (cmdLineData.Unnamed[0] == "Debug")
             //    return LoadFromNetwork(cmdLineData);
-            //else if (cmdLineData.Unnamed.Count == 1)
-            //    return LoadFromLogFile(cmdLineData);
+            else if (cmdLineData.Unnamed.Count == 1)
+                return CreateLogPlayer(cmdLineData);
             //else if (cmdLineData.Unnamed.Count == 4 && cmdLineData.Unnamed[2] == "SelfTest")
             //    return RunTestInCommandLineContext(cmdLineData, new EmptyAsserter());
-            //else
-            //    return LoadNormally(cmdLineData);
+            else
+                return CreateSimpleMode(cmdLineData);
         }
 
         public static string Help = @"
