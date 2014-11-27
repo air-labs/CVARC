@@ -7,19 +7,38 @@ using System.Threading;
 
 namespace CVARC.V2
 {
-    public class SelfTestSharedData
+    public class NetworkServerData
     {
+        /// <summary>
+        /// The port on which the server is operating
+        /// </summary>
+        public int Port { get; set; }
+        
+        
+        /// <summary>
+        /// True when Listener is up
+        /// </summary>
+        public bool ServerLoaded { get; set; }
+
+        /// <summary>
+        /// The connection on server that waits for commands
+        /// </summary>
+        public IMessagingClient ClientOnServerSide { get; set; }
+
+
+        /// <summary>
+        /// Data about which competitions to run
+        /// </summary>
         public LoadingData LoadingData { get; set; }
 
-        public int Port { get; set; }
-
-        public bool ServerLoaded { get; set; }
+        /// <summary>
+        /// The resulting settings
+        /// </summary>
+        public Settings Settings { get; set; }
 
         public IWorld World { get; set; }
 
-        public TcpListener Listener { get; set; }
-
-        public TcpClient Client { get; set; }
+        public Action StopServer { get; set; }
 
         public void WaitForServer()
         {

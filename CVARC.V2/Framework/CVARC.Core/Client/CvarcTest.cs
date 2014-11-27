@@ -12,7 +12,7 @@ namespace CVARC.V2
         public abstract SettingsProposal GetSettings();
         public abstract void Test(CvarcClient<TSensorData, TCommand> client, TWorld world, IAsserter asserter);
      
-        public void Run(SelfTestSharedData holder, IAsserter asserter)
+        public void Run(NetworkServerData holder, IAsserter asserter)
         {
             var client=new CvarcClient<TSensorData,TCommand>();
             var configurationProposal = new ConfigurationProposal

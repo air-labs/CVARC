@@ -7,6 +7,6 @@ namespace CVARC.V2
 {
     public interface ICvarcTest
     {
-        void Run(SelfTestSharedData holder, IAsserter asserter);
+        void Run(NetworkServerData holder, IAsserter asserter);
     }
 }
