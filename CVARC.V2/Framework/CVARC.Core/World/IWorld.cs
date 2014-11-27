@@ -20,6 +20,7 @@ namespace CVARC.V2
         Competitions Competitions { get; }
         Logger Logger { get; }
         void CreateWorld();
+        void RunActively(double requiredPhysicalDelta);
     }
 
 }

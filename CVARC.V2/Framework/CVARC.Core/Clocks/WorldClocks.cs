@@ -23,7 +23,8 @@ namespace CVARC.V2
             triggers.Add(trigger);
         }
 
-    
+
+        public event Action Ticked;
         
 
         public void Tick(double time)
@@ -33,13 +34,15 @@ namespace CVARC.V2
             while (true)
             {
                 var ready = triggers.Where(z => z.ScheduledTime <= time);
-                if (!ready.Any()) return;
+                if (!ready.Any()) break;
                 var min = ready.Min(z => z.ScheduledTime);
                 var recordToRun = triggers.Where(z => z.ScheduledTime == min).First();
                 var result=recordToRun.Act(time);
                 if (result == TriggerKeep.Remove)
                     triggers.Remove(recordToRun);
             }
+            if (Ticked != null)
+                Ticked();
         }
 
     }

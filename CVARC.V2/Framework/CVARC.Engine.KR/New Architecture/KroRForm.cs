@@ -55,45 +55,18 @@ namespace CVARC.V2
 
 
             world.Scores.ScoresChanged += Scores_ScoresChanged;
+            world.Clocks.Ticked += () => { BeginInvoke(new Action(UpdateClocks)); };
+            world.Exit += () => worldExited = true;
+
             UpdateScores();
-            thread= new Thread(RunCompetitions) { IsBackground = true };
+            thread= new Thread(()=>world.RunActively(1)) { IsBackground = true };
             thread.Start();
 
            
 
         }
 
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
-        {
-            base.OnClosing(e);
-        }
-
         bool worldExited = false;
-
-        void RunCompetitions()
-        {
-            double time = 0;
-            double oldTime = 0;
-            bool breakRequested = false;
-            while (true)
-            {
-                time=world.Clocks.GetNextEventTime();
-                if (time - oldTime > 1)
-                    time = oldTime+1;
-                if (time > world.Clocks.TimeLimit)
-                {
-                    time = world.Clocks.TimeLimit;
-                    breakRequested = true;
-                }
-                (world.Engine as KroREngine).Update(oldTime, time);
-                world.Clocks.Tick(time);
-                oldTime = time;
-                BeginInvoke(new Action(UpdateClocks));
-                if (breakRequested) break;
-            }
-            world.OnExit();
-            worldExited = true;
-        }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {

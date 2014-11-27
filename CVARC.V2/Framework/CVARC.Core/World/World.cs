@@ -36,7 +36,7 @@ namespace CVARC.V2
         {
             get { return actors; }
         }
-        
+
 
         public virtual void Initialize(Competitions competitions, Configuration configuration, ControllerFactory controllerFactory)
         {
@@ -55,12 +55,12 @@ namespace CVARC.V2
             Logger.Log.Configuration = Configuration;
 
             Clocks.TimeLimit = Configuration.Settings.TimeLimit;
-                 
+
 
 
             //Initializing world
-            this.Engine = competitions.Engine.EngineFactory();  
-            this.Manager = Compatibility.Check<TWorldManager>(this,competitions.Manager.WorldManagerFactory());
+            this.Engine = competitions.Engine.EngineFactory();
+            this.Manager = Compatibility.Check<TWorldManager>(this, competitions.Manager.WorldManagerFactory());
             Engine.Initialize(this);
             Manager.Initialize(this);
             controllerFactory.Initialize(this);
@@ -69,7 +69,7 @@ namespace CVARC.V2
 
             //Initializing actors
             actors = new List<IActor>();
-            foreach(var id in competitions.Logic.ControllersId)
+            foreach (var id in competitions.Logic.ControllersId)
             {
                 var e = competitions.Logic.CreateActor(id);
                 var actorObjectId = IdGenerator.CreateNewId(e);
@@ -84,6 +84,30 @@ namespace CVARC.V2
                 Clocks.AddTrigger(new ControlTrigger(controller, e, preprocessor));
                 actors.Add(e);
             }
+        }
+
+
+        public void RunActively(double requiredPhysicalDelta)
+        {
+            bool stop = false;
+            Exit += () => stop = true;
+            var oldTime = 0.0;
+            while (!stop)
+            {
+                var time = Clocks.GetNextEventTime();
+                if (time > Configuration.Settings.TimeLimit)
+                {
+                    if (time < Configuration.Settings.TimeLimit)
+                        time = Configuration.Settings.TimeLimit;
+                    else break;
+                }
+                if (time - oldTime > requiredPhysicalDelta)
+                    time = oldTime + requiredPhysicalDelta;
+                if (Engine is IPassiveEngine) (Engine as IPassiveEngine).Update(oldTime, time);
+                Clocks.Tick(time);
+                oldTime = time;
+            }
+            OnExit();
         }
     }
 }

@@ -206,7 +206,7 @@ namespace CVARC.V2
             return holder.World;
         }
 
-        public void RunSelfTestInVSContext(string assemblyName, string level, string testName, IAsserter asserter, Action<IWorld> worldCallback)
+        public void RunSelfTestInVSContext(string assemblyName, string level, string testName, IAsserter asserter)
         {
             var holder = new NetworkServerData();
             holder.Port = defaultPort;
@@ -217,7 +217,7 @@ namespace CVARC.V2
             {
                 var proposal = new SettingsProposal { SpeedUp = true };
                 CreateSelfTestServer(holder, proposal);
-                worldCallback(holder.World);
+                holder.World.RunActively(1);
             }) { IsBackground = true };
             thread.Start();
 
