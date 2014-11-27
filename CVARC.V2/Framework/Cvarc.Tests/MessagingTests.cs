@@ -26,18 +26,29 @@ namespace Cvarc.Tests
             scenario(cvarcClient);
         }
 
-        public static void RunClientServerScenario(Action<CvarcClient> serverScenario, Action<CvarcClient> clientScenario)
+        public static void RunScenarioServerBackground(Action<CvarcClient> serverScenario, Action<CvarcClient> clientScenario)
         {
             new Action<Action<CvarcClient>>(RunServerScenario).BeginInvoke(serverScenario, null, null);
             SingleClientScenario(clientScenario);
         }
 
+        public static void RunScenarioClientBackground(Action<CvarcClient> serverScenario, Action<CvarcClient> clientScenario)
+        {
+            Action clientAction=()=>
+                {
+                    Thread.Sleep(500);
+                    SingleClientScenario(clientScenario);
+                };
+            clientAction.BeginInvoke(null, null);
+            RunServerScenario(serverScenario);
+        }
+
         static byte[] message=new byte[] { 1,2,3};
 
         [TestMethod]
-        public void SendThenReceive()
+        public void ServerReceivesThenSends()
         {
-            RunClientServerScenario(
+            RunScenarioServerBackground(
                 client =>
                 {
                     var msg = client.ReadLine();
@@ -53,9 +64,9 @@ namespace Cvarc.Tests
         }
 
         [TestMethod]
-        public void ReceiveThenSend()
+        public void ServerSendsThenReceives()
         {
-            RunClientServerScenario(
+            RunScenarioServerBackground(
                 client =>
                 {
                     client.WriteLine(message);
@@ -70,9 +81,9 @@ namespace Cvarc.Tests
             );
         }
 
-        public void WaitThenSend()
+        public void ServerWaitsThenSend()
         {
-            RunClientServerScenario(
+            RunScenarioServerBackground(
                client =>
                {
                    Thread.Sleep(1000);
@@ -89,9 +100,9 @@ namespace Cvarc.Tests
 
         }
 
-        public void ReceiveThenClose()
+        public void ServerReceivesThenCloses()
         {
-            RunClientServerScenario(
+            RunScenarioServerBackground(
                 client =>
                 {
                     client.ReadLine();
@@ -102,7 +113,6 @@ namespace Cvarc.Tests
                     client.WriteLine(message);
                     try
                     {
-                        client.WriteLine(message);
                         client.ReadLine();
                         Assert.Fail();
                     }
@@ -110,9 +120,9 @@ namespace Cvarc.Tests
                 });
         }
 
-        public void ReceiveThenDie()
+        public void ServerReceivesThenDies()
         {
-            RunClientServerScenario(
+            RunScenarioServerBackground(
                 client =>
                 {
                     client.ReadLine();
@@ -122,7 +132,6 @@ namespace Cvarc.Tests
                     client.WriteLine(message);
                     try
                     {
-                        client.WriteLine(message);
                         client.ReadLine();
                         Assert.Fail();
                     }
@@ -130,9 +139,53 @@ namespace Cvarc.Tests
                 });
         }
 
+        public void ClientSendsThenCloses()
+        {
+            RunScenarioClientBackground(
+                client =>
+                {
+                    client.ReadLine();
+                    try
+                    {
+                        client.WriteLine(message);
+                        client.ReadLine();
+                        Assert.Fail();
+                    }
+                    catch { }
+                },
+                client =>
+                {
+                    client.WriteLine(message);
+                    client.Close();
+                });
+        }
+
+        public void ClientSendsThenDies()
+        {
+            RunScenarioClientBackground(
+                client =>
+                {
+                    client.ReadLine();
+                    try
+                    {
+                        client.WriteLine(message);
+                        client.ReadLine();
+                        Assert.Fail();
+                    }
+                    catch { }
+                },
+                client =>
+                {
+                    client.WriteLine(message);
+                });
+        }
+
+
+        
+
         public static void Main()
         {
-            new MessagingTests().ReceiveThenDie();
+            new MessagingTests().ClientSendsThenDies();
 
         }
     }
