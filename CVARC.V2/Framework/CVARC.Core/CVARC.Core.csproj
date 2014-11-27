@@ -86,6 +86,7 @@
     <Compile Include="Client\ICvarcTest.cs" />
     <Compile Include="Controllers\Network\CvarcClientSideTcpClient.cs" />
     <Compile Include="Controllers\Network\CvarcServerSideTcpClient.cs" />
+    <Compile Include="Controllers\Network\CvarcByteLevelClient.cs" />
     <Compile Include="Engine\IPassiveEngine.cs" />
     <Compile Include="Loading\NetworkServerData.cs" />
     <Compile Include="Client\MSAsserter.cs" />

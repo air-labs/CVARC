@@ -7,57 +7,31 @@ using System.Windows.Forms;
 
 namespace CVARC.V2
 {
-    public class CvarcClientSideTcpClient : IDisposable, IMessagingClient
+    public class CvarcClientSideTcpClient :  IMessagingClient
     {
-        private readonly Stream stream;
-        private const byte EndLine = (byte)'\n';
-        private StreamReader streamReader;
-        private static readonly ISerializer Serializer = new JsonSerializer();
-        TcpClient client;
+        readonly CvarcByteLevelClient byteLevel;
+        readonly ISerializer serializer = new JsonSerializer();
 
         public CvarcClientSideTcpClient(TcpClient client)
         {
-            this.client=client;
-            stream = client.GetStream();
-            streamReader = new StreamReader(stream);
+            byteLevel = new CvarcByteLevelClient(client);
         }
 
-        public void Write(object obj)
-        {
-            Send(Serializer.Serialize(obj));
-        }
-
-        public  void Close()
-        {
-            client.Close();
-        }
-
-        public void Send(byte[] message)
-        {
-            message = message.Where(z => z != EndLine).ToArray();
-            stream.Write(message,0,message.Length);
-            stream.WriteByte(EndLine);
-            stream.Flush();
-        }
-
-        public byte[] ReadToEnd()
-        {
-            var str = streamReader.ReadLine();
-            if (str == null) return null;
-            return Encoding.UTF8.GetBytes(str);
-        }
 
         public object Read(Type type)
         {
-            var bytes = ReadToEnd();
-            if (bytes == null) return null;
-            return Serializer.Deserialize(type, bytes);
+            var bytes = byteLevel.ReadLine();
+            return serializer.Deserialize(type, bytes);
         }
 
-
-        public void Dispose()
+        public void Write(object @object)
         {
-            stream.Dispose();
+            byteLevel.WriteLine(serializer.Serialize(@object));
+        }
+
+        public void Close()
+        {
+            byteLevel.Close();
         }
     }
 }

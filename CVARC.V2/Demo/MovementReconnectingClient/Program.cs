@@ -36,6 +36,7 @@ namespace MovementReconnectingClient
                     client.Act(SimpleMovementCommand.Move(10, 1));
                     client.Act(SimpleMovementCommand.Rotate(Angle.Pi, 1));
                     client.Act(SimpleMovementCommand.Exit());
+                    Console.WriteLine("Success");
                 }
                 catch(Exception e)
                 {
