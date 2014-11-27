@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Threading;
 using CVARC.V2;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -69,6 +70,25 @@ namespace Cvarc.Tests
             );
         }
 
+        public void WaitThenSend()
+        {
+            RunClientServerScenario(
+               client =>
+               {
+                   Thread.Sleep(1000);
+                   client.WriteLine(message);
+             
+               },
+               client =>
+               {
+                   var msg = client.ReadLine();
+                   Assert.AreEqual(message.Length, msg.Length);
+               }
+           );
+
+
+        }
+
         public void ReceiveThenClose()
         {
             RunClientServerScenario(
@@ -82,6 +102,27 @@ namespace Cvarc.Tests
                     client.WriteLine(message);
                     try
                     {
+                        client.WriteLine(message);
+                        client.ReadLine();
+                        Assert.Fail();
+                    }
+                    catch { }
+                });
+        }
+
+        public void ReceiveThenDie()
+        {
+            RunClientServerScenario(
+                client =>
+                {
+                    client.ReadLine();
+                },
+                client =>
+                {
+                    client.WriteLine(message);
+                    try
+                    {
+                        client.WriteLine(message);
                         client.ReadLine();
                         Assert.Fail();
                     }
@@ -91,7 +132,7 @@ namespace Cvarc.Tests
 
         public static void Main()
         {
-            new MessagingTests().ReceiveThenClose();
+            new MessagingTests().ReceiveThenDie();
 
         }
     }
