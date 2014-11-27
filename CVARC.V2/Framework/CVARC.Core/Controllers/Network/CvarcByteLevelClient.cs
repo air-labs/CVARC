@@ -24,22 +24,27 @@ namespace CVARC.V2
         public void WriteLine(byte[] message)
         {
             message = message.Where(z => z != EndLine).Concat(new [] { EndLine}).ToArray();
-            client.GetStream().Write(message);
-            stream.Flush();
+            client.Client.Send(message);
         }
+
+        List<byte> ReadBuffer = new List<byte>();
 
         public byte[] ReadLine()
         {
-            stream.ReadTimeout = 1000;
-            var bytes = new List<byte>();
-            Console.WriteLine(stream.ReadTimeout);
             while (true)
             {
-                var bt = (byte)stream.ReadByte();
-                if (bt == EndLine) break;
-                bytes.Add(bt);
+                var buffer=new byte[1000];
+                int length=client.Client.Receive(buffer);
+                for (int i = 0; i < length; i++)
+                    ReadBuffer.Add(buffer[i]);
+                var newLineIndex = ReadBuffer.IndexOf(EndLine);
+                if (newLineIndex == -1) continue;
+                var message = new Byte[newLineIndex];
+                ReadBuffer.CopyTo(0, message, 0, newLineIndex);
+                ReadBuffer.RemoveRange(0, newLineIndex + 1);
+                return message;
             }
-            return bytes.ToArray();
+
         }
 
         public void Close()
