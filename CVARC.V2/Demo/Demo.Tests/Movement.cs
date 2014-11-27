@@ -27,6 +27,12 @@ namespace Demo.Tests
             RunTest();
         }
 
+        [TestMethod]
+        public void Exit()
+        {
+            RunTest();
+        }
+
 
     }
 }

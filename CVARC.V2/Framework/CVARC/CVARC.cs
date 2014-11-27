@@ -13,28 +13,31 @@ namespace CVARC.V2
     public static class CVARCProgram
     {
 
-        public static void RunServerInTheSameThread(string[] args, Action<bool> Control)
+        public static void RunServerInTheSameThread(Action<int> Control)
         {
-            if (args.Length == 0)
+
+            var nsData = new NetworkServerData();
+            nsData.Port = Loader.DefaultPort;
+
+            new Action(() =>
             {
-                new Action(() =>
-                {
-                    Thread.Sleep(1000);
-                    Control(false);
-                }).BeginInvoke(null, null);
-                CVARCProgram.Main(new string[] { "Debug", "14000" });
-            }
-            else
-            {
-                Control(false);
-            }
+                nsData.WaitForServer();
+                Control(nsData.Port);
+            }).BeginInvoke(null, null);
+
+            var loader = GetLoader();
+            loader.CreateSoloNetworkWithData(nsData);
+            RunWorld(nsData.World);
         }
 
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        public static void Main(string[] args)
+        public static void RunWorld(IWorld world)
+        {
+            var form = new KroRForm(world);
+            Application.Run(form);
+
+        }
+
+        public static Loader GetLoader()
         {
             var loader = new Loader();
 
@@ -46,7 +49,18 @@ namespace CVARC.V2
             loader.AddLevel("Demo", "Camera", () => new Demo.KroR.Camera());
             loader.AddLevel("Demo", "MultiControl", () => new Demo.KroR.MultiControl());
             loader.AddLevel("Demo", "Collision", () => new Demo.KroR.Collision());
-            IWorld world;
+
+            return loader;
+        }
+
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        public static void Main(string[] args)
+        {
+            var loader = GetLoader();
+             IWorld world;
 
             if (false)
             {
@@ -62,8 +76,7 @@ namespace CVARC.V2
             }
             else
                 world = loader.Load(args);
-            var form = new KroRForm(world);
-            Application.Run(form);
+            RunWorld(world);
         }
     }
 }

@@ -95,17 +95,17 @@ namespace CVARC.V2
             while (!stop)
             {
                 var time = Clocks.GetNextEventTime();
-                if (time > Configuration.Settings.TimeLimit)
-                {
-                    if (time < Configuration.Settings.TimeLimit)
-                        time = Configuration.Settings.TimeLimit;
-                    else break;
-                }
+                if (time >= Configuration.Settings.TimeLimit)
+                    time = Configuration.Settings.TimeLimit;
+
                 if (time - oldTime > requiredPhysicalDelta)
                     time = oldTime + requiredPhysicalDelta;
                 if (Engine is IPassiveEngine) (Engine as IPassiveEngine).Update(oldTime, time);
                 Clocks.Tick(time);
                 oldTime = time;
+
+                if (time == Configuration.Settings.TimeLimit)
+                    break;
             }
             OnExit();
         }

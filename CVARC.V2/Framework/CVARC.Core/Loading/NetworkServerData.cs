@@ -40,6 +40,15 @@ namespace CVARC.V2
 
         public Action StopServer { get; set; }
 
+   
+        public void Close()
+        {
+            if (!ServerLoaded) return;
+            StopServer();
+            ServerLoaded = false;
+        }
+
+
         public void WaitForServer()
         {
             while (!ServerLoaded) Thread.Sleep(1);

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace CVARC.V2
 {
-    public class CvarcTcpClient : IDisposable, IMessagingClient
+    public class CvarcClientSideTcpClient : IDisposable, IMessagingClient
     {
         private readonly Stream stream;
         private const byte EndLine = (byte)'\n';
@@ -15,7 +15,7 @@ namespace CVARC.V2
         private static readonly ISerializer Serializer = new JsonSerializer();
         TcpClient client;
 
-        public CvarcTcpClient(TcpClient client)
+        public CvarcClientSideTcpClient(TcpClient client)
         {
             this.client=client;
             stream = client.GetStream();
@@ -27,7 +27,7 @@ namespace CVARC.V2
             Send(Serializer.Serialize(obj));
         }
 
-       public  void Close()
+        public  void Close()
         {
             client.Close();
         }

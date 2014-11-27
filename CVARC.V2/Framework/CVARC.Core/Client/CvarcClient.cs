@@ -11,29 +11,18 @@ namespace CVARC.V2
     public class CvarcClient<TSensorData, TCommand> 
         where TSensorData : class
     {
-        CvarcTcpClient client;
+        CvarcClientSideTcpClient client;
 
-        public TSensorData Configurate(bool runServer, int port, ConfigurationProposal configuration)
+        public TSensorData Configurate(int port, ConfigurationProposal configuration)
         {
-            if (runServer)
-            {
-                var process = new Process
-                {
-                    StartInfo =
-                    {
-                        FileName = "CVARC.exe",
-                        Arguments = "Debug " + port.ToString()
-                    }
-                };
-                process.Start();
-                Thread.Sleep(500);
-            }
             var tcpClient = new TcpClient();
             tcpClient.Connect("127.0.0.1", port);
-            client = new CvarcTcpClient(tcpClient);
+            client = new CvarcClientSideTcpClient(tcpClient);
             client.Write(configuration);
             return client.Read<TSensorData>();
         }
+
+        
 
         public TSensorData Act(TCommand command)
         {

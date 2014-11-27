@@ -20,7 +20,7 @@ namespace CVARC.V2
                 LoadingData = holder.LoadingData,
                 SettingsProposal = GetSettings()
             };
-            client.Configurate(false, holder.Port, configurationProposal);
+            client.Configurate(holder.Port, configurationProposal);
             var iworld = holder.WaitForWorld();
             var world = Compatibility.Check<TWorld>(this, iworld);
             Test(client,world,asserter);

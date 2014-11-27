@@ -87,7 +87,7 @@ namespace CVARC.V2
 
         #region SoloNetwork
 
-        const int defaultPort = 14000;
+        public const int DefaultPort = 14000;
 
         public void InstantiateWorld(NetworkServerData data)
         {
@@ -98,6 +98,7 @@ namespace CVARC.V2
                  Settings=data.Settings
             };
             data.World = CreateWorld(configuration, factory);
+            data.World.Exit += data.Close;
         }
 
 
@@ -117,12 +118,19 @@ namespace CVARC.V2
             server.Start();
             data.ServerLoaded = true;
             var client = server.AcceptTcpClient();
-            data.ClientOnServerSide = new CvarcTcpClient(client);
+            data.ClientOnServerSide = new CvarcServerSideTcpClient(client);
             data.StopServer = () =>
                 {
                     client.Close();
                     server.Stop();
                 };
+        }
+
+        public void CreateSoloNetworkWithData(NetworkServerData nsdata)
+        {
+            RunServer(nsdata);
+            ReceiveConfiguration(nsdata);
+            InstantiateWorld(nsdata);
         }
 
         public IWorld CreateSoloNetwork(CommandLineData data)
@@ -140,11 +148,10 @@ namespace CVARC.V2
                 }
             }
             else
-                port = defaultPort;
+                port = DefaultPort;
             var nsdata = new NetworkServerData();
-            RunServer(nsdata);
-            ReceiveConfiguration(nsdata);
-            InstantiateWorld(nsdata);
+            nsdata.Port = port;
+            CreateSoloNetworkWithData(nsdata);
             return nsdata.World;
         }
 
@@ -197,7 +204,7 @@ namespace CVARC.V2
         public IWorld CreateSelfTestInCommandLineContext(CommandLineData data, IAsserter asserter)
         {
             var holder = new NetworkServerData();
-            holder.Port=defaultPort;
+            holder.Port=DefaultPort;
             holder.LoadingData = new LoadingData { AssemblyName=data.Unnamed[0], Level=data.Unnamed[1] };
             var test = GetTest(holder.LoadingData, data.Unnamed[3]);
             new Action<ICvarcTest, IAsserter, NetworkServerData>(SelfTestClientThread).BeginInvoke(test, asserter, holder, null, null);
@@ -209,7 +216,7 @@ namespace CVARC.V2
         public void RunSelfTestInVSContext(string assemblyName, string level, string testName, IAsserter asserter)
         {
             var holder = new NetworkServerData();
-            holder.Port = defaultPort;
+            holder.Port = DefaultPort;
             holder.LoadingData = new LoadingData { AssemblyName = assemblyName, Level = level };
             var test = GetTest(holder.LoadingData, testName);
 
@@ -218,6 +225,7 @@ namespace CVARC.V2
                 var proposal = new SettingsProposal { SpeedUp = true };
                 CreateSelfTestServer(holder, proposal);
                 holder.World.RunActively(1);
+                holder.Close();
             }) { IsBackground = true };
             thread.Start();
 
@@ -231,9 +239,7 @@ namespace CVARC.V2
             }
             finally
             {
-                if (holder.StopServer != null)
-                    holder.StopServer();
-                thread.Abort();
+                holder.Close();
             }
         }
 

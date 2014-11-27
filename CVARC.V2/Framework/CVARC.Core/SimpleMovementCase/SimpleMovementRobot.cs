@@ -21,17 +21,10 @@ namespace CVARC.V2.SimpleMovement
 
         public override void ExecuteCommand(SimpleMovementCommand command)
         {
-            double rightDuration;
             if (command.Command != null)
             {
                 Manager.SetSpeed(new Frame3D(0, 0, 0, Angle.Zero, Angle.Zero, Angle.Zero));
                 ProcessCustomCommand(command.Command);
-                return;
-            }
-
-            if (command.WaitForExit)
-            {
-                Manager.SetSpeed(new Frame3D(0, 0, 0, Angle.Zero, Angle.Zero, Angle.Zero));
                 return;
             }
 

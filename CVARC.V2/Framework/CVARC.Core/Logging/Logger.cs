@@ -29,7 +29,7 @@ namespace CVARC.V2
         {
             this.world = world;
             Log=new V2.Log();
-            world.Clocks.AddTrigger(new TimerTrigger(UpdatePositions, LoggingDeltaTime));
+            //world.Clocks.AddTrigger(new TimerTrigger(UpdatePositions, LoggingDeltaTime));
             world.Exit += world_Exit;
         }
 

@@ -25,11 +25,6 @@ namespace CVARC.V2.SimpleMovement
                 yield break;
             }
 
-            if (command.WaitForExit)
-            {
-                yield return SimpleMovementCommand.Move(0, double.PositiveInfinity);
-                yield break;
-            }
             var World = Actor.World;
 
             var linear = command.LinearVelocity;

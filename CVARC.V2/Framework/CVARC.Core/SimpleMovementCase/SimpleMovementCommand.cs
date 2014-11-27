@@ -13,7 +13,6 @@ namespace CVARC.V2.SimpleMovement
         public Angle AngularVelocity { get; private set; }
         public double Duration { get; private set; }
         public string Command { get; private set; }
-        public bool WaitForExit { get; private set; }
 
         public static SimpleMovementCommand Move(double linearVelocity, double duration)
         {
@@ -37,7 +36,7 @@ namespace CVARC.V2.SimpleMovement
 
         public static SimpleMovementCommand Exit()
         {
-            return new SimpleMovementCommand { WaitForExit = true };
+            return new SimpleMovementCommand { LinearVelocity = 0, AngularVelocity = Angle.Zero, Duration = double.PositiveInfinity };
         }
 
         public static SimpleMovementCommand Action(string action, double duration=0)

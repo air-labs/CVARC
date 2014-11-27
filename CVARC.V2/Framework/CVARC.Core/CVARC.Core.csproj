@@ -84,6 +84,8 @@
     <Compile Include="Client\CvarcClient.cs" />
     <Compile Include="Client\CvarcTest.cs" />
     <Compile Include="Client\ICvarcTest.cs" />
+    <Compile Include="Controllers\Network\CvarcClientSideTcpClient.cs" />
+    <Compile Include="Controllers\Network\CvarcServerSideTcpClient.cs" />
     <Compile Include="Engine\IPassiveEngine.cs" />
     <Compile Include="Loading\NetworkServerData.cs" />
     <Compile Include="Client\MSAsserter.cs" />
@@ -103,7 +105,6 @@
     <Compile Include="Controllers\Keyboard\KeyboardControllerPool.cs" />
     <Compile Include="Controllers\Keyboard\WinformsKey.cs" />
     <Compile Include="Controllers\LogPlayController.cs" />
-    <Compile Include="Controllers\Network\GroboTcpClient.cs" />
     <Compile Include="Controllers\Network\IMessagingClient.cs" />
     <Compile Include="Controllers\Network\INetworkController.cs" />
     <Compile Include="Controllers\Network\ISerializer.cs" />
