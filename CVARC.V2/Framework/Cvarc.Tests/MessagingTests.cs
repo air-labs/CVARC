@@ -49,10 +49,10 @@ namespace Cvarc.Tests
         public void ServerReceivesThenSends()
         {
             RunScenarioServerBackground(
-                server =>
+                client =>
                 {
-                    var msg = server.ReadLine();
-                    server.WriteLine(msg);
+                    var msg = client.ReadLine();
+                    client.WriteLine(msg);
                 },
                 client =>
                 {
@@ -67,10 +67,10 @@ namespace Cvarc.Tests
         public void ServerSendsThenReceives()
         {
             RunScenarioServerBackground(
-                server =>
+                client =>
                 {
-                    server.WriteLine(message);
-                    var data=server.ReadLine();
+                    client.WriteLine(message);
+                    var data=client.ReadLine();
                     Assert.AreEqual(message.Length, data.Length);
                 },
                 client =>
@@ -84,10 +84,10 @@ namespace Cvarc.Tests
         public void ServerWaitsThenSend()
         {
             RunScenarioServerBackground(
-               server =>
+               client =>
                {
                    Thread.Sleep(1000);
-                   server.WriteLine(message);
+                   client.WriteLine(message);
              
                },
                client =>
@@ -103,10 +103,31 @@ namespace Cvarc.Tests
         public void ServerReceivesThenCloses()
         {
             RunScenarioServerBackground(
-                server =>
+                client =>
                 {
-                    server.ReadLine();
-                    server.Close();
+                    client.ReadLine();
+                    client.Close();
+                },
+                client =>
+                {
+                    client.WriteLine(message);
+                    try
+                    {
+                        client.ReadLine();
+                        Assert.Fail();
+                    }
+                    catch { }
+                });
+        }
+
+        public void ServerReceivesThenWaitsThenCloses()
+        {
+            RunScenarioServerBackground(
+                client =>
+                {
+                    client.ReadLine();
+                    Thread.Sleep(500);
+                    client.Close();
                 },
                 client =>
                 {
@@ -123,9 +144,9 @@ namespace Cvarc.Tests
         public void ServerReceivesThenDies()
         {
             RunScenarioServerBackground(
-                server =>
+                client =>
                 {
-                    server.ReadLine();
+                    client.ReadLine();
                 },
                 client =>
                 {
@@ -142,13 +163,13 @@ namespace Cvarc.Tests
         public void ClientSendsThenCloses()
         {
             RunScenarioClientBackground(
-                server =>
+                client =>
                 {
-                    server.ReadLine();
+                    client.ReadLine();
                     try
                     {
-                        server.WriteLine(message);
-                        server.ReadLine();
+                        client.WriteLine(message);
+                        client.ReadLine();
                         Assert.Fail();
                     }
                     catch { }
@@ -163,13 +184,13 @@ namespace Cvarc.Tests
         public void ClientSendsThenDies()
         {
             RunScenarioClientBackground(
-                server =>
+                client =>
                 {
-                    server.ReadLine();
+                    client.ReadLine();
                     try
                     {
-                        server.WriteLine(message);
-                        server.ReadLine();
+                        client.WriteLine(message);
+                        client.ReadLine();
                         Assert.Fail();
                     }
                     catch { }
@@ -185,7 +206,7 @@ namespace Cvarc.Tests
 
         public static void Main()
         {
-            new MessagingTests().ClientSendsThenDies();
+            new MessagingTests().ServerReceivesThenWaitsThenCloses();
 
         }
     }
