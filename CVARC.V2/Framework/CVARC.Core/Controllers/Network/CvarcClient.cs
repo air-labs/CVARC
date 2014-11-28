@@ -42,8 +42,8 @@ namespace CVARC.V2
                 var length = client.Client.Receive(buffer);
                 if (length == 0)
                 {
-                    if (!SocketConnected(client.Client)) 
-                        throw new IOException("The connection was terminated");
+                    //Это устанавливает таймаут в одну секунду, и выбрасывает исключение, даже если соединение открыто, но временно молчит
+                    //if (!SocketConnected(client.Client)) throw new IOException("The connection was terminated");
                     continue;
                 }
                 if (buffer[0] == EndLine) break;
