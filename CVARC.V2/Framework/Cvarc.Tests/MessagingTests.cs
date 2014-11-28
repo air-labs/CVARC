@@ -80,7 +80,7 @@ namespace Cvarc.Tests
                 }
             );
         }
-
+        [TestMethod]
         public void ServerWaitsThenSend()
         {
             RunScenarioServerBackground(
@@ -99,7 +99,7 @@ namespace Cvarc.Tests
 
 
         }
-
+        [TestMethod]
         public void ServerReceivesThenCloses()
         {
             RunScenarioServerBackground(
@@ -119,7 +119,7 @@ namespace Cvarc.Tests
                     catch { }
                 });
         }
-
+        [TestMethod]
         public void ServerReceivesThenWaitsThenCloses()
         {
             RunScenarioServerBackground(
@@ -140,7 +140,7 @@ namespace Cvarc.Tests
                     catch { }
                 });
         }
-
+        [TestMethod]
         public void ServerReceivesThenDies()
         {
             RunScenarioServerBackground(
@@ -159,7 +159,7 @@ namespace Cvarc.Tests
                     catch { }
                 });
         }
-
+        [TestMethod]
         public void ClientSendsThenCloses()
         {
             RunScenarioClientBackground(
@@ -180,7 +180,7 @@ namespace Cvarc.Tests
                     client.Close();
                 });
         }
-
+        [TestMethod]
         public void ClientSendsThenDies()
         {
             RunScenarioClientBackground(
@@ -206,8 +206,10 @@ namespace Cvarc.Tests
 
         public static void Main()
         {
-            new MessagingTests().ServerReceivesThenWaitsThenCloses();
+            var test = new MessagingTests();
 
+            //test.ServerReceivesThenCloses();
+           // test.ServerReceivesThenDies();
         }
     }
 }
