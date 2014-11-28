@@ -45,7 +45,13 @@ namespace Demo
         {
             Tests["Forward"] = new MovementTestBase(LocationTest(10,0, 0, SimpleMovementCommand.Move(10, 1)));
             Tests["Backward"] = new MovementTestBase(LocationTest(-10, 0, 0, SimpleMovementCommand.Move(-10, 1)));
-            Tests["Exit"] = new MovementTestBase(LocationTest(10, 0, 0, SimpleMovementCommand.Move(10,1), SimpleMovementCommand.Exit()));
+            Tests["Exit"] = new MovementTestBase(
+                (client, asserter, world) =>
+                {
+                    var move=LocationTest(10, 0, 0, SimpleMovementCommand.Move(10, 1));
+                    move(client, asserter, world);
+                    client.Exit();
+                });
         }
     }
 }

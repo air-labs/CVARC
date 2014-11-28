@@ -28,7 +28,7 @@ namespace CameraClient
             });
             client.Act(SimpleMovementCommand.Move(10, 1));
             client.Act(SimpleMovementCommand.Rotate(Angle.Pi, 1));
-            client.Act(SimpleMovementCommand.Exit());
+            client.Exit();
         }
 
         static void ControlWithSeparateProcess()

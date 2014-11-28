@@ -32,5 +32,10 @@ namespace CVARC.V2
                     Environment.Exit(0);
                 return sensorData;
         }
+
+        public void Exit()
+        {
+            client.Close();
+        }
     }
 }

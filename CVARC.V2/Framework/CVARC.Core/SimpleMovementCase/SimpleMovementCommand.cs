@@ -34,9 +34,9 @@ namespace CVARC.V2.SimpleMovement
             return Rotate(Math.Sign(angle.Grad) * angularVelocity, Math.Abs(angle.Grad / angularVelocity.Grad));
         }
 
-        public static SimpleMovementCommand Exit()
+        public static SimpleMovementCommand Stand(double time)
         {
-            return new SimpleMovementCommand { LinearVelocity = 0, AngularVelocity = Angle.Zero, Duration = double.PositiveInfinity };
+            return new SimpleMovementCommand { LinearVelocity = 0, AngularVelocity = Angle.Zero, Duration = time };
         }
 
         public static SimpleMovementCommand Action(string action, double duration=0)

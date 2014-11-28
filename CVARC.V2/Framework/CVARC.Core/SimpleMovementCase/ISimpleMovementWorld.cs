@@ -13,9 +13,9 @@ namespace CVARC.V2.SimpleMovement
     {
         public double LinearVelocityLimit { get; set; }
         public Angle AngularVelocityLimit { get; set; }
-        public SimpleMovementCommand ExitCommand()
+        public SimpleMovementCommand StandCommand(double time)
         {
-            return SimpleMovementCommand.Exit();
+            return SimpleMovementCommand.Stand(time);
         }
 
         public SimpleMovementCommand Move(double distance)

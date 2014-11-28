@@ -11,7 +11,7 @@ namespace CVARC.V2.SimpleMovement
         
         override public SimpleMovementCommand GetCommand()
         {
-            return SimpleMovementCommand.Exit();
+            return SimpleMovementCommand.Stand(1);
         }
 
     }
