@@ -12,14 +12,17 @@ namespace Demo
                                                            SimpleMovementTwoPlayersKeyboardControllerPool,
                                                            MovementRobot,
                                                            SimpleMovementPreprocessor,
-                                                           NetworkController<SimpleMovementCommand> 
+                                                           NetworkController<SimpleMovementCommand>,
+                                                           MovementWorldState
                                                 >
     {
         public MovementLogicPart()
-            : base(new[] { ControllerId }, GetDefaultSettings)
+            : base(new[] { ControllerId })
         {
             Bots["Square"]=()=>new SquareWalkingBot(50);
             Bots["Random"]=()=>new RandomWalkingBot(50);
+
+            PredefinedStatesNames.Add("Empty");
 
             LoadTests();
         }
@@ -27,17 +30,5 @@ namespace Demo
 
 
         public const string ControllerId = "Left";
-
-        static Settings GetDefaultSettings()
-        {
-            return new Settings
-            {
-                TimeLimit = double.PositiveInfinity,
-                Controllers = 
-                {
-                    new ControllerSettings { ControllerId=ControllerId, Name="Square", Type= ControllerType.Bot },
-                }
-            };
-        }
     }
 }

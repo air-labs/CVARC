@@ -71,6 +71,10 @@
       <Project>{570f2ccc-cb76-4a27-b1ca-d38888d34a5e}</Project>
       <Name>CVARC %28Framework\CVARC%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DemoCompetitions\Demo.General.csproj">
+      <Project>{ce636d44-57a4-48fa-a178-88ca2c3e9dd4}</Project>
+      <Name>Demo.General</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

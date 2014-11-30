@@ -12,7 +12,9 @@ namespace Demo.Collision
                                                        SimpleMovementTwoPlayersKeyboardControllerPool,
                                                        CollisionRobot,
                                                        SimpleMovementPreprocessor,
-                                                       NetworkController<SimpleMovementCommand>
+                                                       NetworkController<SimpleMovementCommand>,
+                                                        MovementWorldState
+
                                                 >
     {
         public CollisionLogicPart()

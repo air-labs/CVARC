@@ -22,12 +22,13 @@ namespace CVARC.V2
             Thread.Sleep(100);
         }
 
-        public TSensorData Configurate(int port, ConfigurationProposal configuration)
+        public TSensorData Configurate(int port, ConfigurationProposal configuration, IWorldState state)
         {
             var tcpClient = new TcpClient();
             tcpClient.Connect("127.0.0.1", port);
             client = new CvarcClient (tcpClient);
             client.Write(configuration);
+            client.Write(state);
             return client.Read<TSensorData>();
         }
 

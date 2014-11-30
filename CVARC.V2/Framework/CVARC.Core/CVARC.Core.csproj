@@ -86,6 +86,7 @@
     <Compile Include="Client\ICvarcTest.cs" />
     <Compile Include="Controllers\Network\CvarcClient.cs" />
     <Compile Include="Engine\IPassiveEngine.cs" />
+    <Compile Include="Loading\Configuration\IWorldState.cs" />
     <Compile Include="Loading\NetworkServerData.cs" />
     <Compile Include="Client\MSAsserter.cs" />
     <Compile Include="Clocks\ControlTrigger.cs" />

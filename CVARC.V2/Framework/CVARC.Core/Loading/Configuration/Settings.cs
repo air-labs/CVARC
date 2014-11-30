@@ -33,9 +33,6 @@ namespace CVARC.V2
     public class Settings : SettingsOrSettingsProposal
     {
         [DataMember] 
-        public int Seed { get; set; }
-        
-        [DataMember] 
         public double TimeLimit { get; set; }
        
         [DataMember] 
@@ -61,6 +58,9 @@ namespace CVARC.V2
 
         [DataMember]
         public Frame3D ObserverCameraLocation { get; set; }
+
+        [DataMember]
+        public string WorldState { get; set; }
 
         [DataMember]
         public string LegacyLogFile { get; set; }

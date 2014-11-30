@@ -36,11 +36,11 @@ namespace CVARC.V2
 
         #region Non-networking modes
 
-        public IWorld CreateWorld(Configuration configuration, ControllerFactory controllerFactory)
+        public IWorld CreateWorld(Configuration configuration, ControllerFactory controllerFactory, IWorldState state)
         {
             var competitions = GetCompetitions(configuration.LoadingData);
             var world = competitions.Logic.CreateWorld();
-            world.Initialize(competitions, configuration, controllerFactory);
+            world.Initialize(competitions, configuration, controllerFactory, state);
             return world;
         }
 
@@ -62,7 +62,7 @@ namespace CVARC.V2
             configuration.Settings.EnableLog = false;
             configuration.Settings.LogFile = null;
             var factory = new LogPlayerControllerFactory(log);
-            return CreateWorld(configuration, factory);
+            return CreateWorld(configuration, factory, log.WorldState);
         }
 
         public IWorld CreateSimpleMode(CommandLineData cmdLineData)
@@ -79,7 +79,15 @@ namespace CVARC.V2
             else throw new Exception("Mode '" + cmdLineData.Unnamed[2] + "' is unknown");
             var proposal = SettingsProposal.FromCommandLineData(cmdLineData);
             proposal.Push(configuration.Settings,true);
-            return CreateWorld(configuration, factory);
+            var stateName = configuration.Settings.WorldState;
+            if (stateName == null)
+            {
+                if (competitions.Logic.PredefinedStatesNames.Count == 0)
+                    throw new Exception("The count of predefined stated in the " + competitions.Logic.GetType() + " is zero");
+                stateName = competitions.Logic.PredefinedStatesNames[0];
+            }
+            var state = competitions.Logic.CreatePredefinedState(stateName);
+            return CreateWorld(configuration, factory, state);
 
         }
 
@@ -97,7 +105,7 @@ namespace CVARC.V2
                  LoadingData=data.LoadingData,
                  Settings=data.Settings
             };
-            data.World = CreateWorld(configuration, factory);
+            data.World = CreateWorld(configuration, factory, data.WorldState);
             data.World.Exit += () =>
                 {
                     data.Close();
@@ -113,6 +121,8 @@ namespace CVARC.V2
             data.Settings = competitions.Logic.GetDefaultSettings();
             if (configProposal.SettingsProposal != null)
                 configProposal.SettingsProposal.Push(data.Settings, true);
+            var worldSettingsType = competitions.Logic.GetWorldStateType();
+            data.WorldState = (IWorldState)data.ClientOnServerSide.Read(worldSettingsType);
         }
 
         public void RunServer(NetworkServerData data)

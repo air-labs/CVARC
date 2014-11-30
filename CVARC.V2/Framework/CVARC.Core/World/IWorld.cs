@@ -9,7 +9,7 @@ namespace CVARC.V2
     {
         IEngine Engine { get; }
         IWorldManager Manager { get; }
-        void Initialize(Competitions competitions, Configuration configuration, ControllerFactory controllerFactory);
+        void Initialize(Competitions competitions, Configuration configuration, ControllerFactory controllerFactory, IWorldState state);
         WorldClocks Clocks { get; }
         IdGenerator IdGenerator { get; }
         Scores Scores { get; }

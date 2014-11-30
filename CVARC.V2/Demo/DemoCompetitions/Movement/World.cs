@@ -9,7 +9,7 @@ using CVARC.V2.SimpleMovement;
 
 namespace Demo
 {
-    public class MovementWorld : World<IWorldManager>, ISimpleMovementWorld
+    public class MovementWorld : World<MovementWorldState, IWorldManager>, ISimpleMovementWorld
     {
 
 
@@ -29,10 +29,8 @@ namespace Demo
            Manager.CreateWorld(IdGenerator);
         }
 
-
-        public override void Initialize(Competitions competitions, Configuration configuration, ControllerFactory controllerFactory)
+        public override void AdditionalInitialization()
         {
-            base.Initialize(competitions, configuration, controllerFactory);
             var detector = new CollisionDetector(this);
             detector.FindControllableObject = side =>
                 {

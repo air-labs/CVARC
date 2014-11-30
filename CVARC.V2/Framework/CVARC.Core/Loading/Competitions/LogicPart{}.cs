@@ -5,13 +5,24 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public class LogicPart<TWorld,TKeyboardControllerPool,TActor,TCommandPreprocessor,TNetworkController> : LogicPart
+    public abstract class LogicPart<TWorld,TKeyboardControllerPool,TActor,TCommandPreprocessor,TNetworkController,TWorldState> : LogicPart
         where TWorld : IWorld,new()
         where TKeyboardControllerPool : IKeyboardControllerPool, new()
         where TActor : IActor, new()
         where TCommandPreprocessor : ICommandPreprocessor, new()
         where TNetworkController : INetworkController, new()
+        where TWorldState : IWorldState, new()
     {
+
+        public LogicPart(IEnumerable<string> controllersId, IEnumerable<string> predefinedStateNames=null)
+        {
+            this.controllersId = controllersId.ToArray();
+            if (predefinedStateNames == null)
+                PredefinedStatesNames.Add("Empty");
+            else
+                PredefinedStatesNames.AddRange(predefinedStateNames);
+        }
+
         public override IActor CreateActor(string controllerName)
         {
             return new TActor();
@@ -37,13 +48,6 @@ namespace CVARC.V2
             return new TWorld();
         }
 
-        Func<Settings> defaultSettingsFactory;
-
-        public override Settings GetDefaultSettings()
-        {
-            return defaultSettingsFactory();
-        }
-
         string[] controllersId;
 
         public override IEnumerable<string> ControllersId
@@ -51,12 +55,20 @@ namespace CVARC.V2
             get { return controllersId; } 
         }
 
-        public LogicPart(IEnumerable<string> controllersId, Func<Settings> settingsFactory=null)
+
+        public override IWorldState CreatePredefinedState(string state)
         {
-            this.controllersId = controllersId.ToArray();
-            if (settingsFactory == null)
-                settingsFactory = () => new Settings { TimeLimit = double.PositiveInfinity, OperationalTimeLimit=double.PositiveInfinity };
-            this.defaultSettingsFactory = settingsFactory;
+            return new TWorldState();
+        }
+
+        public override Settings GetDefaultSettings()
+        {
+            return new Settings { OperationalTimeLimit = 1, TimeLimit = 10 };
+        }
+
+        public override Type GetWorldStateType()
+        {
+            return typeof(TWorldState);
         }
 
     }
