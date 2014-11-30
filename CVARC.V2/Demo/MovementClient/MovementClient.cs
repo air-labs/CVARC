@@ -5,6 +5,7 @@ using System.Threading;
 using AIRLab.Mathematics;
 using CVARC.V2;
 using CVARC.V2.SimpleMovement;
+using Demo;
 namespace CameraClient
 {
     public class Program
@@ -25,7 +26,7 @@ namespace CameraClient
                           new ControllerSettings { ControllerId="Left", Type= ControllerType.Client, Name="This" }
                       }
                 }
-            });
+            }, new MovementWorldState());
             client.Act(SimpleMovementCommand.Move(10, 1));
             client.Act(SimpleMovementCommand.Rotate(Angle.Pi, 1));
             client.Exit();

@@ -14,10 +14,13 @@ namespace CVARC.V2
         where TWorldState : IWorldState, new()
     {
 
-        public LogicPart(IEnumerable<string> controllersId)
+        public LogicPart(IEnumerable<string> controllersId, IEnumerable<string> predefinedStateNames=null)
         {
             this.controllersId = controllersId.ToArray();
-            PredefinedStatesNames.Add("Empty");
+            if (predefinedStateNames == null)
+                PredefinedStatesNames.Add("Empty");
+            else
+                PredefinedStatesNames.AddRange(predefinedStateNames);
         }
 
         public override IActor CreateActor(string controllerName)

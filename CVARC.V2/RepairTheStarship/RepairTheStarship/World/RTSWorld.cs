@@ -8,7 +8,7 @@ using CVARC.V2.SimpleMovement;
 
 namespace RepairTheStarship
 {
-    public class RTSWorld : World<IRTSWorldManager>, ISimpleMovementWorld
+    public class RTSWorld : World<RTSWorldState, IRTSWorldManager>, ISimpleMovementWorld
      {
         Dictionary<DetailColor, int> repairs = new Dictionary<DetailColor, int>();
 
@@ -23,9 +23,8 @@ namespace RepairTheStarship
         public string GripCommand = "Grip";
         public string ReleaseCommand = "Release";
 
-        public override void Initialize(Competitions competitions, Configuration configuration, ControllerFactory controllerFactory)
+        public override void AdditionalInitialization()
         {
-            base.Initialize(competitions, configuration,controllerFactory);
             var detector = new CollisionDetector(this);
             detector.FindControllableObject = side =>
                 {
@@ -72,7 +71,7 @@ namespace RepairTheStarship
         override public void CreateWorld()
         {
 
-            var SceneSettings = RepairTheStarship.SceneSettings.GetRandomMap(Configuration.Settings.Seed);
+            var SceneSettings = RepairTheStarship.SceneSettings.GetRandomMap(WorldState.Seed);
             Manager.CreateEmptyTable();
             foreach (var e in SceneSettings.Details)
                 Manager.CreateDetail(

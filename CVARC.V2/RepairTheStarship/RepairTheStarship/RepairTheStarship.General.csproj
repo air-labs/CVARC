@@ -72,6 +72,7 @@
     <Compile Include="Robot\RTSRobot.cs" />
     <Compile Include="RTSLogic.cs" />
     <Compile Include="SceneSettings\DataClasses.cs" />
+    <Compile Include="SceneSettings\RTSWorldState.cs" />
     <Compile Include="Sensors\Bots\BotsSensorsData.cs" />
     <Compile Include="Sensors\LocatorItem.cs" />
     <Compile Include="Sensors\Map\DetailMapData.cs" />

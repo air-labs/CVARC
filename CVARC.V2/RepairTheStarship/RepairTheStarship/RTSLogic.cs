@@ -13,11 +13,12 @@ namespace RepairTheStarship
                                                            RTSKeyboardControllerPool,
                                                            RTSRobot<TSensorData>,
                                                            RTSCommandPreprocessor,
-                                                           NetworkController<SimpleMovementCommand> 
+                                                           NetworkController<SimpleMovementCommand> ,
+                                                           RTSWorldState
                                                        >
         where TSensorData : new()
     {
-        public RTSLogicPart() : base( TwoPlayersId.Ids, GetDefaultSettings)
+        public RTSLogicPart() : base( TwoPlayersId.Ids, new string[] { "Default" } )
         {
             Bots[RepairTheStarshipBots.Azura.ToString()] = () => new Azura();
             Bots[RepairTheStarshipBots.Vaermina.ToString()] = () => new Vaermina();
@@ -26,9 +27,16 @@ namespace RepairTheStarship
             Bots[RepairTheStarshipBots.None.ToString()] = () => new StandingBot();
         }
 
-        static Settings GetDefaultSettings()
+        public override Settings GetDefaultSettings()
         {
             return new Settings { OperationalTimeLimit = 1, TimeLimit = 90 };
         }
+
+        public override IWorldState CreatePredefinedState(string state)
+        {
+            return new RTSWorldState { Seed = 1 };
+        }
+
+
     }
 }

@@ -9,7 +9,7 @@ namespace Demo
 {
     public delegate void MovementTestEntry(CvarcClient<SensorsData, SimpleMovementCommand> client, MovementWorld world, IAsserter asserter);
 
-    public class MovementTestBase : DelegatedCvarcTest<SensorsData,SimpleMovementCommand,MovementWorld>
+    public class MovementTestBase : DelegatedCvarcTest<SensorsData,SimpleMovementCommand,MovementWorld,MovementWorldState>
     {
         public override SettingsProposal GetSettings()
         {
@@ -21,6 +21,11 @@ namespace Demo
                         new ControllerSettings  { ControllerId=MovementLogicPart.ControllerId, Name="This", Type= ControllerType.Client}
                     }
             };
+        }
+
+        public override MovementWorldState GetWorldState()
+        {
+            return new MovementWorldState();
         }
 
         public MovementTestBase(MovementTestEntry entry)

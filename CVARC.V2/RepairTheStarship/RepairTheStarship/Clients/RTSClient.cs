@@ -32,9 +32,9 @@ namespace RepairTheStarship
                 Name = bot.ToString(),
                 Type = ControllerType.Bot
             });
-            configuration.SettingsProposal.Seed = seed;
 
-            return Configurate(port, configuration);
+
+            return Configurate(port, configuration, new RTSWorldState { Seed = seed } );
         }
 
         public TSensorData Move(double distance)

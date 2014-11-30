@@ -48,6 +48,10 @@
       <Project>{f7b5021f-09e8-4388-97a2-4b44b9770d03}</Project>
       <Name>CVARC.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DemoCompetitions\Demo.General.csproj">
+      <Project>{ce636d44-57a4-48fa-a178-88ca2c3e9dd4}</Project>
+      <Name>Demo.General</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

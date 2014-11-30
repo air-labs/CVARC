@@ -6,8 +6,9 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public abstract class DelegatedCvarcTest<TSensorData, TCommand, TWorld> : CvarcTest<TSensorData, TCommand, TWorld>
+    public abstract class DelegatedCvarcTest<TSensorData, TCommand, TWorld, TWorldState> : CvarcTest<TSensorData, TCommand, TWorld, TWorldState>
         where TSensorData : class
+        where TWorldState : IWorldState
     {
 
         Action<CvarcClient<TSensorData,TCommand>,TWorld, IAsserter> test;
