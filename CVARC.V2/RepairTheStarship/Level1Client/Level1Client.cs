@@ -23,10 +23,10 @@ namespace Level1Example
 
         }
 
-        static void Control(bool runServer)
+        static void Control(int port)
         {
             var client = new Level1Client();
-            client.Configurate(runServer, true);
+            client.Configurate(port, true);
             for (int i = 0; i < 10; i++)
             {
                 var sensors = client.Rotate(90);
@@ -40,7 +40,17 @@ namespace Level1Example
         [STAThread]
         public static void Main(string[] args)
         {
-            Control(args.Length == 0);
+            int port=14000;
+            if (args.Length == 0)
+            {
+                Level1Client.StartKrorServer(port);
+            }
+            else
+            {
+                port = int.Parse(args[0]);
+            }
+
+            Control(port);
         }
     }
 }

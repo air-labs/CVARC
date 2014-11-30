@@ -26,10 +26,10 @@ namespace Level2Example
 
         static Level2ClientForm form;
 
-        static void Control(bool runServer)
+        static void Control(int port)
         {
             var client = new Level3Client();
-            client.Configurate(runServer, true);
+            client.Configurate(port, true);
             client.Rotate(-90);
             client.Move(100);
             client.Rotate(90);
@@ -42,20 +42,29 @@ namespace Level2Example
             client.Exit();
         }
 
-        static void Run(bool runServer)
+        static void Run(int port)
         {
             form = new Level2ClientForm();
-            new Action<bool>(Control).BeginInvoke(runServer, null, null);
+            new Action<int>(Control).BeginInvoke(port, null, null);
             Application.Run(form);
         }
 
-            
+
 
         [STAThread]
         public static void Main(string[] args)
         {
-           // Run(args.Length == 0);
-            CVARC.V2.CVARCProgram.RunServerInTheSameThread(args, Run);
+            int port = 14000;
+            if (args.Length == 0)
+            {
+                Level1Client.StartKrorServer(port);
+            }
+            else
+            {
+                port = int.Parse(args[0]);
+            }
+
+            Run(port);
         }
     }
 }

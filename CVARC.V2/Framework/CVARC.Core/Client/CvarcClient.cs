@@ -13,6 +13,15 @@ namespace CVARC.V2
     {
         CvarcClient client;
 
+        public static void StartKrorServer(int port)
+        {
+            var process = new Process();
+            process.StartInfo.FileName = "CVARC.exe";
+            process.StartInfo.Arguments = "Debug " + port.ToString();
+            process.Start();
+            Thread.Sleep(100);
+        }
+
         public TSensorData Configurate(int port, ConfigurationProposal configuration)
         {
             var tcpClient = new TcpClient();
