@@ -36,6 +36,8 @@ namespace CVARC.V2
         /// </summary>
         public Settings Settings { get; set; }
 
+        public IWorldState WorldState { get; set; }
+
         public IWorld World { get; set; }
 
         public Action StopServer { get; set; }

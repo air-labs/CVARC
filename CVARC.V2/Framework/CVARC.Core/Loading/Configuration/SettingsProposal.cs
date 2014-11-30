@@ -14,8 +14,6 @@ namespace CVARC.V2
     public class SettingsProposal : SettingsOrSettingsProposal
     {
         [DataMember]
-        public int? Seed { get; set; }
-        [DataMember]
         public double? TimeLimit { get; set; }
         [DataMember]
         public bool? EnableLog { get; set; }
@@ -31,6 +29,8 @@ namespace CVARC.V2
         public string SolutionsFolder { get; set; }
         [DataMember]
         public string LegacyLogFile { get; set; }
+        [DataMember]
+        public string WorldState { get; set; }
         [DataMember]
         public List<ControllerSettings> Controllers { get; set; }
 
@@ -76,10 +76,10 @@ namespace CVARC.V2
             parser.Parse(z => z.EnableLog, s => s!="false", "");
             parser.Parse(z => z.LogFile, s => s, "");
             parser.Parse(z => z.OperationalTimeLimit, s => double.Parse(s, CultureInfo.InvariantCulture), "OperationalTimeLimit must be floating point number");
-            parser.Parse(z => z.Seed, s => int.Parse(s), "Seed must be integer number");
             parser.Parse(z => z.SpeedUp, s => s!="false", "");
             parser.Parse(z => z.TimeLimit, s => double.Parse(s, CultureInfo.InvariantCulture), "TimeLimit must be floating point number");
             parser.Parse(z => z.LegacyLogFile, s => s, "");
+            parser.Parse(z => z.WorldState, s => s, "");
 
             if (parser.unusedKeys.Any())
             {

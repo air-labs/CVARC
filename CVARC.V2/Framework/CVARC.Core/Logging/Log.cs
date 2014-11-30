@@ -24,6 +24,8 @@ namespace CVARC.V2
 
         public readonly Dictionary<string, List<object>> Commands = new Dictionary<string, List<object>>();
 
+        public IWorldState WorldState { get; set; }
+
         public static Log Load(string filename)
         {
             using (var stream = File.Open(filename, FileMode.Open, FileAccess.Read))

@@ -12,11 +12,12 @@ namespace Demo
                                                            MultiCommandKeyboardPool,
                                                            MovementRobot,
                                                            MultiCommandPreprocessor,
-                                                           NetworkController<SimpleMovementCommand>
+                                                           NetworkController<SimpleMovementCommand>,
+                                                        MovementWorldState
                                                 >
     {
         public MultiControlLogicPart()
-            : base(new[] { "Left" }, GetDefaultSettings)
+            : base(new[] { "Left" })
         {
 
         }

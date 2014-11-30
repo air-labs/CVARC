@@ -25,5 +25,11 @@ namespace CVARC.V2
         public abstract IActor CreateActor(string controllerName);
 
         public abstract ICommandPreprocessor CreateCommandPreprocessor(string controllerName);
+
+        public abstract IWorldState CreatePredefinedState(string state);
+
+        public readonly List<string> PredefinedStatesNames = new List<string>();
+
+        public abstract Type GetWorldStateType();
     }
 }

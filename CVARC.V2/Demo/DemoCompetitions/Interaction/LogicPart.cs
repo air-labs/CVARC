@@ -12,27 +12,16 @@ namespace Demo
                                                            SimpleMovementTwoPlayersKeyboardControllerPool,
                                                            MovementRobot,
                                                            SimpleMovementPreprocessor,
-                                                           NetworkController<SimpleMovementCommand> 
+                                                           NetworkController<SimpleMovementCommand>,
+                                                        MovementWorldState
                                                     >
     {
         public InteractionLogicPart()
-            : base(TwoPlayersId.Ids, GetDefaultSettings)
+            : base(TwoPlayersId.Ids)
         {
             Bots["Bot"]=()=>new MovingForwardBot();
         }
 
-        static Settings GetDefaultSettings()
-        {
-            return new Settings
-            {
-                TimeLimit = double.PositiveInfinity,
-                OperationalTimeLimit = double.PositiveInfinity,
-                Controllers = 
-                {
-                    new ControllerSettings { ControllerId=TwoPlayersId.Left, Name="Bot", Type= ControllerType.Bot },
-                    new ControllerSettings { ControllerId=TwoPlayersId.Right, Name="Bot", Type= ControllerType.Bot }
-                }
-            };
-        }
+      
     }
 }

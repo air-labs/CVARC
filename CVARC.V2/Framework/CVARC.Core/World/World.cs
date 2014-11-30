@@ -8,8 +8,9 @@ namespace CVARC.V2
 {
 
 
-    public abstract class World<TWorldManager> : IWorld
+    public abstract class World<TWorldState, TWorldManager> : IWorld
         where TWorldManager : IWorldManager
+        where TWorldState : IWorldState
     {
         List<IActor> actors;
 
@@ -22,6 +23,7 @@ namespace CVARC.V2
         public Logger Logger { get; private set; }
         public Configuration Configuration { get; private set; }
         public Competitions Competitions { get; private set; }
+        public TWorldState WorldState { get; private set; } 
 
         public abstract void CreateWorld();
 
@@ -37,12 +39,18 @@ namespace CVARC.V2
             get { return actors; }
         }
 
+        public virtual void AdditionalInitialization()
+        {
+        }
 
-        public virtual void Initialize(Competitions competitions, Configuration configuration, ControllerFactory controllerFactory)
+
+        public void Initialize(Competitions competitions, Configuration configuration, ControllerFactory controllerFactory, IWorldState worldState)
         {
 
             Competitions = competitions;
             Configuration = configuration;
+            WorldState = Compatibility.Check<TWorldState>(this, worldState);
+
             Clocks = new WorldClocks();
             IdGenerator = new IdGenerator();
             Scores = new Scores(this);
@@ -53,6 +61,7 @@ namespace CVARC.V2
 
             Logger.LogFileName = Configuration.Settings.LogFile;
             Logger.Log.Configuration = Configuration;
+            Logger.Log.WorldState = WorldState;
 
             Clocks.TimeLimit = Configuration.Settings.TimeLimit;
 
@@ -84,6 +93,8 @@ namespace CVARC.V2
                 Clocks.AddTrigger(new ControlTrigger(controller, e, preprocessor));
                 actors.Add(e);
             }
+
+            AdditionalInitialization();
         }
 
 
