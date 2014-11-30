@@ -25,10 +25,10 @@ namespace CVARC.V2
 
         override public IController Create(string controllerId)
         {
-            if (controllerIsGiven)
-                    throw new Exception("Only one network controller can be assigned in this mode");
             if (GetSettings(controllerId).Type == ControllerType.Bot)
                 return CreateBot(controllerId);
+            if (controllerIsGiven)
+                throw new Exception("Only one network controller can be assigned in this mode");
             controllerIsGiven = true;
             return controller;
         }

@@ -18,13 +18,15 @@ namespace RepairTheStarship
                                                        >
         where TSensorData : new()
     {
-        public RTSLogicPart() : base( TwoPlayersId.Ids, new string[] { "Default" } )
+        public RTSLogicPart() : base( TwoPlayersId.Ids )
         {
             Bots[RepairTheStarshipBots.Azura.ToString()] = () => new Azura();
             Bots[RepairTheStarshipBots.Vaermina.ToString()] = () => new Vaermina();
             Bots[RepairTheStarshipBots.MolagBal.ToString()] = () => new MolagBal();
             Bots[RepairTheStarshipBots.Sanguine.ToString()] = () => new Sanguine();
             Bots[RepairTheStarshipBots.None.ToString()] = () => new StandingBot();
+
+            PredefinedStatesNames.AddRange(Enumerable.Range(0, 10).Select(z => z.ToString()));
         }
 
         public override Settings GetDefaultSettings()
@@ -34,7 +36,7 @@ namespace RepairTheStarship
 
         public override IWorldState CreatePredefinedState(string state)
         {
-            return new RTSWorldState { Seed = 1 };
+            return new RTSWorldState { Seed = int.Parse(state) };
         }
 
 

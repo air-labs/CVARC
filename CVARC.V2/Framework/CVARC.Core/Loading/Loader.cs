@@ -80,7 +80,12 @@ namespace CVARC.V2
             var proposal = SettingsProposal.FromCommandLineData(cmdLineData);
             proposal.Push(configuration.Settings,true);
             var stateName = configuration.Settings.WorldState;
-            if (stateName == null) stateName = competitions.Logic.PredefinedStatesNames[0];
+            if (stateName == null)
+            {
+                if (competitions.Logic.PredefinedStatesNames.Count == 0)
+                    throw new Exception("The count of predefined stated in the " + competitions.Logic.GetType() + " is zero");
+                stateName = competitions.Logic.PredefinedStatesNames[0];
+            }
             var state = competitions.Logic.CreatePredefinedState(stateName);
             return CreateWorld(configuration, factory, state);
 

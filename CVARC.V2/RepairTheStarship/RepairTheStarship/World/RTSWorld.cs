@@ -76,7 +76,7 @@ namespace RepairTheStarship
             foreach (var e in SceneSettings.Details)
                 Manager.CreateDetail(
                     IdGenerator.CreateNewId(e.Color),
-                    new Point2D(-150 + e.Location.X * 50, 100 - 25 - 50 * e.Location.Y),
+                    new Point2D(-150 + e.Location.X * 50+25, 100 - 25 - 50 * e.Location.Y),
                     e.Color);
             for (int x = 0; x < SceneSettings.HorizontalWalls.GetLength(0); x++)
                 for (int y = 0; y < SceneSettings.HorizontalWalls.GetLength(1); y++)

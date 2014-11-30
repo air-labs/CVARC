@@ -43,7 +43,8 @@ namespace Level1Example
             int port=14000;
             if (args.Length == 0)
             {
-                Level1Client.StartKrorServer(port);
+                //Level1Client.StartKrorServer(port);
+                CVARC.V2.CVARCProgram.RunServerInTheSameThread(Control);
             }
             else
             {
