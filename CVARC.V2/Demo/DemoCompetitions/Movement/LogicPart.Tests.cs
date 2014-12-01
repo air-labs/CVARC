@@ -52,6 +52,8 @@ namespace Demo
                     move(client, asserter, world);
                     client.Exit();
                 });
+			Tests["RotateRect"] = new MovementTestBase(LocationTest(0, 0, 90, SimpleMovementCommand.Rotate(Angle.HalfPi, 1)),true);
+      
         }
     }
 }

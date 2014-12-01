@@ -28,21 +28,41 @@ namespace Demo
 
             string fileName = "red.png";
 
-            var cyllinder = new Cylinder
-            {
-                
-                Height = 20,
-                RTop = 10,
-                RBottom = 10,
-                Location = new Frame3D(0, 0, 3,Angle.Zero,Angle.Zero,Angle.Zero),
-                DefaultColor = Color.DarkViolet,
-                IsMaterial = true,
-                Density = Density.Iron,
-                FrictionCoefficient = 0,
-                Top = new PlaneImageBrush { Image = Bitmap.FromStream(GetResourceStream(fileName)) },
-                NewId = Actor.ObjectId
-            };
-            root.Add(cyllinder);
+			if ((Actor.World as MovementWorld).WorldState.RectangularRobot)
+			{
+				var box = new Box
+				{
+					XSize = 20,
+					YSize = 20,
+					ZSize = 20,
+					DefaultColor = Color.Violet,
+					IsMaterial = true,
+					NewId = Actor.ObjectId,
+					Location = new Frame3D(0, 0, 3, Angle.Zero, Angle.Zero, Angle.Zero),
+					Density = Density.Iron,
+					FrictionCoefficient = 0,
+					Top = new PlaneImageBrush { Image = Bitmap.FromStream(GetResourceStream(fileName)) },
+				};
+				root.Add(box);
+			}
+			else
+			{
+				var cyllinder = new Cylinder
+				{
+
+					Height = 20,
+					RTop = 10,
+					RBottom = 10,
+					Location = new Frame3D(0, 0, 3, Angle.Zero, Angle.Zero, Angle.Zero),
+					DefaultColor = Color.DarkViolet,
+					IsMaterial = true,
+					Density = Density.Iron,
+					FrictionCoefficient = 0,
+					Top = new PlaneImageBrush { Image = Bitmap.FromStream(GetResourceStream(fileName)) },
+					NewId = Actor.ObjectId
+				};
+				root.Add(cyllinder);
+			}
         }
     }
 }
