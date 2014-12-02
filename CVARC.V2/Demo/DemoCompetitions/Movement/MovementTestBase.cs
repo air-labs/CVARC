@@ -12,7 +12,7 @@ namespace Demo
     public class MovementTestBase : DelegatedCvarcTest<SensorsData,SimpleMovementCommand,MovementWorld,MovementWorldState>
     {
 
-		bool RobotIsRectangular;
+		
 
         public override SettingsProposal GetSettings()
         {
@@ -25,16 +25,24 @@ namespace Demo
                     }
             };
         }
-
+        bool RobotIsRectangular;
+        bool ObjectsOnField;
         public override MovementWorldState GetWorldState()
         {
-			return new MovementWorldState() { RectangularRobot = RobotIsRectangular };
+			return new MovementWorldState()
+			{
+			    RectangularRobot = RobotIsRectangular,
+			    objects = ObjectsOnField
+			};
         }
 
-        public MovementTestBase(MovementTestEntry entry, bool robotIsRectangular=false)
+        public MovementTestBase(MovementTestEntry entry,
+            bool robotIsRectangular=false,
+            bool objectsOnField=false)
             : base((client, world, asserter) => { entry(client, world, asserter); })
         {
-			RobotIsRectangular = robotIsRectangular;
+            RobotIsRectangular = robotIsRectangular;
+            ObjectsOnField = objectsOnField;
 
 		}
     }

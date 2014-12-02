@@ -12,5 +12,9 @@ namespace CVARC.V2
         {
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(expected, actual, delta);
         }
+        public void IsEqual(bool expected, bool actual)
+        {
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(expected, actual);
+        }
     }
 }

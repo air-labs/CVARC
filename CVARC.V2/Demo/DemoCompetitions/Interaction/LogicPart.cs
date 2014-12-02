@@ -7,21 +7,33 @@ using CVARC.V2.SimpleMovement;
 
 namespace Demo
 {
-    public class InteractionLogicPart :  LogicPart<
+    public partial class InteractionLogicPart :  LogicPart<
                                                            MovementWorld,
                                                            SimpleMovementTwoPlayersKeyboardControllerPool,
-                                                           MovementRobot,
+                                                           InteractionRobot<InteractionSensorData>,
                                                            SimpleMovementPreprocessor,
                                                            NetworkController<SimpleMovementCommand>,
-                                                        MovementWorldState
+                                                           MovementWorldState
                                                     >
     {
         public InteractionLogicPart()
-            : base(TwoPlayersId.Ids)
+            : base(new [] {"Left"})
         {
             Bots["Bot"]=()=>new MovingForwardBot();
+            LoadTests();
         }
-
+        static Settings GetDefaultSettings()
+        {
+            return new Settings
+            {
+                TimeLimit = double.PositiveInfinity,
+                OperationalTimeLimit = double.PositiveInfinity,
+                Controllers = 
+                {
+                    new ControllerSettings { ControllerId=TwoPlayersId.Left, Name="Bot", Type= ControllerType.Bot }
+                }
+            };
+        }
       
     }
 }

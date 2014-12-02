@@ -11,7 +11,7 @@ using CVARC.V2;
 
 namespace Demo
 {
-    public class ActorManager : ActorManager<IActor>
+    public class IntActorManager : ActorManager<IActor>
     {
 
 
@@ -30,39 +30,20 @@ namespace Demo
 
             if ((Actor.World as MovementWorld).WorldState.RectangularRobot)
             {
-                if (Actor.ControllerId == TwoPlayersId.Left)
+                var box = new Box
                 {
-                    var box = new Box
-                    {
-                        XSize = 20,
-                        YSize = 20,
-                        ZSize = 20,
-                        DefaultColor = Color.Violet,
-                        IsMaterial = true,
-                        NewId = Actor.ObjectId,
-                        Location = new Frame3D(0, 0, 0, Angle.Zero, Angle.Zero, Angle.Zero),
-                        Density = Density.Iron,
-                        Top = new PlaneImageBrush {Image = Bitmap.FromStream(GetResourceStream(fileName))},
-                    };
-                    root.Add(box);
-                }
-                else
-                {
-                    var box = new Box
-                    {
-                        XSize = 20,
-                        YSize = 20,
-                        ZSize = 20,
-                        DefaultColor = Color.Violet,
-                        IsMaterial = true,
-                        NewId = Actor.ObjectId,
-                        Location = new Frame3D(50, 50, 0, Angle.Zero, Angle.Zero, Angle.Zero),
-                        Density = Density.Iron,
-                        Top = new PlaneImageBrush {Image = Bitmap.FromStream(GetResourceStream(fileName))},
-                    };
-                    root.Add(box);
-                }
-                
+                    XSize = 20,
+                    YSize = 20,
+                    ZSize = 20,
+                    DefaultColor = Color.Violet,
+                    IsMaterial = true,
+                    NewId = Actor.ObjectId,
+                    Location = new Frame3D(0, 0, 3, Angle.Zero, Angle.Zero, Angle.Zero),
+                    Density = Density.Iron,
+                    FrictionCoefficient = 0,
+                    Top = new PlaneImageBrush { Image = Bitmap.FromStream(GetResourceStream(fileName)) },
+                };
+                root.Add(box);
             }
             else
             {

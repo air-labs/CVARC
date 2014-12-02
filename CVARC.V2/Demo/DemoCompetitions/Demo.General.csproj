@@ -52,13 +52,19 @@
     <Compile Include="Camera\LogicPart.cs" />
     <Compile Include="Camera\Robot.cs" />
     <Compile Include="Camera\SensorsWithCamera.cs" />
+    <Compile Include="Collision\CollisionTestBase.cs" />
     <Compile Include="Collision\ICollisionActorManager.cs" />
     <Compile Include="Collision\LogicPart.cs" />
+    <Compile Include="Collision\LogicPart.Tests.cs" />
     <Compile Include="Collision\PushingBot.cs" />
     <Compile Include="Collision\Robot.cs" />
     <Compile Include="Collision\World.cs" />
+    <Compile Include="Interaction\InteractionSensorData.cs" />
+    <Compile Include="Interaction\InteractionTestBase.cs" />
     <Compile Include="Interaction\LogicPart.cs" />
+    <Compile Include="Interaction\LogicPart.Tests.cs" />
     <Compile Include="Interaction\MovingForwardBot.cs" />
+    <Compile Include="Interaction\Robot.cs" />
     <Compile Include="Movement\LogicPart.cs" />
     <Compile Include="Movement\LogicPart.Tests.cs" />
     <Compile Include="Movement\MovementWorldState.cs" />
@@ -98,6 +104,10 @@
     <ProjectReference Include="..\..\Framework\CVARC.Core\CVARC.Core.csproj">
       <Project>{f7b5021f-09e8-4388-97a2-4b44b9770d03}</Project>
       <Name>CVARC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RepairTheStarship\RepairTheStarship\RepairTheStarship.General.csproj">
+      <Project>{11B6A7C1-E6AA-4F81-9710-EC84069CA858}</Project>
+      <Name>RepairTheStarship.General</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

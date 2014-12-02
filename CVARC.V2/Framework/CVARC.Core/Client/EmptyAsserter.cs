@@ -12,5 +12,9 @@ namespace CVARC.V2
         {
             
         }
+        public void IsEqual(bool expected, bool actual)
+        {
+
+        }
     }
 }
