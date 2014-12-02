@@ -7,13 +7,13 @@ using CVARC.V2;
 using RepairTheStarship;
 
 namespace Demo
-{
+{ 
     [DataContract]
-    public class SensorsData
+    public class InteractionSensorData
     {
         [DataMember]
-        [FromSensor(typeof(LocatorSensor))]
-        public LocatorItem[] Locations { get; set; }
+        [FromSensor(typeof(GripSensor))]
+        public bool IsGripped { get; set; }
         
     }
 }

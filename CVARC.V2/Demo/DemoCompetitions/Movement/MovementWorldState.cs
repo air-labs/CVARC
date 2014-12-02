@@ -12,5 +12,7 @@ namespace Demo
     {
 		[DataMember]
 		public bool RectangularRobot { get; set; }
+        [DataMember]
+        public bool objects { get; set; }
     }
 }

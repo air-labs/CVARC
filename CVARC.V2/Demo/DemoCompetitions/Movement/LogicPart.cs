@@ -26,9 +26,18 @@ namespace Demo
 
             LoadTests();
         }
-
-
-
         public const string ControllerId = "Left";
+        static Settings GetDefaultSettings()
+        {
+            return new Settings
+            {
+                TimeLimit = double.PositiveInfinity,
+                OperationalTimeLimit = 1,
+                Controllers = 
+                {
+                    new ControllerSettings { ControllerId=ControllerId, Name="Square", Type= ControllerType.Bot },
+                }
+            };
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace Demo
     public class CollisionActorManager : ActorManager, ICollisionActorManager
     {
 
-
+        
 
         public void Grip(string detailId)
         {

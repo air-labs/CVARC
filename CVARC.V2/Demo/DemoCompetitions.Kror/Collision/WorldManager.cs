@@ -16,23 +16,25 @@ namespace Demo
             base.CreateWorld(generator);
             Root.Add(new Box
             {
-                XSize = 10,
-                YSize = 10,
-                ZSize = 10,
+                XSize = 15,
+                YSize = 15,
+                ZSize = 15,
                 Location = new AIRLab.Mathematics.Frame3D(-50, 0, 0),
-                DefaultColor = Color.Red,
+                DefaultColor = Color.Blue,
                 IsMaterial = true,
+                FrictionCoefficient = 5,
                 NewId = CollisionWorld.Objects["Left"]
             });
 
             Root.Add(new Box
             {
-                XSize = 10,
-                YSize = 10,
-                ZSize = 10,
+                XSize = 15,
+                YSize = 15,
+                ZSize = 15,
                 Location = new AIRLab.Mathematics.Frame3D(50, 0, 0),
-                DefaultColor = Color.Red,
+                DefaultColor = Color.Blue,
                 IsMaterial = true,
+                FrictionCoefficient = 5,
                 NewId = CollisionWorld.Objects["Right"]
             });
         }
