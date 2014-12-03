@@ -1,36 +1,36 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using CVARC.V2;
 using System.Runtime.CompilerServices;
 
 namespace Demo.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class InteractionTests
     {
         void RunTest([CallerMemberName] string testName = "")
         {
             var loader = new Loader();
             loader.AddLevel("Demo", "Interaction", () => new Demo.KroR.Interaction());
-            loader.RunSelfTestInVSContext("Demo", "Interaction", testName, new MSAsserter());
+            loader.RunSelfTestInVSContext("Demo", "Interaction", testName, new NUnitAsserter());
 
         }
-        [TestMethod]
+        [Test]
         public void Grip()
         {
             RunTest();
         }
-        [TestMethod]
+        [Test]
         public void GripThroughWall()
         {
             RunTest();
         }
-        [TestMethod]
+        [Test]
         public void Release()
         {
             RunTest();
         }
-        [TestMethod]
+        [Test]
         public void GripUnGripable()
         {
             RunTest();

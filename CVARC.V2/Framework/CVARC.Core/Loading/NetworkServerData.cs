@@ -7,6 +7,14 @@ using System.Threading;
 
 namespace CVARC.V2
 {
+    public enum NetworkServerState
+    {
+        Waiting,
+        Ready,
+        Fail,
+        Unloaded
+    }
+
     public class NetworkServerData
     {
         /// <summary>
@@ -16,9 +24,10 @@ namespace CVARC.V2
         
         
         /// <summary>
-        /// True when Listener is up
+        /// True when Listener was set up 
         /// </summary>
-        public bool ServerLoaded { get; set; }
+        public NetworkServerState ServerState { get; set; }
+
 
         /// <summary>
         /// The connection on server that waits for commands
@@ -45,15 +54,19 @@ namespace CVARC.V2
    
         public void Close()
         {
-            if (!ServerLoaded) return;
+            if (ServerState != NetworkServerState.Ready)
+                return;
             StopServer();
-            ServerLoaded = false;
+            ServerState = NetworkServerState.Unloaded;
+
         }
 
 
         public void WaitForServer()
         {
-            while (!ServerLoaded) Thread.Sleep(1);
+            while (ServerState == NetworkServerState.Waiting) Thread.Sleep(1);
+            if (ServerState != NetworkServerState.Ready)
+                throw new Exception("Server initialisation have failed");
         }
 
         public IWorld WaitForWorld()

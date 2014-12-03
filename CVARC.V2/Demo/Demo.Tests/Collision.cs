@@ -1,45 +1,45 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CVARC.V2;
 using System.Runtime.CompilerServices;
+using NUnit.Framework;
 
 namespace Demo.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class CollisionTests
     {
         void RunTest([CallerMemberName] string testName = "")
         {
             var loader = new Loader();
             loader.AddLevel("Demo", "Collision", () => new Demo.KroR.Collision());
-            loader.RunSelfTestInVSContext("Demo", "Collision", testName, new MSAsserter());
+            loader.RunSelfTestInVSContext("Demo", "Collision", testName, new NUnitAsserter());
         }
-        [TestMethod]
+        [Test]
         public void CollisionCount()
         {
             RunTest();
         }
-        [TestMethod]
+        [Test]
         public void NoCollision()
         {
             RunTest();
         }
-        [TestMethod]
+        [Test]
         public void CollisionBox()
         {
             RunTest();
         }
-        [TestMethod]
+        [Test]
         public void NoBox()
         {
             RunTest();
         }
-        [TestMethod]
+        [Test]
         public void RotateNoBox()
         {
             RunTest();
         }
-        [TestMethod]
+        [Test]
         public void RotateBox()
         {
             RunTest();

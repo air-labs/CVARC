@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
@@ -11,6 +13,20 @@ namespace CVARC.V2
 
     public class Loader
     {
+        static object LogLockObject = new object();
+        
+        static void WriteLog(string str)
+        {
+            return;
+            lock (LogLockObject)
+            {
+                var writer = new StreamWriter("log.txt", true);
+                writer.WriteLine(str);
+                writer.Close();
+            }
+        }
+
+
         #region Stored levels 
 
         public readonly Dictionary<string, Dictionary<string, Func<Competitions>>> Levels = new Dictionary<string, Dictionary<string, Func<Competitions>>>();
@@ -127,15 +143,27 @@ namespace CVARC.V2
 
         public void RunServer(NetworkServerData data)
         {
-            var server = new System.Net.Sockets.TcpListener(data.Port);
-            server.Start();
-            data.ServerLoaded = true;
+            TcpListener server;
+            try
+            {
+                server = new System.Net.Sockets.TcpListener(data.Port);
+                server.Start();
+                data.ServerState = NetworkServerState.Ready;
+                WriteLog("Listener started");
+            }
+            catch(Exception e)
+            {
+                data.ServerState = NetworkServerState.Fail;
+                return;
+            }
+
             var client = server.AcceptTcpClient();
             data.ClientOnServerSide = new CvarcClient(client);
             data.StopServer = () =>
                 {
                     client.Close();
                     server.Stop();
+                    WriteLog("Listener closed");
                 };
         }
 
@@ -176,8 +204,10 @@ namespace CVARC.V2
 
         void SelfTestClientThread(ICvarcTest test, IAsserter asserter, NetworkServerData holder)
         {
+            WriteLog("Client thread started");
             holder.WaitForServer();
             test.Run(holder, asserter);
+            WriteLog("Client thread exited");
         }
 
 
@@ -232,12 +262,17 @@ namespace CVARC.V2
             holder.Port = DefaultPort;
             holder.LoadingData = new LoadingData { AssemblyName = assemblyName, Level = level };
             var test = GetTest(holder.LoadingData, testName);
+            WriteLog("Running test '" + testName + "'");
+
 
             var thread = new Thread(() =>
             {
+                WriteLog("Server thread started");
                 var proposal = new SettingsProposal { SpeedUp = true };
                 CreateSelfTestServer(holder, proposal);
+                WriteLog("World running");
                 holder.World.RunActively(1);
+                WriteLog("World exited");
                 holder.Close();
             }) { IsBackground = true };
             thread.Start();
@@ -248,10 +283,12 @@ namespace CVARC.V2
             }
             catch (Exception e)
             {
+                WriteLog("Exception catched");
                 throw e;
             }
             finally
             {
+                thread.Abort();
                 holder.Close();
             }
         }
