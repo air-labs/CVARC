@@ -81,19 +81,32 @@ namespace CVARC.V2
             return CreateWorld(configuration, factory, log.WorldState);
         }
 
+		public ControllerFactory CreateControllerFactory(string modeName)
+		{
+			ControllerFactory factory = null;
+			if (modeName  == "BotDemo")
+				factory = new BotDemoControllerFactory();
+			else if (modeName == "Tutorial")
+				factory = new TutorialControllerFactory();
+			else throw new Exception("Mode '" + modeName + "' is unknown");
+			return factory;
+		}
         public IWorld CreateSimpleMode(CommandLineData cmdLineData)
         {
+			ControllerFactory factory = CreateControllerFactory(cmdLineData.Unnamed[2]);
+			var proposal = SettingsProposal.FromCommandLineData(cmdLineData);
+            var loadingData = new LoadingData { AssemblyName = cmdLineData.Unnamed[0], Level = cmdLineData.Unnamed[1] };
+			return CreateSimpleMode(loadingData, proposal, factory);
+		}
+
+		 public IWorld CreateSimpleMode(LoadingData loadingData, SettingsProposal proposal, ControllerFactory factory)
+		 {
             var configuration = new Configuration();
-            configuration.LoadingData = new LoadingData { AssemblyName = cmdLineData.Unnamed[0], Level = cmdLineData.Unnamed[1] };
+            configuration.LoadingData = loadingData;
             var competitions = GetCompetitions(configuration.LoadingData);
             configuration.Settings=competitions.Logic.GetDefaultSettings();
-            ControllerFactory factory = null;
-            if (cmdLineData.Unnamed[2] == "BotDemo")
-                factory = new BotDemoControllerFactory();
-            else if (cmdLineData.Unnamed[2] == "Tutorial")
-                factory = new TutorialControllerFactory();
-            else throw new Exception("Mode '" + cmdLineData.Unnamed[2] + "' is unknown");
-            var proposal = SettingsProposal.FromCommandLineData(cmdLineData);
+			 
+
             proposal.Push(configuration.Settings,true);
             var stateName = configuration.Settings.WorldState;
             if (stateName == null)
