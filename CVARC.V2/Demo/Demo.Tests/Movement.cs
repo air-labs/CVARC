@@ -114,11 +114,7 @@ namespace Demo.Tests
         {
             RunTest();
         }
-        public static void Main()
-        {
-            new MovementTests().AlignmentRect();
-            new MovementTests().Backward();
-        }
+      
 
     }
 }

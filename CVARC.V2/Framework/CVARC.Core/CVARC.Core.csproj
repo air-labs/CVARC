@@ -163,7 +163,9 @@
     <Compile Include="SimpleMovementCase\SimpleMovementRobot.cs" />
     <Compile Include="SimpleMovementCase\SquareWalkingBot.cs" />
     <Compile Include="SimpleMovementCase\TwoPlayersId.cs" />
-    <Compile Include="Units\GripperUnit.cs" />
+    <Compile Include="Units\Gripper\GripperUnit.cs" />
+    <Compile Include="Units\Gripper\GripperSensor.cs" />
+    <Compile Include="Units\Gripper\IGrippableRobot.cs" />
     <Compile Include="World\Actor.cs" />
     <Compile Include="World\CommandPreprocessor.cs" />
     <Compile Include="World\IActor.cs" />

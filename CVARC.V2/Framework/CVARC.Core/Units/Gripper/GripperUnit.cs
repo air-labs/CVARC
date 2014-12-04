@@ -24,6 +24,9 @@ namespace CVARC.V2
     {
         IActor actor;
 
+		public const string GripCommand = "Grip";
+		public const string ReleaseCommand = "Release";
+
         public GripperUnit(IActor actor)
         {
             this.actor = actor;
@@ -48,7 +51,7 @@ namespace CVARC.V2
                 );
         }
 
-        public GrippingAvailability GetAvailability(string objectId, double grippingDistance, Angle grippingAngle)
+        public GrippingAvailability GetAvailability(string objectId)
         {
             if (!actor.World.Engine.ContainBody(objectId)) return null;
             var robotLocation = actor.World.Engine.GetAbsoluteLocation(actor.ObjectId);

@@ -105,10 +105,6 @@
       <Project>{f7b5021f-09e8-4388-97a2-4b44b9770d03}</Project>
       <Name>CVARC.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\RepairTheStarship\RepairTheStarship\RepairTheStarship.General.csproj">
-      <Project>{11B6A7C1-E6AA-4F81-9710-EC84069CA858}</Project>
-      <Name>RepairTheStarship.General</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Camera\readme.txt" />
