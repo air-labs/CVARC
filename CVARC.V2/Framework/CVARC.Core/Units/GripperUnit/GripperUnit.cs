@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AIRLab.Mathematics;
+using System.Windows.Forms;
 
-namespace CVARC.V2
+namespace CVARC.V2.Units
 {
 
     public class GrippingAvailability
@@ -69,5 +70,7 @@ namespace CVARC.V2
             var location = actor.World.Engine.GetAbsoluteLocation(detailId);
             actor.World.Engine.Detach(detailId, location);
         }
+
+		
     }
 }

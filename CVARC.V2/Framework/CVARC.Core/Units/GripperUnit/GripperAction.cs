@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CVARC.V2
+namespace CVARC.V2.Units
 {
-	public interface IGrippableRobot : IActor
+	public enum GripperAction
 	{
-		GripperUnit Gripper { get; }
+		Grip,
+		Release
 	}
 }

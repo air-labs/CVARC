@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using CVARC.V2;
 
-namespace CVARC.V2
+namespace CVARC.V2.Units
 {
     public class GripSensor : Sensor<bool,IGrippableRobot>
     {
