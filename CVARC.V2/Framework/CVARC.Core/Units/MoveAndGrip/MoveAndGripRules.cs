@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AIRLab.Mathematics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,5 +26,13 @@ namespace CVARC.V2.Units
 			get;
 			private set;
 		}
+
+		public MoveAndGripRules(double linearVelocityLimit, Angle angularVelocityLimit)
+		{
+			LinearVelocityLimit = linearVelocityLimit;
+			AngularVelocityLimit = angularVelocityLimit;
+		}
+
+		public MoveAndGripRules() : this(50, Angle.HalfPi) { }
 	}
 }
