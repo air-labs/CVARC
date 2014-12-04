@@ -163,6 +163,7 @@
     <Compile Include="SimpleMovementCase\SimpleMovementRobot.cs" />
     <Compile Include="SimpleMovementCase\SquareWalkingBot.cs" />
     <Compile Include="SimpleMovementCase\TwoPlayersId.cs" />
+    <Compile Include="Units\GripperUnit.cs" />
     <Compile Include="World\Actor.cs" />
     <Compile Include="World\CommandPreprocessor.cs" />
     <Compile Include="World\IActor.cs" />

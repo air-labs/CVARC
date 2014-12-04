@@ -17,9 +17,8 @@ namespace CVARC.V2
 
         SensorPack<TSensorsData> sensors;
 
-        public override void Initialize(IActorManager rules, IWorld world, string actorObjectId, string controllerId)
+        public override void AdditionalInitialization()
         {
-            base.Initialize(rules, world, actorObjectId, controllerId);
             sensors = new SensorPack<TSensorsData>(this);
         }
 

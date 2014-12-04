@@ -12,6 +12,9 @@ namespace Demo
     public class InteractionRobot<TSensorsData> : SimpleMovementRobot<IActorManager, MovementWorld, InteractionSensorData>, IRTSRobot
         where TSensorsData : new()
     {
+
+        
+        
         public string GrippedObjectId { get; private set; }
 
 

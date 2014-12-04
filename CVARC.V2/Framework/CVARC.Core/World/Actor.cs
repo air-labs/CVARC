@@ -17,13 +17,18 @@ namespace CVARC.V2
         public string ObjectId { get; private set; }
         public Type ExpectedCommandType { get { return typeof(TCommand); } }
 
-        public virtual void Initialize(IActorManager rules, IWorld world, string actorObjectId, string controllerId)
+        public void Initialize(IActorManager rules, IWorld world, string actorObjectId, string controllerId)
         {
             Manager = Compatibility.Check<TActorManager>(this, rules);
             World = Compatibility.Check<TWorld>(this, world);
             ObjectId = actorObjectId;
             ControllerId = controllerId;
+            AdditionalInitialization();
         }
+
+        public virtual void AdditionalInitialization()
+        { }
+
 
 
         public string ControllerId
