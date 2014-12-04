@@ -20,14 +20,19 @@ namespace CVARC.V2.Units
 			return new TCommand { GripperCommand = GripperAction.Release };
 		}
 
-		public static void AddGripKeys<TCommand>(this IGripperRules<TCommand> rules, KeyboardControllerPool<TCommand> pool)
+		public static void AddGripKeys<TCommand>(this IGripperRules<TCommand> rules, KeyboardControllerPool<TCommand> pool, string controllerId)
 			where TCommand : IGripperCommand, new()
 		{
-			pool.Add(Keys.R, TwoPlayersId.Left, () => new TCommand { GripperCommand = GripperAction.Grip });
-			pool.Add(Keys.F, TwoPlayersId.Left, () => new TCommand { GripperCommand = GripperAction.Release });
-
-			pool.Add(Keys.P, TwoPlayersId.Right, () => new TCommand { GripperCommand = GripperAction.Grip });
-			pool.Add(Keys.OemSemicolon, TwoPlayersId.Right, () => new TCommand { GripperCommand = GripperAction.Release });
+			if (controllerId == TwoPlayersId.Left)
+			{
+				pool.Add(Keys.R, TwoPlayersId.Left, () => new TCommand { GripperCommand = GripperAction.Grip });
+				pool.Add(Keys.F, TwoPlayersId.Left, () => new TCommand { GripperCommand = GripperAction.Release });
+			}
+			if (controllerId == TwoPlayersId.Right)
+			{
+				pool.Add(Keys.P, TwoPlayersId.Right, () => new TCommand { GripperCommand = GripperAction.Grip });
+				pool.Add(Keys.OemSemicolon, TwoPlayersId.Right, () => new TCommand { GripperCommand = GripperAction.Release });
+			}
 		}
 
 	}

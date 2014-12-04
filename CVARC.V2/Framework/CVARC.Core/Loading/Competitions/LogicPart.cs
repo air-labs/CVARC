@@ -31,5 +31,6 @@ namespace CVARC.V2
         public readonly List<string> PredefinedStatesNames = new List<string>();
 
         public abstract Type GetWorldStateType();
+
     }
 }

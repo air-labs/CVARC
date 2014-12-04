@@ -163,6 +163,7 @@
     <Compile Include="SimpleMovementCase\SimpleMovementRobot.cs" />
     <Compile Include="SimpleMovementCase\SquareWalkingBot.cs" />
     <Compile Include="SimpleMovementCase\TwoPlayersId.cs" />
+    <Compile Include="Units\Bot.cs" />
     <Compile Include="Units\GripperUnit\RulesExtensions.cs" />
     <Compile Include="Units\GripperUnit\GripperAction.cs" />
     <Compile Include="Units\GripperUnit\GripperUnit.cs" />
@@ -170,6 +171,9 @@
     <Compile Include="Units\GripperUnit\IGrippableRobot.cs" />
     <Compile Include="Units\GripperUnit\IGripperCommand.cs" />
     <Compile Include="Units\GripperUnit\IGripperRules.cs" />
+    <Compile Include="Units\IRules.cs" />
+    <Compile Include="Units\MoveAndGrip\MoveAndGripCommand.cs" />
+    <Compile Include="Units\MoveAndGrip\MoveAndGripRules.cs" />
     <Compile Include="Units\SimpleMovementUnit\RulesExtensions.cs" />
     <Compile Include="Units\SimpleMovementUnit\ISimpleMovementCommand.cs" />
     <Compile Include="Units\SimpleMovementUnit\SimpleMovement.cs" />
