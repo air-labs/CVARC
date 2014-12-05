@@ -7,6 +7,7 @@ namespace CVARC.V2.Units
 {
 	public enum GripperAction
 	{
+        No,
 		Grip,
 		Release
 	}

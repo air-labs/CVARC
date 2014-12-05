@@ -27,12 +27,26 @@ namespace CVARC.V2.Units
 			private set;
 		}
 
-		public MoveAndGripRules(double linearVelocityLimit, Angle angularVelocityLimit)
+		public MoveAndGripRules(double linearVelocityLimit, Angle angularVelocityLimit, double grippingTime, double releasingTime)
 		{
 			LinearVelocityLimit = linearVelocityLimit;
 			AngularVelocityLimit = angularVelocityLimit;
+            GrippingTime = grippingTime;
+            ReleasingTime = releasingTime;
 		}
 
-		public MoveAndGripRules() : this(50, Angle.HalfPi) { }
-	}
+		public MoveAndGripRules() : this(50, Angle.HalfPi,1,1) { }
+
+        public double GrippingTime
+        {
+            get;
+            private set;
+        }
+
+        public double ReleasingTime
+        {
+            get;
+            private set;
+        }
+    }
 }

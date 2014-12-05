@@ -21,9 +21,10 @@ namespace CVARC.V2.Units
         }
     }
 
-    public class GripperUnit
+    public class GripperUnit : IUnit
     {
         IActor actor;
+        IGripperRules gripperRules;
 
 		public const string GripCommand = "Grip";
 		public const string ReleaseCommand = "Release";
@@ -31,6 +32,7 @@ namespace CVARC.V2.Units
         public GripperUnit(IActor actor)
         {
             this.actor = actor;
+            gripperRules = Compatibility.Check<IGripperRules>(this,actor.Rules);
         }
 
         public string GrippedObjectId { get; private set; }
@@ -39,7 +41,7 @@ namespace CVARC.V2.Units
 
         public Func<string> FindDetail { get; set; }
 
-        public void Grip()
+        void Grip()
         {
             if (GrippedObjectId != null) return;
             var objectId = FindDetail(); 
@@ -62,7 +64,7 @@ namespace CVARC.V2.Units
             return new GrippingAvailability(relativeLocation);
         }
 
-        public void Release()
+        void Release()
         {
             if (GrippedObjectId == null) return;
             var detailId = GrippedObjectId;
@@ -71,6 +73,22 @@ namespace CVARC.V2.Units
             actor.World.Engine.Detach(detailId, location);
         }
 
-		
+
+
+        public UnitResponse ProcessCommand(object _cmd)
+        {
+            var cmd = Compatibility.Check<IGripperCommand>(this, _cmd);
+            switch (cmd.GripperCommand)
+            {
+                case GripperAction.No: return UnitResponse.Denied();
+                case GripperAction.Grip:
+                    Grip();
+                    return UnitResponse.Accepted(gripperRules.GrippingTime);
+                case GripperAction.Release:
+                    Release();
+                    return UnitResponse.Accepted(gripperRules.ReleasingTime);
+            }
+            throw new Exception("Cannot reach this part of code");
+        }
     }
 }

@@ -17,6 +17,8 @@ namespace CVARC.V2
         public string ObjectId { get; private set; }
         public Type ExpectedCommandType { get { return typeof(TCommand); } }
 
+        public IRules Rules { get; set; }
+
         public void Initialize(IActorManager rules, IWorld world, string actorObjectId, string controllerId)
         {
             Manager = Compatibility.Check<TActorManager>(this, rules);

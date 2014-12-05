@@ -38,10 +38,10 @@ namespace Demo
      
         public override void ProcessCustomCommand(string commandName)
         {
-			if (commandName == GripperUnit.GripCommand)
-				Gripper.Grip();
-			else if (commandName == GripperUnit.ReleaseCommand)
-				Gripper.Release();
+            //if (commandName == GripperUnit.GripCommand)
+            //    Gripper.Grip();
+            //else if (commandName == GripperUnit.ReleaseCommand)
+            //    Gripper.Release();
         }
 
 
