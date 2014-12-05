@@ -32,5 +32,7 @@ namespace CVARC.V2
 
         public abstract Type GetWorldStateType();
 
+        public abstract IRules CreateRulesForController(string controllerName);
+
     }
 }

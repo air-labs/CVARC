@@ -174,6 +174,7 @@
     <Compile Include="Units\IRules.cs" />
     <Compile Include="Units\IUnit.cs" />
     <Compile Include="Units\MoveAndGrip\MoveAndGripCommand.cs" />
+    <Compile Include="Units\MoveAndGrip\MoveAndGripRobot.cs" />
     <Compile Include="Units\MoveAndGrip\MoveAndGripRules.cs" />
     <Compile Include="Units\SimpleMovementUnit\RulesExtensions.cs" />
     <Compile Include="Units\SimpleMovementUnit\ISimpleMovementCommand.cs" />

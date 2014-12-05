@@ -8,6 +8,7 @@ using AIRLab;
 namespace CVARC.V2
 {
     public class KeyboardControllerPool<TCommand> : IKeyboardControllerPool
+        where TCommand : ICommand
 
     {
 

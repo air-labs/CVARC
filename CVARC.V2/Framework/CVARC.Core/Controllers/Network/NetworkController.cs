@@ -9,6 +9,7 @@ namespace CVARC.V2
 {
 
     public class NetworkController<TCommand> : INetworkController
+        where TCommand : ICommand
     {
         IMessagingClient client;
 
@@ -42,7 +43,7 @@ namespace CVARC.V2
             }
         }
 
-        public object GetCommand()
+        public ICommand GetCommand()
         {
             if (!active) return null;
 

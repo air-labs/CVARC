@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CVARC.V2.Units
 {
-	public interface IGripperCommand 
+	public interface IGripperCommand : ICommand
 	{
 		GripperAction GripperCommand { get; set; }
 	}

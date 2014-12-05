@@ -6,6 +6,7 @@ using System.Text;
 namespace CVARC.V2
 {
 	public class Bot<TCommand> : Controller<TCommand>
+        where TCommand : ICommand
 	{
 		Func<int, TCommand> CommandProvider;
 		int turnNumber = 0;

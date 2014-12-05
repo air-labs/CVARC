@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace CVARC.V2.Units
 {
-	public class SimpleMovementUnit : IUnit
+	public class SimpleMovementUnit : IUnit<ISimpleMovementCommand>
 	{
 		IActor actor;
 
@@ -17,17 +17,16 @@ namespace CVARC.V2.Units
 		}
 
 
-        public UnitResponse ProcessCommand(object _command)
+        public UnitResponse ProcessCommand(ISimpleMovementCommand command)
         {
-            var command=Compatibility.Check<ISimpleMovementCommand>(this,_command).SimpleMovement;
 			var location = actor.World.Engine.GetAbsoluteLocation(actor.ObjectId);
 
-			var requestedSpeed = new Frame3D(command.LinearVelocity * Math.Cos(location.Yaw.Radian),
-								   command.LinearVelocity * Math.Sin(location.Yaw.Radian), 0, Angle.Zero, command.AngularVelocity,
+			var requestedSpeed = new Frame3D(command.SimpleMovement.LinearVelocity * Math.Cos(location.Yaw.Radian),
+								   command.SimpleMovement.LinearVelocity * Math.Sin(location.Yaw.Radian), 0, Angle.Zero, command.SimpleMovement.AngularVelocity,
 								   Angle.Zero);
 
 			actor.World.Engine.SetSpeed(actor.ObjectId, requestedSpeed);
-            return UnitResponse.Accepted(command.Duration);
+            return UnitResponse.Accepted(command.SimpleMovement.Duration);
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CVARC.V2.Units
 {
-	public interface ISimpleMovementCommand
+	public interface ISimpleMovementCommand : ICommand
 	{
 		SimpleMovement SimpleMovement { get; set; }
 	}

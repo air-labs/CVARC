@@ -22,7 +22,7 @@ namespace CVARC.V2
             }
         }
 
-        public readonly Dictionary<string, List<object>> Commands = new Dictionary<string, List<object>>();
+        public readonly Dictionary<string, List<ICommand>> Commands = new Dictionary<string, List<ICommand>>();
 
         public IWorldState WorldState { get; set; }
 

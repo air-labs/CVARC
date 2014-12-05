@@ -83,7 +83,8 @@ namespace CVARC.V2
                 var e = competitions.Logic.CreateActor(id);
                 var actorObjectId = IdGenerator.CreateNewId(e);
                 var manager = competitions.Manager.CreateActorManagerFor(e);
-                e.Initialize(manager, this, actorObjectId, id);
+                var rules = competitions.Logic.CreateRulesForController(id);
+                e.Initialize(manager, this, rules, actorObjectId, id);
                 manager.Initialize(e);
                 manager.CreateActorBody();
                 var controller = controllerFactory.Create(e.ControllerId);

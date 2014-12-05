@@ -6,6 +6,7 @@ using System.Text;
 namespace CVARC.V2
 {
     public class KeyboardController<TCommand> : Controller<TCommand>
+        where TCommand : ICommand
     {
         public KeyboardController(KeyboardControllerPool<TCommand> pool, string controllerId)
         {

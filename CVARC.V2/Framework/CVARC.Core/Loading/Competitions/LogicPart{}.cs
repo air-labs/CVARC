@@ -5,13 +5,14 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public abstract class LogicPart<TWorld,TKeyboardControllerPool,TActor,TCommandPreprocessor,TNetworkController,TWorldState> : LogicPart
+    public abstract class LogicPart<TWorld,TKeyboardControllerPool,TActor,TCommandPreprocessor,TNetworkController,TWorldState,TRules> : LogicPart
         where TWorld : IWorld,new()
         where TKeyboardControllerPool : IKeyboardControllerPool, new()
         where TActor : IActor, new()
         where TCommandPreprocessor : ICommandPreprocessor, new()
         where TNetworkController : INetworkController, new()
         where TWorldState : IWorldState, new()
+        where TRules : IRules, new()
     {
 
         public LogicPart(IEnumerable<string> controllersId, IEnumerable<string> predefinedStateNames=null)
@@ -71,5 +72,9 @@ namespace CVARC.V2
             return typeof(TWorldState);
         }
 
+        public override IRules CreateRulesForController(string controllerName)
+        {
+            return new TRules();
+        }
     }
 }

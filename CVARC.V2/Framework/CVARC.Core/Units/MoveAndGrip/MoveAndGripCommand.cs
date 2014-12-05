@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CVARC.V2.Units
 {
-	public class MoveAndGripCommand : ISimpleMovementCommand, IGripperCommand
+	public class MoveAndGripCommand : ICommand, ISimpleMovementCommand, IGripperCommand
 	{
 
 		public SimpleMovement SimpleMovement

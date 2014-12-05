@@ -6,13 +6,14 @@ using System.Text;
 namespace CVARC.V2
 {
     public abstract class Controller<TCommand> : IController
+        where TCommand : ICommand
     {
         public virtual void Initialize(IActor controllableActor)
         {
             
         }
 
-        object IController.GetCommand()
+        ICommand  IController.GetCommand()
         {
             return GetCommand();
         }
