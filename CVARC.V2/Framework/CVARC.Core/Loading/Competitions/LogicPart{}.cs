@@ -5,14 +5,13 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public abstract class LogicPart<TWorld,TKeyboardControllerPool,TActor,TCommandPreprocessor,TNetworkController,TWorldState,TRules> : LogicPart
+    public abstract class LogicPart<TWorld,TActor,TCommand,TCommandPreprocessor,TWorldState,TRules> : LogicPart
         where TWorld : IWorld,new()
-        where TKeyboardControllerPool : IKeyboardControllerPool, new()
         where TActor : IActor, new()
         where TCommandPreprocessor : ICommandPreprocessor, new()
-        where TNetworkController : INetworkController, new()
         where TWorldState : IWorldState, new()
         where TRules : IRules, new()
+        where TCommand: ICommand, new()
     {
 
         public LogicPart(IEnumerable<string> controllersId, IEnumerable<string> predefinedStateNames=null)
@@ -29,20 +28,8 @@ namespace CVARC.V2
             return new TActor();
         }
 
-        public override ICommandPreprocessor CreateCommandPreprocessor(string controllerName)
-        {
-            return new TCommandPreprocessor();
-        }
 
-        public override IKeyboardControllerPool CreateKeyboardControllerPool()
-        {
-            return new TKeyboardControllerPool();
-        }
 
-        public override INetworkController CreateNetworkController()
-        {
-            return new TNetworkController();
-        }
 
         public override IWorld CreateWorld()
         {
@@ -72,9 +59,24 @@ namespace CVARC.V2
             return typeof(TWorldState);
         }
 
-        public override IRules CreateRulesForController(string controllerName)
+        public override IRules CreateRulesFor(string controllerName)
         {
             return new TRules();
+        }
+
+
+        public override INetworkController CreateNetworkControllerFor(string controllerId)
+        {
+            return new NetworkController<TCommand>();
+        }
+        public override ICommandPreprocessor CreateCommandPreprocessorFor(string controllerName)
+        {
+            return new TCommandPreprocessor();
+        }
+
+        public override IKeyboardController CreateKeyboardControllerFor(string controllerName)
+        {
+            return new KeyboardController<TCommand>();
         }
     }
 }

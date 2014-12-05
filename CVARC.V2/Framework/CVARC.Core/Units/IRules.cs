@@ -7,6 +7,7 @@ namespace CVARC.V2
 {
 	public interface IRules 
 	{
-		void DefineKeyboardControl(IKeyboardControllerPool pool, string controllerId);
+		void DefineKeyboardControl(IKeyboardController keyboardController, string controllerId);
+       
 	}
 }

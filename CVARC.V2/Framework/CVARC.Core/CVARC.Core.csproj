@@ -100,9 +100,7 @@
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\IController.cs" />
     <Compile Include="Controllers\Keyboard\IKeyboard.cs" />
-    <Compile Include="Controllers\Keyboard\IKeyboardControllerPool.cs" />
     <Compile Include="Controllers\Keyboard\KeyboardController.cs" />
-    <Compile Include="Controllers\Keyboard\KeyboardControllerPool.cs" />
     <Compile Include="Controllers\Keyboard\WinformsKey.cs" />
     <Compile Include="Controllers\LogPlayController.cs" />
     <Compile Include="Controllers\Network\IMessagingClient.cs" />
@@ -134,15 +132,6 @@
     <Compile Include="Loading\ControllerFactory\SoloNetworkControllerFactory.cs" />
     <Compile Include="Loading\ControllerFactory\TutorialControllerFactory.cs" />
     <Compile Include="Loading\Loader.cs" />
-    <Compile Include="Loading\RunModes\BotDemoRunMode.cs" />
-    <Compile Include="Loading\RunModes\DebugRunMode.cs" />
-    <Compile Include="Loading\RunModes\IRunMode.cs" />
-    <Compile Include="Loading\RunModes\LogPlayerRunMode.cs" />
-    <Compile Include="Loading\RunModes\RunModeFactory.cs" />
-    <Compile Include="Loading\RunModes\RunModes.cs" />
-    <Compile Include="Loading\RunModes\StandardRunMode.cs" />
-    <Compile Include="Loading\RunModes\TournamentRunMode.cs" />
-    <Compile Include="Loading\RunModes\TutorialRunMode.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

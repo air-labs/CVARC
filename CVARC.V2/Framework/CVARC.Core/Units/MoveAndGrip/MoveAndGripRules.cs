@@ -8,11 +8,12 @@ namespace CVARC.V2.Units
 {
 	public class MoveAndGripRules : IRules, IGripperRules<MoveAndGripCommand>, ISimpleMovementRules<MoveAndGripCommand>
 	{
-		public void DefineKeyboardControl(IKeyboardControllerPool _pool, string controllerId)
+		public void DefineKeyboardControl(IKeyboardController _pool, string controllerId)
 		{
-			var pool = Compatibility.Check<KeyboardControllerPool<MoveAndGripCommand>>(this, _pool);
+			var pool = Compatibility.Check<KeyboardController<MoveAndGripCommand>>(this, _pool);
 			this.AddGripKeys(pool, controllerId);
 			this.AddSimpleMovementKeys(pool, controllerId);
+            pool.StopCommand = () => new MoveAndGripCommand();
 		}
 
 		public double LinearVelocityLimit

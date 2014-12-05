@@ -2,25 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace CVARC.V2
 {
-    public class KeyboardController<TCommand> : Controller<TCommand>
+    public interface IKeyboardController : IController
+    {
+    }
+
+    public class KeyboardController<TCommand> : Controller<TCommand>, IKeyboardController
         where TCommand : ICommand
     {
-        public KeyboardController(KeyboardControllerPool<TCommand> pool, string controllerId)
+        Dictionary<Keys, Func<TCommand>> keys = new Dictionary<Keys, Func<TCommand>>();
+        public Func<TCommand> StopCommand { get; set; }
+        IKeyboard keyboard;
+
+        public void Add(Keys key, Func<TCommand> action)
         {
-            this.pool = pool;
-            this.controllerId = controllerId;
+            keys[key] = action;
         }
 
-        KeyboardControllerPool<TCommand> pool;
-        string controllerId; 
-
-        override public TCommand GetCommand()
+        public override void Initialize(IActor controllableActor)
         {
-            return pool.GetCommand(controllerId);
+            base.Initialize(controllableActor);
+            keyboard = controllableActor.World.Keyboard;
         }
 
+        public override TCommand GetCommand()
+        {
+            var pressedKeys = keyboard.PressedKeys.ToList();
+            foreach (var key in keys)
+                if (pressedKeys.Contains(key.Key.ToString()))
+                    return key.Value();
+            return StopCommand();
+        }
     }
 }

@@ -29,25 +29,25 @@ namespace CVARC.V2.Units
 			return new TCommand { SimpleMovement = SimpleMovement.RotateWithVelocity(angle, factory.AngularVelocityLimit) };
 		}
 
-		public static void AddSimpleMovementKeys<TCommand>(this ISimpleMovementRules<TCommand> factory, KeyboardControllerPool<TCommand> pool, string controllerId)
+		public static void AddSimpleMovementKeys<TCommand>(this ISimpleMovementRules<TCommand> factory, KeyboardController<TCommand> pool, string controllerId)
 			where TCommand : ISimpleMovementCommand, new()
 		{
 			var dt = 0.1;
 
 			if (controllerId == TwoPlayersId.Left)
 			{
-				pool.Add(Keys.W, TwoPlayersId.Left, () => new TCommand { SimpleMovement = SimpleMovement.Move(factory.LinearVelocityLimit, dt) });
-				pool.Add(Keys.S, TwoPlayersId.Left, () => new TCommand { SimpleMovement = SimpleMovement.Move(-factory.LinearVelocityLimit, dt) });
-				pool.Add(Keys.I, TwoPlayersId.Right, () => new TCommand { SimpleMovement = SimpleMovement.Move(factory.LinearVelocityLimit, dt) });
-				pool.Add(Keys.K, TwoPlayersId.Right, () => new TCommand { SimpleMovement = SimpleMovement.Move(-factory.LinearVelocityLimit, dt) });
+				pool.Add(Keys.W, () => new TCommand { SimpleMovement = SimpleMovement.Move(factory.LinearVelocityLimit, dt) });
+				pool.Add(Keys.S, () => new TCommand { SimpleMovement = SimpleMovement.Move(-factory.LinearVelocityLimit, dt) });
+				pool.Add(Keys.I, () => new TCommand { SimpleMovement = SimpleMovement.Move(factory.LinearVelocityLimit, dt) });
+				pool.Add(Keys.K, () => new TCommand { SimpleMovement = SimpleMovement.Move(-factory.LinearVelocityLimit, dt) });
 			}
 
 			if (controllerId == TwoPlayersId.Right)
 			{
-				pool.Add(Keys.A, TwoPlayersId.Left, () => new TCommand { SimpleMovement = SimpleMovement.Rotate(factory.AngularVelocityLimit, dt) });
-				pool.Add(Keys.D, TwoPlayersId.Left, () => new TCommand { SimpleMovement = SimpleMovement.Rotate(-factory.AngularVelocityLimit, dt) });
-				pool.Add(Keys.J, TwoPlayersId.Right, () => new TCommand { SimpleMovement = SimpleMovement.Rotate(factory.AngularVelocityLimit, dt) });
-				pool.Add(Keys.L, TwoPlayersId.Right, () => new TCommand { SimpleMovement = SimpleMovement.Rotate(-factory.AngularVelocityLimit, dt) });
+				pool.Add(Keys.A,  () => new TCommand { SimpleMovement = SimpleMovement.Rotate(factory.AngularVelocityLimit, dt) });
+				pool.Add(Keys.D,  () => new TCommand { SimpleMovement = SimpleMovement.Rotate(-factory.AngularVelocityLimit, dt) });
+				pool.Add(Keys.J,  () => new TCommand { SimpleMovement = SimpleMovement.Rotate(factory.AngularVelocityLimit, dt) });
+				pool.Add(Keys.L, () => new TCommand { SimpleMovement = SimpleMovement.Rotate(-factory.AngularVelocityLimit, dt) });
 			}
 		}
 
