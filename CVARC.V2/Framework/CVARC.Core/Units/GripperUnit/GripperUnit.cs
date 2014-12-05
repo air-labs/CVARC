@@ -5,7 +5,7 @@ using System.Text;
 using AIRLab.Mathematics;
 using System.Windows.Forms;
 
-namespace CVARC.V2.Units
+namespace CVARC.V2
 {
 
     public class GrippingAvailability

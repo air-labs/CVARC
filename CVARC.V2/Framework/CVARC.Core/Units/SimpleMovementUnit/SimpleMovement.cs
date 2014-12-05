@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using AIRLab.Mathematics;
 
-namespace CVARC.V2.Units
+namespace CVARC.V2
 {
     [Serializable]
     public class SimpleMovement

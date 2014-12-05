@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CVARC.V2.Units
+namespace CVARC.V2
 {
     public class MoveAndGripRobot<TActorManager,TWorld,TSensorsData> : Robot<TActorManager,TWorld,TSensorsData,MoveAndGripCommand,MoveAndGripRules>
         where TActorManager : IActorManager

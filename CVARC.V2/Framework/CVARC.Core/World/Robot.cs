@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AIRLab;
-using CVARC.V2.Units;
 
 namespace CVARC.V2
 {

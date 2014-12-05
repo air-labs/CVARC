@@ -176,6 +176,7 @@
     <Compile Include="World\IActor.cs" />
     <Compile Include="World\ICommand.cs" />
     <Compile Include="World\ICommandPreprocessor.cs" />
+    <Compile Include="World\IdentityCommandPreprocessor.cs" />
     <Compile Include="World\IdGenerator.cs" />
     <Compile Include="World\IWorld.cs" />
     <Compile Include="World\Robot.cs" />
