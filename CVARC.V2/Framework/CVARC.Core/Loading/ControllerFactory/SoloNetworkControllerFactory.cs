@@ -22,7 +22,7 @@ namespace CVARC.V2
             if (controllerIsGiven)
                 throw new Exception("Only one network controller can be assigned in this mode");
             controllerIsGiven = true;
-            var controller = World.Competitions.Logic.CreateNetworkControllerFor(controllerId);
+            var controller = World.Competitions.Logic.Actors[controllerId].CreateNetworkController();
             controller.InitializeClient(client);
             return controller;
         }

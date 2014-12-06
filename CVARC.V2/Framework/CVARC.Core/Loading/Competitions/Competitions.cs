@@ -13,13 +13,13 @@ namespace CVARC.V2
         public readonly EnginePart Engine;
         public readonly ManagerPart Manager;
 
-        public Competitions(LogicPart logic, EnginePart engine, ManagerPart manager)
+        public Competitions(LogicPartHelper logicPartHelper, EnginePart engine, ManagerPart manager)
         {
-            this.Logic = logic;
-            this.Engine = engine;
-            this.Manager = manager;
-
+            Logic = logicPartHelper.Create();
+            Engine = engine;
+            Manager = manager;
         }
+
 
         //public IWorld Create(Configuration arguments, IRunMode environment)
         //{

@@ -79,18 +79,19 @@ namespace CVARC.V2
 
             //Initializing actors
             actors = new List<IActor>();
-            foreach (var id in competitions.Logic.ControllersId)
+            foreach (var id in competitions.Logic.Actors.Keys)
             {
-                var e = competitions.Logic.CreateActor(id);
+                var factory = competitions.Logic.Actors[id];
+                var e = factory.CreateActor();
                 var actorObjectId = IdGenerator.CreateNewId(e);
                 var manager = competitions.Manager.CreateActorManagerFor(e);
-                var rules = competitions.Logic.CreateRulesFor(id);
+                var rules = factory.CreateRules();
                 e.Initialize(manager, this, rules, actorObjectId, id);
                 manager.Initialize(e);
                 manager.CreateActorBody();
                 var controller = controllerFactory.Create(e.ControllerId);
                 controller.Initialize(e);
-                var preprocessor = competitions.Logic.CreateCommandPreprocessorFor(id);
+                var preprocessor = factory.CreatePreprocessor();
                 preprocessor.Initialize(e);
                 Clocks.AddTrigger(new ControlTrigger(controller, e, preprocessor));
                 actors.Add(e);

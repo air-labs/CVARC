@@ -86,6 +86,8 @@
     <Compile Include="Client\ICvarcTest.cs" />
     <Compile Include="Controllers\Network\CvarcClient.cs" />
     <Compile Include="Engine\IPassiveEngine.cs" />
+    <Compile Include="Loading\Competitions\ActorFactory.cs" />
+    <Compile Include="Loading\Competitions\LogicPartHelper.cs" />
     <Compile Include="Loading\Configuration\IWorldState.cs" />
     <Compile Include="Loading\NetworkServerData.cs" />
     <Compile Include="Client\MSAsserter.cs" />
@@ -114,7 +116,6 @@
     <Compile Include="Engine\IWorldManager.cs" />
     <Compile Include="Engine\WorldManager.cs" />
     <Compile Include="Loading\Competitions\Competitions.cs" />
-    <Compile Include="Loading\Competitions\LogicPart{}.cs" />
     <Compile Include="Loading\Configuration\ConfigurationProposal.cs" />
     <Compile Include="Loading\Configuration\IConfigurationPull.cs" />
     <Compile Include="Loading\Configuration\LoadingData.cs" />

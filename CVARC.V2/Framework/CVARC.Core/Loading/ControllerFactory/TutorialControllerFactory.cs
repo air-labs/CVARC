@@ -11,7 +11,7 @@ namespace CVARC.V2
 
         override public IController Create(string controllerId)
         {
-            var controller = World.Competitions.Logic.CreateKeyboardControllerFor(controllerId);
+            var controller = World.Competitions.Logic.Actors[controllerId].CreateKeyboardController();
             var actor = World.Actors.Where(z => z.ControllerId == controllerId).First();
             actor.Rules.DefineKeyboardControl(controller, controllerId);
             return controller;
