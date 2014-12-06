@@ -10,7 +10,7 @@ namespace Demo.KroR
     public class Interaction : Competitions
     {
         public Interaction()
-            : base(new InteractionLogicPart(), new KroREnginePart(), new InteractionManagerPart())
+            : base(new InteractionLogicPartHelper(), new KroREnginePart(), new InteractionManagerPart())
         { }
     }
 }

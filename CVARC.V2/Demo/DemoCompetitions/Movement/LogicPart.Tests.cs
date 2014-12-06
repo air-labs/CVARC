@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AIRLab.Mathematics;
-using CVARC.V2.SimpleMovement;
 using CVARC.V2;
 
 namespace Demo
 {
-    partial class MovementLogicPart
+    partial class MovementLogicPartHelper
     {
-
-
-        MovementTestEntry LocationTest(double X, double Y, double angleInGrad, params SimpleMovementCommand[] command)
+        MovementTestEntry LocationTest(double X, double Y, double angleInGrad, params MoveAndGripCommand[] command)
         {
             return (client, world, asserter) =>
                 {
@@ -41,53 +38,49 @@ namespace Demo
         }
 
 
-        void LoadTests()
+        void LoadTests(LogicPart logic, MoveAndGripRules rules)
         {
-            Tests["Forward"] = new MovementTestBase(LocationTest(10,0, 0, SimpleMovementCommand.Move(10, 1)));
-            Tests["Backward"] = new MovementTestBase(LocationTest(-10, 0, 0, SimpleMovementCommand.Move(-10, 1)));
-            Tests["ForwardRect"] = new MovementTestBase(LocationTest(10, 0, 0, SimpleMovementCommand.Move(10, 1)), true);
-            Tests["BackwardRect"] = new MovementTestBase(LocationTest(-10, 0, 0, SimpleMovementCommand.Move(-10, 1)), true);
-            Tests["SquareRect"] = new MovementTestBase(LocationTest(0, 0, 0,
-                SimpleMovementCommand.Move(10, 1),
-                SimpleMovementCommand.Rotate(Angle.HalfPi, 1),
-                SimpleMovementCommand.Move(10, 1),
-                SimpleMovementCommand.Rotate(Angle.HalfPi, 1),
-                SimpleMovementCommand.Move(10, 1),
-                SimpleMovementCommand.Rotate(Angle.HalfPi, 1),
-                SimpleMovementCommand.Move(10, 1),
-                SimpleMovementCommand.Rotate(Angle.HalfPi, 1)),true);
-            Tests["Square"] = new MovementTestBase(LocationTest(0, 0, 0,
-                SimpleMovementCommand.Move(10, 1),
-                SimpleMovementCommand.Rotate(Angle.HalfPi, 1),
-                SimpleMovementCommand.Move(10, 1),
-                SimpleMovementCommand.Rotate(Angle.HalfPi, 1),
-                SimpleMovementCommand.Move(10, 1),
-                SimpleMovementCommand.Rotate(Angle.HalfPi, 1),
-                SimpleMovementCommand.Move(10, 1),
-                SimpleMovementCommand.Rotate(Angle.HalfPi, 1)));
-			Tests["RotateRect"] = new MovementTestBase(LocationTest(0, 0, 90, SimpleMovementCommand.Rotate(Angle.HalfPi, 1)),true);
-            Tests["Rotate"] = new MovementTestBase(LocationTest(0, 0, 90, SimpleMovementCommand.Rotate(Angle.HalfPi, 1)));
+            logic.Tests["Forward"] = new MovementTestBase(LocationTest(10,0, 0, rules.Move(10)));
+            logic.Tests["Backward"] = new MovementTestBase(LocationTest(-10, 0, 0, rules.Move(-10)));
+            logic.Tests["ForwardRect"] = new MovementTestBase(LocationTest(10, 0, 0, rules.Move(10)), true);
+            logic.Tests["BackwardRect"] = new MovementTestBase(LocationTest(-10, 0, 0, rules.Move(-10)), true);
+            logic.Tests["SquareRect"] = new MovementTestBase(LocationTest(0, 0, 0,
+                rules.Move(10),
+                rules.Rotate(Angle.HalfPi),
+                rules.Move(10),
+                rules.Rotate(Angle.HalfPi),
+                rules.Move(10),
+                rules.Rotate(Angle.HalfPi),
+                rules.Move(10),
+                rules.Rotate(Angle.HalfPi)),true);
+            logic.Tests["Square"] = new MovementTestBase(LocationTest(0, 0, 0,
+                rules.Move(10),
+                rules.Rotate(Angle.HalfPi),
+                rules.Move(10),
+                rules.Rotate(Angle.HalfPi),
+                rules.Move(10),
+                rules.Rotate(Angle.HalfPi),
+                rules.Move(10),
+                rules.Rotate(Angle.HalfPi)));
+			logic.Tests["RotateRect"] = new MovementTestBase(LocationTest(0, 0, 90, rules.Rotate(Angle.HalfPi)),true);
+            logic.Tests["Rotate"] = new MovementTestBase(LocationTest(0, 0, 90, rules.Rotate(Angle.HalfPi)));
             //для AlignmentRect пришлось увеличить delta на проверке угла поворота до 0,005
-            Tests["AlignmentRect"] = new MovementTestBase(LocationTest(25.355,17.357,Angle.HalfPi.Grad,
-                SimpleMovementCommand.Move(-10,1),
-                SimpleMovementCommand.Rotate(Angle.HalfPi/2,1),
-                SimpleMovementCommand.Move(50,1)),true);
-            Tests["Speed"] = new MovementTestBase(LocationTest(50, 0, 0,
-                SimpleMovementCommand.Move(100000, 1)));
-            Tests["RotateSpeed"] = new MovementTestBase(LocationTest(0, 0, 0,
-                SimpleMovementCommand.Rotate(Angle.Pi*10, 4)));
-            Tests["SpeedRect"] = new MovementTestBase(LocationTest(50, 0, 0,
-                SimpleMovementCommand.Move(100000, 1)), true);
-            Tests["RotateSpeedRect"] = new MovementTestBase(LocationTest(0, 0, 0,
-                SimpleMovementCommand.Rotate(Angle.Pi * 10, 4)), true);
-            Tests["FuckTheBoxRect"] = new MovementTestBase(LocationTest(100, 0, 0,
-                SimpleMovementCommand.Move(50, 2)), true, true); //думаю что тест не проходит из-за физики, поэтому не баг а фича
-            Tests["FuckTheBox"] = new MovementTestBase(LocationTest(100, 0, 0,
-                SimpleMovementCommand.Move(50, 2)), false, true); //тот же тест только с цилиндром
-            Tests["Exit"] = new MovementTestBase(
+            logic.Tests["AlignmentRect"] = new MovementTestBase(LocationTest(25.355,17.357,Angle.HalfPi.Grad,
+                rules.Move(-10),
+                rules.Rotate(Angle.HalfPi/2),
+                rules.Move(50)),true);
+            logic.Tests["Speed"] = new MovementTestBase(LocationTest(50, 0, 0,
+                rules.MoveWithVelocityForTime(100000, 1)));
+            logic.Tests["RotateSpeed"] = new MovementTestBase(LocationTest(0, 0, 0,
+                rules.RotateWithVelocityForTime(Angle.Pi*10, 4)));
+            logic.Tests["FuckTheBoxRect"] = new MovementTestBase(LocationTest(100, 0, 0,
+                rules.Move(100)), true, true); //думаю что тест не проходит из-за физики, поэтому не баг а фича
+            logic.Tests["FuckTheBox"] = new MovementTestBase(LocationTest(100, 0, 0,
+                rules.Move(100)), false, true); //тот же тест только с цилиндром
+            logic.Tests["Exit"] = new MovementTestBase(
                 (client, asserter, world) =>
                 {
-                    var move = LocationTest(10, 0, 0, SimpleMovementCommand.Move(10, 1));
+                    var move = LocationTest(10, 0, 0, rules.Move(10));
                     move(client, asserter, world);
                     client.Exit();
                 });

@@ -23,11 +23,38 @@ namespace CVARC.V2
 			return new TCommand { SimpleMovement = SimpleMovement.MoveWithVelocity(length, factory.LinearVelocityLimit) };
 		}
 
+        public static TCommand MoveWithVelocityForTime<TCommand>(this ISimpleMovementRules<TCommand> factory, double velocity, double time)
+            where TCommand : ISimpleMovementCommand, new()
+        {
+            return new TCommand { SimpleMovement = SimpleMovement.Move(velocity, time) };
+        }
+
+        public static TCommand MovePathWithVelocity<TCommand>(this ISimpleMovementRules<TCommand> factory, double path, double velocity)
+            where TCommand : ISimpleMovementCommand, new()
+        {
+            return new TCommand { SimpleMovement = SimpleMovement.MoveWithVelocity(path, velocity) };
+        }
+
 		public static TCommand Rotate<TCommand>(this ISimpleMovementRules<TCommand> factory, Angle angle)
 			where TCommand : ISimpleMovementCommand, new()
 		{
 			return new TCommand { SimpleMovement = SimpleMovement.RotateWithVelocity(angle, factory.AngularVelocityLimit) };
 		}
+
+        public static TCommand RotateWithVelocityForTime<TCommand>(this ISimpleMovementRules<TCommand> factory, Angle velocity, double time)
+            where TCommand : ISimpleMovementCommand, new()
+        {
+            return new TCommand { SimpleMovement = SimpleMovement.Rotate(velocity, time) };
+        }
+
+        public static TCommand RotateAngleWithVelocity<TCommand>(this ISimpleMovementRules<TCommand> factory, Angle angle, Angle velocity)
+            where TCommand : ISimpleMovementCommand, new()
+        {
+            return new TCommand { SimpleMovement = SimpleMovement.RotateWithVelocity(angle, velocity) };
+        }
+
+
+
 
 		public static void AddSimpleMovementKeys<TCommand>(this ISimpleMovementRules<TCommand> factory, KeyboardController<TCommand> pool, string controllerId)
 			where TCommand : ISimpleMovementCommand, new()

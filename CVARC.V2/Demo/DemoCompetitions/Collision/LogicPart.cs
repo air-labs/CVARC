@@ -3,40 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CVARC.V2;
-using CVARC.V2.SimpleMovement;
 
 namespace Demo.Collision
 {
-    public partial class CollisionLogicPart : LogicPart<
-                                                       CollisionWorld,
-                                                       SimpleMovementTwoPlayersKeyboardControllerPool,
-                                                       CollisionRobot,
-                                                       SimpleMovementPreprocessor,
-                                                       NetworkController<SimpleMovementCommand>,
-                                                       MovementWorldState
-
-                                                >
+    public partial class CollisionLogicPartHelper : LogicPartHelper
     {
-        public CollisionLogicPart()
-            : base(TwoPlayersId.Ids)
+
+
+        public override LogicPart Create()
         {
-            Bots["Forward"] = () => new PushingBot(false, true);
-            Bots["Backward"] = () => new PushingBot(false, false);
-            Bots["Detail"] = () => new PushingBot(true, true);
-            LoadTests();
-        }
-        static Settings GetDefaultSettings()
-        {
-            return new Settings
-            {
-                TimeLimit = double.PositiveInfinity,
-                OperationalTimeLimit = double.PositiveInfinity,
-                Controllers = 
-                {
-                    new ControllerSettings { ControllerId=TwoPlayersId.Left, Name="Bot1", Type= ControllerType.Bot }
-                }
-            };
+            var data = MovementLogicPartHelper.CreateWorldFactory();
+            var rules = data.Item1;
+            var logicPart = data.Item2;
+
+            logicPart.Bots["Stand"] = () => new Bot<MoveAndGripCommand>(z => rules.Stand(1));
+            logicPart.Bots["Grip"] = () => new Bot<MoveAndGripCommand>(z => z == 0 ? rules.Grip() : rules.Stand(1));
+
+            logicPart.Actors[TwoPlayersId.Left] = ActorFactory.FromRobot(new InteractionRobot(), rules);
+            logicPart.Actors[TwoPlayersId.Right] = ActorFactory.FromRobot(new InteractionRobot(), rules);
+
+            LoadTests(logicPart, rules);
+            return logicPart;
         }
     }
-
 }

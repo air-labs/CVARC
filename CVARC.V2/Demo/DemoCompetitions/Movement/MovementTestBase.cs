@@ -1,5 +1,4 @@
 ﻿using CVARC.V2;
-using CVARC.V2.SimpleMovement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +6,9 @@ using System.Text;
 
 namespace Demo
 {
-    public delegate void MovementTestEntry(CvarcClient<SensorsData, SimpleMovementCommand> client, MovementWorld world, IAsserter asserter);
+    public delegate void MovementTestEntry(CvarcClient<SensorsData, MoveAndGripCommand> client, MovementWorld world, IAsserter asserter);
 
-    public class MovementTestBase : DelegatedCvarcTest<SensorsData,SimpleMovementCommand,MovementWorld,MovementWorldState>
+    public class MovementTestBase : DelegatedCvarcTest<SensorsData, MoveAndGripCommand, MovementWorld, MovementWorldState>
     {
 
 		
@@ -21,7 +20,7 @@ namespace Demo
                     TimeLimit = 10,
                     Controllers = new List<ControllerSettings> 
                     {
-                        new ControllerSettings  { ControllerId=MovementLogicPart.ControllerId, Name="This", Type= ControllerType.Client}
+                        new ControllerSettings  { ControllerId=TwoPlayersId.Left, Name="This", Type= ControllerType.Client}
                     }
             };
         }

@@ -1,5 +1,4 @@
 ﻿using CVARC.V2;
-using CVARC.V2.SimpleMovement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +6,9 @@ using System.Text;
 
 namespace Demo
 {
-    public delegate void InteractionTestEntry(CvarcClient<InteractionSensorData, SimpleMovementCommand> client, MovementWorld world, IAsserter asserter);
+    public delegate void InteractionTestEntry(CvarcClient<InteractionSensorData, MoveAndGripCommand> client, MovementWorld world, IAsserter asserter);
 
-    public class InteractionTestBase : DelegatedCvarcTest<InteractionSensorData, SimpleMovementCommand, MovementWorld, MovementWorldState>
+    public class InteractionTestBase : DelegatedCvarcTest<InteractionSensorData, MoveAndGripCommand, MovementWorld, MovementWorldState>
     {
         public override SettingsProposal GetSettings()
         {

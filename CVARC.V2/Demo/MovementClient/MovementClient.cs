@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Threading;
 using AIRLab.Mathematics;
 using CVARC.V2;
-using CVARC.V2.SimpleMovement;
 using Demo;
 namespace CameraClient
 {
@@ -14,7 +13,7 @@ namespace CameraClient
 
         static void Control(int port)
         {
-            var client = new CvarcClient<object, SimpleMovementCommand>();
+            var client = new CvarcClient<object, MoveAndGripCommand>();
             client.Configurate(port, new ConfigurationProposal
             {
                 LoadingData = new LoadingData { AssemblyName = "Demo", Level = "Movement" },
@@ -27,8 +26,9 @@ namespace CameraClient
                       }
                 }
             }, new MovementWorldState());
-            client.Act(SimpleMovementCommand.Move(10, 1));
-            client.Act(SimpleMovementCommand.Rotate(Angle.Pi, 1));
+            var rules = new MoveAndGripRules();
+            client.Act(rules.Move(10));
+            client.Act(rules.Rotate(Angle.Pi));
             client.Exit();
         }
 

@@ -10,7 +10,7 @@ namespace Demo.KroR
     public class Movement : Competitions
     {
         public Movement()
-            : base(new MovementLogicPart(), new KroREnginePart(), new MovementManagerPart())
+            : base(new MovementLogicPartHelper(), new KroREnginePart(), new MovementManagerPart())
         { }
     }
 }

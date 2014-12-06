@@ -4,16 +4,15 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using AIRLab.Mathematics;
-using CVARC.V2.SimpleMovement;
 using CVARC.V2;
 
 namespace Demo
 {
-    partial class InteractionLogicPart
+    partial class InteractionLogicPartHelper
     {
 
 
-        InteractionTestEntry InteractionTest(bool flag, params SimpleMovementCommand[] command)
+        InteractionTestEntry InteractionTest(bool flag, params MoveAndGripCommand[] command)
         {
             return (client, world, asserter) =>
             {
@@ -26,32 +25,32 @@ namespace Demo
         }
 
 
-        void LoadTests()
+        void LoadTests(LogicPart logicPart, MoveAndGripRules rules)
         {
 
-            Tests["Grip"] = new InteractionTestBase(InteractionTest(true,
-                SimpleMovementCommand.Rotate(-Angle.HalfPi,1),
-                SimpleMovementCommand.Move(15,1),
-                SimpleMovementCommand.Action("Grip"),
-                SimpleMovementCommand.Move(-10,1)), true);
-            Tests["GripThroughWall"] = new InteractionTestBase(InteractionTest(false,
-                SimpleMovementCommand.Rotate(Angle.HalfPi,1),
-                SimpleMovementCommand.Move(50,1),
-                SimpleMovementCommand.Action("Grip"),
-                SimpleMovementCommand.Move(-50,1)), true);
-            Tests["Release"] = new InteractionTestBase(InteractionTest(false,
-                SimpleMovementCommand.Rotate(Angle.Pi,2),
-                SimpleMovementCommand.Move(15,1),
-                SimpleMovementCommand.Action("Grip"),
-                SimpleMovementCommand.Move(-50,1),
-                SimpleMovementCommand.Action("Release"),
-                SimpleMovementCommand.Rotate(Angle.Pi, 1)), true);
-            Tests["GripUnGripable"] = new InteractionTestBase(InteractionTest(false,
-                SimpleMovementCommand.Move(25,1),
-                SimpleMovementCommand.Rotate(Angle.HalfPi,1),
-                SimpleMovementCommand.Move(25, 1),
-                SimpleMovementCommand.Action("Grip"),
-                SimpleMovementCommand.Move(-25, 1)), true);
+            logicPart.Tests["Grip"] = new InteractionTestBase(InteractionTest(true,
+                rules.Rotate(-Angle.HalfPi),
+                rules.Move(15),
+                rules.Grip(),
+                rules.Move(-10)), true);
+            logicPart.Tests["GripThroughWall"] = new InteractionTestBase(InteractionTest(false,
+                rules.Rotate(Angle.HalfPi),
+                rules.Move(50),
+                rules.Grip(),
+                rules.Move(-50)), true);
+            logicPart.Tests["Release"] = new InteractionTestBase(InteractionTest(false,
+                rules.Rotate(Angle.Pi*2),
+                rules.Move(15),
+                rules.Grip(),
+                rules.Move(-50),
+                rules.Release(),
+                rules.Rotate(Angle.Pi)), true);
+            logicPart.Tests["GripUnGripable"] = new InteractionTestBase(InteractionTest(false,
+                rules.Move(25),
+                rules.Rotate(Angle.HalfPi),
+                rules.Move(25),
+                rules.Grip(),
+                rules.Move(-25)), true);
         }
     }
 }

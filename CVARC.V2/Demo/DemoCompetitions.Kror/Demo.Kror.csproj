@@ -46,10 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Camera\ActorManager.cs" />
-    <Compile Include="Camera\Camera.cs" />
-    <Compile Include="Camera\ManagerPart.cs" />
-    <Compile Include="Camera\WorldManager.cs" />
     <Compile Include="Collision\ActorManager.cs" />
     <Compile Include="Collision\Collision.cs" />
     <Compile Include="Collision\CollisionManagerPart.cs" />
@@ -62,7 +58,6 @@
     <Compile Include="Movement\WorldManager.cs" />
     <Compile Include="Movement\Movement.cs" />
     <Compile Include="Movement\ManagerPart.cs" />
-    <Compile Include="MultiControl\MultiControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

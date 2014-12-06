@@ -2,42 +2,44 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AIRLab;
 using CVARC.V2;
-using CVARC.V2.SimpleMovement;
 
 namespace Demo
 {
-    public partial class MovementLogicPart :  LogicPart<
-                                                           MovementWorld,
-                                                           SimpleMovementTwoPlayersKeyboardControllerPool,
-                                                           MovementRobot,
-                                                           SimpleMovementPreprocessor,
-                                                           NetworkController<SimpleMovementCommand>,
-                                                           MovementWorldState
-                                                >
+    public partial class MovementLogicPartHelper : LogicPartHelper
     {
-        public MovementLogicPart()
-            : base(new[] { ControllerId })
+
+        public static Tuple<MoveAndGripRules,LogicPart> CreateWorldFactory()
         {
-            Bots["Square"]=()=>new SquareWalkingBot(50);
-            Bots["Random"]=()=>new RandomWalkingBot(50);
+            var rules = new MoveAndGripRules();
 
-            PredefinedStatesNames.Add("Empty");
+            var logicPart = new LogicPart();
+            logicPart.CreateWorld = () => new MovementWorld();
+            logicPart.CreateDefaultSettings = () => new Settings { OperationalTimeLimit = 1, TimeLimit = 10 };
+            logicPart.CreateWorldState = stateName => new MovementWorldState();
+            logicPart.PredefinedWorldStates.Add("Empty");
+            logicPart.WorldStateType = typeof(MovementWorldState);
 
-            LoadTests();
+            return new Tuple<MoveAndGripRules, LogicPart>(rules, logicPart);
         }
-        public const string ControllerId = "Left";
-        static Settings GetDefaultSettings()
+
+        public override LogicPart Create()
         {
-            return new Settings
-            {
-                TimeLimit = double.PositiveInfinity,
-                OperationalTimeLimit = 1,
-                Controllers = 
-                {
-                    new ControllerSettings { ControllerId=ControllerId, Name="Square", Type= ControllerType.Bot },
-                }
-            };
+            var data = CreateWorldFactory();
+            var rules = data.Item1;
+            var logicPart = data.Item2;
+
+            var actorFactory = ActorFactory.FromRobot(new MoveAndGripRobot<IActorManager, MovementWorld, SensorsData>(), rules);
+            logicPart.Actors[TwoPlayersId.Left] = actorFactory;
+            
+            logicPart.Bots["Stand"] = () => rules.CreateStandingBot();
+            logicPart.Bots["Square"] = () => rules.CreateSquareWalkingBot(50);
+            logicPart.Bots["Random"] = () => rules.CreateRandomWalkingBot(50);
+
+            LoadTests(logicPart, rules);
+
+            return logicPart;
         }
     }
 }

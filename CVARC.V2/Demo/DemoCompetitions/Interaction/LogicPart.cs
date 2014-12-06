@@ -3,37 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CVARC.V2;
-using CVARC.V2.SimpleMovement;
 
 namespace Demo
 {
-    public partial class InteractionLogicPart :  LogicPart<
-                                                           MovementWorld,
-                                                           SimpleMovementTwoPlayersKeyboardControllerPool,
-                                                           InteractionRobot<InteractionSensorData>,
-                                                           SimpleMovementPreprocessor,
-                                                           NetworkController<SimpleMovementCommand>,
-                                                           MovementWorldState
-                                                    >
+    public partial class InteractionLogicPartHelper : LogicPartHelper
     {
-        public InteractionLogicPart()
-            : base(new [] {"Left"})
+
+
+
+        public override LogicPart Create()
         {
-            Bots["Bot"]=()=>new MovingForwardBot();
-            LoadTests();
+            var data = MovementLogicPartHelper.CreateWorldFactory();
+            var rules = data.Item1;
+            var logicPart = data.Item2;
+
+            logicPart.Actors[TwoPlayersId.Left] = ActorFactory.FromRobot(new InteractionRobot(), rules);
+
+            LoadTests(logicPart, rules);
+
+            return logicPart;
         }
-        static Settings GetDefaultSettings()
-        {
-            return new Settings
-            {
-                TimeLimit = double.PositiveInfinity,
-                OperationalTimeLimit = double.PositiveInfinity,
-                Controllers = 
-                {
-                    new ControllerSettings { ControllerId=TwoPlayersId.Left, Name="Bot", Type= ControllerType.Bot }
-                }
-            };
-        }
-      
     }
 }

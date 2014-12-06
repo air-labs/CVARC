@@ -11,7 +11,7 @@ namespace Demo.KroR
     public class Collision : Competitions
     {
         public Collision()
-            : base(new CollisionLogicPart(), new KroREnginePart(), new CollisionManagerPart())
+            : base(new CollisionLogicPartHelper(), new KroREnginePart(), new CollisionManagerPart())
         { }
     }
 }

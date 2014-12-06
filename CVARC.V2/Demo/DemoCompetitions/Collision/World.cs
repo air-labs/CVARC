@@ -16,7 +16,7 @@ namespace Demo
             var detector = new CollisionDetector(this);
             detector.FindControllableObject = side =>
             {
-                var actor = Actors.OfType<CollisionRobot>().Where(z => z.ObjectId == side.ObjectId || Objects[z.ControllerId]==side.ObjectId).FirstOrDefault();
+                var actor = Actors.OfType<InteractionRobot>().Where(z => z.ObjectId == side.ObjectId || Objects[z.ControllerId]==side.ObjectId).FirstOrDefault();
                 if (actor != null)
                 {
                     side.ControlledObjectId = actor.ObjectId;

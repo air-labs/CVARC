@@ -11,7 +11,7 @@ using CVARC.V2;
 
 namespace Demo
 {
-    public class CollisionActorManager : ActorManager, ICollisionActorManager
+    public class CollisionActorManager : ActorManager
     {
 
         
