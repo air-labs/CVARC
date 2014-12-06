@@ -41,11 +41,7 @@ namespace Demo.Tests
             RunTest();
         }
 
-        [Test]
-        public void Exit()
-        {
-            RunTest();
-        }
+     
 
         [Test]
         public void Square()

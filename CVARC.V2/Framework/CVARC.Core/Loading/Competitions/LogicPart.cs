@@ -23,6 +23,10 @@ namespace CVARC.V2
         public Func<IWorld> CreateWorld { get; set; }
 
         public Type WorldStateType { get; set; }
+
+        public LogicPart()
+        {
+        }
     }
 
     

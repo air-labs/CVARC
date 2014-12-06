@@ -10,7 +10,7 @@ namespace Demo.Tests
 	{
 		public static void Main()
 		{
-			new InteractionTests().Grip();
+            new MovementTests().Forward();
 		}
 	}
 }

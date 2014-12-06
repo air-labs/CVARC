@@ -18,6 +18,7 @@ namespace CVARC.V2
             SimpleMovementUnit = new SimpleMovementUnit(this);
             GripperUnit = new GripperUnit(this);
         }
+
         public override IEnumerable<IUnit<MoveAndGripCommand>> Units
         {
             get
