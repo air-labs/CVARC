@@ -14,7 +14,11 @@ namespace CVARC.V2
         public static UnitResponse Accepted(double time) { return new UnitResponse { Processed=true, RequestedTime = time }; }
     }
 
-    public interface IUnit<in TCommand>
+    public interface IUnit
+    {
+    }
+
+    public interface IUnit<in TCommand> : IUnit
     {
         UnitResponse ProcessCommand(TCommand command);
     }

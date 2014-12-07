@@ -8,6 +8,13 @@ namespace CVARC.V2
 {
     public class GripSensor : Sensor<bool,IGrippableRobot>
     {
+        GripperUnit gripper;
+
+        public override void Initialize(IActor actor)
+        {
+            base.Initialize(actor);
+        }
+
         public override bool Measure()
         {
 			return Actor.Gripper.GrippedObjectId != null;

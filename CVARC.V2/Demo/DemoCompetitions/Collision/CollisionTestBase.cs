@@ -17,7 +17,7 @@ namespace Demo
                 Controllers = new List<ControllerSettings> 
                     {
                         new ControllerSettings  { ControllerId="Left", Name="This", Type= ControllerType.Client},
-                        new ControllerSettings  { ControllerId="Right", Name="Detail", Type= ControllerType.Bot}
+                        new ControllerSettings  { ControllerId="Right", Name="Grip", Type= ControllerType.Bot}
                     }
             };
         }

@@ -6,7 +6,10 @@ using AIRLab;
 
 namespace CVARC.V2
 {
-    public abstract class Robot<TActorManager,TWorld,TSensorsData,TCommand,TRules> : Actor<TActorManager,TWorld, TCommand, TRules>
+
+
+    public abstract class Robot<TActorManager,TWorld,TSensorsData,TCommand,TRules> :
+                    Actor<TActorManager,TWorld, TCommand, TRules>
         where TActorManager : IActorManager
         where TWorld : IWorld
         where TSensorsData : new()

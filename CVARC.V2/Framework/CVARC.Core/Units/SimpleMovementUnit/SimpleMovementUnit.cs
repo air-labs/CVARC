@@ -27,12 +27,12 @@ namespace CVARC.V2
 
             var linear = Math.Sign(c.LinearVelocity) * Math.Min(Math.Abs(c.LinearVelocity), rules.LinearVelocityLimit);
             var angular = Math.Sign(c.AngularVelocity.Radian) * Math.Min(Math.Abs(c.AngularVelocity.Radian), rules.AngularVelocityLimit.Radian);
-
+            var angle = location.Yaw.Radian;
             if (linear != 0) angular = 0;
 
             var requestedSpeed = new Frame3D(
-                linear * Math.Cos(angular),
-                linear * Math.Sin(angular), 
+                linear * Math.Cos(angle),
+                linear * Math.Sin(angle), 
                 0, 
                 Angle.Zero, 
                 Angle.FromRad(angular),
