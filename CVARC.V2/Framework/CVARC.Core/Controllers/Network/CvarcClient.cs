@@ -39,6 +39,8 @@ namespace CVARC.V2
             var read = new List<byte>();
             while (true)
             {
+				if (externallyClosed)
+					throw new Exception("The connection was terminated");
                 var length = client.Client.Receive(buffer);
                 if (length == 0)
                 {
@@ -52,8 +54,11 @@ namespace CVARC.V2
             return read.ToArray();
         }
 
+		bool externallyClosed = false;
+
         public void Close()
         {
+			externallyClosed = true;
             client.Close();
         }
     }
