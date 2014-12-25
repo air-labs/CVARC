@@ -67,9 +67,9 @@
       <Project>{1c435b15-949f-420b-b5d5-f433439fb69c}</Project>
       <Name>CVARC.KroR</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\CVARC.V2\Framework\CVARC\CVARC.csproj">
+    <ProjectReference Include="..\..\Framework\CVARC\CVARC.csproj">
       <Project>{570f2ccc-cb76-4a27-b1ca-d38888d34a5e}</Project>
-      <Name>CVARC %28Framework\CVARC%29</Name>
+      <Name>CVARC</Name>
     </ProjectReference>
     <ProjectReference Include="..\DemoCompetitions\Demo.General.csproj">
       <Project>{ce636d44-57a4-48fa-a178-88ca2c3e9dd4}</Project>

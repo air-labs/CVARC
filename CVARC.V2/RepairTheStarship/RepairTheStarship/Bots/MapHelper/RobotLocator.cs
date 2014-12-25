@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AIRLab.Mathematics;
 using CVARC.V2;
-using CVARC.V2.SimpleMovement;
+using CVARC.V2;
 using RepairTheStarship;
 using RepairTheStarship.Sensors;
 
@@ -33,26 +33,26 @@ namespace RepairTheStarship.MapBuilder
             realRobotAngle = map.CurrentPosition.Angle;
         }
 
-        private IEnumerable<SimpleMovementCommand> GetCommandsByDirectionInternal(Direction direction)
+        private IEnumerable<MoveAndGripCommand> GetCommandsByDirectionInternal(Direction direction)
         {
             currentDirection = direction;
             yield return CorrectRobotPosition();
             var directionAngle = direction.ToAngle();
-            yield return world.CommandHelper.Rotate(Normilize(Angle.FromGrad(directionAngle - expectedRobotAngle)));
+            yield return RTSRules.Current.Rotate(Normilize(Angle.FromGrad(directionAngle - expectedRobotAngle)));
             expectedRobotAngle = currentDirection.ToAngle();
             yield return CorrectRobotPosition();
-            yield return world.CommandHelper.Move(50);
+            yield return RTSRules.Current.Move(50);
         }
 
-        public IEnumerable<SimpleMovementCommand> GetCommandsByDirection(Direction direction)
+        public IEnumerable<MoveAndGripCommand> GetCommandsByDirection(Direction direction)
         {
-            return GetCommandsByDirectionInternal(direction).Where(x => (int)x.LinearVelocity != 0 || Math.Abs(x.AngularVelocity.Grad) > 0.01);
+            return GetCommandsByDirectionInternal(direction).Where(x => (int)x.SimpleMovement.LinearVelocity != 0 || Math.Abs(x.SimpleMovement.AngularVelocity.Grad) > 0.01);
         }
 
-        private SimpleMovementCommand CorrectRobotPosition()
+        private MoveAndGripCommand CorrectRobotPosition()
         {
             var angleError = expectedRobotAngle - realRobotAngle;
-            return world.CommandHelper.Rotate(Normilize(Angle.FromGrad(angleError)));
+            return RTSRules.Current.Rotate(Normilize(Angle.FromGrad(angleError)));
         }
 
         public Angle Normilize(Angle angle)

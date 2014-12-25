@@ -76,7 +76,7 @@
     </ProjectReference>
     <ProjectReference Include="..\CVARC.V2\Framework\CVARC\CVARC.csproj">
       <Project>{570f2ccc-cb76-4a27-b1ca-d38888d34a5e}</Project>
-      <Name>CVARC %28Framework\CVARC%29</Name>
+      <Name>CVARC</Name>
     </ProjectReference>
     <ProjectReference Include="..\CVARC.V2\RepairTheStarship\RepairTheStarship\RepairTheStarship.General.csproj">
       <Project>{11b6a7c1-e6aa-4f81-9710-ec84069ca858}</Project>

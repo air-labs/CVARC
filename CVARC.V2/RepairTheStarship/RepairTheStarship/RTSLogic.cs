@@ -3,42 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CVARC.V2;
-using CVARC.V2.SimpleMovement;
 using RepairTheStarship.Bots;
 
 namespace RepairTheStarship
 {
-    public class RTSLogicPart<TSensorData> : LogicPart<
-                                                           RTSWorld,
-                                                           RTSKeyboardControllerPool,
-                                                           RTSRobot<TSensorData>,
-                                                           RTSCommandPreprocessor,
-                                                           NetworkController<SimpleMovementCommand> ,
-                                                           RTSWorldState
-                                                       >
-        where TSensorData : new()
+    public class RTSLogicPartHepler<TSensorsData> : LogicPartHelper
+		where TSensorsData : new()
     {
-        public RTSLogicPart() : base( TwoPlayersId.Ids )
-        {
-            Bots[RepairTheStarshipBots.Azura.ToString()] = () => new Azura();
-            Bots[RepairTheStarshipBots.Vaermina.ToString()] = () => new Vaermina();
-            Bots[RepairTheStarshipBots.MolagBal.ToString()] = () => new MolagBal();
-            Bots[RepairTheStarshipBots.Sanguine.ToString()] = () => new Sanguine();
-            Bots[RepairTheStarshipBots.None.ToString()] = () => new StandingBot();
+		       
+		public override LogicPart Create()
+		{
+			var rules = RTSRules.Current;
 
-            PredefinedStatesNames.AddRange(Enumerable.Range(0, 10).Select(z => z.ToString()));
-        }
+            var logicPart = new LogicPart();
+            logicPart.CreateWorld = () => new RTSWorld();
+            logicPart.CreateDefaultSettings = () => new Settings { OperationalTimeLimit = 1, TimeLimit = 10 };
+            logicPart.CreateWorldState = stateName => new RTSWorldState() { Seed=int.Parse(stateName) };
+            logicPart.PredefinedWorldStates.AddRange(Enumerable.Range(0,10).Select(z=>z.ToString()));
+            logicPart.WorldStateType = typeof(RTSWorldState);
 
-        public override Settings GetDefaultSettings()
-        {
-            return new Settings { OperationalTimeLimit = 1, TimeLimit = 90 };
-        }
+			var actorFactory = ActorFactory.FromRobot(new RTSRobot<TSensorsData>(), rules);
+            logicPart.Actors[TwoPlayersId.Left]=actorFactory;
+			logicPart.Actors[TwoPlayersId.Right]=actorFactory;
 
-        public override IWorldState CreatePredefinedState(string state)
-        {
-            return new RTSWorldState { Seed = int.Parse(state) };
-        }
+ 	
+            logicPart.Bots[RepairTheStarshipBots.Azura.ToString()] = () => new Azura();
+			logicPart.Bots[RepairTheStarshipBots.Vaermina.ToString()] = () => new Vaermina();
+			logicPart.Bots[RepairTheStarshipBots.MolagBal.ToString()] = () => new MolagBal();
+			logicPart.Bots[RepairTheStarshipBots.Sanguine.ToString()] = () => new Sanguine();
+			logicPart.Bots[RepairTheStarshipBots.None.ToString()] = () => rules.CreateStandingBot();
 
-
+			return logicPart;
+		}
     }
 }
