@@ -11,7 +11,7 @@ using CVARC.V2;
 
 namespace RepairTheStarship.KroR
 {
-    public class RTSActorManager : ActorManager<IRTSRobot>, IRTSActorManager
+    public class RTSActorManager : ActorManager<IActor>, IRTSActorManager
     {
 
         public void EffectOnCapture(string detailId)

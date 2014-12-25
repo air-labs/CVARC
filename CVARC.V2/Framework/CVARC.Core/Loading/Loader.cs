@@ -40,6 +40,11 @@ namespace CVARC.V2
 
         public Competitions GetCompetitions(string assemblyName, string level)
         {
+			if (!Levels.ContainsKey(assemblyName))
+				throw new Exception(string.Format("The competitions {0} were not found", assemblyName));
+			if (!Levels[assemblyName].ContainsKey(level))
+				throw new Exception(string.Format("The level {0} was not found in competitions {1}", level, assemblyName));
+
             return Levels[assemblyName][level]();
         }
         

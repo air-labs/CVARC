@@ -28,8 +28,8 @@ namespace RepairTheStarship
             detector.FindControllableObject = side =>
                 {
                     var robot = Actors
-                        .OfType<IRTSRobot>()
-                        .Where(z => z.ObjectId == side.ObjectId || z.GrippedObjectId == side.ObjectId)
+                        .OfType<IGrippableRobot>()
+                        .Where(z => z.ObjectId == side.ObjectId || z.Gripper.GrippedObjectId == side.ObjectId)
                         .FirstOrDefault();
                     if (robot != null)
                     {
