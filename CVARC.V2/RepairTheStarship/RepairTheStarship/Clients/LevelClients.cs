@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RepairTheStarship
 {
-    public class Level1Client : RTSClient<Level1SensorData>
+    public class Level1Client : RTSClient<FullMapSensorData>
     {
         public override string LevelName
         {
@@ -13,7 +13,7 @@ namespace RepairTheStarship
         }
     }
 
-    public class Level2Client : RTSClient<Level2SensorData>
+	public class Level2Client : RTSClient<FullMapSensorData>
     {
         public override string LevelName
         {
@@ -21,7 +21,7 @@ namespace RepairTheStarship
         }
     }
 
-    public class Level3Client : RTSClient<Level3SensorData>
+    public class Level3Client : RTSClient<LimitedMapSensorData>
     {
         public override string LevelName
         {

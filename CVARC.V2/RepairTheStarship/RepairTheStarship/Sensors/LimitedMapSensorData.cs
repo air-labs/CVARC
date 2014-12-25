@@ -8,11 +8,10 @@ using CVARC.V2;
 namespace RepairTheStarship
 {
     [DataContract]
-    public class Level2SensorData : Level1SensorData
+    public class LimitedMapSensorData : CommonSensorData
     {
         [DataMember]
-        [FromSensor(typeof(MapSensor))]
+        [FromSensor(typeof(MapSensorLimited))]
         public Map Map { get; set; }
-
     }
 }

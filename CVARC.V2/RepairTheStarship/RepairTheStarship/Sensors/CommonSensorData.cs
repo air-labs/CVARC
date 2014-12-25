@@ -8,7 +8,7 @@ using CVARC.V2;
 namespace RepairTheStarship
 {
     [DataContract]
-    public class Level1SensorData
+    public class CommonSensorData
     {
         [DataMember]
         [FromSensor(typeof(SelfLocationSensor))]

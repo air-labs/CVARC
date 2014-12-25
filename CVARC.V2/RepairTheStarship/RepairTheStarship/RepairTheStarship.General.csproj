@@ -76,11 +76,11 @@
     <Compile Include="Sensors\Map\Map.cs" />
     <Compile Include="Sensors\Map\MapSensor.cs" />
     <Compile Include="Sensors\Map\MapSensorLimited.cs" />
-    <Compile Include="Sensors\Level3SensorData.cs" />
-    <Compile Include="Sensors\Level2SensorData.cs" />
+    <Compile Include="Sensors\LimitedMapSensorData.cs" />
+    <Compile Include="Sensors\FullMapSensorData.cs" />
     <Compile Include="Sensors\Bots\MapItem.cs" />
     <Compile Include="Sensors\Bots\MapSensor.cs" />
-    <Compile Include="Sensors\Level1SensorData.cs" />
+    <Compile Include="Sensors\CommonSensorData.cs" />
     <Compile Include="Sensors\Map\WallMapData.cs" />
     <Compile Include="Sensors\LocationSensor.cs" />
     <Compile Include="World\RTSRules.cs" />

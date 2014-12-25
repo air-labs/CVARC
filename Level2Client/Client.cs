@@ -11,39 +11,39 @@ using System.Threading.Tasks;
 using RepairTheStarship;
 using System.Windows.Forms;
 
-namespace Level2Example
+namespace ClientExample
 {
     class Program
     {
 
-        static void PrintLocation(Level1SensorData sensors)
+        static void PrintLocation(CommonSensorData sensors)
         {
             var location = sensors.SelfLocation;
             Console.WriteLine("{0} {1}", location.X, location.Y);
 
         }
 
-        static Level2ClientForm form;
+        static ClientForm form;
 
         static void Control(int port)
         {
-            var client = new Level3Client();
-            client.Configurate(port, true);
-            client.Rotate(-90);
+            var client = new Level1Client();
+			client.SensorDataReceived += sensorData => form.ShowMap(sensorData.Map);
+			client.Configurate(port, true);
+			client.Rotate(-90);
             client.Move(100);
             client.Rotate(90);
             client.Move(100);
             for (int i = 0; i < 100; i++)
             {
-                var sensors = client.Rotate(10);
-                form.ShowMap(sensors.Map);
+                client.Rotate(10);
             }
             client.Exit();
         }
 
         static void Run(int port)
         {
-            form = new Level2ClientForm();
+            form = new ClientForm();
             new Action<int>(Control).BeginInvoke(port, null, null);
             Application.Run(form);
         }

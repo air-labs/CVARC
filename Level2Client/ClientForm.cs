@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using RepairTheStarship;
 
-namespace Level2Example
+namespace ClientExample
 {
-    class Level2ClientForm : Form
+    class ClientForm : Form
     {
-        float multiplier=2;
+        float multiplier=1;
 
         Map map;
 
-        public Level2ClientForm()
+        public ClientForm()
         {
-            ClientSize = new Size((int)(300 * multiplier), (int)(200 * multiplier));
+            ClientSize = new Size((int)(2*300 * multiplier), (int)(2*200 * multiplier));
         }
 
         Color DetailColor(DetailColor color)
