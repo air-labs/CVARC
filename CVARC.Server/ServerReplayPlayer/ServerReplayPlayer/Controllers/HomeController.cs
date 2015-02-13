@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Web.Mvc;
-using ServerReplayPlayer.Models;
+using ServerReplayPlayer.Logic;
 
 namespace ServerReplayPlayer.Controllers
 {

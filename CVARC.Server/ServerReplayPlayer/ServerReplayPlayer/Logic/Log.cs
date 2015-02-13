@@ -1,4 +1,4 @@
-﻿namespace ServerReplayPlayer.Models
+﻿namespace ServerReplayPlayer.Logic
 {
     public class Log
     {

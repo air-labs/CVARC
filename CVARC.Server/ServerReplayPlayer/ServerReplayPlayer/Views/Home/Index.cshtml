@@ -1,4 +1,4 @@
-﻿@model ServerReplayPlayer.Models.Log[]
+﻿@model ServerReplayPlayer.Logic.Log[]
 
 @{
     Layout = null;
@@ -18,6 +18,7 @@
         <script lang="text/javascript" src="Scripts/logic.js"></script>
     </head>
     <body onload="onload();" link="red" vlink="#0000ff" alink="#0000ff">
+        @Html.ActionLink("Загрузить клиент", "Index", "Replay")
         <div id="scene" style="width: 800px; height: 600px; position: absolute;" class="noselect"></div>
         <table id="info">
             <thead>
@@ -31,7 +32,7 @@
             @foreach (var a in Model)
             {
                 <tr>
-                    <td><a wantPlayReplay="true" href="#">@a.Name</a></td>
+                    <td><a wantPlayReplay="true" href="#" class="linkName">@a.Name</a></td>
                     <td>@a.Language</td>
                     <td>@a.Points</td>
                     <td>@a.Time</td>

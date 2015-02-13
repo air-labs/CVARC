@@ -58,10 +58,21 @@
     <Compile Include="Urls.cs" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< Updated upstream
     <ProjectReference Include="..\..\CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KR.csproj">
-      <Project>{13695795-F82C-48DF-86D7-EAE60259F845}</Project>
+      <Project>{13695795-f82c-48df-86d7-eae60259f845}</Project>
       <Name>CVARC.Engine.KR</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RepairTheStarship\RepairTheStarship.csproj">
+      <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
+      <Name>RepairTheStarship</Name>
+    </ProjectReference>
+=======
+    <ProjectReference Include="..\..\CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KroR.csproj">
+      <Project>{13695795-F82C-48DF-86D7-EAE60259F845}</Project>
+      <Name>CVARC.Engine.KroR</Name>
+    </ProjectReference>
+>>>>>>> Stashed changes
     <ProjectReference Include="..\..\CVARC.Engine\CVARC\CVARC.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
       <Name>CVARC</Name>

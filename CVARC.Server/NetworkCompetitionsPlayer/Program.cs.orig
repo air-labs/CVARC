@@ -21,9 +21,25 @@ namespace NetworkCompetitionsPlayer
         [STAThread]
         static void Main()
         {
+<<<<<<< Updated upstream
+            try
+            {
+                InitCompetition(helloPackage, competitionsName);
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                form = new TutorialForm(competitionsBundle.competitions);
+                new Thread(() => competitionsBundle.competitions.ProcessParticipants(realTime, 60 * 1000, participants))
+                {
+                    IsBackground = true
+                }.Start();
+                Application.Run(form);
+            }
+            catch (Exception e)
+=======
             var competitionsInfo = Client.SendRequest<CompetitionsInfoClient>(Urls.GetCompetitionsInfo);
             var unplayedMatchs = competitionsInfo.MatchResults.Where(x => !x.IsFinished()).ToArray();
             foreach (var unplayedMatch in unplayedMatchs)
+>>>>>>> Stashed changes
             {
                 var result = new MatchPlayer().Play(LevelName, GetPlayer(unplayedMatch.Player), GetPlayer(unplayedMatch.Player2));
                 Client.SendRequest(Urls.SaveMatchResult, result);
