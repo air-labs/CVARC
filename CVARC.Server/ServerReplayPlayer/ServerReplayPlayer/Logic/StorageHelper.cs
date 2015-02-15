@@ -1,16 +1,15 @@
 ﻿using System.IO;
-using System.Linq;
 using System.Web.Hosting;
 
 namespace ServerReplayPlayer.Logic
 {
     public class StorageHelper
     {
-        private readonly string baseFolder = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "App_Data");
+        private readonly string _baseFolder = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "App_Data");
 
         private string GetPath(string folder, string fileName)
         {
-            return Path.Combine(baseFolder, Path.Combine(folder, fileName));
+            return Path.Combine(_baseFolder, Path.Combine(folder, fileName));
         }
 
         private string GetPlayersPath(string player, string player2)
@@ -35,7 +34,7 @@ namespace ServerReplayPlayer.Logic
 
         public string[] GetPlayerFiles()
         {
-            return Directory.GetFiles(Path.Combine(baseFolder, "players"));
+            return Directory.GetFiles(Path.Combine(_baseFolder, "players"));
         }
     }
 }

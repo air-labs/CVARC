@@ -114,6 +114,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logic\Log.cs" />
+    <Compile Include="Logic\Provider.cs" />
     <Compile Include="Logic\Storage.cs" />
     <Compile Include="Logic\StorageHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

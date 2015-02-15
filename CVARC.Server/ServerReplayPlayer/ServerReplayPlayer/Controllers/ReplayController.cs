@@ -7,7 +7,7 @@ namespace ServerReplayPlayer.Controllers
 {
     public class ReplayController : Controller
     {
-        private readonly Storage storage = new Storage();
+        private readonly Provider _provider = new Provider();
 
         public ActionResult Index()
         {
@@ -19,7 +19,7 @@ namespace ServerReplayPlayer.Controllers
         {
             if (file != null && file.ContentLength > 0)
             {
-                Storage.AddPlayer(file);
+                Provider.AddPlayer(file);
             }
             return RedirectToAction("Index");
         }
@@ -27,19 +27,19 @@ namespace ServerReplayPlayer.Controllers
         [HttpPost]
         public ActionResult GetPlayer(string name)
         {
-            return Json(storage.GetPlayer(name));
+            return Json(_provider.GetPlayer(name));
         }
 
         [HttpPost]
         public JsonResult GetCompetitionsInfo()
         {
-            return Json(storage.GetCompetitionsInfo());
+            return Json(_provider.GetCompetitionsInfo());
         }
 
         [HttpPost]
         public void SaveMatchResult(MatchResultServer matchResult)
         {
-            storage.SaveMatchResult(matchResult);
+            _provider.SaveMatchResult(matchResult);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Web;
 using ServerReplayPlayer.Contracts;
 
@@ -9,57 +9,38 @@ namespace ServerReplayPlayer.Logic
     class Storage
     {
         private static readonly StorageHelper StorageHelper = new StorageHelper();
-
-        public static void AddPlayer(HttpPostedFileBase file)
+        
+        public void SavePlayerClient(string name, HttpPostedFileBase file)
         {
-            var name = Path.GetFileNameWithoutExtension(file.FileName) + ".zip";//todo по имени пользователя
-            file.SaveAs(StorageHelper.GetPlayerPath(name));
+            file.SaveAs(StorageHelper.GetPlayerPath(name) + ".zip");
         }
 
-        public PlayerServer GetPlayer(string name)
+        public byte[] ReadPlayerClient(string name)
         {
-            return new PlayerServer
-            {
-                Zip = File.ReadAllBytes(StorageHelper.GetPlayerPath(name) + ".zip"),
-                Name = name
-            };
+            return File.ReadAllBytes(StorageHelper.GetPlayerPath(name) + ".zip");
         }
 
-        public CompetitionsInfoServer GetCompetitionsInfo()
+        public string[] GetPlayerNames()
         {
-            var players = StorageHelper.GetPlayerFiles().Select(Path.GetFileNameWithoutExtension).ToArray();
-            return new CompetitionsInfoServer
-            {
-                Players = players,
-                MatchResults = GetAllMatches(players).ToArray()
-            };
+            return StorageHelper.GetPlayerFiles().Select(Path.GetFileNameWithoutExtension).ToArray();
         }
 
-        private IEnumerable<MatchResultServer> GetAllMatches(string[] players)
+        public MatchResultServer GetMatchResult(string player, string player2)
         {
-            foreach (var player in players)
+            var resultPath = StorageHelper.GetMatchResultPath(player, player2);
+            if (File.Exists(resultPath))
             {
-                foreach (var player2 in players)
-                {
-                    if (player == player2)
-                        continue;
-                    var resultPath = StorageHelper.GetMatchResultPath(player, player2);
-                    if (File.Exists(resultPath))
-                        yield return new MatchResultServer(File.ReadAllLines(resultPath));
-                    yield return new MatchResultServer(player, player2);
-                }
+                var file = File.Open(resultPath, FileMode.Open);
+                return (MatchResultServer)new BinaryFormatter().Deserialize(file);
             }
+            return new MatchResultServer(player, player2);
         }
 
-        public void SaveMatchResult(MatchResultServer matchResult)
+        public void SaveMatchResult(MatchResultServer result)
         {
-            File.WriteAllBytes(StorageHelper.GetReplayPath(matchResult.Player, matchResult.Player2), matchResult.Replay);
-            File.WriteAllLines(StorageHelper.GetMatchResultPath(matchResult.Player, matchResult.Player2), new[]
-            {
-                matchResult.Player,
-                matchResult.Player2,
-                //todo
-            });
+            var resultPath = StorageHelper.GetMatchResultPath(result.Player, result.Player2);
+            var file = File.Create(resultPath);
+            new BinaryFormatter().Serialize(file, result);
         }
     }
 }
