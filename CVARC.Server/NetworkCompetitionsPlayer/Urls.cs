@@ -1,10 +1,13 @@
-﻿namespace NetworkCompetitionsPlayer
+﻿using System.Configuration;
+
+namespace NetworkCompetitionsPlayer
 {
     public static class Urls
     {
-        private const string Url = "http://localhost:9898/Replay/";
-        public const string GetPlayer = Url + "GetPlayer";
-        public const string SaveMatchResult = Url + "SaveMatchResult";
-        public const string GetCompetitionsInfo = Url + "GetCompetitionsInfo";
+        private static readonly string Port = ConfigurationManager.AppSettings["portNumber"];
+        private static readonly string Url = string.Format("http://localhost:{0}/Replay/", Port);
+        public static readonly string GetPlayer = Url + "GetPlayer";
+        public static string SaveMatchResult = Url + "SaveMatchResult";
+        public static readonly string GetCompetitionsInfo = Url + "GetCompetitionsInfo";
     }
 }
