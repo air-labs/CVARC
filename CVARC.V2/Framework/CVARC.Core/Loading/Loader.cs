@@ -121,7 +121,8 @@ namespace CVARC.V2
             data.World = CreateWorld(configuration, factory, data.WorldState);
             data.World.Exit += () =>
                 {
-                    data.Close();
+					if (data!=null)
+						data.Close();
                 };
         }
 

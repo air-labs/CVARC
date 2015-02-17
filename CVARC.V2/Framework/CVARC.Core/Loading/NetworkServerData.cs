@@ -46,7 +46,7 @@ namespace CVARC.V2
         public void Close()
         {
             if (!ServerLoaded) return;
-            StopServer();
+            if (StopServer!=null) StopServer();
             ServerLoaded = false;
         }
 

@@ -31,7 +31,7 @@ namespace Demo
         {
             return new Settings
             {
-                TimeLimit = double.PositiveInfinity,
+                TimeLimit = 10,
                 OperationalTimeLimit = 1,
                 Controllers = 
                 {
