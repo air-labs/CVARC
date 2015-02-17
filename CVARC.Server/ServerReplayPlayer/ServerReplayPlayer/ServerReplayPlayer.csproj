@@ -110,6 +110,7 @@
     <Compile Include="Contracts\CompetitionsInfoServer.cs" />
     <Compile Include="Contracts\MatchResultServer.cs" />
     <Compile Include="Contracts\PlayerServer.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReplayController.cs" />
     <Compile Include="Global.asax.cs">

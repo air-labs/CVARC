@@ -5,7 +5,7 @@ using ServerReplayPlayer.Logic;
 
 namespace ServerReplayPlayer.Controllers
 {
-    public class ReplayController : Controller
+    public class ReplayController : BaseController
     {
         private readonly Provider _provider = new Provider();
 
