@@ -14,6 +14,10 @@ namespace CVARC.V2
 	{
 		public const int DefaultPort = 14000;
 
+		/// <summary>
+		/// Creates a controller for the network client and instantiate the world with this controller. This action is the last before the start.
+		/// </summary>
+		/// <param name="data"></param>
 		public void InstantiateWorld(NetworkServerData data)
 		{
 			var factory = new SoloNetworkControllerFactory(data.ClientOnServerSide);
@@ -30,7 +34,10 @@ namespace CVARC.V2
 			};
 		}
 
-
+		/// <summary>
+		/// This method receives the configuration and the world's initial state from the client.
+		/// </summary>
+		/// <param name="data"></param>
 		public void ReceiveConfiguration(NetworkServerData data)
 		{
 			var configProposal = data.ClientOnServerSide.Read<ConfigurationProposal>();
@@ -43,6 +50,10 @@ namespace CVARC.V2
 			data.WorldState = (IWorldState)data.ClientOnServerSide.Read(worldSettingsType);
 		}
 
+		/// <summary>
+		/// This method runs TCP/IP listener, waits for the connected client and set the closing actions for client and server after the competitions are over.
+		/// </summary>
+		/// <param name="data"></param>
 		public void RunServer(NetworkServerData data)
 		{
 			var server = new System.Net.Sockets.TcpListener(data.Port);
@@ -57,6 +68,10 @@ namespace CVARC.V2
 			};
 		}
 
+		/// <summary>
+		/// Completely initializes the world. The NetworkServerData should only contain the port.
+		/// </summary>
+		/// <param name="nsdata"></param>
 		public void CreateSoloNetworkWithData(NetworkServerData nsdata)
 		{
 			RunServer(nsdata);
@@ -64,6 +79,11 @@ namespace CVARC.V2
 			InstantiateWorld(nsdata);
 		}
 
+		/// <summary>
+		/// Creates world for a solo network mode from a command line arguments.
+		/// </summary>
+		/// <param name="data"></param>
+		/// <returns></returns>
 		public IWorld CreateSoloNetwork(CommandLineData data)
 		{
 			int port;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace CVARC.V2
 {
@@ -12,7 +13,7 @@ namespace CVARC.V2
 	/// 
 	/// What deepens the problem is that in different modes these threads must be run in different ways:
 	/// in Unit Test, client thread must be main and the server must be background, or the asserts won't be displayed correctly.
-	/// in an application with GUI, server thread must be main and server must be background, otherwise the drawing won't work.
+	/// in an application with GUI, server thread must be main and client must be background, otherwise the drawing won't work.
 	/// </summary>
 	partial class Loader
 	{

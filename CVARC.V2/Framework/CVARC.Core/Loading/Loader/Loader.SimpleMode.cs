@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CVARC.V2
 {
+	/// <summary>
+	/// This part of the class creates a world in the case when no network interaction is required.
+	/// </summary>
 	partial class Loader
 	{
 
