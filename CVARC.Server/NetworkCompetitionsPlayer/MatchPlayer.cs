@@ -2,17 +2,14 @@
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using CVARC.Basic;
-using CVARC.Basic.Core.Participants;
-using CVARC.Network;
 using NetworkCompetitionsPlayer.Contracts;
-using CompetitionsSettings = CVARC.Network.CompetitionsSettings;
 
 namespace NetworkCompetitionsPlayer
 {
-    class MatchPlayer : IDisposable
+    class MatchPlayer
     {
         private readonly string levelName;
         private readonly PlayerClient player;
@@ -25,29 +22,19 @@ namespace NetworkCompetitionsPlayer
             this.player2 = player2;
         }
 
-        public MatchResultClient Play()
+        public void Play(MatchResultClient unplayedMatch)
         {
-            CVARC.Network.Program.InternalMain(InitCompetition());
-            return new MatchResultClient();
+            DisposeResource();
+            var taskTimeout = Task.Delay(3000);
+            var process = RunCompetition();
+            taskTimeout.Wait();
+            DisposeResource();
+//            unplayedMatch.
         }
 
-        private CompetitionsSettings InitCompetition()
+        private Process RunCompetition()
         {
-            var participantsServer = new ParticipantsServer("Fall2013.0.dll");
-            var participantsTask = Task.Factory.StartNew(() => participantsServer.GetParticipants(new HelloPackage { LevelName = levelName }));
-            RunClients();
-            var participants = participantsTask.Result;
-            participantsServer.CompetitionsBundle.competitions.Initialize(new CVARCEngine(participantsServer.CompetitionsBundle.Rules), new[]
-            {
-                new RobotSettings(0, false), 
-                new RobotSettings(1, false)
-            });
-            return new CompetitionsSettings
-            {
-                Participants = participants,
-                RealTime = false,
-                CompetitionsBundle = participantsServer.CompetitionsBundle
-            };
+
         }
 
         private void RunClients()
@@ -64,16 +51,22 @@ namespace NetworkCompetitionsPlayer
             File.WriteAllBytes(zipFilePath, playerClient.Zip);
             ZipFile.ExtractToDirectory(zipFilePath, playerClient.Name);
             Process.Start(new ProcessStartInfo("run.bat")
-                {
-                    Arguments = "noRunServer",
-                    WorkingDirectory = playerClient.Name
-                });
+            {
+                Arguments = "noRunServer",
+                WorkingDirectory = playerClient.Name
+            });
         }
 
-        public void Dispose()
+        private void DisposeResource()
         {
-            SafeAction(() => Directory.Delete(player.Name));
-            SafeAction(() => Directory.Delete(player2.Name));
+            var proceses = Process.GetProcesses().Where(x => x.MainWindowTitle == "rtsClient");
+            foreach (var process in proceses)
+            {
+                var currentProcess = process;
+                SafeAction(currentProcess.Kill);
+            }
+            SafeAction(() => Directory.Delete(player.Name, true));
+            SafeAction(() => Directory.Delete(player2.Name, true));
         }
 
         private void SafeAction(Action action)

@@ -6,11 +6,13 @@ using CVARC.Network;
 
 namespace CVARC.Basic.Core.Participants
 {
-    public class ParticipantsServer
+    public class ParticipantsServer : IDisposable
     {
         private readonly string competitionsName;
         private readonly TcpListener listener;
-        public CompetitionsBundle CompetitionsBundle { get; set; }
+        private CompetitionsBundle competitionsBundle;
+        public ICvarcRules Rules { get { return competitionsBundle.Rules; } }
+        public Competitions Competitions { get { return competitionsBundle.Competitions; } }
 
         public ParticipantsServer(string competitionsName)
         {
@@ -22,28 +24,28 @@ namespace CVARC.Basic.Core.Participants
         public NetworkParticipant GetParticipant(HelloPackage helloPackage = null)
         {
             var client = new ClientWithPackage(listener.AcceptTcpClient());
-            CompetitionsBundle = GetCompetitionsBundle(helloPackage ?? client.HelloPackage);
-            int controlledRobot = CompetitionsBundle.competitions.HelloPackage.Side == Side.Random ? new Random().Next(2) : (int)CompetitionsBundle.competitions.HelloPackage.Side;
-            return new NetworkParticipant(CompetitionsBundle.competitions, controlledRobot, client.Client);
+            competitionsBundle = GetCompetitionsBundle(helloPackage ?? client.HelloPackage);
+            int controlledRobot = competitionsBundle.Competitions.HelloPackage.Side == Side.Random ? new Random().Next(2) : (int)competitionsBundle.Competitions.HelloPackage.Side;
+            return new NetworkParticipant(competitionsBundle.Competitions, controlledRobot, client.Client);
         }
 
         public NetworkParticipant[] GetParticipants(HelloPackage helloPackage)
         {
             var client = new ClientWithPackage(listener.AcceptTcpClient());
             var client2 = new ClientWithPackage(listener.AcceptTcpClient());
-            CompetitionsBundle = GetCompetitionsBundle(helloPackage);
+            competitionsBundle = GetCompetitionsBundle(helloPackage);
             return new[]
             {
-                new NetworkParticipant(CompetitionsBundle.competitions, 0, client.Client), 
-                new NetworkParticipant(CompetitionsBundle.competitions, 1, client2.Client)
+                new NetworkParticipant(competitionsBundle.Competitions, 0, client.Client), 
+                new NetworkParticipant(competitionsBundle.Competitions, 1, client2.Client)
             };
         }
 
         private CompetitionsBundle GetCompetitionsBundle(HelloPackage helloPackage)
         {
-            var competitionsBundle = CompetitionsBundle.Load(competitionsName, helloPackage.LevelName);
-            competitionsBundle.competitions.HelloPackage = helloPackage;
-            return competitionsBundle;
+            var bundle = CompetitionsBundle.Load(competitionsName, helloPackage.LevelName);
+            bundle.Competitions.HelloPackage = helloPackage;
+            return bundle;
         }
 
         private class ClientWithPackage
@@ -57,6 +59,11 @@ namespace CVARC.Basic.Core.Participants
                 Client = new GroboTcpClient(client);
                 HelloPackage = Serializer.Deserialize<HelloPackage>(Client.ReadToEnd());
             }
+        }
+
+        public void Dispose()
+        {
+            listener.Stop();
         }
     }
 }

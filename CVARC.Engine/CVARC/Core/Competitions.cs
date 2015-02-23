@@ -217,10 +217,10 @@ namespace CVARC.Basic
                     (GameTimeLimit - gameTime).ToString(),
                     replay
                 };
-            const string path = "C:\\RawReplays\\";
+            const string path = "RawReplays\\";
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
-            File.WriteAllLines(path + Guid.NewGuid().ToString(), lines);
+            File.WriteAllLines(path + Guid.NewGuid(), lines);
         }
     }
 }

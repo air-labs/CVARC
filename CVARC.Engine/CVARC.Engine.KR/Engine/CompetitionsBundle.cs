@@ -7,11 +7,11 @@ namespace CVARC.Basic
 {
     public class CompetitionsBundle
     {
-        public readonly Competitions competitions;
+        public readonly Competitions Competitions;
         public readonly ICvarcRules Rules;
         public CompetitionsBundle(Competitions c, ICvarcRules r)
         {
-            competitions = c;
+            Competitions = c;
             Rules = r;
         }
 

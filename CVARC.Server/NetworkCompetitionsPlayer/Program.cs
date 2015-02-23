@@ -25,11 +25,9 @@ namespace NetworkCompetitionsPlayer
             var unplayedMatchs = competitionsInfo.MatchResults.Where(x => !x.IsFinished()).ToArray();
             foreach (var unplayedMatch in unplayedMatchs)
             {
-                using (var matchPlayer = new MatchPlayer(LevelName, GetPlayer(unplayedMatch.Player), GetPlayer(unplayedMatch.Player2)))
-                {
-                    var result = matchPlayer.Play();
+                var matchPlayer = new MatchPlayer(LevelName, GetPlayer(unplayedMatch.Player), GetPlayer(unplayedMatch.Player2));
+                    matchPlayer.Play(unplayedMatch);
                     //Client.SendRequest(Urls.SaveMatchResult, result);
-                }
             }
         }
     }

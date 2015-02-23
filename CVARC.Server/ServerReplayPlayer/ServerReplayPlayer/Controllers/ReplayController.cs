@@ -17,6 +17,7 @@ namespace ServerReplayPlayer.Controllers
         [HttpPost]
         public ActionResult UploadFile(HttpPostedFileBase file)
         {
+            //todo Завалидировать файл, что етьс run.bat и можем распаковать.
             if (file != null && file.ContentLength > 0)
             {
                 Provider.AddPlayer(file);

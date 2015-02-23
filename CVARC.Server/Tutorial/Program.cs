@@ -22,22 +22,22 @@ namespace CVARC.Tutorial
         {
             SimpleLogger.Run();
             competitionsBundle = CompetitionsBundle.Load(CompetitionsName, "Level1");
-            competitionsBundle.competitions.HelloPackage = new HelloPackage { MapSeed = 1 };
-            competitionsBundle.competitions.Initialize(new CVARCEngine(competitionsBundle.Rules),
+            competitionsBundle.Competitions.HelloPackage = new HelloPackage { MapSeed = 1 };
+            competitionsBundle.Competitions.Initialize(new CVARCEngine(competitionsBundle.Rules),
                 new[] { new RobotSettings(0, false), new RobotSettings(1, true) });
 
             var botName = args.FirstOrDefault() ?? "None";
-            RunForm(competitionsBundle.competitions.CreateBot(botName, 1));
+            RunForm(competitionsBundle.Competitions.CreateBot(botName, 1));
         }
 
         private static void RunForm(Participant participant)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            form = new TutorialForm(competitionsBundle.competitions) {KeyPreview = true};
-            form.KeyDown += (sender, e) => competitionsBundle.competitions.ApplyCommand(Controller.GetCommand(e.KeyCode));
-            form.KeyUp += (sender, e) => competitionsBundle.competitions.ApplyCommand(Command.Sleep(0));
-            Task.Factory.StartNew(() => competitionsBundle.competitions.ProcessParticipants(true, int.MaxValue, participant));
+            form = new TutorialForm(competitionsBundle.Competitions) {KeyPreview = true};
+            form.KeyDown += (sender, e) => competitionsBundle.Competitions.ApplyCommand(Controller.GetCommand(e.KeyCode));
+            form.KeyUp += (sender, e) => competitionsBundle.Competitions.ApplyCommand(Command.Sleep(0));
+            Task.Factory.StartNew(() => competitionsBundle.Competitions.ProcessParticipants(true, int.MaxValue, participant));
             Application.Run(form);
         }
     }
