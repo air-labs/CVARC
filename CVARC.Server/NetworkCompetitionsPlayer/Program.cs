@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CVARC.Network;
 using NetworkCompetitionsPlayer.Contracts;
 
 namespace NetworkCompetitionsPlayer
@@ -9,7 +10,11 @@ namespace NetworkCompetitionsPlayer
     {
         private static readonly JsonHttpClient Client = new JsonHttpClient();
         private static readonly Dictionary<string, PlayerClient> Players = new Dictionary<string, PlayerClient>();
-        private const string LevelName = "Level2";
+        private static readonly HelloPackage Package = new HelloPackage
+            {
+                LevelName = "Level2",
+                MapSeed = 1
+            };
         
         private static PlayerClient GetPlayer(string name)
         {
@@ -25,7 +30,7 @@ namespace NetworkCompetitionsPlayer
             var unplayedMatchs = competitionsInfo.MatchResults.Where(x => !x.IsFinished()).ToArray();
             foreach (var unplayedMatch in unplayedMatchs)
             {
-                var matchPlayer = new MatchPlayer(LevelName, GetPlayer(unplayedMatch.Player), GetPlayer(unplayedMatch.Player2));
+                var matchPlayer = new MatchPlayer(Package, GetPlayer(unplayedMatch.Player), GetPlayer(unplayedMatch.Player2));
                     matchPlayer.Play(unplayedMatch);
                     //Client.SendRequest(Urls.SaveMatchResult, result);
             }

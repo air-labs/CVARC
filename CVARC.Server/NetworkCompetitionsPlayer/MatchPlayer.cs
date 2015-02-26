@@ -5,19 +5,20 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CVARC.Network;
 using NetworkCompetitionsPlayer.Contracts;
 
 namespace NetworkCompetitionsPlayer
 {
     class MatchPlayer
     {
-        private readonly string levelName;
+        private readonly HelloPackage package;
         private readonly PlayerClient player;
         private readonly PlayerClient player2;
 
-        public MatchPlayer(string levelName, PlayerClient player, PlayerClient player2)
+        public MatchPlayer(HelloPackage package, PlayerClient player, PlayerClient player2)
         {
-            this.levelName = levelName;
+            this.package = package;
             this.player = player;
             this.player2 = player2;
         }
@@ -25,16 +26,21 @@ namespace NetworkCompetitionsPlayer
         public void Play(MatchResultClient unplayedMatch)
         {
             DisposeResource();
-            var taskTimeout = Task.Delay(3000);
-            var process = RunCompetition();
+            var taskTimeout = Task.Delay(5000);
+            RunCompetition();
             taskTimeout.Wait();
             DisposeResource();
 //            unplayedMatch.
         }
 
-        private Process RunCompetition()
+        private void RunCompetition()
         {
-
+            Process.Start(new ProcessStartInfo("NetworkServer.bat")
+            {
+                Arguments = string.Format("{0} {1} {2} {3}", package.LevelName, package.MapSeed, package.Opponent, package.Side),
+                WorkingDirectory = "..\\..\\..\\..\\build\\"
+            });
+            RunClients();
         }
 
         private void RunClients()
@@ -59,7 +65,9 @@ namespace NetworkCompetitionsPlayer
 
         private void DisposeResource()
         {
-            var proceses = Process.GetProcesses().Where(x => x.MainWindowTitle == "rtsClient");
+            var proceses = Process.GetProcesses()
+                                  .Where(x => x.MainWindowTitle == "rtsClient" || x.MainWindowTitle == "rtsServer" || x.MainWindowTitle == "TutorialForm")
+                                  .OrderBy(x => x.MainWindowTitle);
             foreach (var process in proceses)
             {
                 var currentProcess = process;

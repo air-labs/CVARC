@@ -20,7 +20,7 @@ namespace CVARC.Network
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var form = new TutorialForm(settings.Competitions);
-            Task.Factory.StartNew(() => settings.Competitions.ProcessParticipants(true, 60 * 1000, settings.Participants));
+            Task.Factory.StartNew(() => settings.Competitions.ProcessParticipants(false, 60 * 1000, settings.Participants));
             Application.Run(form);
         }
     }

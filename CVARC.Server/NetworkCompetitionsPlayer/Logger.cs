@@ -7,7 +7,7 @@ namespace NetworkCompetitionsPlayer
     {
         public static void Log(Exception e)
         {
-            File.AppendAllText("D:\\cvarcLog.txt", e.ToString());
+            File.AppendAllText("C:\\cvarcLog.txt", e.ToString());
         }
     }
 }
