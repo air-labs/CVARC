@@ -8,8 +8,8 @@ namespace CVARC.Network
     {
         public static CompetitionsSettings Get(string[] args)
         {
-            var multiplayer = bool.Parse(args[0]);
-            var package = ParseHelloPackage(multiplayer, args);
+            bool multiplayer;
+            var package = ParseHelloPackage(args, out multiplayer);
             var server = new ParticipantsServer("Fall2013.0.dll");
             var participants = multiplayer ? GetParticipants(server, package) : GetMultiplayerParticipants(server, package);
             return new CompetitionsSettings
@@ -19,14 +19,15 @@ namespace CVARC.Network
             };
         }
 
-        private static HelloPackage ParseHelloPackage(bool multiplayer, string[] args)
+        private static HelloPackage ParseHelloPackage(string[] args, out bool multiplayer)
         {
+            multiplayer = args[0] != "level1";
             return new HelloPackage
             {
-                LevelName = args[1],
-                MapSeed = int.Parse(args[2]),
-                Opponent = multiplayer ? null : args[3],
-                Side = multiplayer ? Side.Random : (Side) Enum.Parse(typeof (Side), args[4])
+                LevelName = args[0],
+                MapSeed = int.Parse(args[1]),
+                Opponent = multiplayer ? null : args[2],
+                Side = multiplayer ? Side.Random : (Side) Enum.Parse(typeof (Side), args[3])
             };
         }
 
