@@ -1,4 +1,4 @@
-start your_fileName.exe %*
+start "rtsClient" your_fileName.exe %*
 REM Examples:
-REM start level1Client.py %*
-REM start Client.exe %*
+REM "rtsClient" start level1Client.py %*
+REM "rtsClient" start Client.exe %*
