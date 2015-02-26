@@ -1,6 +1,7 @@
 obj
 bin
 *.suo
+*.orig
 /TestResults
 *.user
 /CVARC.sln.DotSettings.user
