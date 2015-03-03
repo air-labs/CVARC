@@ -18,6 +18,7 @@ namespace CVARC.V2
         public void InitializeClient(IMessagingClient client)
         {
             this.client = client;
+			client.EnableDebug = true;
         }
 
         public void Initialize(IActor controllableActor)
