@@ -8,44 +8,44 @@ using System.Threading;
 
 namespace CVARC.V2
 {
-    public class CvarcClient<TSensorData, TCommand> 
-        where TSensorData : class
-    {
-        CvarcClient client;
+	public class CvarcClient<TSensorData, TCommand>
+		where TSensorData : class
+	{
+		CvarcClient client;
 
-        public static void StartKrorServer(int port)
-        {
-            var process = new Process();
-            process.StartInfo.FileName = "CVARC.exe";
-            process.StartInfo.Arguments = "Debug " + port.ToString();
-            process.Start();
-            Thread.Sleep(100);
-        }
+		public static void StartKrorServer(int port)
+		{
+			var process = new Process();
+			process.StartInfo.FileName = "CVARC.exe";
+			process.StartInfo.Arguments = "Debug " + port.ToString();
+			process.Start();
+			Thread.Sleep(100);
+		}
 
-        public TSensorData Configurate(int port, ConfigurationProposal configuration, IWorldState state)
-        {
-            var tcpClient = new TcpClient();
-            tcpClient.Connect("127.0.0.1", port);
-            client = new CvarcClient (tcpClient);
-            client.Write(configuration);
-            client.Write(state);
-            return client.Read<TSensorData>();
-        }
+		public TSensorData Configurate(int port, ConfigurationProposal configuration, IWorldState state)
+		{
+			var tcpClient = new TcpClient();
+			tcpClient.Connect("127.0.0.1", port);
+			client = new CvarcClient(tcpClient);
+			client.Write(configuration);
+			client.Write(state);
+			return client.Read<TSensorData>();
+		}
 
-        
 
-        public TSensorData Act(TCommand command)
-        {
-                client.Write(command);
-                var sensorData = client.Read<TSensorData>();
-                if (sensorData == null)
-                    Environment.Exit(0);
-                return sensorData;
-        }
 
-        public void Exit()
-        {
-            client.Close();
-        }
-    }
+		public TSensorData Act(TCommand command)
+		{
+			client.Write(command);
+			var sensorData = client.Read<TSensorData>(); // 11!!!
+			//if (sensorData == null)
+			//	Environment.Exit(0);
+			return sensorData;
+		}
+
+		public void Exit()
+		{
+			client.Close();
+		}
+	}
 }
