@@ -108,7 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\CompetitionsInfoServer.cs" />
+    <Compile Include="Contracts\IWithId.cs" />
     <Compile Include="Contracts\MatchResultServer.cs" />
+    <Compile Include="Contracts\Player.cs" />
     <Compile Include="Contracts\PlayerServer.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

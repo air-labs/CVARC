@@ -31,16 +31,13 @@ namespace ServerReplayPlayer.Logic
             return new CompetitionsInfoServer
             {
                 Players = players,
-                MatchResults = GetAllMatches(players).ToArray()
+                MatchResults = GetAllMatches().ToArray()
             };
         }
 
-        private IEnumerable<MatchResultServer> GetAllMatches(string[] players)
+        private IEnumerable<MatchResultServer> GetAllMatches()
         {
-            return from player in players 
-                   from player2 in players 
-                   where player != player2 
-                   select Storage.GetMatchResult(player, player2);
+            return Storage.GetMatchResults();
         }
 
         public void SaveMatchResult(MatchResultServer matchResult)

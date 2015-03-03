@@ -3,7 +3,7 @@
 namespace ServerReplayPlayer.Contracts
 {
     [Serializable]
-    public class MatchResultServer
+    public class MatchResultServer : IWithId
     {
         public MatchResultServer()
         {
@@ -15,9 +15,9 @@ namespace ServerReplayPlayer.Contracts
             Player2 = fields[1];
         }
 
+        public Guid Id { get; set; }
         public string Player { get; set; }
         public string Player2 { get; set; }
         public string Replay { get; set; }
-        public bool IsFinished { get; set; }
     }
 }

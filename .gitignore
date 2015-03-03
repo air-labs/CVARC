@@ -7,5 +7,4 @@ bin
 /CVARC.sln.DotSettings.user
 /Cvarc.Logs
 packages
-players
-results
+App_Data
