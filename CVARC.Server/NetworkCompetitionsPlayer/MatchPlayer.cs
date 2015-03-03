@@ -74,6 +74,7 @@ namespace NetworkCompetitionsPlayer
             {
                 var currentProcess = process;
                 SafeAction(currentProcess.Kill);
+                process.WaitForExit(1000);
             }
             SafeAction(() => Directory.Delete(player.Name, true));
             SafeAction(() => Directory.Delete(player2.Name, true));

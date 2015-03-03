@@ -9,7 +9,7 @@ namespace CVARC.Network
     public static class Program
     {
         [STAThread]
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             SimpleLogger.Run();
             RunForm(SettingsProvider.Get(args));

@@ -26,7 +26,7 @@ namespace ClientBase
                 {
                     WorkingDirectory = ".\\..\\..\\..\\..\\build\\"
                 });
-//            ThreadPool.QueueUserWorkItem(o => Program.InternalMain());
+//            ThreadPool.QueueUserWorkItem(o => Program.Main(new string[0]));
         }
     }
 }

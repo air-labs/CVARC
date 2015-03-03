@@ -30,7 +30,7 @@ namespace NetworkCompetitionsPlayer
             foreach (var unplayedMatch in unplayedMatchs)
             {
                 var matchPlayer = new MatchPlayer(Package, GetPlayer(unplayedMatch.Player), GetPlayer(unplayedMatch.Player2));
-                unplayedMatch.Replay =  matchPlayer.Play();
+                unplayedMatch.Replay = matchPlayer.Play();
                 Client.SendRequest(Urls.SaveMatchResult, unplayedMatch);
             }
         }

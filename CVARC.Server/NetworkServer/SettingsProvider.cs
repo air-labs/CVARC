@@ -11,7 +11,7 @@ namespace CVARC.Network
             bool multiplayer;
             var package = ParseHelloPackage(args, out multiplayer);
             var server = new ParticipantsServer("Fall2013.0.dll");
-            var participants = multiplayer ? GetParticipants(server, package) : GetMultiplayerParticipants(server, package);
+            var participants = multiplayer ? GetMultiplayerParticipants(server, package) : GetParticipants(server, package);
             return new CompetitionsSettings
             {
                 Participants = participants,
@@ -21,6 +21,11 @@ namespace CVARC.Network
 
         private static HelloPackage ParseHelloPackage(string[] args, out bool multiplayer)
         {
+            if (args.Length == 0)
+            {
+                multiplayer = false;
+                return null;
+            }
             multiplayer = args[0] != "level1";
             return new HelloPackage
             {
