@@ -1,5 +1,10 @@
-﻿using System.Web;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Remoting.Contexts;
+using System.Text;
+using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using ServerReplayPlayer.Contracts;
 using ServerReplayPlayer.Logic;
 
@@ -38,8 +43,10 @@ namespace ServerReplayPlayer.Controllers
         }
 
         [HttpPost]
-        public void SaveMatchResult(MatchResultServer matchResult)
+        public void SaveMatchResult()
         {
+            var str = new StreamReader(Request.InputStream, Encoding.UTF8).ReadToEnd();
+            var matchResult = JsonConvert.DeserializeObject<MatchResultServer>(str);
             _provider.SaveMatchResult(matchResult);
         }
     }

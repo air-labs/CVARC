@@ -4,11 +4,7 @@
     {
         public string Player { get; set; }
         public string Player2 { get; set; }
-        public byte[] Replay { get; set; }
-
-        public bool IsFinished()
-        {
-            return false;
-        }
+        public string Replay { get; set; }
+        public bool IsFinished { get; set; }
     }
 }

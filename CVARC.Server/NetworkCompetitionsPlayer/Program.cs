@@ -27,12 +27,12 @@ namespace NetworkCompetitionsPlayer
         static void Main()
         {
             var competitionsInfo = Client.SendRequest<CompetitionsInfoClient>(Urls.GetCompetitionsInfo);
-            var unplayedMatchs = competitionsInfo.MatchResults.Where(x => !x.IsFinished()).ToArray();
+            var unplayedMatchs = competitionsInfo.MatchResults.Where(x => !x.IsFinished).ToArray();
             foreach (var unplayedMatch in unplayedMatchs)
             {
                 var matchPlayer = new MatchPlayer(Package, GetPlayer(unplayedMatch.Player), GetPlayer(unplayedMatch.Player2));
-                    matchPlayer.Play(unplayedMatch);
-                    //Client.SendRequest(Urls.SaveMatchResult, result);
+                unplayedMatch.Replay =  matchPlayer.Play();
+                Client.SendRequest(Urls.SaveMatchResult, unplayedMatch);
             }
         }
     }

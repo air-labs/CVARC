@@ -15,6 +15,7 @@ namespace NetworkCompetitionsPlayer
         private readonly HelloPackage package;
         private readonly PlayerClient player;
         private readonly PlayerClient player2;
+        private const string ReplayDirectory = "..\\..\\..\\..\\build\\bin\\NetworkServer\\RawReplays";
 
         public MatchPlayer(HelloPackage package, PlayerClient player, PlayerClient player2)
         {
@@ -23,14 +24,15 @@ namespace NetworkCompetitionsPlayer
             this.player2 = player2;
         }
 
-        public void Play(MatchResultClient unplayedMatch)
+        public string Play()
         {
             DisposeResource();
-            var taskTimeout = Task.Delay(5000);
+            var taskTimeout = Task.Delay(6000);
             RunCompetition();
             taskTimeout.Wait();
+            var replay = File.ReadAllText(Directory.GetFiles(ReplayDirectory).Single());
             DisposeResource();
-//            unplayedMatch.
+            return replay;
         }
 
         private void RunCompetition()
@@ -75,6 +77,7 @@ namespace NetworkCompetitionsPlayer
             }
             SafeAction(() => Directory.Delete(player.Name, true));
             SafeAction(() => Directory.Delete(player2.Name, true));
+            SafeAction(() => Directory.Delete(ReplayDirectory, true));
         }
 
         private void SafeAction(Action action)

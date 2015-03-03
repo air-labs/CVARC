@@ -1,7 +1,14 @@
-﻿namespace ServerReplayPlayer.Contracts
+﻿using System;
+
+namespace ServerReplayPlayer.Contracts
 {
+    [Serializable]
     public class MatchResultServer
     {
+        public MatchResultServer()
+        {
+        }
+
         public MatchResultServer(params string[] fields)
         {
             Player = fields[0];
@@ -10,7 +17,7 @@
 
         public string Player { get; set; }
         public string Player2 { get; set; }
-        public string Points { get; set; }
-        public byte[] Replay { get; set; }
+        public string Replay { get; set; }
+        public bool IsFinished { get; set; }
     }
 }
