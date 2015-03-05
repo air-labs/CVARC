@@ -63,8 +63,6 @@ doPermit:	function(time) {
 },
 process:	function(elem) {
     var body;
-    if (elem.name)
-        console.log(elem.name);
 	 switch(elem.name)
 		{
 		 case undefined:
@@ -140,8 +138,6 @@ addBall:	function(elem) {
 	 return body;
 },
 addBody:	function(elem) {
-	 console.log('Unknown body: ' + elem.name);
-	 console.log(elem);
 	 var body = new THREE.Object3D();
 	 ReplayWindow.bodies[1*elem.id] = body;
 	 ReplayWindow.bodies[1*elem.parent].add(body);
