@@ -134,6 +134,11 @@
     <Content Include="other\css.css" />
     <Content Include="other\ice.jpg" />
     <Content Include="other\red.png" />
+    <Content Include="Scripts\logic.js" />
+    <Content Include="Scripts\ReplayLoader.js" />
+    <Content Include="Scripts\ReplayWindow.js" />
+    <Content Include="Scripts\showReplay.js" />
+    <Content Include="Scripts\three.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -147,7 +152,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
