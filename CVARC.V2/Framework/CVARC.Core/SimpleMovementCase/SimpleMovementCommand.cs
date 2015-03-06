@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AIRLab.Mathematics;
+using System.Runtime.Serialization;
 
 namespace CVARC.V2.SimpleMovement
 {
     [Serializable]
+	[DataContract]
     public class SimpleMovementCommand : ICommand
     {
+		[DataMember]
         public double LinearVelocity { get; private set; }
-        public Angle AngularVelocity { get; private set; }
-        public double Duration { get; private set; }
-        public string Command { get; private set; }
+		[DataMember]
+		public Angle AngularVelocity { get; private set; }
+		[DataMember]
+		public double Duration { get; private set; }
+		[DataMember]
+		public string Command { get; private set; }
 
         public static SimpleMovementCommand Move(double linearVelocity, double duration)
         {

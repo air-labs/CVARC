@@ -19,7 +19,7 @@ namespace CVARC.V2.SimpleMovement
                 throw new Exception("SimpleMovementCommand is expected, but the command was " + cmd.GetType().Name);
             var command = cmd as SimpleMovementCommand;
 
-            if (command.Command != null)
+            if (!string.IsNullOrEmpty(command.Command))
             {
                 yield return SimpleMovementCommand.Action(command.Command, GetDurationForCustomCommand(command));
                 yield break;

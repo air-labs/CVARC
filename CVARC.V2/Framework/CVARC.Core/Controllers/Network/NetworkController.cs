@@ -35,7 +35,7 @@ namespace CVARC.V2
             {
                 client.Write(sensorData);
                 var command = (ICommand)client.Read(commandType);
-                return new Tuple<ICommand,Exception>(command,null);
+			    return new Tuple<ICommand,Exception>(command,null);
             }
             catch (Exception e)
             {
@@ -45,7 +45,6 @@ namespace CVARC.V2
 
         public object GetCommand()
         {
-			Debugger.Logger(OperationalTimeLimit.ToString());
             if (!active) return null;
 
             var @delegate = new Func<Type, Tuple<ICommand, Exception>>(GetCommandInternally);
