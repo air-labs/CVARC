@@ -7,7 +7,7 @@ using System.Threading;
 namespace CVARC.V2
 {
 
-    public class Loader
+    partial class Loader
     {
         
 		/// <summary>
