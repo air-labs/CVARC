@@ -87,12 +87,16 @@
     <Compile Include="Controllers\Network\CvarcClient.cs" />
     <Compile Include="Engine\IPassiveEngine.cs" />
     <Compile Include="Loading\Configuration\IWorldState.cs" />
+<<<<<<< HEAD
     <Compile Include="Loading\Loader\Loader.Levels.cs" />
-    <Compile Include="Loading\Debugger.cs" />
     <Compile Include="Loading\Loader\Loader.SelfTest.cs" />
     <Compile Include="Loading\Loader\Loader.SoloNetwork.cs" />
     <Compile Include="Loading\Loader\Loader.SimpleMode.cs" />
     <Compile Include="Loading\Loader\NetworkServerData.cs" />
+=======
+    <Compile Include="Loading\Debugger.cs" />
+    <Compile Include="Loading\NetworkServerData.cs" />
+>>>>>>> origin/UnityWorking
     <Compile Include="Client\MSAsserter.cs" />
     <Compile Include="Clocks\ControlTrigger.cs" />
     <Compile Include="Clocks\OneTimeTrigger.cs" />

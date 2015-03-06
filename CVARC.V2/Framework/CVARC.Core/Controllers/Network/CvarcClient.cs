@@ -9,6 +9,8 @@ namespace CVARC.V2
 {
     public class CvarcClient : IMessagingClient
     {
+
+		public bool EnableDebug { get; set; }
         const byte EndLine = (byte)'\n';
         TcpClient client;
         public CvarcClient(TcpClient client)
@@ -16,10 +18,16 @@ namespace CVARC.V2
             this.client = client;
         }
 
+		string BytesToArray(byte[] bytes)
+		{
+			return System.Text.Encoding.UTF8.GetString(bytes);
+		}
+
         public void WriteLine(byte[] bytes)
         {
             bytes = bytes.Where(z => z != EndLine).Concat(new[] { EndLine }).ToArray();
-            client.Client.Send(bytes);
+			if (EnableDebug) Debugger.Log(BytesToArray(bytes));
+			client.Client.Send(bytes);
         }
 
         bool SocketConnected(Socket s)
@@ -51,6 +59,8 @@ namespace CVARC.V2
                 if (buffer[0] == EndLine) break;
                 read.Add(buffer[0]);
             }
+			if (EnableDebug)
+				Debugger.Log(BytesToArray(read.ToArray()));
             return read.ToArray();
         }
 

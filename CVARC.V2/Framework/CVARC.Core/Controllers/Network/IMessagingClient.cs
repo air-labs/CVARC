@@ -10,6 +10,7 @@ namespace CVARC.V2
         void WriteLine(byte[] bytes);
         byte[] ReadLine();
         void Close();
+		bool EnableDebug { get; set; }
     }
 
     public static class IMessagingClientExtensions

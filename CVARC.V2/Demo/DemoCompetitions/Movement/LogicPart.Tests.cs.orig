@@ -16,12 +16,22 @@ namespace Demo
         {
             return (client, world, asserter) =>
                 {
+<<<<<<< HEAD
                   
+                    SensorsData data = null;
+                    foreach(var c in command)
+                        data=client.Act(c);
+
+                    asserter.IsEqual(X, data.Locations[0].X, 1e-3);
+=======
+
+
                     SensorsData data = null;
                     foreach(var c in command)
                         data=client.Act(c);
                     
 					asserter.IsEqual(X, data.Locations[0].X, 1e-3);
+>>>>>>> origin/UnityWorking
                     asserter.IsEqual(Y, data.Locations[0].Y, 1e-3);
                     asserter.IsEqual(angleInGrad, data.Locations[0].Angle % 360, 5e-3);
                 };
