@@ -23,7 +23,9 @@ namespace CVARC.Core.Physics.FarseerWrap
 			//FarseerPhysics.Settings.TOIVelocityIterations = 100;
 		}		
 
-		static public World World = new World(Microsoft.Xna.Framework.Vector2.Zero);
+		public World World = new World(Microsoft.Xna.Framework.Vector2.Zero);
+
+		internal readonly Dictionary<FarseerPhysics.Dynamics.Body, FarseerBody> FBodyToFarseerBody = new Dictionary<FarseerPhysics.Dynamics.Body, FarseerBody>();
 
 		//--------------------------------------------------------------------------
 
@@ -62,19 +64,19 @@ namespace CVARC.Core.Physics.FarseerWrap
 
 		#region Joints
 
-		static public void RemoveJoint(Joint joint)
+		public void RemoveJoint(Joint joint)
 		{
 			World.RemoveJoint(joint);
 		}
 
-		static public WeldJoint MakeWeldJoint(FBody a, FBody b, Frame3D bBodyOffset)
+		public WeldJoint MakeWeldJoint(FBody a, FBody b, Frame3D bBodyOffset)
 		{
 			return JointFactory.CreateWeldJoint(World, a, b, new Microsoft.Xna.Framework.Vector2(0, 0),
 				FarseerConverter.ToSimUnits(new Microsoft.Xna.Framework.Vector2((float)-bBodyOffset.X, (float)-bBodyOffset.Y))); 
 			//без минусов не работает как надо
 		}
 
-		static public WeldJoint MakeWeldJoint(FBody a, FBody b)
+		public WeldJoint MakeWeldJoint(FBody a, FBody b)
 		{
 			//return JointFactory.CreateWeldJoint(World, a, b, new Microsoft.Xna.Framework.Vector2(0, 0));
 			return MakeWeldJoint(a, b, new Frame3D(b.Position.X, b.Position.Y, 0));
@@ -91,14 +93,14 @@ namespace CVARC.Core.Physics.FarseerWrap
 			FBody fb = BodyFactory.CreateRectangle(World,
 				FarseerConverter.ToSimUnits((float)xsize), FarseerConverter.ToSimUnits((float)ysize), (float)1);
 			fb.BodyType = BodyType.Dynamic;
-			return new FarseerBody(fb);
+			return new FarseerBody(fb, this);
 		}
 
 		public IPhysical MakeCyllinder(double rbottom, double rtop, double height)
 		{
 			FBody fb = BodyFactory.CreateCircle(World, FarseerConverter.ToSimUnits((float)rbottom), (float)1);
 			fb.BodyType = BodyType.Dynamic;
-			return new FarseerBody(fb);
+			return new FarseerBody(fb, this);
 		}		
 
 		#endregion
