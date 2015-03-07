@@ -52,6 +52,7 @@
     <Compile Include="Collision\LogicPart.cs" />
     <Compile Include="Collision\LogicPart.Tests.cs" />
     <Compile Include="Collision\World.cs" />
+    <Compile Include="UniversalDemo\DemoWorldState.cs" />
     <Compile Include="Interaction\InteractionSensorData.cs" />
     <Compile Include="Interaction\InteractionTestBase.cs" />
     <Compile Include="Interaction\LogicPart.cs" />
@@ -64,6 +65,10 @@
     <Compile Include="Movement\World.cs" />
     <Compile Include="Movement\SensorsData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UniversalDemo\IDemoWorldManager.cs" />
+    <Compile Include="UniversalDemo\DemoSensorsData.cs" />
+    <Compile Include="UniversalDemo\DemoRobot.cs" />
+    <Compile Include="UniversalDemo\DemoWorld.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
