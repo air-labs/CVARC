@@ -26,25 +26,10 @@ namespace Demo
         {
             return (client, world, asserter) =>
             {
-                var location = world.Engine.GetAbsoluteLocation(world.Actors.First().ObjectId);
-                asserter.IsEqual(0, location.X, 1e-3);
-                asserter.IsEqual(0, location.Y, 1e-3);
-                asserter.IsEqual(0, location.Yaw.Grad, 1e-3);
-
-                var speed = world.Engine.GetSpeed(world.Actors.First().ObjectId);
-                asserter.IsEqual(0, speed.X, 1e-3);
-                asserter.IsEqual(0, speed.Y, 1e-3);
-                asserter.IsEqual(0, speed.Yaw.Grad, 1e-3);
-
-
                 SensorsData data = null;
                 foreach (var c in command)
                     data = client.Act(c);
-                location = world.Engine.GetAbsoluteLocation(world.Actors.First().ObjectId);
-
-                test(new Frame2D(location.X, location.Y, location.Yaw),asserter);
                 test(new Frame2D(data.Locations[0].X, data.Locations[0].Y, Angle.FromGrad(data.Locations[0].Angle)),asserter);
-
             };
         }
 

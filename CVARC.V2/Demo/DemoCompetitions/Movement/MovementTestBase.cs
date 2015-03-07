@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Demo
 {
-	public delegate void MovementTestEntry(CvarcClient<SensorsData, SimpleMovementCommand> client, MovementWorld world, IAsserter asserter);
+	public delegate void MovementTestEntry(CvarcClient<SensorsData, MoveAndGripCommand> client, MovementWorld world, IAsserter asserter);
 
-	public class MovementTestBase : DelegatedCvarcTest<SensorsData, SimpleMovementCommand, MovementWorld, MovementWorldState>
+	public class MovementTestBase : DelegatedCvarcTest<SensorsData, MoveAndGripCommand, MovementWorld, MovementWorldState>
 	{
 
 
