@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Demo.Tests
 {
-	class Runner
+	class MonitorHolder
 	{
-		public static void Main()
-		{
-            new MovementTests().AlignmentRect();
-		}
+		public static readonly object Monitor = new object();
 	}
 }

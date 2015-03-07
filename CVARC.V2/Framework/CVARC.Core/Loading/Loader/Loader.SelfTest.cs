@@ -119,6 +119,7 @@ namespace CVARC.V2
 			try
 			{
 				SelfTestClientThread(test, asserter, holder);
+				
 			}
 			catch (Exception e)
 			{

@@ -148,16 +148,6 @@
     <Compile Include="Sensors\ISensor.cs" />
     <Compile Include="Sensors\Sensor.cs" />
     <Compile Include="Sensors\SensorPack.cs" />
-    <Compile Include="SimpleMovementCase\ISimpleMovementRobot.cs" />
-    <Compile Include="SimpleMovementCase\SimpleMovementPreprocessor.cs" />
-    <Compile Include="SimpleMovementCase\StandingBot.cs" />
-    <Compile Include="SimpleMovementCase\ISimpleMovementWorld.cs" />
-    <Compile Include="SimpleMovementCase\RandomWalkingBot.cs" />
-    <Compile Include="SimpleMovementCase\SimpleMovement2PlayersKeyboardControllerPool.cs" />
-    <Compile Include="SimpleMovementCase\SimpleMovementCommand.cs" />
-    <Compile Include="SimpleMovementCase\SimpleMovementRobot.cs" />
-    <Compile Include="SimpleMovementCase\SquareWalkingBot.cs" />
-    <Compile Include="SimpleMovementCase\TwoPlayersId.cs" />
     <Compile Include="Units\Bot.cs" />
     <Compile Include="Units\GripperUnit\RulesExtensions.cs" />
     <Compile Include="Units\GripperUnit\GripperAction.cs" />
@@ -177,6 +167,7 @@
     <Compile Include="Units\SimpleMovementUnit\SimpleMovementRules.cs" />
     <Compile Include="Units\SimpleMovementUnit\SimpleMovementUnit.cs" />
     <Compile Include="Units\TwoPlayersId.cs" />
+    <Compile Include="Units\UnitResponse.cs" />
     <Compile Include="World\Actor.cs" />
     <Compile Include="World\CommandPreprocessor.cs" />
     <Compile Include="World\IActor.cs" />

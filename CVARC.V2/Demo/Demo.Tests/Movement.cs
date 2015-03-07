@@ -2,6 +2,7 @@
 using CVARC.V2;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
+using System.Threading;
 
 namespace Demo.Tests
 {
@@ -22,11 +23,24 @@ namespace Demo.Tests
     [TestFixture]
     public class MovementTests
     {
+
         void RunTest([CallerMemberName] string testName="")
         {
+			Console.WriteLine("Enter to test  " + testName + " at " + DateTime.Now);
             var loader = new Loader();
             loader.AddLevel("Demo", "Movement", () => new Demo.KroR.Movement());
-            loader.RunSelfTestInVSContext("Demo", "Movement", testName, new NUnitAsserter()); ;
+			try
+			{
+				loader.RunSelfTestInVSContext("Demo", "Movement", testName, new NUnitAsserter());
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
+			finally
+			{
+				Console.WriteLine("Exit from test " + testName + " at " + DateTime.Now);
+			}
         }
 
         [Test]
