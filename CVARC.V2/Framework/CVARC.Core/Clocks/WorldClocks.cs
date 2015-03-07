@@ -26,14 +26,16 @@ namespace CVARC.V2
 
         public event Action Ticked;
         
+		const double TimeDelta = 1e-5;
 
         public void Tick(double time)
         {
             CurrentTime = time;
             if (triggers.Count == 0) return;
+
             while (true)
             {
-                var ready = triggers.Where(z => z.ScheduledTime <= time);
+                var ready = triggers.Where(z => z.ScheduledTime <= time+TimeDelta);
                 if (!ready.Any()) break;
                 var min = ready.Min(z => z.ScheduledTime);
                 var recordToRun = triggers.Where(z => z.ScheduledTime == min).First();

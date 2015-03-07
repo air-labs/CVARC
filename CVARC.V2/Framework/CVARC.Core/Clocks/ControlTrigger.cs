@@ -25,8 +25,8 @@ namespace CVARC.V2
             var sensorData = controllable.GetSensorData();
             controller.SendSensorData(sensorData);
             var command = controller.GetCommand();
-            if (command == null) return false;
-            controllable.World.Logger.AccountCommand(controllable.ControllerId, command);
+			if (command == null) return false;
+			controllable.World.Logger.AccountCommand(controllable.ControllerId, command);
             var processedCommands = preprocessor.Preprocess(command);
             currentBuffer = processedCommands.GetEnumerator();
             if (!currentBuffer.MoveNext())

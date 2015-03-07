@@ -19,6 +19,7 @@ namespace CVARC.V2
         public void InitializeClient(IMessagingClient client)
         {
             this.client = client;
+			client.EnableDebug = true;
         }
 
         public void Initialize(IActor controllableActor)
@@ -35,7 +36,7 @@ namespace CVARC.V2
             {
                 client.Write(sensorData);
                 var command = (ICommand)client.Read(commandType);
-                return new Tuple<ICommand,Exception>(command,null);
+			    return new Tuple<ICommand,Exception>(command,null);
             }
             catch (Exception e)
             {
@@ -51,7 +52,9 @@ namespace CVARC.V2
 
             var async = @delegate.BeginInvoke(typeof(TCommand), null, null);
 
-            while (OperationalTime < OperationalTimeLimit)
+			OperationalTimeLimit = 1;
+
+            while (OperationalTime <OperationalTimeLimit)
             {
                 if (async.IsCompleted) break;
                 OperationalTime += 0.001;
@@ -64,6 +67,8 @@ namespace CVARC.V2
                 if (result.Item2 != null) return null;
                 return result.Item1;
             }
+			client.Close();
+			Debugger.Log("Can't get command");
             return null;
 
         }
