@@ -60,22 +60,18 @@ namespace Demo
                 rules.Rotate(Angle.HalfPi)));
 			logic.Tests["Movement_Rect_Rotate"] = new RectangularMovementTestBase(LocationTest(0, 0, 90, rules.Rotate(Angle.HalfPi)));
             logic.Tests["Movement_Round_Rotate"] = new RoundMovementTestBase(LocationTest(0, 0, 90, rules.Rotate(Angle.HalfPi)));
-            //для AlignmentRect пришлось увеличить delta на проверке угла поворота до 0,005
-
+          
             logic.Tests["Movement_Limit_Linear"] = new RoundMovementTestBase(LocationTest(50, 0, 0,
                 rules.MoveWithVelocityForTime(100000, 1)));
 			logic.Tests["Movement_Limit_Round"] = new RoundMovementTestBase(LocationTest(0, 0, 0,
                 rules.RotateWithVelocityForTime(Angle.Pi*10, 4)));
 
-
+			//для AlignmentRect пришлось увеличить delta на проверке угла поворота до 0,005
 			//logic.Tests["AlignmentRect"] = new MovementTestBase(LocationTest(25.355, 17.357, Angle.HalfPi.Grad,
 			//	rules.Move(-10),
 			//	rules.Rotate(Angle.HalfPi / 2),
 			//	rules.Move(50)), true);
 
-			//logic.Tests["FuckTheBoxRect"] = new MovementTestBase(LocationTest(
-			//	(frame,asserter)=>asserter.True(frame.X<100 && frame.X>70),
-			//	rules.Move(100)), true, true); //думаю что тест не проходит из-за физики, поэтому не баг а фича
 
 
 			//logic.Tests["FuckTheBoxRect"] = new MovementTestBase(LocationTest(

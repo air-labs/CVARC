@@ -38,6 +38,7 @@ namespace Demo
             logicPart.Bots["Random"] = () => rules.CreateRandomWalkingBot(50);
 
             LoadMovementTests(logicPart, rules);
+			LoadInteractionTests(logicPart, rules);
 
             return logicPart;
         }

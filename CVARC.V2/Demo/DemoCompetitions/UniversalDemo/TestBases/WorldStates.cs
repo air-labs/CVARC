@@ -28,5 +28,32 @@ namespace Demo
 				}
 			};
 		}
+
+		public static DemoWorldState InteractionScene(bool robotIsRectangular)
+		{
+			var scene = EmptyWithOneRobot(robotIsRectangular);
+			scene.Objects.Add(new DemoObjectData
+			{
+				XSize=80,
+				YSize=5,
+				ZSize=10,
+				X=0,
+				Y=30,
+				Color= ObjectColor.Black,
+				IsStatic=true
+
+			});
+			scene.Objects.Add(new DemoObjectData
+				{
+					XSize=15,
+					YSize=15,
+					ZSize=15,
+					X=50,
+					Y=0,
+					IsStatic=false,
+					Color= ObjectColor.Blue
+				});
+			return scene;
+		}
 	}
 }

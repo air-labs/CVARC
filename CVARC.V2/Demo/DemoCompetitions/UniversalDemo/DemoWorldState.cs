@@ -8,6 +8,7 @@ using System.Text;
 
 namespace Demo
 {
+	[Serializable]
 	public enum ObjectColor
 	{
 		Red,
@@ -17,6 +18,7 @@ namespace Demo
 		Black
 	}
 
+	[Serializable]
 	[DataContract]
 	public class DemoObjectDataBase
 	{
@@ -34,23 +36,28 @@ namespace Demo
 		public int ZSize { get; set; }
 	}
 
+	[Serializable]
 	[DataContract]
 	public class DemoRobotData : DemoObjectDataBase
 	{
 		[DataMember]
+		public Angle Yaw { get; set; }
+		[DataMember]
 		public string RobotName { get; set; }
 		[DataMember]
 		public bool IsRound { get; set; }
-		[DataMember]
-		public Angle Angle { get; set; }
+
 	}
 
+	[Serializable]
+	[DataContract]
 	public class DemoObjectData : DemoObjectDataBase
 	{
 		[DataMember]
 		public bool IsStatic { get; set; }
 	}
 
+	[Serializable]
 	[DataContract]
 	public class DemoWorldState : IWorldState
 	{

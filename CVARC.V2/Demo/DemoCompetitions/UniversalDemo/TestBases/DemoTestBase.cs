@@ -36,18 +36,5 @@ namespace Demo
 		}
 	}
 
-	public class RoundMovementTestBase : DemoTestBase
-	{
-		public RoundMovementTestBase(DemoTestEntry entry)
-			: base(entry, KnownWorldStates.EmptyWithOneRobot(false))
-		{ }
-	}
-
-	public class RectangularMovementTestBase : DemoTestBase
-	{
-		public RectangularMovementTestBase(DemoTestEntry entry)
-			: base(entry, KnownWorldStates.EmptyWithOneRobot(true))
-		{ }
-	}
-
+	
 }

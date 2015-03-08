@@ -44,11 +44,13 @@ namespace Demo
 			Root.Add(new Box
 			{
 				Location = new Frame3D(data.X, data.Y, data.ZSize / 2),
-				XSize = data.ZSize,
+				XSize = data.XSize,
 				YSize = data.YSize,
 				ZSize = data.ZSize,
 				DefaultColor = ToColor(data.Color),
-				IsStatic = data.IsStatic
+				IsStatic = data.IsStatic,
+				IsMaterial=true,
+				NewId = World.IdGenerator.CreateNewId(new object())
 			});
 		}
 	}

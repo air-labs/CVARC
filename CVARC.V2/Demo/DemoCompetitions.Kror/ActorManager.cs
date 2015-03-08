@@ -33,7 +33,7 @@ namespace Demo
             string fileName = "red.png";
 			if (Actor.ControllerId == TwoPlayersId.Right) fileName = "blue.png";
 
-			var location = new Frame3D(description.X, description.Y, description.ZSize / 2, Angle.Zero, description.Angle, Angle.Zero);
+			var location = new Frame3D(description.X, description.Y, description.ZSize / 2, Angle.Zero,description.Yaw, Angle.Zero);
 
 			if (description.IsRound)
 				root.Add(new Cylinder

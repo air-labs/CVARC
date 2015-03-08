@@ -41,10 +41,10 @@ namespace CVARC.V2
         {
             var loader = new Loader();
 
-            loader.AddLevel("RepairTheStarship", "Level1", () => new RepairTheStarship.KroR.Level1());
-            loader.AddLevel("RepairTheStarship", "Level2", () => new RepairTheStarship.KroR.Level2());
-            loader.AddLevel("RepairTheStarship", "Level3", () => new RepairTheStarship.KroR.Level3());
-            loader.AddLevel("Demo", "Demo", () => new Demo.KroR.DemoCompetitions());
+			//loader.AddLevel("RepairTheStarship", "Level1", () => new RepairTheStarship.KroR.Level1());
+			//loader.AddLevel("RepairTheStarship", "Level2", () => new RepairTheStarship.KroR.Level2());
+			//loader.AddLevel("RepairTheStarship", "Level3", () => new RepairTheStarship.KroR.Level3());
+			loader.AddLevel("Demo", "Demo", () => new Demo.KroR.DemoCompetitions());
       
             return loader;
         }

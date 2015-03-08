@@ -29,3 +29,9 @@ namespace Movement {
 namespace Movement { 
 [TestFixture] public partial class Limit {
 [Test] public void Round() { TestRunner.Run("Movement_Limit_Round"); }}}
+namespace Interaction { 
+[TestFixture] public partial class Rect {
+[Test] public void Alignment() { TestRunner.Run("Interaction_Rect_Alignment"); }}}
+namespace Interaction { 
+[TestFixture] public partial class Rect {
+[Test] public void Collision() { TestRunner.Run("Interaction_Rect_Collision"); }}}
