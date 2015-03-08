@@ -36,7 +36,7 @@ namespace MovementReconnectingClient
                         }
                     };
                     
-                    var state=new MovementWorldState();
+                    var state=KnownWorldStates.EmptyWithOneRobot(false);
                     var rules=new MoveAndGripRules();
                 
                     client.Configurate(port, new ConfigurationProposal { LoadingData=loadingData, SettingsProposal=settings}, state);

@@ -7,7 +7,7 @@ using CVARC.V2;
 
 namespace Demo
 {
-    public class DemoRobot : MoveAndGripRobot<IActorManager,MovementWorld,DemoSensorsData>
+    public class DemoRobot : MoveAndGripRobot<IActorManager,DemoWorld,DemoSensorsData>
     {
 	
 		public override void AdditionalInitialization()

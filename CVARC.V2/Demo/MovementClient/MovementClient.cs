@@ -25,7 +25,7 @@ namespace CameraClient
                           new ControllerSettings { ControllerId="Left", Type= ControllerType.Client, Name="This" }
                       }
                 }
-            }, new MovementWorldState());
+            }, KnownWorldStates.EmptyWithOneRobot(false));
             var rules = new MoveAndGripRules();
             client.Act(rules.Move(10));
             client.Act(rules.Rotate(Angle.Pi));

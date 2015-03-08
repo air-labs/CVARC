@@ -7,7 +7,7 @@ using CVARC.V2;
 
 namespace Demo
 {
-    public partial class MovementLogicPartHelper : LogicPartHelper
+    public partial class DemoLogicPartHelper : LogicPartHelper
     {
 
         public static Tuple<MoveAndGripRules,LogicPart> CreateWorldFactory()
@@ -15,11 +15,11 @@ namespace Demo
             var rules = new MoveAndGripRules();
 
             var logicPart = new LogicPart();
-            logicPart.CreateWorld = () => new MovementWorld();
+            logicPart.CreateWorld = () => new DemoWorld();
             logicPart.CreateDefaultSettings = () => new Settings { OperationalTimeLimit = 1, TimeLimit = 10 };
-            logicPart.CreateWorldState = stateName => new MovementWorldState();
+            logicPart.CreateWorldState = stateName => new DemoWorldState();
             logicPart.PredefinedWorldStates.Add("Empty");
-            logicPart.WorldStateType = typeof(MovementWorldState);
+            logicPart.WorldStateType = typeof(DemoWorldState);
 
             return new Tuple<MoveAndGripRules, LogicPart>(rules, logicPart);
         }
@@ -30,14 +30,14 @@ namespace Demo
             var rules = data.Item1;
             var logicPart = data.Item2;
 
-            var actorFactory = ActorFactory.FromRobot(new MoveAndGripRobot<IActorManager, MovementWorld, SensorsData>(), rules);
+            var actorFactory = ActorFactory.FromRobot(new DemoRobot(), rules);
             logicPart.Actors[TwoPlayersId.Left] = actorFactory;
             
             logicPart.Bots["Stand"] = () => rules.CreateStandingBot();
             logicPart.Bots["Square"] = () => rules.CreateSquareWalkingBot(50);
             logicPart.Bots["Random"] = () => rules.CreateRandomWalkingBot(50);
 
-            LoadTests(logicPart, rules);
+            LoadMovementTests(logicPart, rules);
 
             return logicPart;
         }

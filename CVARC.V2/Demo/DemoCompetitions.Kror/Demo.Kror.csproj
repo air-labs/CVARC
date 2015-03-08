@@ -46,18 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collision\ActorManager.cs" />
-    <Compile Include="Collision\Collision.cs" />
-    <Compile Include="Collision\CollisionManagerPart.cs" />
-    <Compile Include="Collision\WorldManager.cs" />
-    <Compile Include="Interaction\ActorManager.cs" />
-    <Compile Include="Interaction\WorldManager.cs" />
-    <Compile Include="Movement\ActorManager.cs" />
-    <Compile Include="Interaction\Interaction.cs" />
-    <Compile Include="Interaction\ManagerPart.cs" />
-    <Compile Include="Movement\WorldManager.cs" />
-    <Compile Include="Movement\Movement.cs" />
-    <Compile Include="Movement\ManagerPart.cs" />
+    <Compile Include="ActorManager.cs" />
+    <Compile Include="WorldManager.cs" />
+    <Compile Include="DemoCompetitions.cs" />
+    <Compile Include="ManagerPart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

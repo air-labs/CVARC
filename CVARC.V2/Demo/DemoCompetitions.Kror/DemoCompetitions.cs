@@ -7,10 +7,10 @@ using CVARC.V2;
 
 namespace Demo.KroR
 {
-    public class Interaction : Competitions
+    public class DemoCompetitions : Competitions
     {
-        public Interaction()
-            : base(new InteractionLogicPartHelper(), new KroREnginePart(), new InteractionManagerPart())
+		public DemoCompetitions()
+            : base(new DemoLogicPartHelper(), new KroREnginePart(), new MovementManagerPart())
         { }
     }
 }

@@ -53,12 +53,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Collision.cs" />
-    <Compile Include="Interaction.cs" />
-    <Compile Include="Monitor.cs" />
-    <Compile Include="Movement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Runner.cs" />
+    <Compile Include="Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\CVARC.Core\CVARC.Core.csproj">

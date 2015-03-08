@@ -1,4 +1,5 @@
-﻿using CVARC.V2;
+﻿using AIRLab.Mathematics;
+using CVARC.V2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,8 @@ namespace Demo
 		public string RobotName { get; set; }
 		[DataMember]
 		public bool IsRound { get; set; }
+		[DataMember]
+		public Angle Angle { get; set; }
 	}
 
 	public class DemoObjectData : DemoObjectDataBase
