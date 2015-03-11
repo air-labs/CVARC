@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -8,39 +8,33 @@ namespace ServerReplayPlayer.Logic
 {
     class Provider
     {
-        public static void AddPlayer(HttpPostedFileBase file)
+        public static void AddPlayer(string level, HttpPostedFileBase file)
         {
             var name = Path.GetFileNameWithoutExtension(file.FileName);//todo по имени пользователя
-            Storage.SavePlayerClient(name, file);
+            Storage.SavePlayerClient(level, name, file);
         }
 
-        public PlayerServer GetPlayer(string name)
+        public PlayerContract GetPlayer(string level, Guid id)
         {
-            return new PlayerServer
+            return new PlayerContract
             {
-                Zip = Storage.ReadPlayerClient(name),
-                Name = name
+                Zip = Storage.GetPlayerClient(level, id),
+                Name = Storage.GetPlayer(level, id).Name
             };
         }
 
-        public CompetitionsInfoServer GetCompetitionsInfo()
+        public CompetitionsInfoServer GetCompetitionsInfo(string level)
         {
-            var players = Storage.GetPlayerNames();
             return new CompetitionsInfoServer
             {
-                Players = players,
-                MatchResults = GetAllMatches().ToArray()
+                Players = Storage.GetPlayers(level).Select(x => x.Name).ToArray(),
+                MatchResults = Storage.GetMatchResults(level)
             };
         }
 
-        private IEnumerable<MatchResultServer> GetAllMatches()
+        public void SaveMatchResult(string level, MatchResultContract matchResult)
         {
-            return Storage.GetMatchResults();
-        }
-
-        public void SaveMatchResult(MatchResultServer matchResult)
-        {
-            Storage.SaveMatchResult(matchResult);
+            Storage.SaveMatchResult(level, matchResult);
         }
     }
 }

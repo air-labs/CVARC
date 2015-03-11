@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +12,7 @@ namespace ServerReplayPlayer.Controllers
     public class ReplayController : BaseController
     {
         private readonly Provider _provider = new Provider();
+        private const string Level = "1";
 
         public ActionResult Index()
         {
@@ -22,30 +24,30 @@ namespace ServerReplayPlayer.Controllers
         {
             if (FileValidator.IsValid(file))
             {
-                Provider.AddPlayer(file);
+                Provider.AddPlayer(Level, file);
                 return RedirectToAction("Index");
             }
             return View("FileFormatError");
         }
 
         [HttpPost]
-        public ActionResult GetPlayer(string name)
+        public ActionResult GetPlayer(Guid id)
         {
-            return Json(_provider.GetPlayer(name));
+            return Json(_provider.GetPlayer(Level, id));
         }
 
         [HttpPost]
         public JsonResult GetCompetitionsInfo()
         {
-            return Json(_provider.GetCompetitionsInfo());
+            return Json(_provider.GetCompetitionsInfo(Level));
         }
 
         [HttpPost]
         public void SaveMatchResult()
         {
             var str = new StreamReader(Request.InputStream, Encoding.UTF8).ReadToEnd();
-            var matchResult = JsonConvert.DeserializeObject<MatchResultServer>(str);
-            _provider.SaveMatchResult(matchResult);
+            var matchResult = JsonConvert.DeserializeObject<MatchResultContract>(str);
+            _provider.SaveMatchResult(Level, matchResult);
         }
     }
 }

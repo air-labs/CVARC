@@ -3,6 +3,6 @@
     public class CompetitionsInfoServer
     {
         public string[] Players { get; set; }
-        public MatchResultServer[] MatchResults { get; set; }
+        public MatchResult[] MatchResults { get; set; }
     }
 }
