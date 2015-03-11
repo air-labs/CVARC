@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Remoting.Contexts;
+﻿using System.IO;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -22,12 +20,12 @@ namespace ServerReplayPlayer.Controllers
         [HttpPost]
         public ActionResult UploadFile(HttpPostedFileBase file)
         {
-            //todo Завалидировать файл, что етьс run.bat и можем распаковать.
-            if (file != null && file.ContentLength > 0)
+            if (FileValidator.IsValid(file))
             {
                 Provider.AddPlayer(file);
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return View("FileFormatError");
         }
 
         [HttpPost]

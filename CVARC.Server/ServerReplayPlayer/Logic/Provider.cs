@@ -8,8 +8,6 @@ namespace ServerReplayPlayer.Logic
 {
     class Provider
     {
-        private static readonly Storage Storage = new Storage();
-
         public static void AddPlayer(HttpPostedFileBase file)
         {
             var name = Path.GetFileNameWithoutExtension(file.FileName);//todo по имени пользователя
