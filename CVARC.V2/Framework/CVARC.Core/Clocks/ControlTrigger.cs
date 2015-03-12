@@ -45,8 +45,9 @@ namespace CVARC.V2
                     return;
                 }
             var currentCommand = currentBuffer.Current;
-            controllable.ExecuteCommand(currentCommand);
-            nextTime = base.ThisCall + currentCommand.Duration;
+            double duration;
+            controllable.ExecuteCommand(currentCommand, out duration);
+            nextTime = base.ThisCall +  duration;
             if (!currentBuffer.MoveNext())
                 currentBuffer = null;
         }

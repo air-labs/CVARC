@@ -23,8 +23,8 @@ namespace CVARC.V2
         public Logger Logger { get; private set; }
         public Configuration Configuration { get; private set; }
         public Competitions Competitions { get; private set; }
-        public TWorldState WorldState { get; private set; } 
-
+        public TWorldState WorldState { get; private set; }
+        public IKeyboard Keyboard { get; private set; }
         public abstract void CreateWorld();
 
         public void OnExit()
@@ -55,6 +55,7 @@ namespace CVARC.V2
             IdGenerator = new IdGenerator();
             Scores = new Scores(this);
             Logger = new Logger(this);
+            Keyboard = competitions.Engine.KeyboardFactory();
 
             // setting up the parameters
             Logger.SaveLog = Configuration.Settings.EnableLog;
@@ -78,17 +79,19 @@ namespace CVARC.V2
 
             //Initializing actors
             actors = new List<IActor>();
-            foreach (var id in competitions.Logic.ControllersId)
+            foreach (var id in competitions.Logic.Actors.Keys)
             {
-                var e = competitions.Logic.CreateActor(id);
+                var factory = competitions.Logic.Actors[id];
+                var e = factory.CreateActor();
                 var actorObjectId = IdGenerator.CreateNewId(e);
                 var manager = competitions.Manager.CreateActorManagerFor(e);
-                e.Initialize(manager, this, actorObjectId, id);
+                var rules = factory.CreateRules();
+                e.Initialize(manager, this, rules, actorObjectId, id);
                 manager.Initialize(e);
                 manager.CreateActorBody();
                 var controller = controllerFactory.Create(e.ControllerId);
                 controller.Initialize(e);
-                var preprocessor = competitions.Logic.CreateCommandPreprocessor(id);
+                var preprocessor = factory.CreatePreprocessor();
                 preprocessor.Initialize(e);
                 Clocks.AddTrigger(new ControlTrigger(controller, e, preprocessor));
                 actors.Add(e);
@@ -96,6 +99,7 @@ namespace CVARC.V2
 
             AdditionalInitialization();
         }
+
 
 
         public void RunActively(double requiredPhysicalDelta)

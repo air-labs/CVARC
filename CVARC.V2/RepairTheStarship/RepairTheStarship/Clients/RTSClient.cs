@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using AIRLab.Mathematics;
 using CVARC.V2;
-using CVARC.V2.SimpleMovement;
+using CVARC.V2;
 
 namespace RepairTheStarship
 {
 
-    public abstract class RTSClient<TSensorData> : CvarcClient<TSensorData, SimpleMovementCommand>
+    public abstract class RTSClient<TSensorData> : CvarcClient<TSensorData, MoveAndGripCommand>
         where TSensorData : class
     {
         public abstract string LevelName { get; }
@@ -39,22 +39,27 @@ namespace RepairTheStarship
 
         public TSensorData Move(double distance)
         {
-            return Act(RTSWorld.StaticCommandHelper.Move(distance));
+            return Act(RTSRules.Current.Move(distance));
         }
 
         public TSensorData Rotate(double angleInGrad)
         {
-            return Act(RTSWorld.StaticCommandHelper.Rotate(Angle.FromGrad(angleInGrad)));
+            return Act(RTSRules.Current.Rotate(Angle.FromGrad(angleInGrad)));
         }
 
-        public TSensorData Perform(RTSAction action)
+        public TSensorData Grip()
         {
-            return Act(RTSWorld.StaticCommandHelper.ActionCommand(action.ToString()));
+            return Act(RTSRules.Current.Grip());
         }
+
+		public TSensorData Release()
+		{
+			return Act(RTSRules.Current.Release());
+		}
 
         public void Stand(double time)
         {
-            Act(RTSWorld.StaticCommandHelper.StandCommand(time));
+            Act(RTSRules.Current.Stand(time));
         }
 
     }

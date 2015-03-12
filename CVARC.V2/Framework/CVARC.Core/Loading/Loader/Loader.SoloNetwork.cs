@@ -43,10 +43,10 @@ namespace CVARC.V2
 			var configProposal = data.ClientOnServerSide.Read<ConfigurationProposal>();
 			data.LoadingData = configProposal.LoadingData;
 			var competitions = GetCompetitions(data.LoadingData);
-			data.Settings = competitions.Logic.GetDefaultSettings();
+			data.Settings = competitions.Logic.CreateDefaultSettings();
 			if (configProposal.SettingsProposal != null)
 				configProposal.SettingsProposal.Push(data.Settings, true);
-			var worldSettingsType = competitions.Logic.GetWorldStateType();
+			var worldSettingsType = competitions.Logic.WorldStateType;
 			data.WorldState = (IWorldState)data.ClientOnServerSide.Read(worldSettingsType);
 		}
 

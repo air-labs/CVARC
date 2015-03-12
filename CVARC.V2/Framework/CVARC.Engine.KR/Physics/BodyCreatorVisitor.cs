@@ -10,23 +10,30 @@ namespace CVARC.Physics
 	/// </summary>
 	internal class BodyCreatorVisitor : IBodyVisitor
 	{
+		PhysicalManager manager;
+		public BodyCreatorVisitor(PhysicalManager manager)
+		{
+			this.manager = manager;
+		}
+
+
 		public void Visit(Box visitable)
 		{
-			IPhysical physical = PhysicalManager.MakeBox(visitable.XSize, visitable.YSize, visitable.ZSize);
+			IPhysical physical = manager.MakeBox(visitable.XSize, visitable.YSize, visitable.ZSize);
 		    physical.Body = visitable;
 			AfterCreating(visitable, physical);
 		}
 
 		public void Visit(Ball visitable)
 		{
-			IPhysical physical = PhysicalManager.MakeCyllinder(visitable.Radius, visitable.Radius, visitable.Radius * 2);
+			IPhysical physical = manager.MakeCyllinder(visitable.Radius, visitable.Radius, visitable.Radius * 2);
             physical.Body = visitable;
             AfterCreating(visitable, physical);
 		}
 
 		public void Visit(Cylinder visitable)
 		{
-			IPhysical physical = PhysicalManager.MakeCyllinder(visitable.RBottom, visitable.RTop, visitable.Height);
+			IPhysical physical = manager.MakeCyllinder(visitable.RBottom, visitable.RTop, visitable.Height);
             physical.Body = visitable;
             AfterCreating(visitable, physical);
 		}
@@ -38,8 +45,8 @@ namespace CVARC.Physics
 
 		private void AfterCreating(Body body, IPhysical physical)
 		{
-			PhysicalManager.SetSettings(body, physical);
-			PhysicalManager.SaveBody(body, physical);
+			manager.SetSettings(body, physical);
+			manager.SaveBody(body, physical);
 		}
 	}
 }

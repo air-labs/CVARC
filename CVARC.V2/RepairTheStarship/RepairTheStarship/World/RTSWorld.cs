@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using AIRLab.Mathematics;
 using CVARC.V2;
-using CVARC.V2.SimpleMovement;
+using CVARC.V2;
 
 namespace RepairTheStarship
 {
-    public class RTSWorld : World<RTSWorldState, IRTSWorldManager>, ISimpleMovementWorld
+    public class RTSWorld : World<RTSWorldState, IRTSWorldManager>
      {
         Dictionary<DetailColor, int> repairs = new Dictionary<DetailColor, int>();
 
@@ -20,8 +20,7 @@ namespace RepairTheStarship
             repairs[DetailColor.Red] = 0;
         }
 
-        public string GripCommand = "Grip";
-        public string ReleaseCommand = "Release";
+     
 
         public override void AdditionalInitialization()
         {
@@ -29,8 +28,8 @@ namespace RepairTheStarship
             detector.FindControllableObject = side =>
                 {
                     var robot = Actors
-                        .OfType<IRTSRobot>()
-                        .Where(z => z.ObjectId == side.ObjectId || z.GrippedObjectId == side.ObjectId)
+                        .OfType<IGrippableRobot>()
+                        .Where(z => z.ObjectId == side.ObjectId || z.Gripper.GrippedObjectId == side.ObjectId)
                         .FirstOrDefault();
                     if (robot != null)
                     {
@@ -104,11 +103,7 @@ namespace RepairTheStarship
                     }
         }
 
-        public static SimpleMovementCommandHelper StaticCommandHelper = new SimpleMovementCommandHelper { LinearVelocityLimit = 50, AngularVelocityLimit = Angle.FromGrad(90) };
-        public SimpleMovementCommandHelper CommandHelper
-        {
-            get { return StaticCommandHelper; } 
-        }
+        
     }
 
 }

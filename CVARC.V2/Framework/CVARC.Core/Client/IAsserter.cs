@@ -10,4 +10,12 @@ namespace CVARC.V2
         void IsEqual(double expected, double actual, double delta);
         void IsEqual(bool expected, bool actual);
     }
+
+    public static class IAsserterExtensions
+    {
+        public static void True(this IAsserter asserter, bool expression)
+        {
+            asserter.IsEqual(true, expression);
+        }
+    }
 }

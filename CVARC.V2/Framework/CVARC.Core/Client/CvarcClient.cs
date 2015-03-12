@@ -29,7 +29,9 @@ namespace CVARC.V2
 			client = new CvarcClient(tcpClient);
 			client.Write(configuration);
 			client.Write(state);
-			return client.Read<TSensorData>();
+            var sensorData=client.Read<TSensorData>();
+			OnSensorDataReceived(sensorData);
+			return sensorData;
 		}
 
 
@@ -40,7 +42,15 @@ namespace CVARC.V2
 			var sensorData = client.Read<TSensorData>(); // 11!!!
 			//if (sensorData == null)
 			//	Environment.Exit(0);
+				OnSensorDataReceived(sensorData);
 			return sensorData;
+		}
+
+		public event Action<TSensorData> SensorDataReceived;
+		void OnSensorDataReceived(TSensorData sensorData)
+		{
+			if (SensorDataReceived!=null)
+				SensorDataReceived(sensorData);
 		}
 
 		public void Exit()

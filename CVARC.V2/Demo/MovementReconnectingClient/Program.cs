@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading;
 using AIRLab.Mathematics;
 using CVARC.V2;
-using CVARC.V2.SimpleMovement;
 using Demo;
 
 namespace MovementReconnectingClient
@@ -21,7 +20,7 @@ namespace MovementReconnectingClient
                 try
                 {
                     Console.Write("Attempting to connect ");
-                    var client = new CvarcClient<object, SimpleMovementCommand>();
+                    var client = new CvarcClient<object, MoveAndGripCommand>();
 
                     var loadingData = new LoadingData { AssemblyName = "Demo", Level = "Movement" };
 
@@ -32,17 +31,18 @@ namespace MovementReconnectingClient
                         {
                             new ControllerSettings
                             {
-                                 ControllerId=MovementLogicPart.ControllerId, Name="This", Type= ControllerType.Client
+                                 ControllerId=TwoPlayersId.Left, Name="This", Type= ControllerType.Client
                             }
                         }
                     };
                     
-                    var state=new MovementWorldState();
+                    var state=KnownWorldStates.EmptyWithOneRobot(false);
+                    var rules=new MoveAndGripRules();
                 
                     client.Configurate(port, new ConfigurationProposal { LoadingData=loadingData, SettingsProposal=settings}, state);
 
-                    client.Act(SimpleMovementCommand.Move(10, 3));
-                    client.Act(SimpleMovementCommand.Rotate(Angle.Pi, 1));
+                    client.Act(rules.Move(30));
+                    client.Act(rules.Rotate(Angle.Pi));
                     client.Exit();
                     Console.WriteLine("Success");
                 }

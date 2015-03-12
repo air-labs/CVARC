@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CVARC.V2.SimpleMovement;
+using CVARC.V2;
 using RepairTheStarship.MapBuilder;
 
 namespace RepairTheStarship.Bots
@@ -11,7 +11,7 @@ namespace RepairTheStarship.Bots
         private Direction[] currentPath = new Direction[0];
         private int currentCommand;
 
-        protected override IEnumerable<SimpleMovementCommand> FindNextCommands()
+        protected override IEnumerable<MoveAndGripCommand> FindNextCommands()
         {
             while (currentCommand >= currentPath.Length)
             {

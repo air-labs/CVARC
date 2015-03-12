@@ -257,7 +257,7 @@ namespace CVARC.Physics.Farseer
 
 			// Присоединяем с таким offset-ом, как если бы не передвигали, так как фарсиру нужно локальное смещение.
 			// Пересчёт в юниты фарсира происходит внутри MakeWeldJoint.
-			Joint j = FarseerWorld.MakeWeldJoint(RealBody, (body as FarseerBody).RealBody, originalLocation);
+			Joint j = fsworld.MakeWeldJoint(RealBody, (body as FarseerBody).RealBody, originalLocation);
 			//PhysicalManager.MakeIteration(1.0001, null);
 
 			//j.CollideConnected = false;
@@ -281,7 +281,7 @@ namespace CVARC.Physics.Farseer
 					(j.BodyB == RealBody && j.BodyA == fb.RealBody))
 				{
 					j.Enabled = false;
-					FarseerWorld.RemoveJoint(j);
+					fsworld.RemoveJoint(j);
 					_joints.Remove(j); //Удалять joint из списка нужно у обоих тел! М.К.
 					fb._joints.Remove(j);
 					return;
@@ -301,15 +301,19 @@ namespace CVARC.Physics.Farseer
 		//public FarseerBody()
 		//{ }
 
-		public FarseerBody(Body realBody)
+		FarseerWorld fsworld;
+
+		public FarseerBody(Body realBody, FarseerWorld fsworld)
 		{
+			this.fsworld = fsworld;
+			
 			//TODO. fix after new bodies.
 			RealBody = realBody;
 			//RealBody.BodyId = -1;//WTF???
-			FBodyToFarseerBody.Add(RealBody, this);
+			fsworld.FBodyToFarseerBody.Add(RealBody, this);
 			RealBody.OnCollision += (x, y, z) =>
 										{
-											Body.OnCollision(FBodyToFarseerBody[y.Body].Body); // todo
+											Body.OnCollision(fsworld.FBodyToFarseerBody[y.Body].Body); // todo
 											return true;
 										};
 		}

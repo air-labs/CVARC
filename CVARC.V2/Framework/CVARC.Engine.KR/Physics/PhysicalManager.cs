@@ -14,27 +14,32 @@ namespace CVARC.Physics
 	/// <summary>
 	/// Статический класс, работающий с соответсвующим движком. 
 	/// </summary>
-	public static class PhysicalManager
+	public class PhysicalManager
 	{
 		/// <summary>
 		/// Какой физ. движок используется в данный момент.
 		/// </summary>
-		private static PhysicalEngines _currentEngine = PhysicalEngines.No;
+		private PhysicalEngines _currentEngine = PhysicalEngines.No;
 
 		/// <summary>
 		/// Какой физ. движок используется в данный момент.
 		/// </summary>
-		public static PhysicalEngines CurrentEngine { get { return _currentEngine; } }
+		public PhysicalEngines CurrentEngine { get { return _currentEngine; } }
 
 		/// <summary>
 		/// Является ли текущий движок 2х мерным. 
 		/// </summary>
-		public static bool Is2d { get { return (_currentEngine == PhysicalEngines.Farseer); } }
+		public bool Is2d { get { return (_currentEngine == PhysicalEngines.Farseer); } }
 
-		private static IWorld _world = null;
+		private  IWorld _world = null;
 
-		private static readonly Dictionary<Body, IPhysical> BodiesToPhysical = new Dictionary<Body, IPhysical>(32); 
-		private static readonly BodyCreatorVisitor BodyCreatorVisitor = new BodyCreatorVisitor();
+		private  readonly Dictionary<Body, IPhysical> BodiesToPhysical = new Dictionary<Body, IPhysical>(32);
+
+		public PhysicalManager()
+		{
+			BodyCreatorVisitor = new BodyCreatorVisitor(this);
+		}
+		private readonly BodyCreatorVisitor BodyCreatorVisitor;
 
 		/// <summary>
 		/// Инициализация движка
@@ -42,7 +47,7 @@ namespace CVARC.Physics
 		/// <param name="physicalEngine">Движок, который будет использован</param>
 		/// <param name="world">Мир этого движка</param>
 		/// <param name="root">Мир тел</param>
-		public static void InitializeEngine(PhysicalEngines physicalEngine, Body root)
+		public void InitializeEngine(PhysicalEngines physicalEngine, Body root)
 		{
 
 			switch(physicalEngine)
@@ -79,7 +84,7 @@ namespace CVARC.Physics
 		/// </summary>
 		/// <param name="dt"></param>
 		/// <param name="root"></param>
-		public static void MakeIteration(double dt, Body root)
+		public void MakeIteration(double dt, Body root)
 		{
 			_world.MakeIteration(dt, root);
 
@@ -109,7 +114,7 @@ namespace CVARC.Physics
 		/// Повесим на тело нужные event-ы, создадим физическое тело и запомним его
 		/// </summary>
 		/// <param name="body"></param>
-		private static void AcquireBody(Body body)
+		private void AcquireBody(Body body)
 		{
 			body.ChildAdded += BodyChildAdded;
 			body.ChildRemoved += BodyChildRemoved;
@@ -126,7 +131,7 @@ namespace CVARC.Physics
 		/// <summary>
 		/// Свяжем тело и физическое тело
 		/// </summary>
-		internal static void SaveBody(Body body, IPhysical physical)
+		internal void SaveBody(Body body, IPhysical physical)
 		{
 			if (BodiesToPhysical.ContainsKey(body))
 				BodiesToPhysical[body] = physical;
@@ -139,12 +144,12 @@ namespace CVARC.Physics
 		/// </summary>
 		/// <param name="body">тело, чей предок ищем</param>
 		/// <returns>материальный предок или null, если такого нет</returns>
-		private static Body FindFirstMaterialParent(Body body)
+		private Body FindFirstMaterialParent(Body body)
 		{
 			return body.GetParents().FirstOrDefault(x => x.IsMaterial);
 		}
 
-		private static void FindParentAndAttach(Body body)
+		private void FindParentAndAttach(Body body)
 		{
 			Body materialParent = FindFirstMaterialParent(body);
 
@@ -159,13 +164,13 @@ namespace CVARC.Physics
 
 		#region	Events
 
-		private static void BodyChildAdded(Body body)
+		private void BodyChildAdded(Body body)
 		{
 			AcquireBody(body);			
 			FindParentAndAttach(body);
 		}
 
-		private static void BodyChildRemoved(Body body)
+		private void BodyChildRemoved(Body body)
 		{
 			if (!BodiesToPhysical.ContainsKey(body))
 				return;
@@ -192,7 +197,7 @@ namespace CVARC.Physics
 		    }
 		}
 
-		private static void BodyPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		private void BodyPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			Body body = (Body)sender;
 
@@ -225,7 +230,7 @@ namespace CVARC.Physics
 		/// <summary>
 		/// Настроит тело PhysicalModel в соответствии с телом PhysicalPrimitiveBody
 		/// </summary>	
-		public static void SetSettings(Body body, IPhysical physical)
+		public void SetSettings(Body body, IPhysical physical)
 		{
 			physical.IsStatic = body.IsStatic;
 			physical.Location = body.Location;
@@ -239,12 +244,12 @@ namespace CVARC.Physics
 		
 		#region Making primitives
 
-		public static IPhysical MakeBox(double xsize, double zsize, double ysize)
+		public IPhysical MakeBox(double xsize, double zsize, double ysize)
 		{
 			return _world.MakeBox(xsize, zsize, ysize);
 		}
 
-		public static IPhysical MakeCyllinder(double rbottom, double rtop, double height)
+		public IPhysical MakeCyllinder(double rbottom, double rtop, double height)
 		{
 			return _world.MakeCyllinder(rbottom, rtop, height);
 		}

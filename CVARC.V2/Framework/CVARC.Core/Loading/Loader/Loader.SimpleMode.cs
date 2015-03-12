@@ -81,18 +81,18 @@ namespace CVARC.V2
 			var configuration = new Configuration();
 			configuration.LoadingData = loadingData;
 			var competitions = GetCompetitions(configuration.LoadingData);
-			configuration.Settings = competitions.Logic.GetDefaultSettings();
+			configuration.Settings = competitions.Logic.CreateDefaultSettings();
 
 
 			proposal.Push(configuration.Settings, true);
 			var stateName = configuration.Settings.WorldState;
 			if (stateName == null)
 			{
-				if (competitions.Logic.PredefinedStatesNames.Count == 0)
+				if (competitions.Logic.PredefinedWorldStates.Count == 0)
 					throw new Exception("The count of predefined stated in the " + competitions.Logic.GetType() + " is zero");
-				stateName = competitions.Logic.PredefinedStatesNames[0];
+				stateName = competitions.Logic.PredefinedWorldStates[0];
 			}
-			var state = competitions.Logic.CreatePredefinedState(stateName);
+			var state = competitions.Logic.CreateWorldState(stateName);
 			return CreateWorld(configuration, factory, state);
 
 		}

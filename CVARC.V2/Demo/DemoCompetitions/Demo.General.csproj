@@ -48,35 +48,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Camera\CameraSensor.cs" />
-    <Compile Include="Camera\LogicPart.cs" />
-    <Compile Include="Camera\Robot.cs" />
-    <Compile Include="Camera\SensorsWithCamera.cs" />
     <Compile Include="Collision\CollisionTestBase.cs" />
-    <Compile Include="Collision\ICollisionActorManager.cs" />
-    <Compile Include="Collision\LogicPart.cs" />
     <Compile Include="Collision\LogicPart.Tests.cs" />
-    <Compile Include="Collision\PushingBot.cs" />
-    <Compile Include="Collision\Robot.cs" />
-    <Compile Include="Collision\World.cs" />
-    <Compile Include="Interaction\InteractionSensorData.cs" />
+    <Compile Include="UniversalDemo\TestBases\TestBases.cs" />
+    <Compile Include="UniversalDemo\Tests\MovementTests.cs" />
+    <Compile Include="UniversalDemo\DemoWorldState.cs" />
     <Compile Include="Interaction\InteractionTestBase.cs" />
-    <Compile Include="Interaction\LogicPart.cs" />
     <Compile Include="Interaction\LogicPart.Tests.cs" />
-    <Compile Include="Interaction\MovingForwardBot.cs" />
-    <Compile Include="Interaction\Robot.cs" />
-    <Compile Include="Movement\LogicPart.cs" />
-    <Compile Include="Movement\LogicPart.Tests.cs" />
-    <Compile Include="Movement\MovementWorldState.cs" />
-    <Compile Include="Movement\Robot.cs" />
-    <Compile Include="Movement\MovementTestBase.cs" />
-    <Compile Include="Movement\World.cs" />
-    <Compile Include="Movement\SensorsData.cs" />
-    <Compile Include="MultiControl\DisplacementCommand.cs" />
-    <Compile Include="MultiControl\MultiCommandKeyboardPool.cs" />
-    <Compile Include="MultiControl\MultiCommandPreprocessir.cs" />
-    <Compile Include="MultiControl\MultiControlLogicPart.cs" />
+    <Compile Include="UniversalDemo\TestBases\DemoTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UniversalDemo\IDemoWorldManager.cs" />
+    <Compile Include="UniversalDemo\DemoSensorsData.cs" />
+    <Compile Include="UniversalDemo\DemoRobot.cs" />
+    <Compile Include="UniversalDemo\DemoWorld.cs" />
+    <Compile Include="UniversalDemo\LogicPart.cs" />
+    <Compile Include="UniversalDemo\TestBases\WorldStates.cs" />
+    <Compile Include="UniversalDemo\Tests\InteractionTests.cs" />
+    <Compile Include="VSUnitTestGenerator.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -105,14 +93,6 @@
       <Project>{f7b5021f-09e8-4388-97a2-4b44b9770d03}</Project>
       <Name>CVARC.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\RepairTheStarship\RepairTheStarship\RepairTheStarship.General.csproj">
-      <Project>{11B6A7C1-E6AA-4F81-9710-EC84069CA858}</Project>
-      <Name>RepairTheStarship.General</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Camera\readme.txt" />
-    <Content Include="Collision\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

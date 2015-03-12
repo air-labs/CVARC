@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CVARC.V2.SimpleMovement;
+using CVARC.V2;
 using RepairTheStarship.MapBuilder;
 
 namespace RepairTheStarship.Bots
@@ -9,7 +9,7 @@ namespace RepairTheStarship.Bots
     {
         private Direction lastCommand;
 
-        protected override IEnumerable<SimpleMovementCommand> FindNextCommands()
+        protected override IEnumerable<MoveAndGripCommand> FindNextCommands()
         {
             var path = PathSearcher.FindPath(Map, OurCoordinates, OpponentCoordinates);
             var commands = path.Length == 0 ? GoBack() : RobotLocator.GetCommandsByDirection(path.First());
@@ -17,9 +17,9 @@ namespace RepairTheStarship.Bots
             return commands;
         }
 
-        private IEnumerable<SimpleMovementCommand> GoBack()
+        private IEnumerable<MoveAndGripCommand> GoBack()
         {
-            return RobotLocator.GetCommandsByDirection(lastCommand.Invert()).Concat(new[] { world.CommandHelper.SleepCommand(3) });
+            return RobotLocator.GetCommandsByDirection(lastCommand.Invert()).Concat(new[] { RTSRules.Current.Stand(3) });
         }
     }
 }

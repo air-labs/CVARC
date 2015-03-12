@@ -18,6 +18,7 @@ namespace CVARC.V2
         event Action Exit;
         Configuration Configuration { get; }
         Competitions Competitions { get; }
+        IKeyboard Keyboard { get; }
         Logger Logger { get; }
         void CreateWorld();
         void RunActively(double requiredPhysicalDelta);

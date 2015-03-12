@@ -7,10 +7,10 @@ namespace CVARC.V2
 {
     public class LogPlayController : IController
     {
-        List<object> commands;
+        List<ICommand> commands;
         int pointeer = 0;
 
-        public LogPlayController(IEnumerable<object> commands)
+        public LogPlayController(IEnumerable<ICommand> commands)
         {
             this.commands = commands.ToList();
         }
@@ -20,7 +20,7 @@ namespace CVARC.V2
           
         }
 
-        public object GetCommand()
+        public ICommand GetCommand()
         {
             var command=commands[pointeer];
             pointeer++;

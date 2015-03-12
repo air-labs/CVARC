@@ -27,13 +27,16 @@ namespace CVARC.V2
         HashSet<Body> installedCollisionDetector = new HashSet<Body>();
         public ReplayLogger Logger { get; private set; }
 
+		PhysicalManager physicalManager;
+
         public void Initialize(IWorld world)
         {
             World = world;
             Root = new Body();
             Root.ChildAdded += Root_ChildAdded;
             DrawerFactory = new DrawerFactory(Root);
-            PhysicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
+			physicalManager = new PhysicalManager();
+			physicalManager.InitializeEngine(PhysicalEngines.Farseer, Root);
             Logger = new ReplayLogger(Root, 0.1);
             World.Exit += World_Exit;
         }
@@ -83,7 +86,7 @@ namespace CVARC.V2
                 Logger.LogBodies();
                 foreach (var e in RequestedSpeeds)
                     GetBody(e.Key).Velocity = e.Value;
-                PhysicalManager.MakeIteration(Math.Min(InternalDeltaTime,dt), Root);
+                physicalManager.MakeIteration(Math.Min(InternalDeltaTime,dt), Root);
                 foreach (Body body in Root)
                     body.Update(dt);
                 dt -= InternalDeltaTime;

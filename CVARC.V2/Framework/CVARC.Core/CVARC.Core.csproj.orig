@@ -86,17 +86,15 @@
     <Compile Include="Client\ICvarcTest.cs" />
     <Compile Include="Controllers\Network\CvarcClient.cs" />
     <Compile Include="Engine\IPassiveEngine.cs" />
+    <Compile Include="Loading\Competitions\ActorFactory.cs" />
+    <Compile Include="Loading\Competitions\LogicPartHelper.cs" />
     <Compile Include="Loading\Configuration\IWorldState.cs" />
-<<<<<<< HEAD
     <Compile Include="Loading\Loader\Loader.Levels.cs" />
+    <Compile Include="Loading\Debugger.cs" />
     <Compile Include="Loading\Loader\Loader.SelfTest.cs" />
     <Compile Include="Loading\Loader\Loader.SoloNetwork.cs" />
     <Compile Include="Loading\Loader\Loader.SimpleMode.cs" />
     <Compile Include="Loading\Loader\NetworkServerData.cs" />
-=======
-    <Compile Include="Loading\Debugger.cs" />
-    <Compile Include="Loading\NetworkServerData.cs" />
->>>>>>> origin/UnityWorking
     <Compile Include="Client\MSAsserter.cs" />
     <Compile Include="Clocks\ControlTrigger.cs" />
     <Compile Include="Clocks\OneTimeTrigger.cs" />
@@ -109,9 +107,7 @@
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\IController.cs" />
     <Compile Include="Controllers\Keyboard\IKeyboard.cs" />
-    <Compile Include="Controllers\Keyboard\IKeyboardControllerPool.cs" />
     <Compile Include="Controllers\Keyboard\KeyboardController.cs" />
-    <Compile Include="Controllers\Keyboard\KeyboardControllerPool.cs" />
     <Compile Include="Controllers\Keyboard\WinformsKey.cs" />
     <Compile Include="Controllers\LogPlayController.cs" />
     <Compile Include="Controllers\Network\IMessagingClient.cs" />
@@ -125,7 +121,6 @@
     <Compile Include="Engine\IWorldManager.cs" />
     <Compile Include="Engine\WorldManager.cs" />
     <Compile Include="Loading\Competitions\Competitions.cs" />
-    <Compile Include="Loading\Competitions\LogicPart{}.cs" />
     <Compile Include="Loading\Configuration\ConfigurationProposal.cs" />
     <Compile Include="Loading\Configuration\IConfigurationPull.cs" />
     <Compile Include="Loading\Configuration\LoadingData.cs" />
@@ -142,6 +137,9 @@
     <Compile Include="Loading\ControllerFactory\LogPlayerControllerFactory.cs" />
     <Compile Include="Loading\ControllerFactory\SoloNetworkControllerFactory.cs" />
     <Compile Include="Loading\ControllerFactory\TutorialControllerFactory.cs" />
+<<<<<<< HEAD
+    <Compile Include="Loading\Loader.cs" />
+=======
     <Compile Include="Loading\Loader\Loader.Entry.cs" />
     <Compile Include="Loading\RunModes\BotDemoRunMode.cs" />
     <Compile Include="Loading\RunModes\DebugRunMode.cs" />
@@ -152,6 +150,7 @@
     <Compile Include="Loading\RunModes\StandardRunMode.cs" />
     <Compile Include="Loading\RunModes\TournamentRunMode.cs" />
     <Compile Include="Loading\RunModes\TutorialRunMode.cs" />
+>>>>>>> origin/StableUnity
     <Compile Include="Logging\Log.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -172,11 +171,31 @@
     <Compile Include="SimpleMovementCase\SimpleMovementRobot.cs" />
     <Compile Include="SimpleMovementCase\SquareWalkingBot.cs" />
     <Compile Include="SimpleMovementCase\TwoPlayersId.cs" />
+    <Compile Include="Units\Bot.cs" />
+    <Compile Include="Units\GripperUnit\RulesExtensions.cs" />
+    <Compile Include="Units\GripperUnit\GripperAction.cs" />
+    <Compile Include="Units\GripperUnit\GripperUnit.cs" />
+    <Compile Include="Units\GripperUnit\GripperSensor.cs" />
+    <Compile Include="Units\GripperUnit\IGrippableRobot.cs" />
+    <Compile Include="Units\GripperUnit\IGripperCommand.cs" />
+    <Compile Include="Units\GripperUnit\IGripperRules.cs" />
+    <Compile Include="Units\IRules.cs" />
+    <Compile Include="Units\IUnit.cs" />
+    <Compile Include="Units\MoveAndGrip\MoveAndGripCommand.cs" />
+    <Compile Include="Units\MoveAndGrip\MoveAndGripRobot.cs" />
+    <Compile Include="Units\MoveAndGrip\MoveAndGripRules.cs" />
+    <Compile Include="Units\SimpleMovementUnit\RulesExtensions.cs" />
+    <Compile Include="Units\SimpleMovementUnit\ISimpleMovementCommand.cs" />
+    <Compile Include="Units\SimpleMovementUnit\SimpleMovement.cs" />
+    <Compile Include="Units\SimpleMovementUnit\SimpleMovementRules.cs" />
+    <Compile Include="Units\SimpleMovementUnit\SimpleMovementUnit.cs" />
+    <Compile Include="Units\TwoPlayersId.cs" />
     <Compile Include="World\Actor.cs" />
     <Compile Include="World\CommandPreprocessor.cs" />
     <Compile Include="World\IActor.cs" />
     <Compile Include="World\ICommand.cs" />
     <Compile Include="World\ICommandPreprocessor.cs" />
+    <Compile Include="World\IdentityCommandPreprocessor.cs" />
     <Compile Include="World\IdGenerator.cs" />
     <Compile Include="World\IWorld.cs" />
     <Compile Include="World\Robot.cs" />

@@ -9,19 +9,11 @@ namespace CVARC.V2
     {
         IMessagingClient client;
         bool controllerIsGiven;
-        INetworkController controller;
         public SoloNetworkControllerFactory(IMessagingClient client)
         {
             this.client = client;
         }
 
-        public override void Initialize(IWorld world)
-        {
-            base.Initialize(world);
-            controller = world.Competitions.Logic.CreateNetworkController();
-            controller.InitializeClient(client);
-            
-        }
 
         override public IController Create(string controllerId)
         {
@@ -30,6 +22,8 @@ namespace CVARC.V2
             if (controllerIsGiven)
                 throw new Exception("Only one network controller can be assigned in this mode");
             controllerIsGiven = true;
+            var controller = World.Competitions.Logic.Actors[controllerId].CreateNetworkController();
+            controller.InitializeClient(client);
             return controller;
         }
     }

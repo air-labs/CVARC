@@ -82,14 +82,6 @@
       <Project>{ce636d44-57a4-48fa-a178-88ca2c3e9dd4}</Project>
       <Name>Demo.General</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\RepairTheStarship\RepairTheStarship.KroR\RepairTheStarship.KroR.csproj">
-      <Project>{748db258-2d25-42a4-af68-f852da397324}</Project>
-      <Name>RepairTheStarship.KroR</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\RepairTheStarship\RepairTheStarship\RepairTheStarship.General.csproj">
-      <Project>{11b6a7c1-e6aa-4f81-9710-ec84069ca858}</Project>
-      <Name>RepairTheStarship.General</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CVARC.Core\CVARC.Core.csproj">
       <Project>{f7b5021f-09e8-4388-97a2-4b44b9770d03}</Project>
       <Name>CVARC.Core</Name>

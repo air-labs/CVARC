@@ -7,7 +7,7 @@ namespace CVARC.V2
 {
     public interface ICommandPreprocessor
     {
-        IEnumerable<ICommand> Preprocess(object command);
+        IEnumerable<ICommand> Preprocess(ICommand command);
         void Initialize(IActor actor);
     }
 }

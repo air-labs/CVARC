@@ -5,10 +5,11 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public abstract class Actor<TActorManager, TWorld, TCommand> : IActor
+    public abstract class Actor<TActorManager, TWorld, TCommand, TRules> : IActor
         where TActorManager : IActorManager
         where TWorld : IWorld
         where TCommand : ICommand
+        where TRules : IRules
     {
         protected TActorManager Manager { get; private set; }
         public TWorld World { get; private set; }
@@ -17,13 +18,22 @@ namespace CVARC.V2
         public string ObjectId { get; private set; }
         public Type ExpectedCommandType { get { return typeof(TCommand); } }
 
-        public virtual void Initialize(IActorManager rules, IWorld world, string actorObjectId, string controllerId)
+        public TRules Rules { get; private set; }
+        IRules IActor.Rules { get { return Rules; } }
+
+        public void Initialize(IActorManager manager, IWorld world, IRules rules, string actorObjectId, string controllerId)
         {
-            Manager = Compatibility.Check<TActorManager>(this, rules);
+            Manager = Compatibility.Check<TActorManager>(this, manager);
             World = Compatibility.Check<TWorld>(this, world);
+            Rules = Compatibility.Check<TRules>(this, rules);
             ObjectId = actorObjectId;
             ControllerId = controllerId;
+            AdditionalInitialization();
         }
+
+        public virtual void AdditionalInitialization()
+        { }
+
 
 
         public string ControllerId
@@ -32,12 +42,12 @@ namespace CVARC.V2
             private set;
         }
 
-        void IActor.ExecuteCommand(ICommand command)
+        void IActor.ExecuteCommand(ICommand command, out double duration)
         {
-            ExecuteCommand((TCommand)command);
+            ExecuteCommand((TCommand)command, out duration);
         }
 
-        public abstract void ExecuteCommand(TCommand command);
+        public abstract void ExecuteCommand(TCommand command, out double duration);
 
         public abstract object GetSensorData();
     }
