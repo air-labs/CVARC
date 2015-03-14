@@ -1,0 +1,9 @@
+﻿@model string
+
+<div>
+    @using (Html.BeginForm("UploadFile", "Replay", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="file" accept=".zip, .rar"/>
+        <div><input type="submit" value="Загрузить клиент" /></div>
+    }
+</div>

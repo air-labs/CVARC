@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using ServerReplayPlayer.Contracts;
 
@@ -30,6 +31,11 @@ namespace ServerReplayPlayer.Logic
                 Players = Storage.GetPlayers(level).Select(x => x.Name).ToArray(),
                 MatchResults = Storage.GetMatchResults(level)
             };
+        }
+
+        public string GetReplay(string level, Guid id)
+        {
+            return Encoding.UTF8.GetString(Storage.GetReplay(level, id));
         }
 
         public void SaveMatchResult(string level, MatchResult matchResult)

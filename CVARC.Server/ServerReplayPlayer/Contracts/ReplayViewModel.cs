@@ -1,10 +1,16 @@
-﻿namespace ServerReplayPlayer.Contracts
+﻿using System;
+
+namespace ServerReplayPlayer.Contracts
 {
     public class ReplayViewModel
     {
-        public string Language { get; set; }
-        public string Points { get; set; }
-        public string Name { get; set; }
-        public string Time { get; set; }
+        public string Level { get; set; }
+        public Guid Id { get; set; }
+
+        public ReplayViewModel(string level, Guid id)
+        {
+            Level = level;
+            Id = id;
+        }
     }
 }

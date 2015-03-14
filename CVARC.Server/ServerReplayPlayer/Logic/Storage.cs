@@ -51,6 +51,11 @@ namespace ServerReplayPlayer.Logic
             return GetCache(level).MatchResultCache.GetAllEntities();
         }
 
+        public static byte[] GetReplay(string level, Guid id)
+        {
+            return GetCache(level).MatchResultCache.GetFile(id);
+        }
+
         public static void SaveMatchResult(string level, MatchResult matchResult)
         {
             var cache = GetCache(level).MatchResultCache;

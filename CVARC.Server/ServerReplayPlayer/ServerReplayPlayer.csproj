@@ -108,6 +108,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\ReplayViewModel.cs" />
     <Compile Include="Contracts\CompetitionsInfoServer.cs" />
     <Compile Include="Contracts\IWithId.cs" />
     <Compile Include="Contracts\MatchResultEntity.cs" />
@@ -123,7 +124,7 @@
     <Compile Include="Logic\FileCache.cs" />
     <Compile Include="Logic\FileValidator.cs" />
     <Compile Include="Logic\LevelCaches.cs" />
-    <Compile Include="Contracts\ReplayViewModel.cs" />
+    <Compile Include="Contracts\ReplaysViewModel.cs" />
     <Compile Include="Logic\Provider.cs" />
     <Compile Include="Logic\Storage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -141,7 +142,6 @@
     <Content Include="Scripts\logic.js" />
     <Content Include="Scripts\ReplayLoader.js" />
     <Content Include="Scripts\ReplayWindow.js" />
-    <Content Include="Scripts\showReplay.js" />
     <Content Include="Scripts\three.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -162,10 +162,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Replay\Index.cshtml" />
+    <Content Include="Views\Home\UploadClient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Replay\FileFormatError.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Replay\PlayReplay.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,4 +1,4 @@
-﻿@model ServerReplayPlayer.Contracts.ReplayViewModel[]
+﻿@model ServerReplayPlayer.Contracts.ReplaysViewModel[]
 
 @{
     Layout = null;
@@ -10,31 +10,40 @@
     <head>
         <title>Replayer</title>
         <link type="text/css" rel="stylesheet" href="other/css.css" />
-        <script lang="text/javascript" src="Scripts/three.js"></script>
-        <script lang="text/javascript" src="Scripts/ReplayLoader.js"></script>
-        <script lang="text/javascript" src="Scripts/ReplayWindow.js"></script>
-        <script lang="text/javascript" src="Scripts/showReplay.js"></script>
-        <script src="http://code.jquery.com/jquery-1.7.2.min.js" type="text/javascript"></script>
-        <script>window.jQuery || document.write('<script src="Scripts/jquery-1.7.2.min.js"><\/script>')</script>
-        <script lang="text/javascript" src="Scripts/logic.js"></script>
     </head>
-    <body onload="onload();" link="red" vlink="#0000ff" alink="#0000ff">
-        @Html.ActionLink("Загрузить клиент", "Index", "Replay")
-        <div id="scene" style="width: 800px; height: 600px; position: absolute;" class="noselect"></div>
-        <table id="info">
-            <thead>
-                <tr>
-                    <td>Имя</td>
-                    <td>Очки</td>
-                </tr>
-            </thead>
-            @foreach (var a in Model)
-            {
-                <tr>
-                    <td><a wantPlayReplay="true" href="#" class="linkName">@a.Name</a></td>
-                    <td>@a.Points</td>
-                </tr>
-            }
+    <body link="red" vlink="#0000ff" alink="#0000ff">
+        <table id="mainTable">
+            <tr>
+                @foreach (var replay in Model)
+                {
+                    <td>
+                        <h2>@replay.Level</h2>
+                        @Html.Partial("UploadClient", @replay.Level)
+                    </td>
+                }
+            </tr>
+            <tr>
+                @foreach (var replays in Model)
+                {
+                    <td><table id="info">
+                        <thead>
+                            <tr>
+                                <td>Имя</td>
+                                <td>Очки</td>
+                            </tr>
+                        </thead>
+                        @foreach (var replay in replays.Replays)
+                        {
+                            <tr>
+                                @{ var text = replay.Player + (replay.Player2 == null ? "" : " vs " + replay.Player2); }
+                                @{ var url = "Replay/Get?level=" + replays.Level + "&id=" + replay.Id;}
+                                <td><a href="@url" class="linkName">@text</a></td>
+                                <td>@replay.Points</td>
+                            </tr>
+                        }
+                    </table></td>
+                }
+            </tr>
         </table>
     </body>
 </html>

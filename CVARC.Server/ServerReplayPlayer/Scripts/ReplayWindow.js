@@ -102,7 +102,7 @@ addBox:		function(elem) {
 	 var material;
 	 if(elem.texture)
 		{
-		 var texture = THREE.ImageUtils.loadTexture( 'other/' + elem.texture );
+		 var texture = THREE.ImageUtils.loadTexture( '/other/' + elem.texture );
 		 material = new THREE.MeshPhongMaterial( {color: elem.color, map: texture} );
 		}
 	 else
@@ -120,7 +120,7 @@ addCylinder: function (elem) {
 	 var body = new THREE.Mesh(geometry, material);
     
 	 var geometry2 = new THREE.CubeGeometry(10, 10, 10);
-	 var material2 = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture('Other/' + elem.color + '.png')});
+	 var material2 = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture('/Other/' + elem.color + '.png')});
 	 var body2 = new THREE.Mesh(geometry2, material2);
      body.add(body2);
 	 body2.position.y += 6;

@@ -2,7 +2,7 @@
 
 namespace ServerReplayPlayer.Controllers
 {
-    public class BaseController : Controller
+    public abstract class BaseController : Controller
     {
         protected new JsonResult Json(object obj)
         {

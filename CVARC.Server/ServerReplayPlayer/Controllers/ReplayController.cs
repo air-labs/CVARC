@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -13,9 +14,19 @@ namespace ServerReplayPlayer.Controllers
     {
         private readonly Provider _provider = new Provider();
 
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Get(string level, Guid id)
         {
-            return View();
+            return View("PlayReplay", new ReplayViewModel(level, id));
+        }
+
+        [HttpGet]
+        public string GetReplay(string level, Guid id)
+        {
+            string path = ControllerContext.HttpContext.Server.MapPath("~\\Replays\\");
+            var replay = System.IO.File.ReadAllLines(path + "Alexander Ponomarev.Blue").Last();
+            return replay;
+            return _provider.GetReplay(level, id);
         }
 
         [HttpPost]
@@ -24,7 +35,7 @@ namespace ServerReplayPlayer.Controllers
             if (FileValidator.IsValid(file))
             {
                 Provider.AddPlayer(level, file);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             return View("FileFormatError");
         }

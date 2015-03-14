@@ -1,14 +1,16 @@
-$(document).ready(function () {
-    $('[wantPlayReplay=true]').click(function () {
-        var replayName = $(this).text();
-        window.location = "/Home?name=" + replayName;
-    });
-});
+function onload(id, level) {
+    var div = document.getElementById('scene');
+    showReplay(div, "/Replay/GetReplay?id=" + id + "&level=" + level);
+}
 
-function onload() {
-    var replayName = location.search.split('name=')[1];
-    if (replayName) {
-        var div = document.getElementById('scene');
-        showReplay(div, "Home/GetReplay?name=" + replayName);
-    }
+function showReplay(div, url, delayTime) {
+    ReplayLoader.load(url);
+    if (delayTime)
+        ReplayLoader.setDelayTime(delayTime);
+
+    ReplayWindow.addScene(div);
+    //	 ReplayWindow.addFPS(div);
+    ReplayWindow.addEvents(div);
+
+    ReplayWindow.start();
 }
