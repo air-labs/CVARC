@@ -158,7 +158,8 @@ doFPS:		function(time) {
 addScene: function (div) {
     var width = window.outerWidth;
     var height = window.outerHeight;
-	 var camera = new THREE.PerspectiveCamera(75, width/height, 0.1, 1000);
+    var camera = new THREE.PerspectiveCamera(75, width/height, 0.1, 1000);
+    camera.setViewOffset(width - 200, height - 200, 0, 0, width, height);
 	 var renderer = new THREE.WebGLRenderer({ antialias: true });
 	 var scene = new THREE.Scene();
 	 var light1 = new THREE.PointLight( 0xffffff, 1.5, 1000 );
