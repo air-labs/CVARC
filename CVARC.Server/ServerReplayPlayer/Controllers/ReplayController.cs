@@ -12,7 +12,6 @@ namespace ServerReplayPlayer.Controllers
     public class ReplayController : BaseController
     {
         private readonly Provider _provider = new Provider();
-        private const string Level = "1";
 
         public ActionResult Index()
         {
@@ -20,34 +19,34 @@ namespace ServerReplayPlayer.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadFile(HttpPostedFileBase file)
+        public ActionResult UploadFile(string level, HttpPostedFileBase file)
         {
             if (FileValidator.IsValid(file))
             {
-                Provider.AddPlayer(Level, file);
+                Provider.AddPlayer(level, file);
                 return RedirectToAction("Index");
             }
             return View("FileFormatError");
         }
 
         [HttpPost]
-        public ActionResult GetPlayer(Guid id)
+        public ActionResult GetPlayer(string level, Guid id)
         {
-            return Json(_provider.GetPlayer(Level, id));
+            return Json(_provider.GetPlayer(level, id));
         }
 
         [HttpPost]
-        public JsonResult GetCompetitionsInfo()
+        public JsonResult GetCompetitionsInfo(string level)
         {
-            return Json(_provider.GetCompetitionsInfo(Level));
+            return Json(_provider.GetCompetitionsInfo(level));
         }
 
         [HttpPost]
-        public void SaveMatchResult()
+        public void SaveMatchResult(string level)
         {
             var str = new StreamReader(Request.InputStream, Encoding.UTF8).ReadToEnd();
-            var matchResult = JsonConvert.DeserializeObject<MatchResultContract>(str);
-            _provider.SaveMatchResult(Level, matchResult);
+            var matchResult = JsonConvert.DeserializeObject<MatchResult>(str);
+            _provider.SaveMatchResult(level, matchResult);
         }
     }
 }

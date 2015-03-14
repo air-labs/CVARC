@@ -110,10 +110,10 @@
   <ItemGroup>
     <Compile Include="Contracts\CompetitionsInfoServer.cs" />
     <Compile Include="Contracts\IWithId.cs" />
+    <Compile Include="Contracts\MatchResultEntity.cs" />
     <Compile Include="Contracts\MatchResult.cs" />
-    <Compile Include="Contracts\MatchResultContract.cs" />
+    <Compile Include="Contracts\PlayerEntity.cs" />
     <Compile Include="Contracts\Player.cs" />
-    <Compile Include="Contracts\PlayerContract.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReplayController.cs" />
@@ -123,10 +123,9 @@
     <Compile Include="Logic\FileCache.cs" />
     <Compile Include="Logic\FileValidator.cs" />
     <Compile Include="Logic\LevelCaches.cs" />
-    <Compile Include="Logic\Log.cs" />
+    <Compile Include="Contracts\ReplayViewModel.cs" />
     <Compile Include="Logic\Provider.cs" />
     <Compile Include="Logic\Storage.cs" />
-    <Compile Include="Logic\StorageHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

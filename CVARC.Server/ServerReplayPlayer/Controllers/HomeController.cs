@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using ServerReplayPlayer.Contracts;
 using ServerReplayPlayer.Logic;
 
 namespace ServerReplayPlayer.Controllers
@@ -20,14 +21,14 @@ namespace ServerReplayPlayer.Controllers
             return replay;
         }
 
-        private Log[] ReadReplays()
+        private ReplayViewModel[] ReadReplays()
         {
             string path = ControllerContext.HttpContext.Server.MapPath("~\\Replays");
             return Directory.GetFiles(path).Select(x =>
                 {
                     var side = x.Contains("Blue") ? 1 : 0;
                     using (var file = new StreamReader(x))
-                        return new Log
+                        return new ReplayViewModel
                             {
                                 Language = file.ReadLine(),
                                 Points =  file.ReadLine().Split(':')[side],

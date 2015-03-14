@@ -4,13 +4,13 @@ namespace ServerReplayPlayer.Logic
 {
     class LevelCaches
     {
-        public FileCache<MatchResult> MatchResultCache { get; set; } 
-        public FileCache<Player> PlayerCache { get; set; }
+        public FileCache<MatchResultEntity> MatchResultCache { get; set; } 
+        public FileCache<PlayerEntity> PlayerCache { get; set; }
 
         public LevelCaches(string folder)
         {
-            PlayerCache = new FileCache<Player>(folder + "_players");
-            MatchResultCache = new FileCache<MatchResult>(folder + "_result");
+            PlayerCache = new FileCache<PlayerEntity>(folder + "_players");
+            MatchResultCache = new FileCache<MatchResultEntity>(folder + "_result");
         }
     }
 }

@@ -1,11 +1,8 @@
-﻿using System;
-
-namespace ServerReplayPlayer.Contracts
+﻿namespace ServerReplayPlayer.Contracts
 {
-    [Serializable]
-    public class Player : IWithId
+    public class Player
     {
-        public Guid Id { get; set; }
+        public byte[] Zip { get; set; }
         public string Name { get; set; }
     }
 }

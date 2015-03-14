@@ -14,9 +14,9 @@ namespace ServerReplayPlayer.Logic
             Storage.SavePlayerClient(level, name, file);
         }
 
-        public PlayerContract GetPlayer(string level, Guid id)
+        public Player GetPlayer(string level, Guid id)
         {
-            return new PlayerContract
+            return new Player
             {
                 Zip = Storage.GetPlayerClient(level, id),
                 Name = Storage.GetPlayer(level, id).Name
@@ -32,7 +32,7 @@ namespace ServerReplayPlayer.Logic
             };
         }
 
-        public void SaveMatchResult(string level, MatchResultContract matchResult)
+        public void SaveMatchResult(string level, MatchResult matchResult)
         {
             Storage.SaveMatchResult(level, matchResult);
         }

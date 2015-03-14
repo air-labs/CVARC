@@ -1,6 +1,6 @@
-﻿namespace ServerReplayPlayer.Logic
+﻿namespace ServerReplayPlayer.Contracts
 {
-    public class Log
+    public class ReplayViewModel
     {
         public string Language { get; set; }
         public string Points { get; set; }

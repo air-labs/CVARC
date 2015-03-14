@@ -1,13 +1,10 @@
-﻿using System;
-
-namespace ServerReplayPlayer.Contracts
+﻿namespace ServerReplayPlayer.Contracts
 {
-    [Serializable]
-    public class MatchResult : IWithId
+    public class MatchResult
     {
-        public Guid Id { get; set; }
         public string Player { get; set; }
         public string Player2 { get; set; }
         public string Points { get; set; }
+        public string Replay { get; set; }
     }
 }

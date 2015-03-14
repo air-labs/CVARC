@@ -22,7 +22,7 @@ namespace ServerReplayPlayer.Logic
         public static void SavePlayerClient(string level, string name, HttpPostedFileBase file)
         {
             var cache = GetCache(level).PlayerCache;
-            var exsistingPlayer = cache.TryGetEntity(x => x.Name == name) ?? new Player { Id = Guid.NewGuid() };
+            var exsistingPlayer = cache.TryGetEntity(x => x.Name == name) ?? new PlayerEntity { Id = Guid.NewGuid() };
             exsistingPlayer.Name = name;
             using (var memoryStream = new MemoryStream())
             {
@@ -36,25 +36,25 @@ namespace ServerReplayPlayer.Logic
             return GetCache(level).PlayerCache.GetFile(id);
         }
 
-        public static Player GetPlayer(string level, Guid id)
+        public static PlayerEntity GetPlayer(string level, Guid id)
         {
             return GetCache(level).PlayerCache.GetEntity(id);
         }
 
-        public static Player[] GetPlayers(string level)
+        public static PlayerEntity[] GetPlayers(string level)
         {
             return GetCache(level).PlayerCache.GetAllEntities();
         }
 
-        public static MatchResult[] GetMatchResults(string level)
+        public static MatchResultEntity[] GetMatchResults(string level)
         {
             return GetCache(level).MatchResultCache.GetAllEntities();
         }
 
-        public static void SaveMatchResult(string level, MatchResultContract matchResult)
+        public static void SaveMatchResult(string level, MatchResult matchResult)
         {
             var cache = GetCache(level).MatchResultCache;
-            var exsistingResult = cache.TryGetEntity(x => x.Player == matchResult.Player && x.Player2 == matchResult.Player2) ?? new MatchResult {Id = Guid.NewGuid()};
+            var exsistingResult = cache.TryGetEntity(x => x.Player == matchResult.Player && x.Player2 == matchResult.Player2) ?? new MatchResultEntity {Id = Guid.NewGuid()};
             exsistingResult.Points = matchResult.Points;
             cache.Save(exsistingResult, Encoding.UTF8.GetBytes(matchResult.Replay));
         }
