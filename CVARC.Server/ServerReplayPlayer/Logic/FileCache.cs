@@ -11,7 +11,6 @@ namespace ServerReplayPlayer.Logic
     public class FileCache<TEntity> where TEntity : IWithId
     {
         private readonly string folder;
-        private readonly ConcurrentDictionary<Guid, byte[]> cacheFile = new ConcurrentDictionary<Guid, byte[]>();
         private ConcurrentDictionary<Guid, TEntity> cacheEntity;
         private ConcurrentDictionary<Guid, TEntity> CacheEntity
         {
@@ -42,7 +41,6 @@ namespace ServerReplayPlayer.Logic
             using (var writer = new BinaryWriter(File.Open(Path.Combine(path, ".file"), FileMode.OpenOrCreate)))
                 writer.Write(file);
             CacheEntity.AddOrUpdate(entity.Id, x => entity, (x, y) => entity);
-            cacheFile.AddOrUpdate(entity.Id, x => file, (x, y) => file);
         }
 
         public TEntity TryGetEntity(Func<TEntity, bool> selector)
@@ -68,7 +66,7 @@ namespace ServerReplayPlayer.Logic
 
         public byte[] GetFile(Guid id)
         {
-            return cacheFile.GetOrAdd(id, x => File.ReadAllBytes(Path.Combine(GetPath(id), ".file")));
+            return File.ReadAllBytes(Path.Combine(GetPath(id), ".file"));
         }
 
         private string GetPath(Guid id)
