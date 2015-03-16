@@ -39,6 +39,7 @@ namespace Demo
 
             LoadMovementTests(logicPart, rules);
 			LoadInteractionTests(logicPart, rules);
+            LoadGrippingTests(logicPart, rules);
 
             return logicPart;
         }

@@ -23,7 +23,7 @@ namespace Demo
 						   Y=0,
 						   YSize=10,
 						   XSize=10,
-						   ZSize=30
+						   ZSize=10
 					}
 				}
 			};
@@ -53,6 +53,26 @@ namespace Demo
 					IsStatic=false,
 					Color= ObjectColor.Blue
 				});
+            scene.Objects.Add(new DemoObjectData
+            {
+                XSize = 15,
+                YSize = 15,
+                ZSize = 15,
+                X = -50,
+                Y = 0,
+                IsStatic = false,
+                Color = ObjectColor.Red
+            });
+            scene.Objects.Add(new DemoObjectData
+            {
+                XSize = 15,
+                YSize = 15,
+                ZSize = 15,
+                X = 0,
+                Y = 35,
+                IsStatic = false,
+                Color = ObjectColor.Green
+            });
 			return scene;
 		}
 	}

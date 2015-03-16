@@ -9,10 +9,13 @@ namespace Demo
 {
 	partial class DemoLogicPartHelper
 	{
+
+        
+
 		void LoadInteractionTests(LogicPart logic, MoveAndGripRules rules)
 		{
 
-			//для AlignmentRect пришлось увеличить delta на проверке угла поворота до 0,005
+			//выравнивание при ударении о стену (проверяется на location)
 			logic.Tests["Interaction_Rect_Alignment"] = new RectangularInteractionTestBase(
 				LocationTest((frame,asserter)=>
 					{
@@ -23,15 +26,31 @@ namespace Demo
 				rules.Rotate(Angle.HalfPi / 2),
 				rules.Move(50)));
 
+            logic.Tests["Interaction_Round_Alignment"] = new RoundInteractionTestBase(
+                LocationTest((frame, asserter) => asserter.IsEqual(Angle.HalfPi.Grad/2, frame.Angle.Grad, 1),
+                rules.Rotate(Angle.HalfPi / 2),
+                rules.Move(30)));
+
+            logic.Tests["Interaction_Round_Alignment2"] = new RoundInteractionTestBase(
+                LocationTest((frame, asserter) =>
+                {
+                    asserter.IsEqual(Angle.HalfPi.Grad, frame.Angle.Grad, 1);
+                    asserter.IsEqual(17.45, frame.Y, 1e-3);
+                },
+                rules.Rotate(Angle.HalfPi / 2),
+                rules.Move(30),
+                rules.Rotate(Angle.HalfPi / 2),
+                rules.Rotate(Angle.Pi*2),
+                rules.Move(10)));
+
 
 
 			logic.Tests["Interaction_Rect_Collision"] = new RectangularInteractionTestBase(LocationTest(
 			   (frame, asserter) => asserter.True(frame.X < 100 && frame.X > 70),
-			   rules.Move(100))); //думаю что тест не проходит из-за физики, поэтому не баг а фича
+			   rules.Move(100))); 
 
-			//тут явно нужны схожие тесты для круглого робота, плюс еще какие-нибудь ситуации со взаимодействием робота и стены
-
+            
 		}
 	}
-}
+}		
 

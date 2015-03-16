@@ -51,6 +51,8 @@
     <Compile Include="Collision\CollisionTestBase.cs" />
     <Compile Include="Collision\LogicPart.Tests.cs" />
     <Compile Include="UniversalDemo\TestBases\TestBases.cs" />
+    <Compile Include="UniversalDemo\Tests\CollisionTests.cs" />
+    <Compile Include="UniversalDemo\Tests\GrippingTest.cs" />
     <Compile Include="UniversalDemo\Tests\MovementTests.cs" />
     <Compile Include="UniversalDemo\DemoWorldState.cs" />
     <Compile Include="Interaction\InteractionTestBase.cs" />
