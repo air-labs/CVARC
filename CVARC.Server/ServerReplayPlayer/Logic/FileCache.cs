@@ -30,7 +30,7 @@ namespace ServerReplayPlayer.Logic
         public FileCache(string folder)
         {
             this.folder = folder;
-            CreateDirectoryIfNotExsists(folder);
+            folder.CreateDirectoryIfNoExists();
         }
 
         public void Save(TEntity entity, byte[] file)
@@ -72,12 +72,6 @@ namespace ServerReplayPlayer.Logic
         private string GetPath(Guid id)
         {
             return Path.Combine(folder, id.ToString());
-        }
-
-        private void CreateDirectoryIfNotExsists(string path)
-        {
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
         }
     }
 }

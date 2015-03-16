@@ -9,7 +9,9 @@ namespace ServerReplayPlayer.Logic
 {
     class Provider
     {
-        public static void AddPlayer(string level, HttpPostedFileBase file)
+        private const int FiveMbait = 5 * 1024 * 1024;
+
+        public void AddPlayer(string level, HttpPostedFileBase file)
         {
             var name = Path.GetFileNameWithoutExtension(file.FileName);//todo по имени пользователя
             Storage.SavePlayerClient(level, name, file);
@@ -41,6 +43,12 @@ namespace ServerReplayPlayer.Logic
         public void SaveMatchResult(string level, MatchResult matchResult)
         {
             Storage.SaveMatchResult(level, matchResult);
+        }
+
+        public void SaveInvalidClient(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength < FiveMbait)
+                Storage.SaveTempFile(file, file.FileName + " " + Guid.NewGuid(), "invalidClients");
         }
     }
 }

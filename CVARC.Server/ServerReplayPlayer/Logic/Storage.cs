@@ -64,10 +64,10 @@ namespace ServerReplayPlayer.Logic
             cache.Save(exsistingResult, Encoding.UTF8.GetBytes(matchResult.Replay));
         }
 
-        public static string SaveTempFile(string fileName, HttpPostedFileBase file)
+        public static string SaveTempFile(HttpPostedFileBase file, string fileName, string folder = null)
         {
-            var path = Path.Combine(TempFolder, Guid.NewGuid().ToString());
-            Directory.CreateDirectory(path);
+            var path = Path.Combine(TempFolder, (folder ?? Guid.NewGuid().ToString()));
+            path.CreateDirectoryIfNoExists();
             file.SaveAs(Path.Combine(path, fileName));
             return path;
         }

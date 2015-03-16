@@ -123,6 +123,7 @@
     </Compile>
     <Compile Include="Logic\FileCache.cs" />
     <Compile Include="Logic\FileValidator.cs" />
+    <Compile Include="Logic\Helpers.cs" />
     <Compile Include="Logic\LevelCaches.cs" />
     <Compile Include="Contracts\ReplaysViewModel.cs" />
     <Compile Include="Logic\Provider.cs" />

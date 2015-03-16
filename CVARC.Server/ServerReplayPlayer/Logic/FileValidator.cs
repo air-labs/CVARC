@@ -16,7 +16,7 @@ namespace ServerReplayPlayer.Logic
             string path = null;
             try
             {
-                path = Storage.SaveTempFile(fileName, file);
+                path = Storage.SaveTempFile(file, fileName);
                 ZipFile.ExtractToDirectory(Path.Combine(path, fileName), path);
                 var runBatPath = Path.Combine(path, "run.bat");
                 if (!File.Exists(runBatPath))

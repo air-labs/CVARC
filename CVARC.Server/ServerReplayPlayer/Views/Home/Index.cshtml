@@ -13,24 +13,24 @@
         <script lang="text/javascript" src="/Scripts/jquery-1.7.2.min.js"></script>
         <script lang="text/javascript" src="/Scripts/jquery.uploadfile.min.js"></script>
         <script lang="text/javascript">
-            (function onload() {
-                $(document).ready(function() {
-                    $("[uploadClient]").each(function (i, element) {
-                        var level = $(element).attr("uploadClient");
-                        $(element).uploadFile({
-                            url: "/Replay/UploadFile?level=" + level,
-                            fileName: "file",
-                            dragDrop: false,
-                            onSuccess: function () {
-                                var q = 1;
-                            },
-                            onError: function () {
-                                alert('fail');
-                            }
-                        });
+            $(document).ready(function() {
+                $("[uploadClient]").each(function (i, element) {
+                    var jElement = $(element);
+                    var level = jElement.attr("uploadClient");
+                    jElement.uploadFile({
+                        url: "/Replay/UploadFile?level=" + level,
+                        fileName: "file",
+                        allowedTypes: "zip, rar",
+                        dragDrop: false,
+                        onSuccess: function () {
+                            alert('загружено!');
+                        },
+                        onError: function () {
+                            window.location = "Replay/UploadFailed";
+                        }
                     });
                 });
-            })();
+            });
         </script>
     </head>
     <body>

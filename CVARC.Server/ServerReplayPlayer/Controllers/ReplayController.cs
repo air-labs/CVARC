@@ -29,15 +29,21 @@ namespace ServerReplayPlayer.Controllers
             return _provider.GetReplay(level, id);
         }
 
-        [HttpPost]
-        public ActionResult UploadFile(string level, HttpPostedFileBase file)
+        [HttpGet]
+        public ActionResult UploadFailed()
         {
-            if (FileValidator.IsValid(file))
-            {
-                Provider.AddPlayer(level, file);
-                return RedirectToAction("Index", "Home");
-            }
             return View("FileFormatError");
+        }
+
+        [HttpPost]
+        public void UploadFile(string level, HttpPostedFileBase file)
+        {
+            if (!FileValidator.IsValid(file))
+            {
+                _provider.SaveInvalidClient(file);
+                throw new Exception("File is invalid!");
+            }
+            _provider.AddPlayer(level, file);
         }
 
         [HttpPost]
