@@ -34,7 +34,7 @@ namespace ClientExample
             client.Move(100);
             client.Rotate(90);
             client.Move(100);
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 10; i++)
             {
                 client.Rotate(10);
             }
@@ -62,9 +62,8 @@ namespace ClientExample
             else
             {
                 port = int.Parse(args[0]);
+				Run(port);
             }
-
-            Run(port);
         }
     }
 }
