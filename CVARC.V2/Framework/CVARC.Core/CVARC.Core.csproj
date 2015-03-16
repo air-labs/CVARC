@@ -94,6 +94,7 @@
     <Compile Include="Loading\Loader\Loader.SelfTest.cs" />
     <Compile Include="Loading\Loader\Loader.SoloNetwork.cs" />
     <Compile Include="Loading\Loader\Loader.SimpleMode.cs" />
+    <Compile Include="Loading\Loader\Loader.Tournament.cs" />
     <Compile Include="Loading\Loader\NetworkServerData.cs" />
     <Compile Include="Client\MSAsserter.cs" />
     <Compile Include="Clocks\ControlTrigger.cs" />
