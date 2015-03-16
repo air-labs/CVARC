@@ -17,7 +17,7 @@ namespace RepairTheStarship
 
             var logicPart = new LogicPart();
             logicPart.CreateWorld = () => new RTSWorld();
-            logicPart.CreateDefaultSettings = () => new Settings { OperationalTimeLimit = 1, TimeLimit = 10 };
+            logicPart.CreateDefaultSettings = () => new Settings { OperationalTimeLimit = 5, TimeLimit = 90 };
             logicPart.CreateWorldState = stateName => new RTSWorldState() { Seed=int.Parse(stateName) };
             logicPart.PredefinedWorldStates.AddRange(Enumerable.Range(0,10).Select(z=>z.ToString()));
             logicPart.WorldStateType = typeof(RTSWorldState);

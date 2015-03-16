@@ -27,13 +27,13 @@ namespace ClientExample
 
         static void Control(int port)
         {
-            var client = new Level1Client();
+            var client = new Level2Client();
 			client.SensorDataReceived += sensorData => form.ShowMap(sensorData.Map);
-			client.Configurate(port, true);
+			client.Configurate(port, true, RepairTheStarshipBots.MolagBal);
 			client.Rotate(-90);
             client.Move(100);
             client.Rotate(90);
-            client.Move(100);
+            client.Move(110);
             for (int i = 0; i < 10; i++)
             {
                 client.Rotate(10);
