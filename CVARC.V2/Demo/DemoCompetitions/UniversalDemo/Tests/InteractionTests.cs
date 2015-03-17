@@ -9,13 +9,9 @@ namespace Demo
 {
 	partial class DemoLogicPartHelper
 	{
-
-        
-
 		void LoadInteractionTests(LogicPart logic, MoveAndGripRules rules)
 		{
-
-			//выравнивание при ударении о стену (проверяется на location)
+			//выравнивание при ударении о стену (проверяется на locationtest)
 			logic.Tests["Interaction_Rect_Alignment"] = new RectangularInteractionTestBase(
 				LocationTest((frame,asserter)=>
 					{
@@ -43,13 +39,9 @@ namespace Demo
                 rules.Rotate(Angle.Pi*2),
                 rules.Move(10)));
 
-
-
 			logic.Tests["Interaction_Rect_Collision"] = new RectangularInteractionTestBase(LocationTest(
 			   (frame, asserter) => asserter.True(frame.X < 100 && frame.X > 70),
 			   rules.Move(100))); 
-
-            
 		}
 	}
 }		

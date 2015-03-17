@@ -40,10 +40,10 @@ namespace Demo
             { }
         }
 
-        public class RoundGrippingTestBase : DemoTestBase
+        public class RectangularCollisionTestBase : DemoTestBase
         {
-            public RoundGrippingTestBase(DemoTestEntry entry)
-                : base(entry, KnownWorldStates.InteractionScene(false))
+            public RectangularCollisionTestBase(DemoTestEntry entry)
+                : base(entry, KnownWorldStates.CollisionScene(false))
             { }
         }
 
