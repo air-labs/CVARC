@@ -13,7 +13,8 @@ namespace NetworkCompetitionsPlayer
         private static readonly HelloPackage Package = new HelloPackage
             {
                 LevelName = LevelName.Level1,
-                MapSeed = 1
+                MapSeed = 1,
+                Opponent = "None"
             };
 
         private static Player GetPlayer(Guid id)
