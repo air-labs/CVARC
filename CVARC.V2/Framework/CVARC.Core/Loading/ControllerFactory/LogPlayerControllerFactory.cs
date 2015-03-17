@@ -14,7 +14,7 @@ namespace CVARC.V2
             this.log = log;
         }
 
-        override public IController Create(string controllerId)
+        override public IController Create(string controllerId, IActor actor)
         {
             if (!log.Commands.ContainsKey(controllerId))
                 throw new Exception("The log does not contain records for '" + controllerId + "'");

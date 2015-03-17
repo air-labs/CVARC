@@ -15,7 +15,7 @@ namespace CVARC.V2
         }
 
 
-        override public IController Create(string controllerId)
+        override public IController Create(string controllerId, IActor actor)
         {
             if (GetSettings(controllerId).Type == ControllerType.Bot)
                 return CreateBot(controllerId);

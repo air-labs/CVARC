@@ -24,6 +24,7 @@ namespace CVARC.V2
 			var location = actor.World.Engine.GetAbsoluteLocation(actor.ObjectId);
 
             var c = command.SimpleMovement;
+            if (c == null) return UnitResponse.Denied();
 
             var linear = Math.Sign(c.LinearVelocity) * Math.Min(Math.Abs(c.LinearVelocity), rules.LinearVelocityLimit);
             var angular = Math.Sign(c.AngularVelocity.Radian) * Math.Min(Math.Abs(c.AngularVelocity.Radian), rules.AngularVelocityLimit.Radian);

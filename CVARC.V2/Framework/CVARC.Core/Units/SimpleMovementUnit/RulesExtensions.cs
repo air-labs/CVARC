@@ -65,17 +65,17 @@ namespace CVARC.V2
 			{
 				pool.Add(Keys.W, () => new TCommand { SimpleMovement = SimpleMovement.Move(factory.LinearVelocityLimit, dt) });
 				pool.Add(Keys.S, () => new TCommand { SimpleMovement = SimpleMovement.Move(-factory.LinearVelocityLimit, dt) });
-				pool.Add(Keys.I, () => new TCommand { SimpleMovement = SimpleMovement.Move(factory.LinearVelocityLimit, dt) });
-				pool.Add(Keys.K, () => new TCommand { SimpleMovement = SimpleMovement.Move(-factory.LinearVelocityLimit, dt) });
-			}
+                pool.Add(Keys.A, () => new TCommand { SimpleMovement = SimpleMovement.Rotate(factory.AngularVelocityLimit, dt) });
+                pool.Add(Keys.D, () => new TCommand { SimpleMovement = SimpleMovement.Rotate(-factory.AngularVelocityLimit, dt) });
+            }
 
 			if (controllerId == TwoPlayersId.Right)
 			{
-				pool.Add(Keys.A,  () => new TCommand { SimpleMovement = SimpleMovement.Rotate(factory.AngularVelocityLimit, dt) });
-				pool.Add(Keys.D,  () => new TCommand { SimpleMovement = SimpleMovement.Rotate(-factory.AngularVelocityLimit, dt) });
-				pool.Add(Keys.J,  () => new TCommand { SimpleMovement = SimpleMovement.Rotate(factory.AngularVelocityLimit, dt) });
-				pool.Add(Keys.L, () => new TCommand { SimpleMovement = SimpleMovement.Rotate(-factory.AngularVelocityLimit, dt) });
-			}
+				pool.Add(Keys.I, () => new TCommand { SimpleMovement = SimpleMovement.Move(factory.LinearVelocityLimit, dt) });
+                pool.Add(Keys.K, () => new TCommand { SimpleMovement = SimpleMovement.Move(-factory.LinearVelocityLimit, dt) });
+                pool.Add(Keys.J, () => new TCommand { SimpleMovement = SimpleMovement.Rotate(factory.AngularVelocityLimit, dt) });
+                pool.Add(Keys.L, () => new TCommand { SimpleMovement = SimpleMovement.Rotate(-factory.AngularVelocityLimit, dt) });
+            }
 		}
 
 		public static Bot<TCommand> CreateStandingBot<TCommand>(this ISimpleMovementRules<TCommand> factory)
