@@ -41,6 +41,8 @@ namespace CVARC.V2
 
         public Func<string> FindDetail { get; set; }
 
+        public Action<string, Frame3D> OnRelease { get; set; }
+
         void Grip()
         {
             if (GrippedObjectId != null) return;
@@ -70,7 +72,10 @@ namespace CVARC.V2
             var detailId = GrippedObjectId;
             GrippedObjectId = null;
             var location = actor.World.Engine.GetAbsoluteLocation(detailId);
-            actor.World.Engine.Detach(detailId, location);
+            if (OnRelease == null)
+                actor.World.Engine.Detach(detailId, location);
+            else
+                OnRelease(detailId, location);
         }
 
 

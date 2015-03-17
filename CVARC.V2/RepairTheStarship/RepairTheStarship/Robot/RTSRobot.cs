@@ -31,6 +31,29 @@ namespace RepairTheStarship
                 .FirstOrDefault();
                 };
 			base.Gripper.GrippingPoint = new Frame3D(15, 0, 10);
+
+            base.Gripper.OnRelease = Release;
+
 		}
+
+        private double Distance(string from, string to)
+        {
+            return Geometry.Hypot(World.Engine.GetAbsoluteLocation(from) - World.Engine.GetAbsoluteLocation(to));
+        }
+
+        void Release(string detailId, Frame3D location)
+        {
+            var detailColor = World.IdGenerator.GetKey<DetailColor>(detailId);
+
+            var wall = World.IdGenerator.GetAllPairsOfType<WallData>()
+                .Where(z => World.Engine.ContainBody(z.Item2))
+                .Where(z => z.Item1.Match(detailColor))
+                .Where(z => Distance(detailId, z.Item2) < 30)
+                .FirstOrDefault();
+
+            World.Engine.Detach(detailId, location);
+            if (wall != null)
+                World.InstallDetail(detailColor, detailId, wall.Item2, ControllerId);
+        }
     }
 }
