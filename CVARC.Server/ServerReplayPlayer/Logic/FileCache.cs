@@ -36,9 +36,9 @@ namespace ServerReplayPlayer.Logic
         public void Save(TEntity entity, byte[] file)
         {
             var path = GetPath(entity.Id);
-            using (var fileStream = File.Open(Path.Combine(path, ".entity"), FileMode.OpenOrCreate))
+            using (var fileStream = File.Open(path + ".entity", FileMode.OpenOrCreate))
                 new BinaryFormatter().Serialize(fileStream, entity);
-            using (var writer = new BinaryWriter(File.Open(Path.Combine(path, ".file"), FileMode.OpenOrCreate)))
+            using (var writer = new BinaryWriter(File.Open(path + ".file", FileMode.OpenOrCreate)))
                 writer.Write(file);
             CacheEntity.AddOrUpdate(entity.Id, x => entity, (x, y) => entity);
         }
@@ -66,7 +66,7 @@ namespace ServerReplayPlayer.Logic
 
         public byte[] GetFile(Guid id)
         {
-            return File.ReadAllBytes(Path.Combine(GetPath(id), ".file"));
+            return File.ReadAllBytes(GetPath(id) + ".file");
         }
 
         private string GetPath(Guid id)

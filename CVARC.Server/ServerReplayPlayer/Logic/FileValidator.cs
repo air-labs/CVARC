@@ -25,7 +25,7 @@ namespace ServerReplayPlayer.Logic
                 if (line == null)
                     return false;
                 var commands = line.Split(new[] {" ", "    "}, StringSplitOptions.RemoveEmptyEntries);
-                if (commands.Length <= 4)
+                if (commands.Length < 4)
                     return false;
                 var clientName = commands[2];
                 if (commands[0] != "start" || commands[1] != @"""rtsClient""" || !clientName.EndsWith(".exe") ||

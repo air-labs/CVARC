@@ -20,7 +20,7 @@
                     jElement.uploadFile({
                         url: "/Replay/UploadFile?level=" + level,
                         fileName: "file",
-                        allowedTypes: "zip, rar",
+                        acceptFiles: ".zip, .rar",
                         dragDrop: false,
                         onSuccess: function () {
                             alert('загружено!');
