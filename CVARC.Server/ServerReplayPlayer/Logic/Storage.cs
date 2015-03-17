@@ -60,7 +60,7 @@ namespace ServerReplayPlayer.Logic
         public static void SaveMatchResult(string level, MatchResult matchResult)
         {
             var cache = GetCache(level).MatchResultCache;
-            var exsistingResult = cache.TryGetEntity(x => x.Player == matchResult.Player && x.Player2 == matchResult.Player2) ?? new MatchResultEntity {Id = Guid.NewGuid()};
+            var exsistingResult = cache.TryGetEntity(x => x.Player == matchResult.Player.Id && x.Player2 == matchResult.Player2.Id) ?? new MatchResultEntity {Id = Guid.NewGuid()};
             exsistingResult.Points = matchResult.Points;
             cache.Save(exsistingResult, Encoding.UTF8.GetBytes(matchResult.Replay));
         }

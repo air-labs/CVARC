@@ -9,12 +9,12 @@ namespace ServerReplayPlayer.Controllers
 
         public ActionResult Index()
         {
-            return View(provider.GetReplays());
+            return View(provider.GetCompetitionsInfos());
         }
 
         public ActionResult Test()
         {
-            return View("Index", provider.GetTestReplays());
+            return View("Index", provider.GetTestCompetitionsInfos());
         }
     }
 }

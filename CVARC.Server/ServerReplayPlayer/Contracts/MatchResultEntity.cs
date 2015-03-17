@@ -6,8 +6,8 @@ namespace ServerReplayPlayer.Contracts
     public class MatchResultEntity : IWithId
     {
         public Guid Id { get; set; }
-        public string Player { get; set; }
-        public string Player2 { get; set; }
+        public Guid Player { get; set; }
+        public Guid Player2 { get; set; }
         public string Points { get; set; }
     }
 }

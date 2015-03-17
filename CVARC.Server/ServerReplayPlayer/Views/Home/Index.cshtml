@@ -1,4 +1,4 @@
-﻿@model ServerReplayPlayer.Contracts.ReplaysViewModel[]
+﻿@model CommonTypes.CompetitionsInfo[]
 
 @{
     Layout = null;
@@ -55,13 +55,24 @@
                                     <td>Очки</td>
                                 </tr>
                             </thead>
-                            @foreach (var replay in replays.Replays)
+                            @foreach (var replay in replays.MatchResults)
                             {
                                 <tr>
-                                    @{ var text = replay.Player + (replay.Player2 == null ? "" : " vs " + replay.Player2); }
-                                    @{ var url = "/Replay/Get?level=" + replays.Level + "&id=" + replay.Id;}
-                                    <td><a href="@url" class="linkName">@text</a></td>
-                                    <td>@replay.Points</td>
+                                    @{ var text = replay.Player.Name + (replay.Player2 == null ? "" : " vs " + replay.Player2.Name); }
+                                    <td>
+                                        @if (replay.Id != null)
+                                        {
+                                            var url = "/Replay/Get?level=" + replays.Level + "&id=" + replay.Id;
+                                            <a href="@url" class="linkName">@text</a>
+                                        }
+                                        else
+                                        {
+                                            <div>@text</div>
+                                        }
+                                    </td>
+                                    <td>
+                                        @(string.IsNullOrEmpty(replay.Points) ? "Матч ещё не сыгран" : replay.Points)
+                                    </td>
                                 </tr>
                             }
                         </table>

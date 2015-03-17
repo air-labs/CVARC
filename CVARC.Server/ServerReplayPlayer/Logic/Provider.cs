@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -28,19 +29,55 @@ namespace ServerReplayPlayer.Logic
             };
         }
 
+        private Player ConvertPlayer(PlayerEntity entity)
+        {
+            return new Player
+            {
+                Id = entity.Id,
+                Name = entity.Name
+            };
+        }
+
         public CompetitionsInfo GetCompetitionsInfo(string level)
         {
+            var players = Storage.GetPlayers(level).ToDictionary(x => x.Id);
+            var results = Storage.GetMatchResults(level).ToDictionary(x => GetKey(x.Player, x.Player2));
+            var firstLevel = String.Compare(level, LevelName.Level1.ToString(), StringComparison.OrdinalIgnoreCase) == 0;
             return new CompetitionsInfo
             {
-                Players = Storage.GetPlayers(level).Select(x => x.Name).ToArray(),
-                MatchResults = Storage.GetMatchResults(level).Select(x => new MatchResult
-                {
-                    Player = x.Player,
-                    Player2 = x.Player2,
-                    Points = x.Points,
-                    Id = x.Id
-                }).ToArray()
+                Level = level,
+                MatchResults = (firstLevel ? GetCompetitionsInfoWithoutOpponent(players, results) : GetCompetitionsInfoWithOpponent(players, results)).ToArray()
             };
+        }
+
+        private IEnumerable<MatchResult> GetCompetitionsInfoWithOpponent(Dictionary<Guid, PlayerEntity> players, Dictionary<string, MatchResultEntity> results)
+        {
+            return from player in players.Values
+                   from opponent in players.Values
+                   where player.Id != opponent.Id
+                   select GetMatchResult(players, results, player.Id, opponent.Id);
+        }
+
+        private string GetKey(Guid playerId, Guid opponentId)
+        {
+            return playerId + " " + opponentId;
+        }
+
+        private MatchResult GetMatchResult(Dictionary<Guid, PlayerEntity> players, Dictionary<string, MatchResultEntity> results, Guid playerId, Guid opponentId)
+        {
+            var key = GetKey(playerId, opponentId);
+            return new MatchResult
+            {
+                Id = results.ContainsKey(key) ? results[key].Id : (Guid?)null,
+                Points = results.ContainsKey(key) ? results[key].Points : null,
+                Player = ConvertPlayer(players[playerId]),
+                Player2 = players.ContainsKey(opponentId) ? ConvertPlayer(players[opponentId]) : null
+            };
+        }
+
+        private IEnumerable<MatchResult> GetCompetitionsInfoWithoutOpponent(Dictionary<Guid, PlayerEntity> players, Dictionary<string, MatchResultEntity> results)
+        {
+            return players.Values.Select(x => GetMatchResult(players, results, x.Id, Guid.Empty));
         }
 
         public string GetReplay(string level, Guid id)
@@ -65,23 +102,25 @@ namespace ServerReplayPlayer.Logic
                 Storage.SaveTempFile(file, file.FileName + " " + Guid.NewGuid(), "invalidClients");
         }
 
-        public ReplaysViewModel[] GetTestReplays()
+        public CompetitionsInfo[] GetTestCompetitionsInfos()
         {
             var rand = new Random();
-            return new []{LevelName.Level1, LevelName.Level2}.Select(x => new ReplaysViewModel
+            return new[] { LevelName.Level1, LevelName.Level2 }.Select(x => new CompetitionsInfo
             {
                 Level = x.ToString(),
-                Replays = Enumerable.Range(1, 11).Select(y => new Summary(Guid.Empty, rand.Next(0, 100) + (x == LevelName.Level1 ? "" : ":" + rand.Next(0, 100)), "Вася" + y, x == LevelName.Level1 ? null : "Петя" + y)).ToArray()
+                MatchResults = Enumerable.Range(1, 11).Select(y => new MatchResult
+                {
+                    Id = Guid.Empty,
+                    Player = new Player { Name = "Вася" + y },
+                    Player2 = new Player { Name = x == LevelName.Level1 ? null : "Петя" + y },
+                    Points = rand.Next(0, 100) + (x == LevelName.Level1 ? "" : ":" + rand.Next(0, 100))
+                }).ToArray()
             }).ToArray();
         }
 
-        public ReplaysViewModel[] GetReplays()
+        public CompetitionsInfo[] GetCompetitionsInfos()
         {
-            return new[] { LevelName.Level1, LevelName.Level2 }.Select(x => new ReplaysViewModel
-            {
-                Level = x.ToString(),
-                Replays = GetCompetitionsInfo(x.ToString()).MatchResults.Select(y => new Summary(y.Id, y.Points, y.Player, y.Player2)).ToArray()
-            }).ToArray();
+            return new[] { LevelName.Level1, LevelName.Level2 }.Select(x => GetCompetitionsInfo(x.ToString())).ToArray();
         }
     }
 }

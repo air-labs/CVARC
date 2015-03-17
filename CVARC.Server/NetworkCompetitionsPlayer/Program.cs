@@ -9,50 +9,37 @@ namespace NetworkCompetitionsPlayer
     public static class Program
     {
         private static readonly JsonHttpClient Client = new JsonHttpClient();
-        private static readonly Dictionary<string, Player> Players = new Dictionary<string, Player>();
+        private static readonly Dictionary<Guid, Player> Players = new Dictionary<Guid, Player>();
         private static readonly HelloPackage Package = new HelloPackage
             {
                 LevelName = LevelName.Level1,
                 MapSeed = 1
             };
 
-        private static Player GetPlayer(string name)
+        private static Player GetPlayer(Guid id)
         {
-            if (string.IsNullOrEmpty(name))
-                return null;
-            if (!Players.ContainsKey(name))
-                Players[name] = Client.SendRequest<Player>(Urls.GetPlayer + "?name=" + name);
-            return Players[name];
+            if (!Players.ContainsKey(id))
+                Players[id] = Client.SendRequest<Player>(GetUrl(Urls.GetPlayer, new KeyValuePair<string, string>("id", id.ToString())));
+            return Players[id];
         }
 
         [STAThread]
         static void Main()
         {
-            var unplayedMatchs = GetUnplayedMatches();
+            var unplayedMatchs = Client.SendRequest<CompetitionsInfo>(GetUrl(Urls.GetCompetitionsInfo)).MatchResults.Where(x => string.IsNullOrEmpty(x.Points)).ToArray();
             foreach (var unplayedMatch in unplayedMatchs)
             {
-                var matchPlayer = new MatchPlayer(Package, GetPlayer(unplayedMatch.Player), GetPlayer(unplayedMatch.Player2));
+                var matchPlayer = new MatchPlayer(Package, GetPlayer(unplayedMatch.Player.Id), unplayedMatch.Player2 == null ? null : GetPlayer(unplayedMatch.Player2.Id));
                 unplayedMatch.Replay = matchPlayer.Play();
 //                unplayedMatch.Points = //todo
-                Client.SendRequest(Urls.SaveMatchResult, unplayedMatch);
+                Client.SendRequest(GetUrl(Urls.SaveMatchResult), unplayedMatch);
             }
         }
 
-        private static IEnumerable<MatchResult> GetUnplayedMatches()
+        private static string GetUrl(string prefix, params KeyValuePair<string, string>[] urlParameters)
         {
-            var competitionsInfo = Client.SendRequest<CompetitionsInfo>(Urls.GetCompetitionsInfo);
-//            if (Package.LevelName == LevelName.Level1)
-//                return competitionsInfo.MatchResults.
-            var playedMatches = competitionsInfo.MatchResults.ToDictionary(x => x.Player + "_" + x.Player2);
-            return from player in competitionsInfo.Players
-                   from player2 in competitionsInfo.Players
-                   where player != player2
-                   where !playedMatches.ContainsKey(player + "_" + player2)
-                   select new MatchResult
-                       {
-                           Player = player,
-                           Player2 = player2
-                       };
+            var parameters = urlParameters.Concat(new[] {new KeyValuePair<string, string>("level", Package.LevelName.ToString())}); 
+            return prefix + "?" + string.Join("&", parameters.Select(x => x.Key + "=" + x.Value));
         }
     }
 }
