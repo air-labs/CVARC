@@ -21,7 +21,7 @@ namespace ServerReplayPlayer.Logic
                     .Where(x => x.EndsWith(".entity"))
                     .Select(x =>
                     {
-                        var id = Guid.Parse(Path.GetFileName(x));
+                        var id = Guid.Parse(Path.GetFileNameWithoutExtension(x));
                         return new KeyValuePair<Guid, TEntity>(id, ReadEntity(id));
                     })));
             }
@@ -60,7 +60,7 @@ namespace ServerReplayPlayer.Logic
 
         private TEntity ReadEntity(Guid id)
         {
-            using (var file = File.Open(GetPath(id), FileMode.Open))
+            using (var file = File.Open(GetPath(id) + ".entity", FileMode.Open))
                 return (TEntity)new BinaryFormatter().Deserialize(file);
         }
 
