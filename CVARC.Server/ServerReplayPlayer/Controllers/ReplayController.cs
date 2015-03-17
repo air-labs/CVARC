@@ -12,7 +12,7 @@ namespace ServerReplayPlayer.Controllers
 {
     public class ReplayController : BaseController
     {
-        private readonly Provider _provider = new Provider();
+        private readonly Provider provider = new Provider();
 
         [HttpGet]
         public ActionResult Get(string level, Guid id)
@@ -23,10 +23,7 @@ namespace ServerReplayPlayer.Controllers
         [HttpGet]
         public string GetReplay(string level, Guid id)
         {
-            string path = ControllerContext.HttpContext.Server.MapPath("~\\Replays\\");
-            var replay = System.IO.File.ReadAllLines(path + "Alexander Ponomarev.Blue").Last();
-            return replay;
-            return _provider.GetReplay(level, id);
+            return provider.GetReplay(level, id);
         }
 
         [HttpGet]
@@ -40,22 +37,22 @@ namespace ServerReplayPlayer.Controllers
         {
             if (!FileValidator.IsValid(file))
             {
-                _provider.SaveInvalidClient(file);
+                provider.SaveInvalidClient(file);
                 throw new Exception("File is invalid!");
             }
-            _provider.AddPlayer(level, file);
+            provider.AddPlayer(level, file);
         }
 
         [HttpPost]
         public ActionResult GetPlayer(string level, Guid id)
         {
-            return Json(_provider.GetPlayer(level, id));
+            return Json(provider.GetPlayer(level, id));
         }
 
         [HttpPost]
         public JsonResult GetCompetitionsInfo(string level)
         {
-            return Json(_provider.GetCompetitionsInfo(level));
+            return Json(provider.GetCompetitionsInfo(level));
         }
 
         [HttpPost]
@@ -63,7 +60,7 @@ namespace ServerReplayPlayer.Controllers
         {
             var str = new StreamReader(Request.InputStream, Encoding.UTF8).ReadToEnd();
             var matchResult = JsonConvert.DeserializeObject<MatchResult>(str);
-            _provider.SaveMatchResult(level, matchResult);
+            provider.SaveMatchResult(level, matchResult);
         }
     }
 }

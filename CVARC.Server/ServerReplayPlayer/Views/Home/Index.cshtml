@@ -26,7 +26,7 @@
                             alert('загружено!');
                         },
                         onError: function () {
-                            window.location = "Replay/UploadFailed";
+                            window.location = "/Replay/UploadFailed";
                         }
                     });
                 });
@@ -59,7 +59,7 @@
                             {
                                 <tr>
                                     @{ var text = replay.Player + (replay.Player2 == null ? "" : " vs " + replay.Player2); }
-                                    @{ var url = "Replay/Get?level=" + replays.Level + "&id=" + replay.Id;}
+                                    @{ var url = "/Replay/Get?level=" + replays.Level + "&id=" + replay.Id;}
                                     <td><a href="@url" class="linkName">@text</a></td>
                                     <td>@replay.Points</td>
                                 </tr>
