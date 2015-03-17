@@ -12,8 +12,6 @@ namespace ServerReplayPlayer.Logic
 {
     class Provider
     {
-        private const int FiveMbait = 5 * 1024 * 1024;
-
         public void AddPlayer(string level, HttpPostedFileBase file)
         {
             var name = Path.GetFileNameWithoutExtension(file.FileName);//todo по имени пользователя
@@ -98,7 +96,7 @@ namespace ServerReplayPlayer.Logic
 
         public void SaveInvalidClient(HttpPostedFileBase file)
         {
-            if (file != null && file.ContentLength < FiveMbait)
+            if (file != null && file.ContentLength < FileValidator.MaxFileSize)
                 Storage.SaveTempFile(file, file.FileName + " " + Guid.NewGuid(), "invalidClients");
         }
 

@@ -8,9 +8,11 @@ namespace ServerReplayPlayer.Logic
 {
     public class FileValidator
     {
+        public const int MaxFileSize = 3 * 1024 * 1024;        
+
         public static bool IsValid(HttpPostedFileBase file)
         {
-            if (file == null || file.ContentLength == 0)
+            if (file == null || file.ContentLength == 0 || file.ContentLength > MaxFileSize)
                 return false;
             var fileName = Guid.NewGuid().ToString();
             string path = null;
@@ -33,7 +35,7 @@ namespace ServerReplayPlayer.Logic
                     return false;
                 return File.Exists(Path.Combine(path, clientName));
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }

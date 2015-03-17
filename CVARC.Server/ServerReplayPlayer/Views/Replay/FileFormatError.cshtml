@@ -1,4 +1,5 @@
-﻿@model dynamic
+﻿@using ServerReplayPlayer.Logic
+@model dynamic
 
 @{
     Layout = null;
@@ -15,6 +16,7 @@
             При загрузке файла произошла ошибка. Проверьте следующие условия:
             <ul>
                 <li>Вы пытаетесь загрузить валидный .zip архив.</li>
+                <li>Размер архива не превышает @(FileValidator.MaxFileSize / 1024 / 1024) мегабайта.</li>
                 <li>Архив содержит run.bat файл.</li>
                 <li>run.bat файл соответствует шаблону: (start "rtsClient" your_fileName.exe %*).</li>
                 <li>Архив содержит your_fileName.exe файл.</li>
