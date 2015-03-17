@@ -31,8 +31,10 @@ namespace NetworkCompetitionsPlayer
             foreach (var unplayedMatch in unplayedMatchs)
             {
                 var matchPlayer = new MatchPlayer(Package, GetPlayer(unplayedMatch.Player.Id), unplayedMatch.Player2 == null ? null : GetPlayer(unplayedMatch.Player2.Id));
-                unplayedMatch.Replay = matchPlayer.Play();
-                unplayedMatch.Points = unplayedMatch.Replay.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries)[1];
+                var replayFile = matchPlayer.Play();
+                var splits = replayFile.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
+                unplayedMatch.Replay = splits.Last();
+                unplayedMatch.Points = splits[1];
                 Client.SendRequest(GetUrl(Urls.SaveMatchResult), unplayedMatch);
             }
         }
