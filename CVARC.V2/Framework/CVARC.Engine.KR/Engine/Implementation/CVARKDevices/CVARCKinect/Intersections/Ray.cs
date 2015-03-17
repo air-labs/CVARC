@@ -58,7 +58,7 @@ namespace kinect
             {
                 Assert.AreEqual(ray.Origin, new Point3D(0, 0, 0));
                 Assert.AreEqual(ray.Direction, point);
-                Console.WriteLine("Ray: " + ray);
+             //   Console.WriteLine("Ray: " + ray);
             }
         }
     }

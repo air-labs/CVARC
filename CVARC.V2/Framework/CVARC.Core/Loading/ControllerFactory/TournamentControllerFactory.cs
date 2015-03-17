@@ -52,7 +52,7 @@ namespace CVARC.V2
 				{
 					watch.Stop();
 					if (!process.HasExited) process.Kill();
-					throw new Exception("Process " + batFile + " for controller " + controllerId + " haven't established connection for 1 second");
+					throw new Exception("Process " + batFile + " for controller " + controllerId + " haven't established connection for "+timeToEstablishConnection+" millisecond");
 				}
 			}
 			watch.Stop();

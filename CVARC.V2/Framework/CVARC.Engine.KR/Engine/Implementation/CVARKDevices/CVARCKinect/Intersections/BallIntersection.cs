@@ -106,7 +106,7 @@ namespace kinect
             var computedDistance = Intersector.IntersectBall(ball, ray);
             Assert.AreEqual(distance, computedDistance);
             {
-                Console.WriteLine("Distance:  {0}. Expected: {1}", computedDistance, distance);
+                //Console.WriteLine("Distance:  {0}. Expected: {1}", computedDistance, distance);
             }
         }
     }

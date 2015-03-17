@@ -149,7 +149,7 @@ namespace kinect.Integration
         {
             Point3D computed = SensorRotation.HorisontalRotation(frame, angle);
             Assert.AreEqual(rotated, computed);
-            Console.WriteLine("Expected: {0}. But was: {1}", rotated, computed);
+            //Console.WriteLine("Expected: {0}. But was: {1}", rotated, computed);
 
         }
 
@@ -159,7 +159,7 @@ namespace kinect.Integration
         {
             Point3D computed = SensorRotation.VerticalRotation(frame, angle);
             Assert.AreEqual(rotated, computed);
-            Console.WriteLine("Expected: {0}. But was: {1}", rotated, computed);
+            //Console.WriteLine("Expected: {0}. But was: {1}", rotated, computed);
 
         }
     }

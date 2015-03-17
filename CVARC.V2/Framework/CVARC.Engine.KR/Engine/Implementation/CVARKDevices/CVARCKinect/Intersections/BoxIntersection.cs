@@ -174,7 +174,7 @@ namespace kinect
             var computedDistance = Intersector.IntersectBox(box, ray);
             Assert.AreEqual(distance, computedDistance);
             {
-                Console.WriteLine("Distance:  {0}. expected: {1}", computedDistance, distance);
+                //Console.WriteLine("Distance:  {0}. expected: {1}", computedDistance, distance);
             }
         }
     }
@@ -217,12 +217,12 @@ namespace kinect
             var v = Intersector.GetDirection(box);
             for (int i = 0; i < 3; i++)
             {
-                Console.WriteLine(v[i]);
+               // Console.WriteLine(v[i]);
             }
             var vertex = Intersector.GetVertex(box);
             for (int i = 0; i < vertex.Capacity; i++)
             {
-                Console.WriteLine("next: " + vertex[i]);
+               // Console.WriteLine("next: " + vertex[i]);
             }
         }
     }

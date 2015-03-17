@@ -24,7 +24,7 @@ namespace CVARC.Graphics.DirectX
 			var modeCountAtStart = expectedModes.Count;
 			for(int i = 0; i < modeCountAtStart; i++)
 			{
-				Console.WriteLine("Mode is {0}",camera.Mode);
+				//Console.WriteLine("Mode is {0}",camera.Mode);
 				expectedModes.Remove(camera.Mode);
 				camera.Mode++;
 			}

@@ -77,7 +77,7 @@ namespace CVARC.Graphics.DirectX
 				CheckColorsEqual(brush.Color, res.MaterialD3D.Diffuse);
 			}
 			sw.Stop();
-			Console.WriteLine(sw.ElapsedMilliseconds);
+			//Console.WriteLine(sw.ElapsedMilliseconds);
 		}
 
 		public static void CheckMaterial(Color color, Material material)

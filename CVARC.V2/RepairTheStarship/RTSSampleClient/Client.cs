@@ -41,13 +41,13 @@ namespace ClientExample
             client.Exit();
         }
 
-        static void Run(int port)
+        static void Run(int port, bool debug)
         {
             form = new ClientForm();
 			new Thread(
 				() =>
 				{
-					if (!InRealMode)
+					if (debug)
 					{
 						Control(port);
 						return;
@@ -64,8 +64,7 @@ namespace ClientExample
             Application.Run(form);
         }
 
-		static bool InRealMode = false;
-
+		
         [STAThread]
         public static void Main(string[] args)
         {
@@ -75,9 +74,8 @@ namespace ClientExample
             }
             else
             {
-				InRealMode = true;
 				var port = int.Parse(args[0]);
-				Run(port);
+				Run(port, false);
             }
         }
 

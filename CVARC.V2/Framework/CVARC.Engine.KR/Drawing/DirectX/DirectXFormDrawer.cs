@@ -188,7 +188,7 @@ namespace CVARC.Graphics.DirectX
 
 		private static void LogInfo(string message, params object[] args)
 		{
-			Console.WriteLine(message, args);
+			//Console.WriteLine(message, args);
 		}
 
 		private SwitchableCamera _camera;

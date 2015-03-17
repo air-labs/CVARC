@@ -169,7 +169,7 @@ namespace kinect
             Point3D? computedPoint = Intersector.IntersectCircle(center, radius, ray);
             Assert.AreEqual(point, computedPoint);
             {
-                Console.WriteLine("Point:  {0}. Expected: {1}", computedPoint, point);
+                //Console.WriteLine("Point:  {0}. Expected: {1}", computedPoint, point);
             }
         }
     }
@@ -253,7 +253,7 @@ namespace kinect
         {
             var computedPoint = Intersector.TriangleIntersection.IntersectTriangle(v0, v1, v2, ray);
             Assert.AreEqual(point, computedPoint);
-            Console.WriteLine("Expected: {0}. But was: {1}", point, computedPoint);
+          //  Console.WriteLine("Expected: {0}. But was: {1}", point, computedPoint);
         }
     }
     #endregion TriangleTest

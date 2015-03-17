@@ -27,14 +27,14 @@ namespace CVARC.Graphics.DirectX
 			[TearDown]
 			public void TearDown()
 			{
-				Console.WriteLine("Teardown started...");
+				//Console.WriteLine("Teardown started...");
 				foreach(Form form in _forms)
 					form.EasyInvoke(x => x.Close());
-				Console.WriteLine("{0} Forms closed", _forms.Count);
+				//Console.WriteLine("{0} Forms closed", _forms.Count);
 				_forms.Clear();
 				_drawers.Clear();
 				Thread.Sleep(400);
-				Console.WriteLine("Teardown completed.");
+				//Console.WriteLine("Teardown completed.");
 			}
 
 			[Test]
@@ -55,7 +55,7 @@ namespace CVARC.Graphics.DirectX
 					mesh.Intersects(ray);
 				}
 				sw.Stop();
-				Console.WriteLine(sw.Elapsed);
+				//Console.WriteLine(sw.Elapsed);
 			}
 			[Test]
 			public void StaticSize()
@@ -136,7 +136,7 @@ namespace CVARC.Graphics.DirectX
 				CheckSwapChainSize(dr0, newSmallSize, newSmallSize);
 				CheckDeviceSize(dr1, newSmallSize, newSmallSize);
 				
-				Console.WriteLine("Closing one form");
+				//Console.WriteLine("Closing one form");
 				
 				Thread.Sleep(1000);
 				_forms[0].EasyInvoke(x => x.Close());
