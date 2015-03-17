@@ -18,18 +18,17 @@ namespace Demo
                     asserter.IsEqual(Y, frame.Y, 1e-3);
                     asserter.IsEqual(angleInGrad, frame.Angle.Grad % 360, 1e-3);
                 },
-                    command);
-                        
+                    command);   
         }
 
-        DemoTestEntry LocationTest(Action<Frame2D,IAsserter> test, params MoveAndGripCommand[] command)
+        DemoTestEntry LocationTest(Action<Frame2D, IAsserter> test, params MoveAndGripCommand[] command)
         {
             return (client, world, asserter) =>
             {
                 DemoSensorsData data = null;
                 foreach (var c in command)
                     data = client.Act(c);
-                test(new Frame2D(data.Locations[0].X, data.Locations[0].Y, Angle.FromGrad(data.Locations[0].Angle)),asserter);
+                test(new Frame2D(data.Locations[0].X, data.Locations[0].Y, Angle.FromGrad(data.Locations[0].Angle)), asserter);
             };
         }
 
@@ -49,6 +48,14 @@ namespace Demo
                 rules.Rotate(Angle.HalfPi),
                 rules.Move(10),
                 rules.Rotate(Angle.HalfPi)));
+            logic.Tests["Movement_Rect_Strange"] = new RectangularMovementTestBase(
+                LocationTest(0, 0, 0,
+                rules.Move(10),
+                rules.Move(-10),
+                rules.Move(10),
+                rules.Move(-10),
+                rules.Grip(),
+                rules.Stand(1)));
 			logic.Tests["Movement_Round_Square"] = new RoundMovementTestBase(LocationTest(0, 0, 0,
                 rules.Move(10),
                 rules.Rotate(Angle.HalfPi),
@@ -60,25 +67,16 @@ namespace Demo
                 rules.Rotate(Angle.HalfPi)));
 			logic.Tests["Movement_Rect_Rotate"] = new RectangularMovementTestBase(LocationTest(0, 0, 90, rules.Rotate(Angle.HalfPi)));
             logic.Tests["Movement_Round_Rotate"] = new RoundMovementTestBase(LocationTest(0, 0, 90, rules.Rotate(Angle.HalfPi)));
+            
           
             logic.Tests["Movement_Limit_Linear"] = new RoundMovementTestBase(LocationTest(50, 0, 0,
                 rules.MoveWithVelocityForTime(100000, 1)));
+            logic.Tests["Movement_Limit_-Linear"] = new RoundMovementTestBase(LocationTest(-50, 0, 0,
+                rules.MoveWithVelocityForTime(-100000, 1)));
 			logic.Tests["Movement_Limit_Round"] = new RoundMovementTestBase(LocationTest(0, 0, 0,
                 rules.RotateWithVelocityForTime(Angle.Pi*10, 4)));
-
-			//для AlignmentRect пришлось увеличить delta на проверке угла поворота до 0,005
-			//logic.Tests["AlignmentRect"] = new MovementTestBase(LocationTest(25.355, 17.357, Angle.HalfPi.Grad,
-			//	rules.Move(-10),
-			//	rules.Rotate(Angle.HalfPi / 2),
-			//	rules.Move(50)), true);
-
-
-
-			//logic.Tests["FuckTheBoxRect"] = new MovementTestBase(LocationTest(
-			//   (frame, asserter) => asserter.True(frame.X < 100 && frame.X > 70),
-			//   rules.Move(100)), false, true); //думаю что тест не проходит из-за физики, поэтому не баг а фича
-            
-      
+            logic.Tests["Movement_Limit_-Round"] = new RoundMovementTestBase(LocationTest(0, 0, 0,
+                rules.RotateWithVelocityForTime(-Angle.Pi * 19/10, 4)));
         }
     }
 }

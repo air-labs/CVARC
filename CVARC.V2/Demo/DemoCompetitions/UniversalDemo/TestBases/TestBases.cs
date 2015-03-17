@@ -19,7 +19,6 @@ namespace Demo
 		{ }
 	}
 
-
 	public class RectangularInteractionTestBase : DemoTestBase
 	{
 		public RectangularInteractionTestBase(DemoTestEntry entry)
@@ -27,11 +26,25 @@ namespace Demo
 		{ }
 	}
 
-		public class RoundInteractionScene : DemoTestBase
+		public class RoundInteractionTestBase : DemoTestBase
 	{
-			public RoundInteractionScene(DemoTestEntry entry)
+			public RoundInteractionTestBase(DemoTestEntry entry)
 			: base(entry, KnownWorldStates.InteractionScene(false))
 		{ }
 	}
+
+        public class RectangularGrippingTestBase : DemoTestBase
+        {
+            public RectangularGrippingTestBase(DemoTestEntry entry)
+                : base(entry, KnownWorldStates.InteractionScene(true))
+            { }
+        }
+
+        public class RectangularCollisionTestBase : DemoTestBase
+        {
+            public RectangularCollisionTestBase(DemoTestEntry entry)
+                : base(entry, KnownWorldStates.CollisionScene(false))
+            { }
+        }
 
 }
