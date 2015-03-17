@@ -32,7 +32,7 @@ namespace NetworkCompetitionsPlayer
             {
                 var matchPlayer = new MatchPlayer(Package, GetPlayer(unplayedMatch.Player.Id), unplayedMatch.Player2 == null ? null : GetPlayer(unplayedMatch.Player2.Id));
                 unplayedMatch.Replay = matchPlayer.Play();
-//                unplayedMatch.Points = //todo
+                unplayedMatch.Points = unplayedMatch.Replay.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries)[1];
                 Client.SendRequest(GetUrl(Urls.SaveMatchResult), unplayedMatch);
             }
         }
