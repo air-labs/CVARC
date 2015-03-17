@@ -39,11 +39,11 @@ namespace Demo
                 rules.Move(-50)));
             logic.Tests["Gripping_Rect_Release"] = new RectangularGrippingTestBase(GrippingTest(
                 false,
-                rules.Move(15),
+                rules.Move(50),
+                rules.Stand(0.1d),
                 rules.Grip(),
-                rules.Move(-50),
-                rules.Release(),
-                rules.Rotate(Angle.Pi)));
+                rules.Move(-15),
+                rules.Release()));
             logic.Tests["Gripping_Rect_GripUnGripable"] = new RectangularGrippingTestBase(GrippingTest(
                 false,
                 rules.Move(25),
