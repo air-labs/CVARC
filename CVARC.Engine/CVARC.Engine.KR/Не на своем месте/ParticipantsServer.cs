@@ -43,7 +43,7 @@ namespace CVARC.Basic.Core.Participants
 
         private CompetitionsBundle GetCompetitionsBundle(HelloPackage helloPackage)
         {
-            var bundle = CompetitionsBundle.Load(competitionsName, helloPackage.LevelName);
+            var bundle = CompetitionsBundle.Load(competitionsName, helloPackage.LevelName.ToString());
             bundle.Competitions.HelloPackage = helloPackage;
             return bundle;
         }

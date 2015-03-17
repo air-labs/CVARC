@@ -108,14 +108,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\Level.cs" />
     <Compile Include="Contracts\ReplayViewModel.cs" />
-    <Compile Include="Contracts\CompetitionsInfoServer.cs" />
     <Compile Include="Contracts\IWithId.cs" />
     <Compile Include="Contracts\MatchResultEntity.cs" />
-    <Compile Include="Contracts\MatchResult.cs" />
     <Compile Include="Contracts\PlayerEntity.cs" />
-    <Compile Include="Contracts\Player.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReplayController.cs" />
@@ -172,6 +168,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Replay\PlayReplay.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj">
+      <Project>{73712BF6-6B58-4708-AB6E-3184F049034E}</Project>
+      <Name>CommonTypes</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,3 +1,4 @@
+using CommonTypes;
 using CVARC.Network;
 
 namespace ClientBase

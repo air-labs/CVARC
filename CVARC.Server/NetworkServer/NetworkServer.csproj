@@ -80,6 +80,10 @@
       <Project>{13695795-f82c-48df-86d7-eae60259f845}</Project>
       <Name>CVARC.Engine.KR</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj">
+      <Project>{73712BF6-6B58-4708-AB6E-3184F049034E}</Project>
+      <Name>CommonTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RepairTheStarship\RepairTheStarship.csproj">
       <Project>{7969e0e7-00af-4627-8d93-f6d022c99167}</Project>
       <Name>RepairTheStarship</Name>

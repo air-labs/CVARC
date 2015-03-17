@@ -1,4 +1,4 @@
-﻿namespace ServerReplayPlayer.Contracts
+﻿namespace CommonTypes
 {
     public class Player
     {

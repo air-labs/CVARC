@@ -293,6 +293,10 @@
     <EmbeddedResource Include="Drawing\Models\untitled.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CVARC.Server\CommonTypes\CommonTypes.csproj">
+      <Project>{73712BF6-6B58-4708-AB6E-3184F049034E}</Project>
+      <Name>CommonTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CVARC\CVARC.csproj">
       <Project>{e36d3f75-f5db-4bb8-b29a-e920cb1bb3ed}</Project>
       <Name>CVARC</Name>

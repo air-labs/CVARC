@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using CommonTypes;
 using Newtonsoft.Json;
 using ServerReplayPlayer.Contracts;
 using ServerReplayPlayer.Logic;

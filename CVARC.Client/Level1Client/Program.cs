@@ -1,5 +1,6 @@
 ﻿using System;
 using AIRLab.Mathematics;
+using CommonTypes;
 using CVARC.Basic.Controllers;
 using CVARC.Network;
 using ClientBase;

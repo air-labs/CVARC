@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Hosting;
+using CommonTypes;
 using ServerReplayPlayer.Contracts;
 
 namespace ServerReplayPlayer.Logic
@@ -27,12 +28,18 @@ namespace ServerReplayPlayer.Logic
             };
         }
 
-        public CompetitionsInfoServer GetCompetitionsInfo(string level)
+        public CompetitionsInfo GetCompetitionsInfo(string level)
         {
-            return new CompetitionsInfoServer
+            return new CompetitionsInfo
             {
                 Players = Storage.GetPlayers(level).Select(x => x.Name).ToArray(),
-                MatchResults = Storage.GetMatchResults(level)
+                MatchResults = Storage.GetMatchResults(level).Select(x => new MatchResult
+                {
+                    Player = x.Player,
+                    Player2 = x.Player2,
+                    Points = x.Points,
+                    Id = x.Id
+                }).ToArray()
             };
         }
 
@@ -61,16 +68,16 @@ namespace ServerReplayPlayer.Logic
         public ReplaysViewModel[] GetTestReplays()
         {
             var rand = new Random();
-            return LevelHelper.GetLevels().Select(x => new ReplaysViewModel
+            return new []{LevelName.Level1, LevelName.Level2}.Select(x => new ReplaysViewModel
             {
                 Level = x.ToString(),
-                Replays = Enumerable.Range(1, 11).Select(y => new Summary(Guid.Empty, rand.Next(0, 100) + (x == Level.Level1 ? "" : ":" + rand.Next(0, 100)), "Вася" + y, x == Level.Level1 ? null : "Петя" + y)).ToArray()
+                Replays = Enumerable.Range(1, 11).Select(y => new Summary(Guid.Empty, rand.Next(0, 100) + (x == LevelName.Level1 ? "" : ":" + rand.Next(0, 100)), "Вася" + y, x == LevelName.Level1 ? null : "Петя" + y)).ToArray()
             }).ToArray();
         }
 
         public ReplaysViewModel[] GetReplays()
         {
-            return LevelHelper.GetLevels().Select(x => new ReplaysViewModel
+            return new[] { LevelName.Level1, LevelName.Level2 }.Select(x => new ReplaysViewModel
             {
                 Level = x.ToString(),
                 Replays = GetCompetitionsInfo(x.ToString()).MatchResults.Select(y => new Summary(y.Id, y.Points, y.Player, y.Player2)).ToArray()

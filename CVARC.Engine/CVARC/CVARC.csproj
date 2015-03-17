@@ -85,6 +85,10 @@
     <Folder Include="Core\KRDependentClasses\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CVARC.Server\CommonTypes\CommonTypes.csproj">
+      <Project>{73712bf6-6b58-4708-ab6e-3184f049034e}</Project>
+      <Name>CommonTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AIRLabs\AIRLabs.csproj">
       <Project>{B1953D7F-0F62-400D-A77A-FF1CE4474A41}</Project>
       <Name>AIRLabs</Name>

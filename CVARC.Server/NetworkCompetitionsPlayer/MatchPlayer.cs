@@ -5,19 +5,19 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CommonTypes;
 using CVARC.Network;
-using NetworkCompetitionsPlayer.Contracts;
 
 namespace NetworkCompetitionsPlayer
 {
     class MatchPlayer
     {
         private readonly HelloPackage package;
-        private readonly PlayerClient player;
-        private readonly PlayerClient player2;
+        private readonly Player player;
+        private readonly Player player2;
         private const string ReplayDirectory = "..\\..\\..\\..\\build\\bin\\NetworkServer\\RawReplays";
 
-        public MatchPlayer(HelloPackage package, PlayerClient player, PlayerClient player2)
+        public MatchPlayer(HelloPackage package, Player player, Player player2)
         {
             this.package = package;
             this.player = player;
@@ -49,10 +49,11 @@ namespace NetworkCompetitionsPlayer
         {
             UnZipAndRunClient(player);
             Thread.Sleep(100);
-            UnZipAndRunClient(player2);
+            if (player2 != null)
+                UnZipAndRunClient(player2);
         }
 
-        private void UnZipAndRunClient(PlayerClient playerClient)
+        private void UnZipAndRunClient(Player playerClient)
         {
             Directory.CreateDirectory(playerClient.Name);
             var zipFilePath = Path.Combine(playerClient.Name, playerClient.Name) + ".zip";

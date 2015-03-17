@@ -1,4 +1,5 @@
 ﻿using System;
+using CommonTypes;
 using CVARC.Basic;
 using CVARC.Basic.Core.Participants;
 
@@ -26,10 +27,12 @@ namespace CVARC.Network
                 multiplayer = false;
                 return null;
             }
-            multiplayer = args[0] != "level1";
+            LevelName level;
+            LevelName.TryParse(args[0], out level);
+            multiplayer = args[0].ToLower() != "level1";
             return new HelloPackage
             {
-                LevelName = args[0],
+                LevelName = level,
                 MapSeed = int.Parse(args[1]),
                 Opponent = multiplayer ? null : args[2],
                 Side = multiplayer ? Side.Random : (Side) Enum.Parse(typeof (Side), args[3])

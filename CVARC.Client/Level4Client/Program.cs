@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.IO;
 using ClientBase;
+using CommonTypes;
 using CVARC.Basic.Controllers;
 using CVARC.Network;
 using RepairTheStarship.Sensors;

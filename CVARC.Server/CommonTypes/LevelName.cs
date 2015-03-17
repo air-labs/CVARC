@@ -1,4 +1,4 @@
-namespace ClientBase
+namespace CommonTypes
 {
     public enum LevelName
     {

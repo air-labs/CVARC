@@ -1,4 +1,5 @@
-﻿using CVARC.Basic.Controllers;
+﻿using CommonTypes;
+using CVARC.Basic.Controllers;
 using CVARC.Network;
 using ClientBase;
 using RepairTheStarship.Sensors;

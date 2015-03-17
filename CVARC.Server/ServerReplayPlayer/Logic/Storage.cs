@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Web;
 using System.Web.Hosting;
+using CommonTypes;
 using ServerReplayPlayer.Contracts;
 
 namespace ServerReplayPlayer.Logic

@@ -54,13 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\CompetitionsInfoClient.cs" />
     <Compile Include="HttpClient.cs" />
-    <Compile Include="LevelName.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MatchPlayer.cs" />
-    <Compile Include="Contracts\MatchResultClient.cs" />
-    <Compile Include="Contracts\PlayerClient.cs" />
     <Compile Include="MethodType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,6 +70,10 @@
     <ProjectReference Include="..\..\CVARC.Engine\CVARC\CVARC.csproj">
       <Project>{E36D3F75-F5DB-4BB8-B29A-E920CB1BB3ED}</Project>
       <Name>CVARC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonTypes\CommonTypes.csproj">
+      <Project>{73712BF6-6B58-4708-AB6E-3184F049034E}</Project>
+      <Name>CommonTypes</Name>
     </ProjectReference>
     <ProjectReference Include="..\NetworkServer\NetworkServer.csproj">
       <Project>{AF9C4D6B-A41F-46F2-8AF8-AF30163E1051}</Project>
