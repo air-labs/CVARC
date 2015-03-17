@@ -32,7 +32,7 @@ namespace Demo
 
             var actorFactory = ActorFactory.FromRobot(new DemoRobot(), rules);
             logicPart.Actors[TwoPlayersId.Left] = actorFactory;
-            
+            logicPart.Actors[TwoPlayersId.Right] = actorFactory;            
             logicPart.Bots["Stand"] = () => rules.CreateStandingBot();
             logicPart.Bots["Square"] = () => rules.CreateSquareWalkingBot(50);
             logicPart.Bots["Random"] = () => rules.CreateRandomWalkingBot(50);

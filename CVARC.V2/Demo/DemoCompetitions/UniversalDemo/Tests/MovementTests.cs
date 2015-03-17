@@ -16,7 +16,7 @@ namespace Demo
                 {
                     asserter.IsEqual(X, frame.X,1e-3);
                     asserter.IsEqual(Y, frame.Y, 1e-3);
-                    asserter.IsEqual(angleInGrad, frame.Angle.Grad, 1e-3);
+                    asserter.IsEqual(angleInGrad, frame.Angle.Grad % 360, 1e-3);
                 },
                     command);   
         }

@@ -27,9 +27,26 @@ namespace Demo
             var root = (Actor.World.Engine as KroREngine).Root;
 			var state = (Actor.World as DemoWorld).WorldState;
 
-			var description = state.Robots.Where(z => z.RobotName == Actor.ControllerId).First();
+			var description = state.Robots.Where(z => z.RobotName == Actor.ControllerId).FirstOrDefault();
 
 
+            if (description == null)
+            {
+                root.Add(
+                new Cylinder
+					{
+						Height = 10,
+						RTop = 10,
+						RBottom = 10,
+						Location = new Frame3D(300,300,5),
+						DefaultColor = Color.White,
+						IsMaterial = false,
+						Density = Density.Iron,
+						FrictionCoefficient = 0,
+						NewId = Actor.ObjectId
+					});
+                return;
+            }
             string fileName = "red.png";
 			if (Actor.ControllerId == TwoPlayersId.Right) fileName = "blue.png";
 

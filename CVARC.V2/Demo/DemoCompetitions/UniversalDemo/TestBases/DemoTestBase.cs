@@ -17,7 +17,8 @@ namespace Demo
 					TimeLimit = 10,
 					Controllers = new List<ControllerSettings> 
                     {
-                        new ControllerSettings  { ControllerId=TwoPlayersId.Left, Name="This", Type= ControllerType.Client}
+                        new ControllerSettings  { ControllerId=TwoPlayersId.Left, Name="This", Type= ControllerType.Client},
+                        new ControllerSettings  { ControllerId=TwoPlayersId.Right, Name="Stand", Type= ControllerType.Bot}
                     }
 				};
 		}
