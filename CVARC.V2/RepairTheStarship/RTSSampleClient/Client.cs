@@ -44,26 +44,42 @@ namespace ClientExample
         static void Run(int port)
         {
             form = new ClientForm();
-            new Action<int>(Control).BeginInvoke(port, null, null);
+			new Thread(
+				() =>
+				{
+					if (!InRealMode)
+					{
+						Control(port);
+						return;
+					}
+					try
+					{
+						Control(port);
+					}
+					catch (Exception e)
+					{
+						Console.WriteLine(e.Message);
+					}
+				}).Start();
             Application.Run(form);
         }
 
-
+		static bool InRealMode = false;
 
         [STAThread]
         public static void Main(string[] args)
         {
-            int port = 14000;
             if (args.Length == 0)
             {
-                //Level1Client.StartKrorServer(port);
 				CVARC.V2.CVARCProgram.RunServerInTheSameThread(Run);
             }
             else
             {
-                port = int.Parse(args[0]);
+				InRealMode = true;
+				var port = int.Parse(args[0]);
 				Run(port);
             }
         }
+
     }
 }

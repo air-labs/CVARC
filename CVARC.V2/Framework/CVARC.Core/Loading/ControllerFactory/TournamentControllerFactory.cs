@@ -14,6 +14,7 @@ namespace CVARC.V2
 		readonly TcpListener listener;
 		const int timeToEstablishConnection = 1000;
 		List<CvarcClient> clients = new List<CvarcClient>();
+		List<Process> processes = new List<Process>();
 		public TournamentControllerFactory(int port)
 		{
 			Port=port;
@@ -37,7 +38,7 @@ namespace CVARC.V2
 			var batFile = directory+"\\run.bat";
 			if (!File.Exists(batFile))
 				throw new Exception("run.bat is not found in directory "+directory+" for robot "+controllerId);
-			process.StartInfo.FileName = batFile;
+			process.StartInfo.FileName = "run.bat";
 			process.StartInfo.WorkingDirectory = directory;
 			process.StartInfo.Arguments = Port.ToString();
 			process.Start();
@@ -50,12 +51,13 @@ namespace CVARC.V2
 				if (watch.ElapsedMilliseconds>1000)
 				{
 					watch.Stop();
-					process.Kill();
-					throw new Exception("Process "+batFile+" for controller "+controllerId+" haven't established connection for 1 second")
+					if (!process.HasExited) process.Kill();
+					throw new Exception("Process " + batFile + " for controller " + controllerId + " haven't established connection for 1 second");
 				}
 			}
 			watch.Stop();
 
+			processes.Add(process);
 			var socketClient = listener.AcceptTcpClient();
 			var client = new CvarcClient(socketClient);
 			clients.Add(client);
@@ -69,11 +71,14 @@ namespace CVARC.V2
 			return controller;
 		}
 
-		~TournamentControllerFactory()
+		public override void Exit()
 		{
 			foreach (var client in clients)
 				client.Close();
 			listener.Stop();
+			foreach (var process in processes)
+				if (!process.HasExited)
+					process.Kill();
 		}
 	}
 }

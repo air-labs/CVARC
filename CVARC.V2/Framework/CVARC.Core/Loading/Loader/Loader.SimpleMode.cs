@@ -23,6 +23,8 @@ namespace CVARC.V2
 			var competitions = GetCompetitions(configuration.LoadingData);
 			var world = competitions.Logic.CreateWorld();
 			world.Initialize(competitions, configuration, controllerFactory, state);
+			world.Exit += ()=>
+				controllerFactory.Exit();
 			return world;
 		}
 

@@ -89,12 +89,12 @@
     <Compile Include="Loading\Competitions\ActorFactory.cs" />
     <Compile Include="Loading\Competitions\LogicPartHelper.cs" />
     <Compile Include="Loading\Configuration\IWorldState.cs" />
+    <Compile Include="Loading\ControllerFactory\TournamentControllerFactory.cs" />
     <Compile Include="Loading\Loader\Loader.Levels.cs" />
     <Compile Include="Loading\Debugger.cs" />
     <Compile Include="Loading\Loader\Loader.SelfTest.cs" />
     <Compile Include="Loading\Loader\Loader.SoloNetwork.cs" />
     <Compile Include="Loading\Loader\Loader.SimpleMode.cs" />
-    <Compile Include="Loading\Loader\Loader.Tournament.cs" />
     <Compile Include="Loading\Loader\NetworkServerData.cs" />
     <Compile Include="Client\MSAsserter.cs" />
     <Compile Include="Clocks\ControlTrigger.cs" />
@@ -139,7 +139,6 @@
     <Compile Include="Loading\ControllerFactory\SoloNetworkControllerFactory.cs" />
     <Compile Include="Loading\ControllerFactory\TutorialControllerFactory.cs" />
     <Compile Include="Loading\Loader\Loader.Entry.cs" />
-    <Compile Include="Loading\Loader\TournamentConfiguration.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
