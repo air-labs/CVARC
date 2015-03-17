@@ -34,15 +34,11 @@ namespace Movement {
 namespace Movement {
 [TestFixture]
 public partial class Limit {
-[Test] public void Linear2() { TestRunner.Run("Movement_Limit_-Linear"); }}}
+[Test] public void Linear2() { TestRunner.Run("Movement_Limit_Linear2"); }}}
 namespace Movement {
 [TestFixture]
 public partial class Limit {
-[Test] public void Round2() { TestRunner.Run("Movement_Limit_-Round"); }}}
-namespace Movement {
-[TestFixture]
-public partial class Rect {
-[Test] public void SpeedAndGripTest() { TestRunner.Run("Movement_Rect_Strange"); }}}
+[Test] public void Round2() { TestRunner.Run("Movement_Limit_Round2"); }}}
 #endregion
 
 #region InteractionTests

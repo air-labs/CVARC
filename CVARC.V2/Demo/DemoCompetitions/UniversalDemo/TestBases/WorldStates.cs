@@ -41,9 +41,9 @@ namespace Demo
 						  RobotName=TwoPlayersId.Left,
 						   X=-25,
 						   Y=0,
-						   YSize=10,
-						   XSize=10,
-						   ZSize=10
+						   YSize=15,
+						   XSize=15,
+						   ZSize=15
 					},
                     new DemoRobotData
 					{
@@ -52,9 +52,9 @@ namespace Demo
 						  RobotName=TwoPlayersId.Right,
 						   X=25,
 						   Y=0,
-						   YSize=10,
-						   XSize=10,
-						   ZSize=10
+						   YSize=15,
+						   XSize=15,
+						   ZSize=15
 					}
 				}
             };

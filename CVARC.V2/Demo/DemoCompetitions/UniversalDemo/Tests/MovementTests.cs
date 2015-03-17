@@ -48,14 +48,6 @@ namespace Demo
                 rules.Rotate(Angle.HalfPi),
                 rules.Move(10),
                 rules.Rotate(Angle.HalfPi)));
-            logic.Tests["Movement_Rect_Strange"] = new RectangularMovementTestBase(
-                LocationTest(0, 0, 0,
-                rules.Move(10),
-                rules.Move(-10),
-                rules.Move(10),
-                rules.Move(-10),
-                rules.Grip(),
-                rules.Stand(1)));
 			logic.Tests["Movement_Round_Square"] = new RoundMovementTestBase(LocationTest(0, 0, 0,
                 rules.Move(10),
                 rules.Rotate(Angle.HalfPi),
@@ -71,11 +63,11 @@ namespace Demo
           
             logic.Tests["Movement_Limit_Linear"] = new RoundMovementTestBase(LocationTest(50, 0, 0,
                 rules.MoveWithVelocityForTime(100000, 1)));
-            logic.Tests["Movement_Limit_-Linear"] = new RoundMovementTestBase(LocationTest(-50, 0, 0,
+            logic.Tests["Movement_Limit_Linear2"] = new RoundMovementTestBase(LocationTest(-50, 0, 0,
                 rules.MoveWithVelocityForTime(-100000, 1)));
 			logic.Tests["Movement_Limit_Round"] = new RoundMovementTestBase(LocationTest(0, 0, 0,
                 rules.RotateWithVelocityForTime(Angle.Pi*10, 4)));
-            logic.Tests["Movement_Limit_-Round"] = new RoundMovementTestBase(LocationTest(0, 0, 0,
+            logic.Tests["Movement_Limit_Round2"] = new RoundMovementTestBase(LocationTest(0, 0, 0,
                 rules.RotateWithVelocityForTime(-Angle.Pi * 19/10, 4)));
         }
     }

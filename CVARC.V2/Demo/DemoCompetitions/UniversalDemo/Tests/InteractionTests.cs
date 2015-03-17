@@ -15,8 +15,8 @@ namespace Demo
 			logic.Tests["Interaction_Rect_Alignment"] = new RectangularInteractionTestBase(
 				LocationTest((frame,asserter)=>
 					{
-						asserter.IsEqual(Angle.HalfPi.Grad,frame.Angle.Grad,1);
-						asserter.IsEqual(22.36, frame.Y, 1e-3);
+						asserter.IsEqual(Angle.HalfPi.Grad,frame.Angle.Grad % 360,1);
+						asserter.IsEqual(22.36, frame.Y, 1e-2);
 					},
 				rules.Move(-10),
 				rules.Rotate(Angle.HalfPi / 2),
@@ -30,7 +30,7 @@ namespace Demo
             logic.Tests["Interaction_Round_Alignment2"] = new RoundInteractionTestBase(
                 LocationTest((frame, asserter) =>
                 {
-                    asserter.IsEqual(Angle.HalfPi.Grad, frame.Angle.Grad, 1);
+                    asserter.IsEqual(Angle.HalfPi.Grad, frame.Angle.Grad % 360, 1);
                     asserter.IsEqual(17.45, frame.Y, 1e-3);
                 },
                 rules.Rotate(Angle.HalfPi / 2),

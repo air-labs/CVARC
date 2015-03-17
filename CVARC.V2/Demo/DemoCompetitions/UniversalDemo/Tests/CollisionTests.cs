@@ -39,10 +39,8 @@ namespace Demo
 
                 rules.MoveWithVelocityForTime(-50, 0.2),
                 rules.MoveWithVelocityForTime(50, 0.2)));
-            logic.Tests["Collision_Rect_CollisionCount"] = new RectangularCollisionTestBase(LocationTest(3, 3, 0,
-                rules.Grip(),
+            logic.Tests["Collision_Rect_CollisionCount"] = new RectangularCollisionTestBase(CollisionTest(3, 3, 0,
                 rules.MoveWithVelocityForTime(50, 1),
-                rules.RotateWithVelocityForTime(Angle.HalfPi, 1),
                 rules.MoveWithVelocityForTime(50, 0.8),
                 rules.MoveWithVelocityForTime(50, 0.3),
                 rules.MoveWithVelocityForTime(-50, 0.2),
