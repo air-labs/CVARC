@@ -9,6 +9,7 @@ namespace CVARC.V2
     public enum DebuggerMessageType
     {
         Unity,
+        UnityTest,
         Protocol,
         Error,
         Workflow
