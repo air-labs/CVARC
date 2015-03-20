@@ -23,9 +23,9 @@ namespace CVARC.Basic.Engine
             this.robot = body;
             Angle viewAngle = Settings.ViewAngle;
             _camera = new FirstPersonCamera(this.robot, Settings.Location,
-                                            viewAngle, DefaultWidth / (double)DefaultHeight);
-            _drawer = new OffscreenDirectXDrawer(factory.GetDirectXScene(), DefaultWidth,
-                                                 DefaultHeight);
+                                            viewAngle, Settings.ImageWidth / (double)settings.ImageHeight);
+            _drawer = new OffscreenDirectXDrawer(factory.GetDirectXScene(), settings.ImageWidth,
+                                                 settings.ImageHeight);
         }
 
         

@@ -32,9 +32,6 @@ namespace CVARC.V2
         }
 
 
-        public const int DefaultHeight = 600;
-        public const int DefaultWidth = 800;
-
         private static void WriteToFile(byte[] bitmap)
         {
             const string tempDir = "CameraTestImages";
@@ -84,10 +81,14 @@ namespace CVARC.V2
 
 		public Frame3D Location = new Frame3D(0, 0, 10, Angle.FromGrad(-25), Angle.Zero, Angle.Zero);
 
+		public int ImageWidth = 800;
+
+		public int ImageHeight = 600;
 		/// <summary>
 		/// Писать в файл для дебага
 		/// </summary>
 
 		public bool WriteToFile;
+
 	}
 }

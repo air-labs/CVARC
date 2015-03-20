@@ -31,6 +31,6 @@ public static class TestRunner
 	}
 	public static void Main()
 	{
-		new Collision.Rect().CollisionCount();
+		new Interaction.Rect().Alignment();
 	}
 }
