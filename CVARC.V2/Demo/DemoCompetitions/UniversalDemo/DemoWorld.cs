@@ -10,6 +10,8 @@ namespace Demo
 {
     public class DemoWorld : World<DemoWorldState, IDemoWorldManager>
     {
+
+		public readonly List<CollisionData> CurrentCollisions = new List<CollisionData>();
 		public override void AdditionalInitialization()
 		{
 			base.AdditionalInitialization();
@@ -29,9 +31,13 @@ namespace Demo
 
 			detector.Account = c =>
 			{
-				if (!c.Victim.IsControllable) return;
-				if (!detector.Guilty(c)) return;
-				Scores.Add(c.Offender.ControllerId, -1, "Collision");
+				var guilty = c.Victim.IsControllable && detector.Guilty(c);
+				CurrentCollisions.Add(new CollisionData
+				{
+					Time = Clocks.CurrentTime,
+					CollisionCase = c,
+					Guilty = guilty
+				});
 			};
 		}
 

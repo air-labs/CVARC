@@ -13,23 +13,15 @@ namespace Demo
         {
             return (client, world, asserter) =>
             {
-                int counter = 0;
-                int lscore = 0;
-                int rscore = 0;
-                world.Scores.ScoresChanged += () => { counter++; };
+                DemoSensorsData result = null;
                 foreach (var c in command)
-                    client.Act(c);
-                asserter.IsEqual(count, counter, 0);
-                foreach (var item in world.Scores.Records)
-                {
-                    if (item.Key == "Left")
-                        lscore = item.Value.Count;
-                    if (item.Key == "Right")
-                        rscore = item.Value.Count;
-                }
-                asserter.IsEqual(lscore, left, 0);
-                asserter.IsEqual(rscore, right, 0);
-            };
+                    result = client.Act(c);
+
+				
+                asserter.IsEqual(count, result.Collisions.Where(z => z.Guilty).Count(), 0);
+				asserter.IsEqual(left, result.Collisions.Where(z => z.Guilty && z.CollisionCase.Offender.ControllerId == TwoPlayersId.Left).Count(), 0);
+				asserter.IsEqual(right, result.Collisions.Where(z => z.Guilty && z.CollisionCase.Offender.ControllerId == TwoPlayersId.Right).Count(), 0);
+			};
         }
 
         private void LoadCollisionTests(LogicPart logic, MoveAndGripRules rules)
