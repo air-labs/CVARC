@@ -21,7 +21,7 @@ namespace CVARC.V2
         }
     }
 
-    public class GripperUnit : IUnit<IGripperCommand>
+    public class GripperUnit : IUnit
     {
         IActor actor;
         IGripperRules gripperRules;
@@ -75,8 +75,10 @@ namespace CVARC.V2
 
 
 
-        public UnitResponse ProcessCommand(IGripperCommand cmd)
+        public UnitResponse ProcessCommand(object _cmd)
         {
+            var cmd = Compatibility.Check<IGripperCommand>(this, _cmd);
+            Debugger.Log(DebuggerMessageType.Workflow,"Command comes to gripper, "+cmd.GripperCommand.ToString());
             switch (cmd.GripperCommand)
             {
                 case GripperAction.No: return UnitResponse.Denied();

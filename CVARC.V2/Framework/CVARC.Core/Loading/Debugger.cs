@@ -10,7 +10,8 @@ namespace CVARC.V2
     {
         Unity,
         Protocol,
-        Error
+        Error,
+        Workflow
     }
     public static class Debugger
     {

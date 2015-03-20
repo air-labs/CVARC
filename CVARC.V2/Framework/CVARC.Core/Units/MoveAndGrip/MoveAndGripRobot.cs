@@ -21,7 +21,7 @@ namespace CVARC.V2
             Gripper = new GripperUnit(this);
         }
 
-        public override IEnumerable<IUnit<MoveAndGripCommand>> Units
+        public override IEnumerable<IUnit> Units
         {
             get
             {

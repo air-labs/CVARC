@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -26,8 +27,10 @@ namespace CVARC.V2
             controller.SendSensorData(sensorData);
             var command = controller.GetCommand();
 			if (command == null) return false;
+            Debugger.Log(DebuggerMessageType.Workflow, "Command accepted in ControlTrigger");
 			controllable.World.Logger.AccountCommand(controllable.ControllerId, command);
             var processedCommands = preprocessor.Preprocess(command);
+            Debugger.Log(DebuggerMessageType.Workflow, processedCommands.Count()+" commands after preprocessor");
             currentBuffer = processedCommands.GetEnumerator();
             if (!currentBuffer.MoveNext())
             {
@@ -46,6 +49,7 @@ namespace CVARC.V2
                 }
             var currentCommand = currentBuffer.Current;
             double duration;
+            Debugger.Log(DebuggerMessageType.Workflow, "Command goes to robot");
             controllable.ExecuteCommand(currentCommand, out duration);
             nextTime = base.ThisCall +  duration;
             if (!currentBuffer.MoveNext())
