@@ -7,10 +7,6 @@ namespace CVARC.V2
 {
     public interface IUnit
     {
-    }
-
-    public interface IUnit<in TCommand> : IUnit
-    {
-        UnitResponse ProcessCommand(TCommand command);
+        UnitResponse ProcessCommand(object command);
     }
 }

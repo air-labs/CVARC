@@ -26,7 +26,7 @@ namespace CVARC.V2
         public void WriteLine(byte[] bytes)
         {
             bytes = bytes.Where(z => z != EndLine).Concat(new[] { EndLine }).ToArray();
-			if (EnableDebug) Debugger.Log(BytesToArray(bytes));
+			if (EnableDebug) Debugger.Log(DebuggerMessageType.Protocol, BytesToArray(bytes));
 			client.Client.Send(bytes);
         }
 
@@ -60,7 +60,7 @@ namespace CVARC.V2
                 read.Add(buffer[0]);
             }
 			if (EnableDebug)
-				Debugger.Log(BytesToArray(read.ToArray()));
+				Debugger.Log(DebuggerMessageType.Protocol, BytesToArray(read.ToArray()));
             return read.ToArray();
         }
 

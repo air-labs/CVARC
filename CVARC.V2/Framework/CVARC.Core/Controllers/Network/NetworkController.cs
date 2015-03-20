@@ -52,7 +52,7 @@ namespace CVARC.V2
 
             var async = @delegate.BeginInvoke(typeof(TCommand), null, null);
 
-			OperationalTimeLimit = 1;
+			OperationalTimeLimit = 1; //TODO: убрать рак
 
             while (OperationalTime <OperationalTimeLimit)
             {
@@ -65,15 +65,15 @@ namespace CVARC.V2
             {
                 var result = @delegate.EndInvoke(async);
                 if (result.Item2 != null) return null;
+                
+                Debugger.Log(DebuggerMessageType.Workflow,"Command accepted in controller");
                 return result.Item1;
             }
 			client.Close();
-			Debugger.Log("Can't get command");
+			Debugger.Log(DebuggerMessageType.Error, "Can't get command");
             return null;
 
         }
-
-
 
         public void SendSensorData(object sensorData)
         {
