@@ -68,12 +68,10 @@ namespace CVARC.V2
                 return result.Item1;
             }
 			client.Close();
-			Debugger.Log("Can't get command");
+			Debugger.Log(DebuggerMessageType.Error, "Can't get command");
             return null;
 
         }
-
-
 
         public void SendSensorData(object sensorData)
         {
