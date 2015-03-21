@@ -11,8 +11,8 @@ namespace Demo
 	{
 		static RobotCameraSettings settings = new RobotCameraSettings 
 		{
-			 Location=new AIRLab.Mathematics.Frame3D(30,0,0),
-			 ViewAngle=Angle.FromGrad(1),
+			 Location=new AIRLab.Mathematics.Frame3D(30,20,0),
+			 ViewAngle=Angle.HalfPi,
 			  WriteToFile=true,
 			  ImageHeight=800,
 			  ImageWidth=600
