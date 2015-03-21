@@ -10,7 +10,7 @@ using ServerReplayPlayer.Contracts;
 
 namespace ServerReplayPlayer.Logic
 {
-    class Provider
+    public class Provider
     {
         public void AddPlayer(string level, HttpPostedFileBase file)
         {
@@ -116,9 +116,16 @@ namespace ServerReplayPlayer.Logic
             }).ToArray();
         }
 
-        public CompetitionsInfo[] GetCompetitionsInfos()
+        public CompetitionsInfo[] GetCompetitionsInfos(string level)
         {
-            return new[] { LevelName.Level1, LevelName.Level2 }.Select(x => GetCompetitionsInfo(x.ToString())).ToArray();
+            LevelName levelName;
+            var levels = Enum.TryParse(level, out levelName) ? new[] {levelName} : Storage.GetOpenLevels();
+            return levels.Select(x => GetCompetitionsInfo(x.ToString())).ToArray();
+        }
+
+        public void AddOpenLevel(string level)
+        {
+            Storage.AddOpenLevels((LevelName)Enum.Parse(typeof(LevelName), level));
         }
     }
 }

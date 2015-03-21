@@ -1,20 +1,17 @@
 ﻿using System.Web.Mvc;
-using ServerReplayPlayer.Logic;
 
 namespace ServerReplayPlayer.Controllers
 {
     public class HomeController : BaseController
     {
-        private readonly Provider provider = new Provider();
-
-        public ActionResult Index()
+        public ActionResult Index(string level)
         {
-            return View(provider.GetCompetitionsInfos());
+            return View(Provider.GetCompetitionsInfos(level));
         }
 
         public ActionResult Test()
         {
-            return View("Index", provider.GetTestCompetitionsInfos());
+            return View("Index", Provider.GetTestCompetitionsInfos());
         }
     }
 }

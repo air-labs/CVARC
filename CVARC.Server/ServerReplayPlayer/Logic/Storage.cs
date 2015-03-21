@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Hosting;
@@ -13,11 +15,41 @@ namespace ServerReplayPlayer.Logic
     {
         private static readonly string BaseFolder = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "App_Data");
         private static readonly string TempFolder = Path.Combine(BaseFolder, "Temp");
-        private static readonly ConcurrentDictionary<string, LevelCaches> LevelCaches = new ConcurrentDictionary<string, LevelCaches>(); 
+        private static readonly string OpenLevelsFile = Path.Combine(BaseFolder, "openLevels.txt");
+        private static readonly ConcurrentDictionary<string, LevelCaches> LevelCaches = new ConcurrentDictionary<string, LevelCaches>();
+        private static HashSet<LevelName> openLevels; 
 
         private static LevelCaches GetCache(string level)
         {
             return LevelCaches.GetOrAdd(level, x => new LevelCaches(Path.Combine(BaseFolder, level)));
+        }
+
+        public static LevelName[] GetOpenLevels()
+        {
+            if (openLevels == null)
+            {
+                if (!File.Exists(OpenLevelsFile))
+                    AddOpenLevels(LevelName.Level1);
+                var levels = ReadLevelNames();
+                openLevels = levels;
+            }
+            return openLevels.ToArray();
+        }
+
+        public static void AddOpenLevels(params LevelName[] levels)
+        {
+            var currentLevels = ReadLevelNames();
+            foreach (var level in levels)
+            {
+                openLevels.Add(level);
+                currentLevels.Add(level);
+            }
+            File.WriteAllLines(OpenLevelsFile, currentLevels.Select(x => x.ToString()));
+        }
+
+        private static HashSet<LevelName> ReadLevelNames()
+        {
+            return new HashSet<LevelName>(File.ReadAllLines(OpenLevelsFile).Select(x => (LevelName)Enum.Parse(typeof(LevelName), x)));
         }
 
         public static void SavePlayerClient(string level, string name, HttpPostedFileBase file)

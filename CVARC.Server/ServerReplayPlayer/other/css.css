@@ -53,6 +53,10 @@ body {
     color: green;
 }
 
+.levelName {
+    color: black;
+}
+
 .ajax-file-upload {
     font-size: 14px;
     font-weight:bold;

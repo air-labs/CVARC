@@ -112,6 +112,7 @@
     <Compile Include="Contracts\IWithId.cs" />
     <Compile Include="Contracts\MatchResultEntity.cs" />
     <Compile Include="Contracts\PlayerEntity.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReplayController.cs" />
@@ -173,6 +174,9 @@
       <Project>{73712BF6-6B58-4708-AB6E-3184F049034E}</Project>
       <Name>CommonTypes</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

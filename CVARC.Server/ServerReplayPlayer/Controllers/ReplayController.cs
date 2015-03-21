@@ -12,8 +12,6 @@ namespace ServerReplayPlayer.Controllers
 {
     public class ReplayController : BaseController
     {
-        private readonly Provider provider = new Provider();
-
         [HttpGet]
         public ActionResult Get(string level, Guid id)
         {
@@ -23,7 +21,7 @@ namespace ServerReplayPlayer.Controllers
         [HttpGet]
         public string GetReplay(string level, Guid id)
         {
-            return provider.GetReplay(level, id);
+            return Provider.GetReplay(level, id);
         }
 
         [HttpGet]
@@ -37,22 +35,22 @@ namespace ServerReplayPlayer.Controllers
         {
             if (!FileValidator.IsValid(file))
             {
-                provider.SaveInvalidClient(file);
+                Provider.SaveInvalidClient(file);
                 throw new Exception("File is invalid!");
             }
-            provider.AddPlayer(level, file);
+            Provider.AddPlayer(level, file);
         }
 
         [HttpPost]
         public ActionResult GetPlayer(string level, Guid id)
         {
-            return Json(provider.GetPlayer(level, id));
+            return Json(Provider.GetPlayer(level, id));
         }
 
         [HttpPost]
         public JsonResult GetCompetitionsInfo(string level)
         {
-            return Json(provider.GetCompetitionsInfo(level));
+            return Json(Provider.GetCompetitionsInfo(level));
         }
 
         [HttpPost]
@@ -60,7 +58,7 @@ namespace ServerReplayPlayer.Controllers
         {
             var str = new StreamReader(Request.InputStream, Encoding.UTF8).ReadToEnd();
             var matchResult = JsonConvert.DeserializeObject<MatchResult>(str);
-            provider.SaveMatchResult(level, matchResult);
+            Provider.SaveMatchResult(level, matchResult);
         }
     }
 }

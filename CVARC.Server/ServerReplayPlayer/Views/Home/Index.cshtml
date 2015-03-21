@@ -39,7 +39,7 @@
                 @foreach (var replay in Model)
                 {
                     <td>
-                        <h2>@replay.Level</h2>
+                        <a class="levelName" href="/Home?level=@replay.Level"><h2>@replay.Level</h2></a>
                         <div uploadClient="@replay.Level">Загрузить решение</div>
                     </td>
                 }
