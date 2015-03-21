@@ -13,7 +13,7 @@
         <script lang="text/javascript" src="/Scripts/jquery-1.7.2.min.js"></script>
         <script lang="text/javascript" src="/Scripts/jquery.uploadfile.min.js"></script>
         <script lang="text/javascript">
-            $(document).ready(function() {
+            function attachOnUploadFile() {
                 $("[uploadClient]").each(function (i, element) {
                     var jElement = $(element);
                     var level = jElement.attr("uploadClient");
@@ -30,6 +30,29 @@
                         }
                     });
                 });
+            };
+
+            function attachOnFilter() {
+                $("input[filterBy]").each(function (i, element) {
+                    var jElement = $(element);
+                    var level = jElement.attr("filterBy");
+                    var trs = $("table[filterBy=" + level + "] tr").not('thead tr');
+                    jElement.keyup(function () {
+                        var value = jElement.val();
+                        trs.each(function(index, elem) {
+                            var teamName = $(elem).find("[teamName]").text();
+                            if (teamName.indexOf(value) >= 0)
+                                $(elem).show();
+                            else
+                                $(elem).hide();
+                        });
+                    });
+                });
+            };
+
+            $(document).ready(function() {
+                attachOnUploadFile();
+                attachOnFilter();
             });
         </script>
     </head>
@@ -48,10 +71,15 @@
                 @foreach (var replays in Model)
                 {
                     <td>
-                        <table align="center" class="info">
+                        <table filterBy="@replays.Level" align="center" class="info">
                             <thead>
                                 <tr>
-                                    <td>Имя</td>
+                                    <td class="filter">
+                                        Фильтр: <input filterBy="@replays.Level" type="text"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Команда</td>
                                     <td>Очки</td>
                                 </tr>
                             </thead>
@@ -63,11 +91,11 @@
                                         @if (replay.Id != null)
                                         {
                                             var url = "/Replay/Get?level=" + replays.Level + "&id=" + replay.Id;
-                                            <a href="@url" class="linkName">@text</a>
+                                            <a teamName="true" href="@url" class="linkName">@text</a>
                                         }
                                         else
                                         {
-                                            <div>@text</div>
+                                            <div teamName="true">@text</div>
                                         }
                                     </td>
                                     <td>

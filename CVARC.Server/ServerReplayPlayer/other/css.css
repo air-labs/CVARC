@@ -53,6 +53,14 @@ body {
     color: green;
 }
 
+.filter {
+    line-height: 3;
+}
+
+.filter input {
+    width: 100px
+}
+
 .levelName {
     color: black;
 }
