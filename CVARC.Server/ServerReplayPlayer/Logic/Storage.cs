@@ -29,20 +29,25 @@ namespace ServerReplayPlayer.Logic
             if (openLevels == null)
             {
                 if (!File.Exists(OpenLevelsFile))
-                    AddOpenLevels(LevelName.Level1);
+                    ChangeOpenLevels(LevelName.Level1, false);
                 var levels = ReadLevelNames();
                 openLevels = levels;
             }
             return openLevels.ToArray();
         }
 
-        public static void AddOpenLevels(params LevelName[] levels)
+        public static void ChangeOpenLevels(LevelName level, bool remove)
         {
             var currentLevels = ReadLevelNames();
-            foreach (var level in levels)
+            if (!remove)
             {
                 openLevels.Add(level);
-                currentLevels.Add(level);
+                currentLevels.Add(level);                
+            }
+            else
+            {
+                openLevels.Remove(level);
+                currentLevels.Remove(level);                
             }
             File.WriteAllLines(OpenLevelsFile, currentLevels.Select(x => x.ToString()));
         }

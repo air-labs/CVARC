@@ -123,9 +123,12 @@ namespace ServerReplayPlayer.Logic
             return levels.Select(x => GetCompetitionsInfo(x.ToString())).ToArray();
         }
 
-        public void AddOpenLevel(string level)
+        public void ChangeOpenLevel(string level)
         {
-            Storage.AddOpenLevels((LevelName)Enum.Parse(typeof(LevelName), level));
+            var removeLevel = level.StartsWith("-");
+            if (removeLevel)
+                level = level.Substring(1);
+            Storage.ChangeOpenLevels((LevelName)Enum.Parse(typeof(LevelName), level), removeLevel);
         }
     }
 }

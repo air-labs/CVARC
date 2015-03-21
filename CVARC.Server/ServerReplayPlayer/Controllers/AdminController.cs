@@ -10,9 +10,9 @@ namespace ServerReplayPlayer.Controllers
         }
 
         [HttpGet]
-        public void AddOpenLevel(string level)
+        public void ChangeOpenLevel(string level)
         {
-            Provider.AddOpenLevel(level);
+            Provider.ChangeOpenLevel(level);
         }
     }
 }
