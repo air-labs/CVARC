@@ -33,6 +33,10 @@ body {
     table-layout: auto
 }
 
+.loginTable {
+    text-align: center
+}
+
 .info td {
     padding-left: 10px
 }
@@ -43,6 +47,10 @@ body {
 
 .linkName{
     color: white;
+}
+
+.incorrectPassMessage {
+    color: red;
 }
 
 #FPS

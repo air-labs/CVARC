@@ -1,4 +1,4 @@
-﻿@model CommonTypes.CompetitionsInfo[]
+﻿@model ServerReplayPlayer.Contracts.CompetitionsViewModel
 
 @{
     Layout = null;
@@ -32,6 +32,23 @@
                 });
             };
 
+            function attachOnLogin() {
+                $("#loginButton").click(function () {
+                    var login = $("#login").val();
+                    var pass = $("#pass").val();
+                    $.ajax({ url: "/Home/Login?login=" + login + "&password=" + pass }).done(function() {
+                        window.location = "/Home";
+                    }).fail(function () {
+                        $("#incorrectPassMessage").show();
+                    });
+                });
+                $("#logoutButton").click(function () {
+                    $.ajax({ url: "/Home/Logout"}).done(function() {
+                        window.location = "/Home";
+                    });
+                });
+            }
+
             function attachOnFilter() {
                 $("input[filterBy]").each(function (i, element) {
                     var jElement = $(element);
@@ -53,13 +70,31 @@
             $(document).ready(function() {
                 attachOnUploadFile();
                 attachOnFilter();
+                attachOnLogin();
             });
         </script>
     </head>
     <body>
+        <table class="info loginTable" align="center">
+            @{
+                if (Model.Command == null)
+                {
+                    <tr><td>Войдите, чтобы отправлять решения</td></tr>
+                    <tr><td>login: <input id="login"/></td></tr>
+                    <tr><td>pass: <input id="pass" type="password"/></td></tr>
+                    <tr><td id="incorrectPassMessage" class="incorrectPassMessage" style="display: none;">Неверный логин или пароль!</td></tr>
+                    <tr><td><a id="loginButton" class="linkName" href="#">Войти</a></td></tr>
+                }
+                else
+                {
+                    <tr><td>Команда: @Model.Command.CommandName</td></tr>
+                    <tr><td><a id="logoutButton" class="linkName" href="#">Выйти</a></td></tr>
+                }
+            }
+        </table>
         <table id="mainTable" align="center">
             <tr>
-                @foreach (var replay in Model)
+                @foreach (var replay in Model.CompetitionsInfos)
                 {
                     <td>
                         <a class="levelName" href="/Home?level=@replay.Level"><h2>@replay.Level</h2></a>
@@ -68,44 +103,44 @@
                 }
             </tr>
             <tr>
-                @foreach (var replays in Model)
-                {
-                    <td>
-                        <table filterBy="@replays.Level" align="center" class="info">
-                            <thead>
-                                <tr>
-                                    <td class="filter">
-                                        Фильтр: <input filterBy="@replays.Level" type="text"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Команда</td>
-                                    <td>Очки</td>
-                                </tr>
-                            </thead>
-                            @foreach (var replay in replays.MatchResults)
-                            {
-                                <tr>
-                                    @{ var text = replay.Player.Name + (replay.Player2 == null ? "" : " vs " + replay.Player2.Name); }
-                                    <td>
-                                        @if (replay.Id != null)
-                                        {
-                                            var url = "/Replay/Get?level=" + replays.Level + "&id=" + replay.Id;
-                                            <a teamName="true" href="@url" class="linkName">@text</a>
-                                        }
-                                        else
-                                        {
-                                            <div teamName="true">@text</div>
-                                        }
-                                    </td>
-                                    <td>
-                                        @(string.IsNullOrEmpty(replay.Points) ? "Матч ещё не сыгран" : replay.Points)
-                                    </td>
-                                </tr>
-                            }
-                        </table>
-                    </td>
-                }
+            @foreach (var replays in Model.CompetitionsInfos)
+            {
+                <td>
+                    <table filterBy="@replays.Level" align="center" class="info">
+                        <thead>
+                            <tr>
+                                <td class="filter">
+                                    Фильтр: <input filterBy="@replays.Level" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Команда</td>
+                                <td>Очки</td>
+                            </tr>
+                        </thead>
+                        @foreach (var replay in replays.MatchResults)
+                        {
+                            <tr>
+                                @{ var text = replay.Player.Name + (replay.Player2 == null ? "" : " vs " + replay.Player2.Name); }
+                                <td>
+                                    @if (replay.Id != null)
+                                    {
+                                        var url = "/Replay/Get?level=" + replays.Level + "&id=" + replay.Id;
+                                        <a teamName="true" href="@url" class="linkName">@text</a>
+                                    }
+                                    else
+                                    {
+                                        <div teamName="true">@text</div>
+                                    }
+                                </td>
+                                <td>
+                                    @(string.IsNullOrEmpty(replay.Points) ? "Матч ещё не сыгран" : replay.Points)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </td>
+            }
         </table>
     </body>
 </html>
