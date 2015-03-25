@@ -50,6 +50,7 @@ namespace CVARC.Basic
                     }
                     catch { }
                 };
+			competitions.Exited+=()=> BeginInvoke(new Action(Close));
         }
     }
 }

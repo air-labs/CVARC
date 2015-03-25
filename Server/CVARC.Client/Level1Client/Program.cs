@@ -27,7 +27,7 @@ namespace Client
             server.SendCommand(new Command { LinearVelocity = -50, Time = 1 });
             server.SendCommand(new Command { AngularVelocity = Angle.FromGrad(90), Time = 1 });
             server.SendCommand(new Command { Action = CommandAction.Release, Time = 1 });
-            server.SendCommand(new Command { Action = CommandAction.WaitForExit });
+			server.Exit();
         }
     }
 }

@@ -33,6 +33,8 @@ namespace CVARC.Basic
         public virtual int RobotCount { get { return 2; } }
         public virtual int CompetitionId { get { return 1; } }
 
+		public event Action Exited;
+
         public Competitions()
         {
             GameTimeLimit = 90;
@@ -115,6 +117,10 @@ namespace CVARC.Basic
                 e.WaitForNextCommandTime = 0;
             }
 
+
+			bool clientExited = false;
+			
+
             while (true)
             {
                 var parts = participants.Where(z => z.Active && z.WaitForNextCommandTime <= 0);
@@ -161,13 +167,19 @@ namespace CVARC.Basic
                     else if (result.Item2 != null) //выкинут Exception
                         p.Exit(ExitReason.FormatException, GameTimeLimit - time, result.Item2);
 
+					if (p is NetworkParticipant && !p.Active)
+						clientExited = true;
+
                     if (!p.Active) continue;
+
 
                     //применяем полученную команду
                     var cmd=result.Item1;
                     cmd.RobotId = p.ControlledRobot;
                     Robots[p.ControlledRobot].ProcessCommand(cmd);
                     p.WaitForNextCommandTime = cmd.Time;
+					if (cmd.Action == CommandAction.WaitForExit)
+						clientExited = true;
                 }
                 var minTime = Math.Min(time, participants.Min(z => z.WaitForNextCommandTime));
                 if (minTime == 0 || double.IsInfinity(minTime)) break;
@@ -180,8 +192,11 @@ namespace CVARC.Basic
 
                 time -= minTime;
                 if (time <= 0) break;
+				if (clientExited) break;
             }
-        }
+			if (Exited != null) Exited();
+
+		}
         
         public bool BotIsAvailable(string name)
         {

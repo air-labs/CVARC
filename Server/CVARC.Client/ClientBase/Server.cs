@@ -43,6 +43,11 @@ namespace ClientBase
             };
         }
 
+		public void Exit()
+		{
+			client.Send(serializer.Serialize(new Command { Action = CommandAction.WaitForExit }));
+		}
+
         public TSensorsData SendCommand(Command command)
         {
             client.Send(serializer.Serialize(command));
