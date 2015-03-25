@@ -1,15 +1,17 @@
 ﻿using System.Diagnostics;
 using System.Linq;
 using CVARC.Basic;
+using System.IO;
 
 namespace ClientBase
 {
     public class CvarcClient
     {
         private readonly ClientSettings settings;
-
-        public CvarcClient(string[] args, ClientSettings settings)
+		private readonly string networkServerDirectory;
+		public CvarcClient(string[] args, ClientSettings settings, string networkServerDirectory = ".\\..\\..\\..\\..\\build\\bin\\NetworkServer")
         {
+			this.networkServerDirectory = networkServerDirectory;
             this.settings = settings;
             if (!args.Contains("noRunServer"))
                 StartServer();
@@ -22,9 +24,10 @@ namespace ClientBase
 
         private void StartServer()
         {
-            Process.Start(new ProcessStartInfo("NetworkServer.bat")
+			var directoryInfo = new DirectoryInfo(networkServerDirectory);
+            Process.Start(new ProcessStartInfo("CVARC.Network.exe")
                 {
-                    WorkingDirectory = ".\\..\\..\\..\\..\\build\\"
+                    WorkingDirectory = directoryInfo.FullName
                 });
 //            ThreadPool.QueueUserWorkItem(o => Program.InternalMain());
         }
