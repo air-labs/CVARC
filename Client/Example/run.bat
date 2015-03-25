@@ -1,1 +1,1 @@
-start Example.exe %*
+start "rtsClient" Example.exe %*
