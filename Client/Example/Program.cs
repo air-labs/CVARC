@@ -12,7 +12,7 @@ namespace Client
 		private static readonly ClientSettings Settings = new ClientSettings
 		{
 			Side = Side.Left, //Переключив это поле, можно отладить алгоритм для левой или правой стороны, а также для произвольной стороны, назначенной сервером
-			LevelName = LevelName.Level2, //Это не нужно трогать на данном этапе
+			LevelName = LevelName.Level1, //Задается уровень, в котором вы хотите принять участие
 			MapNumber=-1 //Задавая различные значения этого поля, вы можете сгенерировать различные случайные карты
 		};
 
