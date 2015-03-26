@@ -27,12 +27,17 @@ namespace ServerReplayPlayer.Logic
         {
             if (openLevels == null)
             {
-                if (!File.Exists(OpenLevelsFile))
-                    ChangeOpenLevels(LevelName.Level1, false);
-                var levels = ReadLevelNames();
+                var levels = File.Exists(OpenLevelsFile) ? ReadLevelNames() : CreateOpenLevelsFile();
                 openLevels = levels;
             }
             return openLevels.ToArray();
+        }
+
+        private static HashSet<LevelName> CreateOpenLevelsFile()
+        {
+            var levels = new[] {LevelName.Level1};
+            WriteLevelNames(levels);
+            return new HashSet<LevelName>(levels);
         }
 
         public static void ChangeOpenLevels(LevelName level, bool remove)
@@ -48,7 +53,12 @@ namespace ServerReplayPlayer.Logic
                 openLevels.Remove(level);
                 currentLevels.Remove(level);                
             }
-            File.WriteAllLines(OpenLevelsFile, currentLevels.Select(x => x.ToString()));
+            WriteLevelNames(currentLevels);
+        }
+
+        private static void WriteLevelNames(IEnumerable<LevelName> levels)
+        {
+            File.WriteAllLines(OpenLevelsFile, levels.Select(x => x.ToString()));            
         }
 
         private static HashSet<LevelName> ReadLevelNames()
