@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
-using System.Web.Hosting;
 using CommonTypes;
 using ServerReplayPlayer.Contracts;
 
@@ -85,7 +84,7 @@ namespace ServerReplayPlayer.Logic
 
         private string GetTestReplay()
         {
-            var path = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "Replays");
+            var path = Helpers.GetServerPath("Replays");
             return File.ReadAllLines(Path.Combine(path, "Alexander Ponomarev.Blue")).Last();
         }
 

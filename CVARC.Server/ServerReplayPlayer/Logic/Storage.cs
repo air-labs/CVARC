@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
-using System.Web.Hosting;
 using CommonTypes;
 using ServerReplayPlayer.Contracts;
 
@@ -13,7 +12,7 @@ namespace ServerReplayPlayer.Logic
 {
     static class Storage
     {
-        private static readonly string BaseFolder = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "App_Data");
+        private static readonly string BaseFolder = Helpers.GetServerPath("App_Data");
         private static readonly string TempFolder = Path.Combine(BaseFolder, "Temp");
         private static readonly string OpenLevelsFile = Path.Combine(BaseFolder, "openLevels.txt");
         private static readonly ConcurrentDictionary<string, LevelCaches> LevelCaches = new ConcurrentDictionary<string, LevelCaches>();

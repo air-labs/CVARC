@@ -117,10 +117,13 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ReplayController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Cryptographer\TokenSerializer.cs" />
+    <Compile Include="Logic\Cryptographer\TripleDesCryptographer.cs" />
     <Compile Include="Logic\FileCache.cs" />
     <Compile Include="Logic\FileValidator.cs" />
     <Compile Include="Logic\Helpers.cs" />
@@ -135,7 +138,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
-    <Content Include="logins.txt" />
+    <Content Include="settings\logins.txt" />
     <Content Include="other\blue.png" />
     <Content Include="other\clouds-1259.jpg" />
     <Content Include="other\css.css" />
@@ -147,6 +150,7 @@
     <Content Include="Scripts\ReplayLoader.js" />
     <Content Include="Scripts\ReplayWindow.js" />
     <Content Include="Scripts\three.js" />
+    <Content Include="settings\tokenTripleDESKey.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

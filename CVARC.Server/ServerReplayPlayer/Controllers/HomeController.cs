@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using ServerReplayPlayer.Contracts;
 
 namespace ServerReplayPlayer.Controllers
@@ -19,17 +18,6 @@ namespace ServerReplayPlayer.Controllers
         public ActionResult Test()
         {
             return View("Index", new CompetitionsViewModel {CompetitionsInfos = Provider.GetTestCompetitionsInfos()});
-        }
-
-        public void Login(string login, string password)
-        {
-            if (!LoginProvider.TryLogin(Response, login, password))
-                throw new Exception("Incorrect Login or Password");
-        }
-
-        public void Logout()
-        {
-            LoginProvider.Logout(Response);
         }
     }
 }

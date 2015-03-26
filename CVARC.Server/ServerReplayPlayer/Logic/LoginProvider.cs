@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.Hosting;
 using ServerReplayPlayer.Contracts;
+using ServerReplayPlayer.Logic.Cryptographer;
 
 namespace ServerReplayPlayer.Logic
 {
     public class LoginProvider
     {
         private const string KeyName = "_token";
-        private static readonly string LoginsFile = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "logins.txt");
+        private static readonly string LoginsFile = Helpers.GetServerPath("settings\\logins.txt");
+        private static readonly TokenSerializer TokenSerializer = new TokenSerializer();
         private static ConcurrentDictionary<string, CommandEntity> commands;
         private static ConcurrentDictionary<string, CommandEntity> Commands
         {
@@ -35,7 +36,7 @@ namespace ServerReplayPlayer.Logic
 
         public CommandEntity Auth(HttpRequestBase request)
         {
-            var commandName = request.Cookies[KeyName] == null ? null : request.Cookies[KeyName].Value;
+            var commandName = request.Cookies[KeyName] == null ? null : TokenSerializer.Deserialize(request.Cookies[KeyName].Value);
             CommandEntity command;
             if (!string.IsNullOrEmpty(commandName) && Commands.TryGetValue(commandName, out command))
                 return command;
@@ -46,7 +47,7 @@ namespace ServerReplayPlayer.Logic
         {
             if (Commands.Values.Any(x => x.Password == password && x.CommandName == commandName))
             {
-                response.Cookies.Add(new HttpCookie(KeyName, commandName));
+                response.Cookies.Add(new HttpCookie(KeyName, TokenSerializer.Serialize(commandName)));
                 return true;
             }
             return false;
