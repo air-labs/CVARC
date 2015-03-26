@@ -11,10 +11,9 @@ namespace ServerReplayPlayer.Logic
 {
     public class Provider
     {
-        public void AddPlayer(string level, HttpPostedFileBase file)
+        public void AddPlayer(string level, HttpPostedFileBase file, string commandName)
         {
-            var name = Path.GetFileNameWithoutExtension(file.FileName);//todo по имени пользователя
-            Storage.SavePlayerClient(level, name, file);
+            Storage.SavePlayerClient(level, commandName, file);
         }
 
         public Player GetPlayer(string level, Guid id)

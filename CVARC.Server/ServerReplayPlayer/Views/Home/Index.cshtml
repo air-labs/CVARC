@@ -101,7 +101,10 @@
                 {
                     <td>
                         <a class="levelName" href="/Home?level=@replay.Level"><h2>@replay.Level</h2></a>
-                        <div uploadClient="@replay.Level">Загрузить решение</div>
+                        @if (Model.Command != null)
+                        {
+                            <div uploadClient="@replay.Level">Загрузить решение</div>                        
+                        }
                     </td>
                 }
             </tr>

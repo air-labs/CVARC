@@ -33,12 +33,14 @@ namespace ServerReplayPlayer.Controllers
         [HttpPost]
         public void UploadFile(string level, HttpPostedFileBase file)
         {
+            if (Command == null)
+                throw new Exception("Not Authorized");
             if (!FileValidator.IsValid(file))
             {
                 Provider.SaveInvalidClient(file);
                 throw new Exception("File is invalid!");
             }
-            Provider.AddPlayer(level, file);
+            Provider.AddPlayer(level, file, Command.CommandName);
         }
 
         [HttpPost]
