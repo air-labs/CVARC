@@ -13,9 +13,10 @@ namespace ServerReplayPlayer.Controllers
     public class ReplayController : BaseController
     {
         [HttpGet]
-        public ActionResult Get(string level, Guid id)
+        public ActionResult Get(string level, Guid id, string points)
         {
-            return View("PlayReplay", new ReplayViewModel(level, id));
+            var splits = points.Split(new[] {":", " "}, StringSplitOptions.RemoveEmptyEntries);
+            return View("PlayReplay", new ReplayViewModel(level, id, splits[0], splits[1]));
         }
 
         [HttpGet]

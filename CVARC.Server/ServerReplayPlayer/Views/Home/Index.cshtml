@@ -131,7 +131,7 @@
                                 <td>
                                     @if (replay.Id != null)
                                     {
-                                        var url = "/Replay/Get?level=" + replays.Level + "&id=" + replay.Id;
+                                        var url = "/Replay/Get?level=" + replays.Level + "&points=" + replay.Points + "&id=" + replay.Id;
                                         <a teamName="true" href="@url" class="linkName">@text</a>
                                     }
                                     else

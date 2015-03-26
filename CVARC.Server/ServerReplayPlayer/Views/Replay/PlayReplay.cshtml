@@ -14,8 +14,23 @@
         <script lang="text/javascript" src="/Scripts/ReplayWindow.js"></script>
         <script lang="text/javascript" src="/Scripts/jquery-1.7.2.min.js"></script>
         <script lang="text/javascript" src="/Scripts/logic.js"></script>
+        <style>
+            p {
+                font-family: Verdana, Arial, Helvetica, sans-serif;
+                font-size: 30pt;
+                position: absolute;
+                margin-left: 50%
+            }
+            .blue {
+                color: blue;
+            }
+            .red {
+                color: red;
+            }
+        </style>
     </head>
     <body onload="onload('@Model.Id', '@Model.Level');">
+        <p><span class="red">@Model.RedPoints</span> : <span class="blue">@Model.BluePoints</span></p>
         <div id="scene" style="width: 800px; height: 600px;"></div>
     </body>
 </html>
