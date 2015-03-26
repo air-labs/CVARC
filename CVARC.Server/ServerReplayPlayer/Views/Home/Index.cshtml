@@ -53,7 +53,9 @@
                 $("input[filterBy]").each(function (i, element) {
                     var jElement = $(element);
                     var level = jElement.attr("filterBy");
-                    var trs = $("table[filterBy=" + level + "] tr").not('thead tr');
+                    var table = $("table[filterBy=" + level + "]");
+//                    var tableWidth = table.width();
+                    var trs = table.find("tr").not('thead tr');
                     jElement.keyup(function () {
                         var value = jElement.val();
                         trs.each(function(index, elem) {
@@ -63,6 +65,7 @@
                             else
                                 $(elem).hide();
                         });
+//                        table.width(tableWidth);
                     });
                 });
             };
@@ -110,7 +113,7 @@
                         <thead>
                             <tr>
                                 <td class="filter">
-                                    Фильтр: <input filterBy="@replays.Level" type="text"/>
+                                    Фильтр: <input filterBy="@replays.Level" type="text"/>                                    
                                 </td>
                             </tr>
                             <tr>
