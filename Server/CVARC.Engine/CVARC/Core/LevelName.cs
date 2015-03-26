@@ -1,4 +1,4 @@
-namespace ClientBase
+﻿namespace CVARC.Network
 {
     public enum LevelName
     {

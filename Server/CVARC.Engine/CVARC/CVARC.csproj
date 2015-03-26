@@ -60,6 +60,7 @@
     <Compile Include="Core\ISensorsData.cs" />
     <Compile Include="Core\IEngine.cs" />
     <Compile Include="Core\ISceneSettings.cs" />
+    <Compile Include="Core\LevelName.cs" />
     <Compile Include="Core\Participants\NetworkParticipant.cs" />
     <Compile Include="Core\Participants\GroboTcpClient.cs" />
     <Compile Include="Core\RobotSettings.cs" />

@@ -25,7 +25,7 @@ namespace CVARC.Network
             };
             InternalMain(new HelloPackage
             {
-                LevelName = "Level2",
+                LevelName = LevelName.Level2,
             }, "Fall2013.0.dll");
         }
 

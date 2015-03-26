@@ -41,7 +41,7 @@ namespace CVARC.Basic.Core.Participants
 
         private CompetitionsBundle GetCompetitionsBundle(HelloPackage helloPackage)
         {
-            var competitionsBundle = CompetitionsBundle.Load(competitionsName, helloPackage.LevelName);
+            var competitionsBundle = CompetitionsBundle.Load(competitionsName, helloPackage.LevelName.ToString());
             competitionsBundle.competitions.HelloPackage = helloPackage;
             return competitionsBundle;
         }

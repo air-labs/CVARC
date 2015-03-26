@@ -39,7 +39,7 @@ namespace ClientBase
                 MapSeed = settings.MapNumber,
                 Opponent = settings.BotName.ToString(),
                 Side = settings.Side,
-                LevelName = settings.LevelName.ToString()
+                LevelName = settings.LevelName
             };
         }
 
