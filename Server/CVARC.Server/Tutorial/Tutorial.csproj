@@ -51,7 +51,7 @@
       <Name>AIRLabs</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CVARC.Engine\CVARC.Engine.KR\CVARC.Engine.KR.csproj">
-      <Project>{13695795-f82c-48df-86d7-eae60259f845}</Project>
+      <Project>{13695795-F82C-48DF-86D7-EAE60259F845}</Project>
       <Name>CVARC.Engine.KR</Name>
     </ProjectReference>
     <ProjectReference Include="..\RepairTheStarship\RepairTheStarship.csproj">

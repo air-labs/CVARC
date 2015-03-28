@@ -15,11 +15,6 @@ namespace NetworkCompetitionsPlayer
                 MapSeed = 0,
                 Opponent = "None"
             };
-            InternalMain(new HelloPackage
-            {
-                LevelName = LevelName.Level2,
-            }, "Fall2013.0.dll");
-        }
 
         private static Player GetPlayer(Guid id)
         {
