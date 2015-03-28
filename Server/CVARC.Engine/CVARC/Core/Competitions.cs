@@ -30,7 +30,7 @@ namespace CVARC.Basic
         public List<Robot> Robots { get; private set; }
         public virtual int RobotCount { get { return 2; } }
         public virtual int CompetitionId { get { return 1; } }
-        private const bool NeedSaveReplay = true;
+        private bool needSaveReplay;
 
 		public event Action Exited;
 
@@ -105,8 +105,9 @@ namespace CVARC.Basic
             return new Tuple<Command, Exception>(command, null);
         }
 
-        public void ProcessParticipants(bool realTime, int operationalMilliseconds, params Participant[] participants)
+        public void ProcessParticipants(bool realTime, int operationalMilliseconds, bool saveReplay = false, params Participant[] participants)
         {
+            needSaveReplay = saveReplay;
             double time = GameTimeLimit;
             foreach(var e in participants) 
             {
@@ -193,9 +194,10 @@ namespace CVARC.Basic
                 if (time <= 0) break;
 				if (clientExited) break;
             }
-			if (NeedSaveReplay)
-                SaveReplay(time);			if (Exited != null) Exited();
-
+			if (needSaveReplay)
+                SaveReplay(time);			
+            if (Exited != null) 
+                Exited();
 		}
         
         public bool BotIsAvailable(string name)

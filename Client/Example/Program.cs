@@ -1,11 +1,12 @@
 ﻿using System;
 using AIRLab.Mathematics;
+using ClientBase;
+using CommonTypes;
 using CVARC.Basic.Controllers;
 using CVARC.Network;
-using ClientBase;
 using RepairTheStarship.Sensors;
 
-namespace Client
+namespace Example
 {
 	internal class Program
 	{
@@ -16,12 +17,9 @@ namespace Client
 			MapNumber=-1 //Задавая различные значения этого поля, вы можете сгенерировать различные случайные карты
 		};
 
-		//Это не нужно менять
-		const string NetworkServerDirectory = ".\\";
-
 		private static void Main(string[] args)
 		{
-			var server = new CvarcClient(args, Settings, NetworkServerDirectory).GetServer<PositionSensorsData>();
+			var server = new CvarcClient(args, Settings).GetServer<PositionSensorsData>();
 			var helloPackageAns = server.Run();
 
 			//Здесь вы можете узнать сторону, назначенную вам сервером в случае, если запросили Side.Random. 

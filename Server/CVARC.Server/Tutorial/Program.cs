@@ -37,7 +37,7 @@ namespace CVARC.Tutorial
             form = new TutorialForm(competitionsBundle.Competitions) {KeyPreview = true};
             form.KeyDown += (sender, e) => competitionsBundle.Competitions.ApplyCommand(Controller.GetCommand(e.KeyCode));
             form.KeyUp += (sender, e) => competitionsBundle.Competitions.ApplyCommand(Command.Sleep(0));
-            Task.Factory.StartNew(() => competitionsBundle.Competitions.ProcessParticipants(true, int.MaxValue, participant));
+            Task.Factory.StartNew(() => competitionsBundle.Competitions.ProcessParticipants(true, int.MaxValue, false, participant));
             Application.Run(form);
         }
     }

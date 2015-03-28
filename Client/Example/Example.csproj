@@ -44,6 +44,9 @@
     <Reference Include="ClientBase">
       <HintPath>..\Binaries\ClientBase.dll</HintPath>
     </Reference>
+    <Reference Include="CommonTypes">
+      <HintPath>..\Binaries\CommonTypes.dll</HintPath>
+    </Reference>
     <Reference Include="CVARC.Basic">
       <HintPath>..\Binaries\CVARC.Basic.dll</HintPath>
     </Reference>

@@ -41,7 +41,7 @@ namespace NetworkCompetitionsPlayer
             var mapSeed = package.MapSeed != 0 ? package.MapSeed : random.Next();
             Process.Start(new ProcessStartInfo("CVARC.Network.exe")
             {
-                Arguments = string.Format("{0} {1} {2} {3}", package.LevelName, mapSeed, package.Opponent, package.Side),
+                Arguments = string.Format("{0} {1} {2} {3} {4} {5}", package.LevelName, mapSeed, package.Opponent, package.Side, "false", "true"),
             });
             RunClients();
         }

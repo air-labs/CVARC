@@ -36,7 +36,7 @@ namespace TestProject
 
             var form = new TutorialForm(Competitions);
 
-            new Thread(() => Competitions.ProcessParticipants(true, int.MaxValue, bots)) 
+            new Thread(() => Competitions.ProcessParticipants(true, int.MaxValue, false, bots)) 
                 { IsBackground = true }
                 .Start();
 

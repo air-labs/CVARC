@@ -16,7 +16,9 @@ namespace CVARC.Network
             return new CompetitionsSettings
             {
                 Participants = participants,
-                Competitions = server.Competitions
+                Competitions = server.Competitions,
+                RealTime = args.Length < 5 || args[4] != "false",
+                NeedSaveReplay = args.Length > 5 && args[5] == "true"
             };
         }
 
@@ -28,7 +30,7 @@ namespace CVARC.Network
                 return null;
             }
             LevelName level;
-            LevelName.TryParse(args[0], out level);
+            Enum.TryParse(args[0], out level);
             multiplayer = args[0].ToLower() != "level1";
             return new HelloPackage
             {
