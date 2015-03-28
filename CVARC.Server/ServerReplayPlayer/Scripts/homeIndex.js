@@ -29,11 +29,13 @@ function attachOnLogin() {
     var loginFunction = function () {
         var login = $("#login").val();
         var pass = $("#pass").val();
-        $.ajax({ url: "/Login/Login?login=" + login + "&password=" + pass }).done(function () {
-            window.location = "/Home";
-        }).fail(function () {
-            $("#incorrectPassMessage").show();
-        });
+        if (login && pass) {
+            $.ajax({ url: "/Login/Login?login=" + login + "&password=" + pass }).done(function () {
+                window.location = "/Home";
+            }).fail(function () {
+                $("#incorrectPassMessage").show();
+            });
+        }
     };
 
     $("#loginButton").click(loginFunction);

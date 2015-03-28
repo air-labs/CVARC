@@ -11,7 +11,7 @@ namespace ServerReplayPlayer.Logic
 {
     public class LoginProvider
     {
-        private const string KeyName = "_token";
+        private const string KeyName = "rtsToken";
         private static readonly string LoginsFile = Helpers.GetServerPath("settings\\logins.txt");
         private static readonly TokenSerializer TokenSerializer = new TokenSerializer();
         private static ConcurrentDictionary<string, CommandEntity> commands;
