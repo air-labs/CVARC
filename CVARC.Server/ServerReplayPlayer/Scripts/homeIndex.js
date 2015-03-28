@@ -60,7 +60,7 @@ function attachOnFilter() {
             var value = jElement.val();
             trs.each(function (index, elem) {
                 var teamName = $(elem).find("[teamName]").text();
-                if (teamName.indexOf(value) >= 0)
+                if (teamName.toLowerCase().indexOf(value.toLowerCase()) >= 0)
                     $(elem).show();
                 else
                     $(elem).hide();
