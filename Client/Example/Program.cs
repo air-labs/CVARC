@@ -17,7 +17,7 @@ namespace Client
 		};
 
 		//Это не нужно менять
-		const string NetworkServerDirectory = ".\\..\\..\\..\\Binaries\\";
+		const string NetworkServerDirectory = ".\\";
 
 		private static void Main(string[] args)
 		{
@@ -27,7 +27,7 @@ namespace Client
 			//Здесь вы можете узнать сторону, назначенную вам сервером в случае, если запросили Side.Random. 
 			//ВАЖНО!
 			//Side и MapNumber влияют на сервер только на этапе отладки. В боевом режиме и то, и другое будет назначено сервером
-			//вне зависимости от того, что вы указали в Settings! Поэтому ваш итоговый алгоритм должен использоать helloPackageAns.RealSide
+			//вне зависимости от того, что вы указали в Settings! Поэтому ваш итоговый алгоритм должен использовать helloPackageAns.RealSide
 			Console.WriteLine("Your Side: {0}", helloPackageAns.RealSide); 
 
 			PositionSensorsData sensorsData = null;
