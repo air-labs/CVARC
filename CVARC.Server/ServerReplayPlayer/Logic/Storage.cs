@@ -109,8 +109,12 @@ namespace ServerReplayPlayer.Logic
             var exsistingResult = cache.TryGetEntity(x => x.Player == matchResult.Player.Id && (matchResult.Player2 == null || x.Player2 == matchResult.Player2.Id)) ?? new MatchResultEntity {Id = Guid.NewGuid()};
             exsistingResult.Points = matchResult.Points;
             exsistingResult.Player = matchResult.Player.Id;
+            exsistingResult.Player1CreationDate = matchResult.Player.CreationDate;
             if (matchResult.Player2 != null)
+            {
                 exsistingResult.Player2 = matchResult.Player2.Id;
+                exsistingResult.Player2CreationDate = matchResult.Player2.CreationDate;
+            }
             cache.Save(exsistingResult, Encoding.UTF8.GetBytes(matchResult.Replay));
         }
 

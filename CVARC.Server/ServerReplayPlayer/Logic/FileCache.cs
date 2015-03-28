@@ -8,7 +8,7 @@ using ServerReplayPlayer.Contracts;
 
 namespace ServerReplayPlayer.Logic
 {
-    public class FileCache<TEntity> where TEntity : IWithId
+    public class FileCache<TEntity> : IFileCache<TEntity> where TEntity : IWithId
     {
         private readonly string folder;
         private ConcurrentDictionary<Guid, TEntity> cacheEntity;
@@ -36,9 +36,10 @@ namespace ServerReplayPlayer.Logic
         public void Save(TEntity entity, byte[] file)
         {
             var path = GetPath(entity.Id);
-            using (var fileStream = File.Open(path + ".entity", FileMode.OpenOrCreate))
+            entity.CreationDate = DateTime.UtcNow;
+            using (var fileStream = File.Open(path + ".entity", FileMode.Create))
                 new BinaryFormatter().Serialize(fileStream, entity);
-            using (var writer = new BinaryWriter(File.Open(path + ".file", FileMode.OpenOrCreate)))
+            using (var writer = new BinaryWriter(File.Open(path + ".file", FileMode.Create)))
                 writer.Write(file);
             CacheEntity.AddOrUpdate(entity.Id, x => entity, (x, y) => entity);
         }

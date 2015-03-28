@@ -36,7 +36,7 @@ namespace ServerReplayPlayer.Controllers
                 return View("FileFormatError");
             }
             Provider.AddPlayer(level, file, Command.CommandName);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home", new {level});
         }
 
         [HttpPost]

@@ -7,7 +7,7 @@ namespace Gems.Levels
     {
         public override ISceneSettings ParseSettings(CVARC.Network.HelloPackage helloPackage)
         {
-            return SceneSettings.GetRandomMap();
+            return SceneSettings.GetRandomMap(helloPackage.MapSeed);
         }
     };
 }

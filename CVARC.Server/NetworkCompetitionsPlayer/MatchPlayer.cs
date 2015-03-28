@@ -16,6 +16,7 @@ namespace NetworkCompetitionsPlayer
         private readonly Player player;
         private readonly Player player2;
         private const string ReplayDirectory = "..\\..\\..\\..\\build\\bin\\NetworkServer\\RawReplays";
+        private readonly Random random = new Random();
 
         public MatchPlayer(HelloPackage package, Player player, Player player2)
         {
@@ -37,9 +38,10 @@ namespace NetworkCompetitionsPlayer
 
         private void RunCompetition()
         {
+            var mapSeed = package.MapSeed != 0 ? package.MapSeed : random.Next();
             Process.Start(new ProcessStartInfo("NetworkServer.bat")
             {
-                Arguments = string.Format("{0} {1} {2} {3}", package.LevelName, package.MapSeed, package.Opponent, package.Side),
+                Arguments = string.Format("{0} {1} {2} {3}", package.LevelName, mapSeed, package.Opponent, package.Side),
                 WorkingDirectory = "..\\..\\..\\..\\build\\"
             });
             RunClients();

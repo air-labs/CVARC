@@ -18,10 +18,13 @@ namespace ServerReplayPlayer.Logic
 
         public Player GetPlayer(string level, Guid id)
         {
+            var player = Storage.GetPlayer(level, id);
             return new Player
             {
+                Id = id,
+                CreationDate = player.CreationDate,
                 Zip = Storage.GetPlayerClient(level, id),
-                Name = Storage.GetPlayer(level, id).Name
+                Name = player.Name
             };
         }
 
@@ -30,7 +33,8 @@ namespace ServerReplayPlayer.Logic
             return new Player
             {
                 Id = entity.Id,
-                Name = entity.Name
+                Name = entity.Name,
+                CreationDate = entity.CreationDate
             };
         }
 
@@ -62,12 +66,15 @@ namespace ServerReplayPlayer.Logic
         private MatchResult GetMatchResult(Dictionary<Guid, PlayerEntity> players, Dictionary<string, MatchResultEntity> results, Guid playerId, Guid opponentId)
         {
             var key = GetKey(playerId, opponentId);
+            var result = results.ContainsKey(key) ? results[key] : new MatchResultEntity();
             return new MatchResult
             {
-                Id = results.ContainsKey(key) ? results[key].Id : (Guid?)null,
-                Points = results.ContainsKey(key) ? results[key].Points : null,
+                Id = result.Id,
+                Points = result.Points,
                 Player = ConvertPlayer(players[playerId]),
-                Player2 = players.ContainsKey(opponentId) ? ConvertPlayer(players[opponentId]) : null
+                Player2 = players.ContainsKey(opponentId) ? ConvertPlayer(players[opponentId]) : null,
+                Player1CreationDate = result.Player1CreationDate,
+                Player2CreationDate = result.Player2CreationDate
             };
         }
 
