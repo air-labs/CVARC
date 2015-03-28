@@ -145,7 +145,6 @@
     <Content Include="other\ice.jpg" />
     <Content Include="other\red.png" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
-    <Content Include="Scripts\jquery.uploadfile.min.js" />
     <Content Include="Scripts\replayPlayer.js" />
     <Content Include="Scripts\replayLoader.js" />
     <Content Include="Scripts\replayWindow.js" />

@@ -1,5 +1,4 @@
-﻿@using CommonTypes
-@model ServerReplayPlayer.Contracts.CompetitionsViewModel
+﻿@model ServerReplayPlayer.Contracts.CompetitionsViewModel
 
 @{
     Layout = null;
@@ -12,7 +11,6 @@
         <title>Replayer</title>
         <link type="text/css" rel="stylesheet" href="/other/css.css" />
         <script lang="text/javascript" src="/Scripts/jquery-1.7.2.min.js"></script>
-        <script lang="text/javascript" src="/Scripts/jquery.uploadfile.min.js"></script>
         <script lang="text/javascript" src="/Scripts/homeIndex.js"></script>
     </head>
     <body>
@@ -45,7 +43,11 @@
                         <a class="levelName" href="/Home?level=@replay.Level"><h2>@replay.Level</h2></a>
                         @if (Model.Command != null)
                         {
-                            <div uploadClient="@replay.Level">Загрузить решение</div>                        
+                            <div class="ajax-file-upload">Загрузить решение
+                                <form method="POST" action="/Replay/UploadFile?level=@replay.Level" enctype="multipart/form-data">
+                                    <input type="file" name="file" accept=".zip" class="input">
+                                </form>
+                            </div>
                         }
                     </td>
                 }

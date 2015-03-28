@@ -6,21 +6,8 @@ $(document).ready(function () {
 });
 
 function attachOnUploadFile() {
-    $("[uploadClient]").each(function (i, element) {
-        var jElement = $(element);
-        var level = jElement.attr("uploadClient");
-        jElement.uploadFile({
-            url: "/Replay/UploadFile?level=" + level,
-            fileName: "file",
-            acceptFiles: ".zip, .rar",
-            dragDrop: false,
-            onSuccess: function (html) {
-                $("body").html(html);
-            },
-            onError: function () {
-                window.location = "/Replay/UploadFailed";
-            }
-        });
+    $("input").change(function () {
+        $(this).parent().submit();
     });
 };
 

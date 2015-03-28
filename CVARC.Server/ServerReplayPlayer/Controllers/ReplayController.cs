@@ -25,21 +25,15 @@ namespace ServerReplayPlayer.Controllers
             return Provider.GetReplay(level, id);
         }
 
-        [HttpGet]
-        public ActionResult UploadFailed()
-        {
-            return View("FileFormatError");
-        }
-
         [HttpPost]
         public ActionResult UploadFile(string level, HttpPostedFileBase file)
         {
             if (Command == null)
-                throw new Exception("Not Authorized");
+                return View("FileFormatError");
             if (!FileValidator.IsValid(file))
             {
                 Provider.SaveInvalidClient(file);
-                throw new Exception("File is invalid!");
+                return View("FileFormatError");
             }
             Provider.AddPlayer(level, file, Command.CommandName);
             return RedirectToAction("Index", "Home");
