@@ -15,7 +15,7 @@ namespace NetworkCompetitionsPlayer
         private readonly HelloPackage package;
         private readonly Player player;
         private readonly Player player2;
-        private const string ReplayDirectory = "..\\..\\..\\..\\build\\bin\\NetworkServer\\RawReplays";
+        private const string ReplayDirectory = "RawReplays";
         private readonly Random random = new Random();
 
         public MatchPlayer(HelloPackage package, Player player, Player player2)
@@ -39,10 +39,9 @@ namespace NetworkCompetitionsPlayer
         private void RunCompetition()
         {
             var mapSeed = package.MapSeed != 0 ? package.MapSeed : random.Next();
-            Process.Start(new ProcessStartInfo("NetworkServer.bat")
+            Process.Start(new ProcessStartInfo("CVARC.Network.exe")
             {
                 Arguments = string.Format("{0} {1} {2} {3}", package.LevelName, mapSeed, package.Opponent, package.Side),
-                WorkingDirectory = "..\\..\\..\\..\\build\\"
             });
             RunClients();
         }
