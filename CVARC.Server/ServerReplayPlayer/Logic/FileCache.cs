@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using ServerReplayPlayer.Contracts;
@@ -11,6 +12,7 @@ namespace ServerReplayPlayer.Logic
     public class FileCache<TEntity> : IFileCache<TEntity> where TEntity : IWithId
     {
         private readonly string folder;
+        private readonly bool needFileZip;
         private ConcurrentDictionary<Guid, TEntity> cacheEntity;
         private ConcurrentDictionary<Guid, TEntity> CacheEntity
         {
@@ -27,9 +29,10 @@ namespace ServerReplayPlayer.Logic
             }
         }
 
-        public FileCache(string folder)
+        public FileCache(string folder, bool needFileZip)
         {
             this.folder = folder;
+            this.needFileZip = needFileZip;
             folder.CreateDirectoryIfNoExists();
         }
 
@@ -39,9 +42,15 @@ namespace ServerReplayPlayer.Logic
             entity.CreationDate = DateTime.UtcNow;
             using (var fileStream = File.Open(path + ".entity", FileMode.Create))
                 new BinaryFormatter().Serialize(fileStream, entity);
-            using (var writer = new BinaryWriter(File.Open(path + ".file", FileMode.Create)))
-                writer.Write(file);
+            using (var fileStream = GetFileStream(path, FileMode.Create, CompressionMode.Compress))
+                fileStream.Write(file, 0, file.Length);
             CacheEntity.AddOrUpdate(entity.Id, x => entity, (x, y) => entity);
+        }
+
+        private Stream GetFileStream(string path, FileMode fileMode, CompressionMode compressionMode)
+        {
+            Stream stream = File.Open(path + ".file", fileMode);
+            return needFileZip ? new GZipStream(stream, compressionMode) : stream;
         }
 
         public TEntity TryGetEntity(Func<TEntity, bool> selector)
@@ -67,7 +76,12 @@ namespace ServerReplayPlayer.Logic
 
         public byte[] GetFile(Guid id)
         {
-            return File.ReadAllBytes(GetPath(id) + ".file");
+            using (Stream fileStream = GetFileStream(GetPath(id), FileMode.Open, CompressionMode.Decompress))
+            using (MemoryStream ms = new MemoryStream())
+            {
+                fileStream.CopyTo(ms);
+                return ms.ToArray();
+            }
         }
 
         private string GetPath(Guid id)

@@ -9,8 +9,8 @@ namespace ServerReplayPlayer.Logic
 
         public LevelCaches(string folder)
         {
-            PlayerCache = new FileCache<PlayerEntity>(folder + "_players");
-            MatchResultCache = new FileCache<MatchResultEntity>(folder + "_result");
+            PlayerCache = new FileCache<PlayerEntity>(folder + "_players", false);
+            MatchResultCache = new FileCache<MatchResultEntity>(folder + "_result", true);
         }
     }
 }
