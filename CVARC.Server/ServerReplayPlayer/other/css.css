@@ -1,13 +1,3 @@
-#scene {
-	width: 100%;
-	height: 100%;
-    -moz-user-select: -moz-none;
-    -o-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
 body {
     background: #fafafa;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -19,7 +9,6 @@ body {
 #mainTable td {
     vertical-align: top;
     text-align: center;
-    padding-left: 10px
 }
 
 .close {
@@ -34,7 +23,7 @@ body {
     text-align: justify;
     font-size: 15px;
     border-radius: 10px;
-    table-layout: auto
+    table-layout: fixed
 }
 
 #loginInfo {
@@ -67,10 +56,17 @@ body {
 
 .filter {
     line-height: 3;
+    min-width: 170px;
 }
 
 .filter input {
     width: 100px
+}
+
+.points {
+}
+
+.teamName {
 }
 
 .levelName {
@@ -85,6 +81,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: 100;
+    opacity: 0
 }
 
 .ajax-file-upload {

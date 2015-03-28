@@ -3,7 +3,15 @@ $(document).ready(function () {
     attachOnFilter();
     attachOnLogin();
     attachOnCloseInfo();
+    setMinSize();
 });
+
+function setMinSize() {
+    var teamNameCol = $(".teamName");
+    teamNameCol.css("min-width", teamNameCol.width());
+    var pointsCol = $(".points");
+    pointsCol.css("min-width", pointsCol.width());
+};
 
 function attachOnUploadFile() {
     $("input").change(function () {
