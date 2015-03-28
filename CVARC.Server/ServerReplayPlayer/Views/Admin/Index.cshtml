@@ -3,4 +3,11 @@
 <ul>
     <li><a href="/Home">Домой</a></li>
     <li><a href="/Admin/ChangeOpenLevel?level=Level1">Добавить Уровень</a></li>
+    <li>
+        Обновить авторизационные данные:
+        <form method="POST" action="/Admin/AddLogins" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".csv">
+            <input type="submit">
+        </form>
+    </li>
 </ul>

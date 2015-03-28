@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.Mvc;
 
 namespace ServerReplayPlayer.Controllers
@@ -21,6 +22,15 @@ namespace ServerReplayPlayer.Controllers
         public void ChangeOpenLevel(string level)
         {
             Provider.ChangeOpenLevel(level);
+        }
+
+        [HttpPost]
+        public void AddLogins(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength >= 0)
+            {
+                LoginProvider.AddLogins(file);
+            }
         }
     }
 }
