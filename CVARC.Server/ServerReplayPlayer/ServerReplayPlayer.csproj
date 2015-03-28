@@ -192,6 +192,9 @@
   <ItemGroup>
     <Content Include="settings\logins.csv" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Replay\AccessDenied.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

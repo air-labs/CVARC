@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 using System.Text;
 using Newtonsoft.Json;
@@ -15,11 +16,13 @@ namespace NetworkCompetitionsPlayer
             request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
             request.Headers.Add("Accept-Encoding", "gzip");
             request.ContentLength = method == MethodType.POST && content != null ? content.Length : 0;
-
+            request.CookieContainer = new CookieContainer();
+            request.CookieContainer.Add(new Uri(url), new Cookie("rtsToken", "ubwVq61ptjfPzoq03FYxyw=="));
+            
             if (content != null)
                 using (var stream = request.GetRequestStream())
                     stream.Write(content, 0, content.Length);
-            using (var response = (HttpWebResponse) request.GetResponse())
+            using (var response = (HttpWebResponse) request.GetResponse())//в случае эксепшена проверить что правильная кукка стоит
             {
                 return new StreamReader(response.GetResponseStream()).ReadToEnd();
             }

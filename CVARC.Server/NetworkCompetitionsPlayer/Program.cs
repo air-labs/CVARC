@@ -11,7 +11,7 @@ namespace NetworkCompetitionsPlayer
         private static readonly JsonHttpClient Client = new JsonHttpClient();
         private static readonly HelloPackage Package = new HelloPackage
             {
-                LevelName = LevelName.Level3,
+                LevelName = LevelName.Level1,
                 MapSeed = 0,
                 Opponent = "None"
             };

@@ -29,7 +29,7 @@ namespace ServerReplayPlayer.Controllers
         public ActionResult UploadFile(string level, HttpPostedFileBase file)
         {
             if (Command == null)
-                return View("FileFormatError");
+                return View("AccessDenied");
             if (!FileValidator.IsValid(file))
             {
                 Provider.SaveInvalidClient(file);
@@ -54,6 +54,8 @@ namespace ServerReplayPlayer.Controllers
         [HttpPost]
         public void SaveMatchResult(string level)
         {
+            if (Command == null || !Command.IsAdmin)
+                throw new Exception("Access Denied!");
             var str = new StreamReader(Request.InputStream, Encoding.UTF8).ReadToEnd();
             var matchResult = JsonConvert.DeserializeObject<MatchResult>(str);
             Provider.SaveMatchResult(level, matchResult);
