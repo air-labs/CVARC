@@ -32,7 +32,7 @@ namespace ServerReplayPlayer.Controllers
         }
 
         [HttpPost]
-        public void UploadFile(string level, HttpPostedFileBase file)
+        public ActionResult UploadFile(string level, HttpPostedFileBase file)
         {
             if (Command == null)
                 throw new Exception("Not Authorized");
@@ -42,6 +42,7 @@ namespace ServerReplayPlayer.Controllers
                 throw new Exception("File is invalid!");
             }
             Provider.AddPlayer(level, file, Command.CommandName);
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]

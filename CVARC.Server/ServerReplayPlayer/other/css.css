@@ -22,6 +22,10 @@ body {
     padding-left: 10px
 }
 
+.close {
+    cursor: pointer
+}
+
 .info {
     background-color: rgba(0, 0, 0, 0.8);
     border: 1px solid #fff;
@@ -33,7 +37,7 @@ body {
     table-layout: auto
 }
 
-.loginTable {
+#loginInfo {
     text-align: center
 }
 

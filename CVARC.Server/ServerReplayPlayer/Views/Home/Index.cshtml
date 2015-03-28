@@ -1,4 +1,5 @@
-﻿@model ServerReplayPlayer.Contracts.CompetitionsViewModel
+﻿@using CommonTypes
+@model ServerReplayPlayer.Contracts.CompetitionsViewModel
 
 @{
     Layout = null;
@@ -12,77 +13,18 @@
         <link type="text/css" rel="stylesheet" href="/other/css.css" />
         <script lang="text/javascript" src="/Scripts/jquery-1.7.2.min.js"></script>
         <script lang="text/javascript" src="/Scripts/jquery.uploadfile.min.js"></script>
-        <script lang="text/javascript">
-            function attachOnUploadFile() {
-                $("[uploadClient]").each(function (i, element) {
-                    var jElement = $(element);
-                    var level = jElement.attr("uploadClient");
-                    jElement.uploadFile({
-                        url: "/Replay/UploadFile?level=" + level,
-                        fileName: "file",
-                        acceptFiles: ".zip, .rar",
-                        dragDrop: false,
-                        onSuccess: function () {
-                            alert('загружено!');
-                        },
-                        onError: function () {
-                            window.location = "/Replay/UploadFailed";
-                        }
-                    });
-                });
-            };
-
-            function attachOnLogin() {
-                $("#loginButton").click(function () {
-                    var login = $("#login").val();
-                    var pass = $("#pass").val();
-                    $.ajax({ url: "/Login/Login?login=" + login + "&password=" + pass }).done(function () {
-                        window.location = "/Home";
-                    }).fail(function () {
-                        $("#incorrectPassMessage").show();
-                    });
-                });
-                $("#logoutButton").click(function () {
-                    $.ajax({ url: "/Login/Logout"}).done(function() {
-                        window.location = "/Home";
-                    });
-                });
-            }
-
-            function attachOnFilter() {
-                $("input[filterBy]").each(function (i, element) {
-                    var jElement = $(element);
-                    var level = jElement.attr("filterBy");
-                    var table = $("table[filterBy=" + level + "]");
-//                    var tableWidth = table.width();
-                    var trs = table.find("tr").not('thead tr');
-                    jElement.keyup(function () {
-                        var value = jElement.val();
-                        trs.each(function(index, elem) {
-                            var teamName = $(elem).find("[teamName]").text();
-                            if (teamName.indexOf(value) >= 0)
-                                $(elem).show();
-                            else
-                                $(elem).hide();
-                        });
-//                        table.width(tableWidth);
-                    });
-                });
-            };
-
-            $(document).ready(function() {
-                attachOnUploadFile();
-                attachOnFilter();
-                attachOnLogin();
-            });
-        </script>
+        <script lang="text/javascript" src="/Scripts/homeIndex.js"></script>
     </head>
     <body>
-        <table class="info loginTable" align="center">
+        <table id="loginInfo" class="info" align="center">
             @{
                 if (Model.Command == null)
                 {
-                    <tr><td>Войдите, чтобы отправлять решения</td></tr>
+                    <tr><td></td></tr>
+                    <tr>
+                        <td>Войдите, чтобы отправлять решения</td>
+                        <td class="close">X</td>
+                    </tr>
                     <tr><td>login: <input id="login"/></td></tr>
                     <tr><td>pass: <input id="pass" type="password"/></td></tr>
                     <tr><td id="incorrectPassMessage" class="incorrectPassMessage" style="display: none;">Неверный логин или пароль!</td></tr>
@@ -123,7 +65,7 @@
                                 <td>Команда</td>
                                 <td>Очки</td>
                             </tr>
-                        </thead>
+                        </thead>   
                         @foreach (var replay in replays.MatchResults)
                         {
                             <tr>
