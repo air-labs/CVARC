@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -85,13 +84,7 @@ namespace ServerReplayPlayer.Logic
 
         public string GetReplay(string level, Guid id)
         {
-            return id == Guid.Empty ? GetTestReplay() : Encoding.UTF8.GetString(Storage.GetReplay(level, id));
-        }
-
-        private string GetTestReplay()
-        {
-            var path = Helpers.GetServerPath("Replays");
-            return File.ReadAllLines(Path.Combine(path, "Alexander Ponomarev.Blue")).Last();
+            return Encoding.UTF8.GetString(Storage.GetReplay(level, id));
         }
 
         public void SaveMatchResult(string level, MatchResult matchResult)
