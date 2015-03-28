@@ -1,0 +1,8 @@
+﻿@model CommonTypes.MatchResult
+
+<span class="redTeam">@Model.Player.Name</span>
+@if (Model.Player2 != null)
+{
+    @:vs 
+    <span class="blueTeam">@Model.Player2.Name</span>
+}

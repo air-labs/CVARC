@@ -71,16 +71,19 @@
                         @foreach (var replay in replays.MatchResults)
                         {
                             <tr>
-                                @{ var text = replay.Player.Name + (replay.Player2 == null ? "" : " vs " + replay.Player2.Name); }
                                 <td>
                                     @if (replay.Id != null)
                                     {
                                         var url = "/Replay/Get?level=" + replays.Level + "&points=" + replay.Points + "&id=" + replay.Id;
-                                        <a teamName="true" href="@url" class="linkName">@text</a>
+                                        <a teamName="true" href="@url" class="linkName">
+                                            @Html.Partial("TeamView", replay)
+                                        </a>
                                     }
                                     else
                                     {
-                                        <div teamName="true">@text</div>
+                                        <div teamName="true">
+                                            @Html.Partial("TeamView", replay)
+                                        </div>
                                     }
                                 </td>
                                 <td>

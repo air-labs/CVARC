@@ -69,6 +69,14 @@ body {
 .teamName {
 }
 
+.redTeam {
+    color: deeppink;
+}
+
+.blueTeam {
+    color: cornflowerblue;
+}
+
 .levelName {
     color: black;
 }

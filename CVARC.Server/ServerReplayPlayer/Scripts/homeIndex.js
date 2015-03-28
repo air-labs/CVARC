@@ -55,7 +55,6 @@ function attachOnFilter() {
         var jElement = $(element);
         var level = jElement.attr("filterBy");
         var table = $("table[filterBy=" + level + "]");
-        //                    var tableWidth = table.width();
         var trs = table.find("tr").not('thead tr');
         jElement.keyup(function () {
             var value = jElement.val();
@@ -66,7 +65,6 @@ function attachOnFilter() {
                 else
                     $(elem).hide();
             });
-            //                        table.width(tableWidth);
         });
     });
 };
