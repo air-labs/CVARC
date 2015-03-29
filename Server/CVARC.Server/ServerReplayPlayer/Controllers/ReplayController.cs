@@ -30,12 +30,10 @@ namespace ServerReplayPlayer.Controllers
         {
             if (Command == null)
                 return View("AccessDenied");
-            if (!FileValidator.IsValid(file))
-            {
-                Provider.SaveInvalidClient(file);
+            var client = ZipClientReader.Read(file);
+            if (client == null)
                 return View("FileFormatError");
-            }
-            Provider.AddPlayer(level, file, Command.CommandName);
+            Provider.AddPlayer(level, client, Command.CommandName);
             return RedirectToAction("Index", "Home", new {level});
         }
 

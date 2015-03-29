@@ -138,7 +138,7 @@
     <Compile Include="Logic\Cryptographer\TokenSerializer.cs" />
     <Compile Include="Logic\Cryptographer\TripleDesCryptographer.cs" />
     <Compile Include="Logic\FileCache.cs" />
-    <Compile Include="Logic\FileValidator.cs" />
+    <Compile Include="Logic\ZipClientReader.cs" />
     <Compile Include="Logic\Helpers.cs" />
     <Compile Include="Logic\IFileCache.cs" />
     <Compile Include="Logic\LevelCaches.cs" />

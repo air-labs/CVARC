@@ -66,16 +66,12 @@ namespace ServerReplayPlayer.Logic
             return new HashSet<LevelName>(File.ReadAllLines(OpenLevelsFile).Select(x => (LevelName)Enum.Parse(typeof(LevelName), x)));
         }
 
-        public static void SavePlayerClient(string level, string name, HttpPostedFileBase file)
+        public static void SavePlayerClient(string level, string name, byte[] bytes)
         {
             var cache = GetCache(level).PlayerCache;
             var exsistingPlayer = cache.TryGetEntity(x => x.Name == name) ?? new PlayerEntity { Id = Guid.NewGuid() };
             exsistingPlayer.Name = name;
-            using (var memoryStream = new MemoryStream())
-            {
-                file.InputStream.CopyTo(memoryStream);
-                cache.Save(exsistingPlayer, memoryStream.ToArray());
-            }
+            cache.Save(exsistingPlayer, bytes);
         }
 
         public static byte[] GetPlayerClient(string level, Guid id)

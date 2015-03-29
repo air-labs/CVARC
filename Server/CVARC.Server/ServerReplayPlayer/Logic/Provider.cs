@@ -10,9 +10,9 @@ namespace ServerReplayPlayer.Logic
 {
     public class Provider
     {
-        public void AddPlayer(string level, HttpPostedFileBase file, string commandName)
+        public void AddPlayer(string level, byte[] bytes, string commandName)
         {
-            Storage.SavePlayerClient(level, commandName, file);
+            Storage.SavePlayerClient(level, commandName, bytes);
         }
 
         public Player GetPlayer(string level, Guid id)
@@ -94,7 +94,7 @@ namespace ServerReplayPlayer.Logic
 
         public void SaveInvalidClient(HttpPostedFileBase file)
         {
-            if (file != null && file.ContentLength < FileValidator.MaxFileSize)
+            if (file != null && file.ContentLength < ZipClientReader.MaxFileSize)
                 Storage.SaveTempFile(file, file.FileName + " " + Guid.NewGuid(), "invalidClients");
         }
 
