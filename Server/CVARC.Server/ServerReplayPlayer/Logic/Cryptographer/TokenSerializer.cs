@@ -10,7 +10,7 @@ namespace ServerReplayPlayer.Logic.Cryptographer
 
         public TokenSerializer()
         {
-            cryptographer = new TripleDesCryptographer(File.ReadAllLines(Helpers.GetServerPath("settings\\tokenTripleDESKey.txt")));
+            cryptographer = new TripleDesCryptographer(File.ReadAllLines(SettingsProvider.GetSettingsFilePath("tokenTripleDESKey.txt")));
         }
 
         public string Serialize(string token)

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web;
 using Microsoft.VisualBasic.FileIO;
@@ -13,7 +12,7 @@ namespace ServerReplayPlayer.Logic
     public class LoginProvider
     {
         private const string KeyName = "rtsToken";
-        private static readonly string LoginsFile = Helpers.GetServerPath("settings\\logins.csv");
+        private static readonly string LoginsFile = SettingsProvider.GetSettingsFilePath("logins.csv");
         private static readonly TokenSerializer TokenSerializer = new TokenSerializer();
         private static ConcurrentDictionary<string, CommandEntity> commands;
         private static ConcurrentDictionary<string, CommandEntity> Commands

@@ -7,7 +7,7 @@ namespace ServerReplayPlayer.Logic
     public static class Logger
     {
         private static readonly ILog logger;
-        private static readonly string LogFileConfig = Helpers.GetServerPath("settings\\log4netConfig.xml");
+        private static readonly string LogFileConfig = SettingsProvider.GetSettingsFilePath("log4netConfig.xml");
 
         static Logger()
         {
