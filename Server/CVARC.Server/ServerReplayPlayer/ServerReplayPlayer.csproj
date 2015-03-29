@@ -41,6 +41,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Log">
+      <HintPath>..\..\packages\Common.Log.1.0.0.0\lib\net45\Common.Log.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Log.log4net">
+      <HintPath>..\..\packages\Common.Log.log4net.1.0.0.0\lib\net45\Common.Log.log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -130,6 +139,7 @@
     <Compile Include="Logic\Helpers.cs" />
     <Compile Include="Logic\IFileCache.cs" />
     <Compile Include="Logic\LevelCaches.cs" />
+    <Compile Include="Logic\Logger.cs" />
     <Compile Include="Logic\LoginProvider.cs" />
     <Compile Include="Logic\Provider.cs" />
     <Compile Include="Logic\Storage.cs" />
@@ -150,6 +160,7 @@
     <Content Include="Scripts\replayLoader.js" />
     <Content Include="Scripts\replayWindow.js" />
     <Content Include="Scripts\three.js" />
+    <Content Include="settings\log4netConfig.xml" />
     <Content Include="settings\tokenTripleDESKey.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -22,5 +22,11 @@ namespace ServerReplayPlayer.Controllers
             base.OnActionExecuting(filterContext);
             Command = LoginProvider.Auth(Request);
         }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            base.OnException(filterContext);
+            Logger.Error(filterContext.Exception);
+        }
     }
 }

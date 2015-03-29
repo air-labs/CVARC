@@ -14,10 +14,5 @@ namespace ServerReplayPlayer.Controllers
             };
             return View(model);
         }
-
-        public ActionResult Test()
-        {
-            return View("Index", new CompetitionsViewModel {CompetitionsInfos = Provider.GetTestCompetitionsInfos()});
-        }
     }
 }

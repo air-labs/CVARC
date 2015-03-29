@@ -98,22 +98,6 @@ namespace ServerReplayPlayer.Logic
                 Storage.SaveTempFile(file, file.FileName + " " + Guid.NewGuid(), "invalidClients");
         }
 
-        public CompetitionsInfo[] GetTestCompetitionsInfos()
-        {
-            var rand = new Random();
-            return new[] { LevelName.Level1, LevelName.Level2 }.Select(x => new CompetitionsInfo
-            {
-                Level = x.ToString(),
-                MatchResults = Enumerable.Range(1, 11).Select(y => new MatchResult
-                {
-                    Id = Guid.Empty,
-                    Player = new Player { Name = "Вася" + y },
-                    Player2 = new Player { Name = x == LevelName.Level1 ? null : "Петя" + y },
-                    Points = rand.Next(0, 100) + (x == LevelName.Level1 ? "" : ":" + rand.Next(0, 100))
-                }).ToArray()
-            }).ToArray();
-        }
-
         public CompetitionsInfo[] GetCompetitionsInfos(string level)
         {
             LevelName levelName;

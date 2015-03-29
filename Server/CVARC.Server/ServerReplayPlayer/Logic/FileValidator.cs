@@ -37,6 +37,7 @@ namespace ServerReplayPlayer.Logic
             }
             catch (Exception e)
             {
+                Logger.Error(e);
                 return false;
             }
             finally
