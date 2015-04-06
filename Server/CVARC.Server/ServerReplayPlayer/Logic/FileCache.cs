@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -76,11 +77,34 @@ namespace ServerReplayPlayer.Logic
 
         public byte[] GetFile(Guid id)
         {
+            var sw = Stopwatch.StartNew();
             using (Stream fileStream = GetFileStream(GetPath(id), FileMode.Open, CompressionMode.Decompress))
             using (MemoryStream ms = new MemoryStream())
             {
                 fileStream.CopyTo(ms);
+                Logger.InfoFormat("Read file id={1} time={2}", id, sw.Elapsed.TotalMilliseconds);
                 return ms.ToArray();
+            }
+        }
+
+        public void Remove(Guid id)
+        {
+            try
+            {
+                TEntity entity;
+                Logger.InfoFormat("Try remove entity from cache id={0}", id);
+                if (CacheEntity.TryRemove(id, out entity))
+                {
+                    var path = GetPath(id);
+                    File.Delete(path + ".entity");
+                    Logger.InfoFormat("Ok delete entity id={0}", id);
+                    File.Delete(path + ".file");
+                    Logger.InfoFormat("Ok delete file id={0}", id);
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e);
             }
         }
 

@@ -10,5 +10,6 @@ namespace ServerReplayPlayer.Logic
         TEntity GetEntity(Guid id);
         TEntity[] GetAllEntities();
         byte[] GetFile(Guid id);
+        void Remove(Guid playerId);
     }
 }

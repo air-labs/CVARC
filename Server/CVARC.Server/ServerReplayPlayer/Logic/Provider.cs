@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web;
 using CommonTypes;
 using ServerReplayPlayer.Contracts;
 
@@ -12,7 +11,10 @@ namespace ServerReplayPlayer.Logic
     {
         public void AddPlayer(string level, byte[] bytes, string commandName)
         {
-            Storage.SavePlayerClient(level, commandName, bytes);
+            Logger.InfoFormat("Start add Player level={0} command={1}", level, commandName);
+            var playerId = Storage.SavePlayerClient(level, commandName, bytes);
+            Logger.InfoFormat("Ok add Player id={0} level={1} command={2}", playerId, level, commandName);
+            Storage.RemoveReplaysByPlayerId(level, playerId);
         }
 
         public Player GetPlayer(string level, Guid id)
@@ -48,6 +50,8 @@ namespace ServerReplayPlayer.Logic
                 Level = level,
                 MatchResults = matchResults.OrderByDescending(x =>
                     {
+                        if (x.Points == null)
+                            return -1;
                         var splits = x.Points.Split(':');
                         return int.Parse(splits[0]) + int.Parse(splits[1]);
                     }).ToArray()
@@ -95,12 +99,6 @@ namespace ServerReplayPlayer.Logic
         public void SaveMatchResult(string level, MatchResult matchResult)
         {
             Storage.SaveMatchResult(level, matchResult);
-        }
-
-        public void SaveInvalidClient(HttpPostedFileBase file)
-        {
-            if (file != null && file.ContentLength < ZipClientReader.MaxFileSize)
-                Storage.SaveTempFile(file, file.FileName + " " + Guid.NewGuid(), "invalidClients");
         }
 
         public CompetitionsInfo[] GetCompetitionsInfos(string level)

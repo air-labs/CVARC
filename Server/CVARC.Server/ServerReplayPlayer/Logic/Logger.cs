@@ -24,5 +24,10 @@ namespace ServerReplayPlayer.Logic
         {
             logger.Info(message);
         }
+
+        public static void InfoFormat(string format, params object[] args)
+        {
+            logger.InfoFormat(format, args);
+        }
     }
 }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web;
 using CommonTypes;
 using ServerReplayPlayer.Contracts;
 
@@ -13,7 +12,6 @@ namespace ServerReplayPlayer.Logic
     static class Storage
     {
         private static readonly string BaseFolder = Helpers.GetServerPath("App_Data");
-        private static readonly string TempFolder = Path.Combine(BaseFolder, "Temp");
         private static readonly string OpenLevelsFile = Path.Combine(BaseFolder, "openLevels.txt");
         private static readonly ConcurrentDictionary<string, LevelCaches> LevelCaches = new ConcurrentDictionary<string, LevelCaches>();
         private static HashSet<LevelName> openLevels; 
@@ -66,12 +64,13 @@ namespace ServerReplayPlayer.Logic
             return new HashSet<LevelName>(File.ReadAllLines(OpenLevelsFile).Select(x => (LevelName)Enum.Parse(typeof(LevelName), x)));
         }
 
-        public static void SavePlayerClient(string level, string name, byte[] bytes)
+        public static Guid SavePlayerClient(string level, string name, byte[] bytes)
         {
             var cache = GetCache(level).PlayerCache;
             var exsistingPlayer = cache.TryGetEntity(x => x.Name == name) ?? new PlayerEntity { Id = Guid.NewGuid() };
             exsistingPlayer.Name = name;
             cache.Save(exsistingPlayer, bytes);
+            return exsistingPlayer.Id;
         }
 
         public static byte[] GetPlayerClient(string level, Guid id)
@@ -114,12 +113,12 @@ namespace ServerReplayPlayer.Logic
             cache.Save(exsistingResult, Encoding.UTF8.GetBytes(matchResult.Replay));
         }
 
-        public static string SaveTempFile(HttpPostedFileBase file, string fileName, string folder = null)
+        public static void RemoveReplaysByPlayerId(string level, Guid playerId)
         {
-            var path = Path.Combine(TempFolder, (folder ?? Guid.NewGuid().ToString()));
-            path.CreateDirectoryIfNoExists();
-            file.SaveAs(Path.Combine(path, fileName));
-            return path;
+            var cache = GetCache(level);
+            var replays = cache.MatchResultCache.GetAllEntities();
+            foreach (var replay in replays.Where(x => x.Player == playerId || x.Player2 == playerId))
+                cache.MatchResultCache.Remove(replay.Id);
         }
     }
 }
