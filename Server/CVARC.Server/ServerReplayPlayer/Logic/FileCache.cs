@@ -82,7 +82,7 @@ namespace ServerReplayPlayer.Logic
             using (MemoryStream ms = new MemoryStream())
             {
                 fileStream.CopyTo(ms);
-                Logger.InfoFormat("Read file id={1} time={2}", id, sw.Elapsed.TotalMilliseconds);
+                Logger.InfoFormat("Read file id={0} time={1}", id, sw.Elapsed.TotalMilliseconds);
                 return ms.ToArray();
             }
         }
