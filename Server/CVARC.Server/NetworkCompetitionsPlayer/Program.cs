@@ -25,7 +25,7 @@ namespace NetworkCompetitionsPlayer
         static void Main()
         {
             var macthes = Client.SendRequest<CompetitionsInfo>(GetUrl(Urls.GetCompetitionsInfo)).MatchResults;
-            var players = macthes.Select(x => x.Player.Id).Distinct().Select(GetPlayer).ToDictionary(x => x.Id);
+            var players = macthes.Select(x => x.Player.Id).Distinct().AsParallel().Select(GetPlayer).ToDictionary(x => x.Id);
             var unplayedMatchs = macthes
                 .Where(
                     x => string.IsNullOrEmpty(x.Points)
