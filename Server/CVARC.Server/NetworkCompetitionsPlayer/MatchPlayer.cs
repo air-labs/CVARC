@@ -39,9 +39,12 @@ namespace NetworkCompetitionsPlayer
         private void RunCompetition()
         {
             var mapSeed = package.MapSeed != 0 ? package.MapSeed : random.Next();
+            const bool allowExitFromMatch = false;
+            const bool needSaveReplay = true;
+            const bool realTime = false;
             Process.Start(new ProcessStartInfo("CVARC.Network.exe")
             {
-                Arguments = string.Format("{0} {1} {2} {3} {4} {5}", package.LevelName, mapSeed, package.Opponent, package.Side, "false", "true"),
+                Arguments = string.Format("{0} {1} {2} {3} {4} {5} {6}", package.LevelName, mapSeed, package.Opponent, package.Side, realTime, needSaveReplay, allowExitFromMatch),
             });
             RunClients();
         }

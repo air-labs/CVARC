@@ -17,9 +17,15 @@ namespace CVARC.Network
             {
                 Participants = participants,
                 Competitions = server.Competitions,
-                RealTime = args.Length < 5 || args[4] != "false",
-                NeedSaveReplay = args.Length > 5 && args[5] == "true"
+                RealTime = GetOrDefault(4, args, true),
+                NeedSaveReplay = GetOrDefault(5, args, false),
+                AllowExitFromMatch = GetOrDefault(6, args, true),
             };
+        }
+
+        private static bool GetOrDefault(int index, string[] args, bool defaultValue)
+        {
+            return index < args.Length ? bool.Parse(args[index]) : defaultValue;
         }
 
         private static HelloPackage ParseHelloPackage(string[] args, out bool multiplayer)

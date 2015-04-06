@@ -9,5 +9,6 @@ namespace CVARC.Network
         public Participant[] Participants { get; set; }
         public bool RealTime { get; set; }
         public bool NeedSaveReplay { get; set; }
+        public bool AllowExitFromMatch { get; set; }
     }
 }

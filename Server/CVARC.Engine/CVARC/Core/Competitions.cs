@@ -105,7 +105,7 @@ namespace CVARC.Basic
             return new Tuple<Command, Exception>(command, null);
         }
 
-        public void ProcessParticipants(bool realTime, int operationalMilliseconds, bool saveReplay = false, params Participant[] participants)
+        public void ProcessParticipants(bool realTime, int operationalMilliseconds, bool saveReplay = false, bool allowExitFromMatch = true, params Participant[] participants)
         {
             needSaveReplay = saveReplay;
             double time = GameTimeLimit;
@@ -178,7 +178,7 @@ namespace CVARC.Basic
                     cmd.RobotId = p.ControlledRobot;
                     Robots[p.ControlledRobot].ProcessCommand(cmd);
                     p.WaitForNextCommandTime = cmd.Time;
-					if (cmd.Action == CommandAction.WaitForExit)
+                    if (cmd.Action == CommandAction.WaitForExit && allowExitFromMatch)
 						clientExited = true;
                 }
                 var minTime = Math.Min(time, participants.Min(z => z.WaitForNextCommandTime));
