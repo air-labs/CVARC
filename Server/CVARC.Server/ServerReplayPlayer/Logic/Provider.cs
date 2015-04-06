@@ -42,10 +42,15 @@ namespace ServerReplayPlayer.Logic
             var players = Storage.GetPlayers(level).ToDictionary(x => x.Id);
             var results = Storage.GetMatchResults(level).ToDictionary(x => GetKey(x.Player, x.Player2));
             var firstLevel = String.Compare(level, LevelName.Level1.ToString(), StringComparison.OrdinalIgnoreCase) == 0;
+            var matchResults = (firstLevel ? GetCompetitionsInfoWithoutOpponent(players, results) : GetCompetitionsInfoWithOpponent(players, results));
             return new CompetitionsInfo
             {
                 Level = level,
-                MatchResults = (firstLevel ? GetCompetitionsInfoWithoutOpponent(players, results) : GetCompetitionsInfoWithOpponent(players, results)).ToArray()
+                MatchResults = matchResults.OrderByDescending(x =>
+                    {
+                        var splits = x.Points.Split(':');
+                        return int.Parse(splits[0]) + int.Parse(splits[1]);
+                    }).ToArray()
             };
         }
 
