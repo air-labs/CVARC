@@ -4,7 +4,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using CommonTypes;
 using CVARC.Network;
 
@@ -28,25 +27,25 @@ namespace NetworkCompetitionsPlayer
         public string Play()
         {
             DisposeResource();
-            var taskTimeout = Task.Delay(6000);
-            RunCompetition();
-            taskTimeout.Wait();
+            var process = RunCompetition();
+            process.WaitForExit(60000);
             var replay = File.ReadAllText(Directory.GetFiles(ReplayDirectory).Single());
             DisposeResource();
             return replay;
         }
 
-        private void RunCompetition()
+        private Process RunCompetition()
         {
             var mapSeed = package.MapSeed != 0 ? package.MapSeed : random.Next();
             const bool allowExitFromMatch = false;
             const bool needSaveReplay = true;
             const bool realTime = false;
-            Process.Start(new ProcessStartInfo("CVARC.Network.exe")
+            var process = Process.Start(new ProcessStartInfo("CVARC.Network.exe")
             {
                 Arguments = string.Format("{0} {1} {2} {3} {4} {5} {6}", package.LevelName, mapSeed, package.Opponent, package.Side, realTime, needSaveReplay, allowExitFromMatch),
             });
             RunClients();
+            return process;
         }
 
         private void RunClients()
