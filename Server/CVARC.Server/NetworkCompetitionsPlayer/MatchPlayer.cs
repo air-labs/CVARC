@@ -81,7 +81,8 @@ namespace NetworkCompetitionsPlayer
                 process.WaitForExit(1000);
             }
             SafeAction(() => Directory.Delete(player.Name, true));
-            SafeAction(() => Directory.Delete(player2.Name, true));
+            if (player2 != null)
+                SafeAction(() => Directory.Delete(player2.Name, true));
             SafeAction(() => Directory.Delete(ReplayDirectory, true));
         }
 
