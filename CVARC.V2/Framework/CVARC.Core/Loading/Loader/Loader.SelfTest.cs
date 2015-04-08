@@ -93,6 +93,8 @@ namespace CVARC.V2
 			return holder.World;
 		}
 
+		static Random rnd = new Random();
+
 		/// <summary>
 		/// Runs the test as a Unit test.
 		/// </summary>

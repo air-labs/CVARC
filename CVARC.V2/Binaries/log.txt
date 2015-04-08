@@ -18,30 +18,6 @@ Starting unit GripperUnit
 Command comes to gripper, No
 Starting unit SimpleMovementUnit
 Command accepted in SMUnit
-{"Collisions":[],"IsGripped":false,"Locations":[{"Angle":0,"Id":"Left","X":0.24999998509883881,"Y":0},{"Angle":0,"Id":"Right","X":300,"Y":300}]}
+{"Collisions":[],"IsGripped":false,"Locations":[{"Angle":0,"Id":"Left","X":9.9999961853027344,"Y":0},{"Angle":0,"Id":"Right","X":300,"Y":300}]}
 
 Can't get command
-Command accepted in ControlTrigger
-1 commands after preprocessor
-Command goes to robot
-Command comes to robot, 3 units
-Starting unit GripperUnit
-Command comes to gripper, No
-Starting unit SimpleMovementUnit
-Command accepted in SMUnit
-Command accepted in ControlTrigger
-1 commands after preprocessor
-Command goes to robot
-Command comes to robot, 3 units
-Starting unit GripperUnit
-Command comes to gripper, No
-Starting unit SimpleMovementUnit
-Command accepted in SMUnit
-Command accepted in ControlTrigger
-1 commands after preprocessor
-Command goes to robot
-Command comes to robot, 3 units
-Starting unit GripperUnit
-Command comes to gripper, No
-Starting unit SimpleMovementUnit
-Command accepted in SMUnit

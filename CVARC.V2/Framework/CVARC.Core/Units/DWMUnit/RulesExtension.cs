@@ -7,7 +7,7 @@ namespace CVARC.V2
 {
 	public static class RulesExtension
 	{
-		public static TCommand Forward<TCommand>(this IDWMRules<TCommand> rules, double distance)
+		public static TCommand DWMMove<TCommand>(this IDWMRules<TCommand> rules, double distance)
 			where TCommand : IDWMCommand
 		{
 			//обычная геометрия, все значения, которые нужны - в rules
