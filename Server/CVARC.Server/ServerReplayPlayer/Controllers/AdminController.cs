@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using ServerReplayPlayer.Logic;
 
 namespace ServerReplayPlayer.Controllers
 {
@@ -30,6 +31,15 @@ namespace ServerReplayPlayer.Controllers
             if (file != null && file.ContentLength >= 0)
             {
                 LoginProvider.AddLogins(file);
+            }
+        }
+
+        [HttpPost]
+        public void ChangeDeadlines(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength >= 0)
+            {
+                DeadlineProvider.ChangeDeadlines(file);
             }
         }
     }

@@ -137,6 +137,7 @@
     </Compile>
     <Compile Include="Logic\Cryptographer\TokenSerializer.cs" />
     <Compile Include="Logic\Cryptographer\TripleDesCryptographer.cs" />
+    <Compile Include="Logic\DeadlineProvider.cs" />
     <Compile Include="Logic\FileCache.cs" />
     <Compile Include="Logic\ZipClientReader.cs" />
     <Compile Include="Logic\Helpers.cs" />
@@ -164,6 +165,7 @@
     <Content Include="Scripts\replayLoader.js" />
     <Content Include="Scripts\replayWindow.js" />
     <Content Include="Scripts\three.js" />
+    <Content Include="settings\debug\deadlines.txt" />
     <Content Include="settings\debug\log4netConfig.xml" />
     <Content Include="settings\debug\tokenTripleDESKey.txt" />
     <Content Include="Web.config" />

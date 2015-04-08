@@ -32,6 +32,8 @@ namespace ServerReplayPlayer.Controllers
             var client = ZipClientReader.Read(file);
             if (client == null)
                 return View("FileFormatError");
+            if (!DeadlineProvider.CanUploadClient(level))
+                throw new Exception("Time for upload client is over!");
             Provider.AddPlayer(level, client, Command.CommandName);
             return RedirectToAction("Index", "Home", new {level});
         }
