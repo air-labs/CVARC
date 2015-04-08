@@ -80,3 +80,5 @@ namespace Collision {
 namespace Collision { 
 [TestFixture] public partial class Rect {
 [Test] public void RotateBox() { TestRunner.Run("Collision_Rect_RotateBox"); }}}
+[TestFixture] public partial class DWM {
+[Test] public void Forward() { TestRunner.Run("DWM_Forward"); }}
