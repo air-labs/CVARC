@@ -9,7 +9,7 @@
 //{
 //	public partial class CollisionLogicPartHelper
 //	{
-//		DemoTestEntry LocationTest(int count, int left, int right, params MoveAndGripCommand[] command)
+//		DemoTestEntry LocationTest(int count, int left, int right, params DemoCommand[] command)
 //		{
 //			return (client, world, asserter) =>
 //			{
@@ -33,7 +33,7 @@
 //		}
 
 
-//		void LoadTests(LogicPart logicPart, MoveAndGripRules rules)
+//		void LoadTests(LogicPart logicPart, DemoRules rules)
 //		{
 //			logicPart.Tests["NoCollision"] = new CollisionTestBase(LocationTest(0, 0, 0,
 //				rules.Grip(),

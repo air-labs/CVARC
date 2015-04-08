@@ -31,6 +31,6 @@ public static class TestRunner
 	}
 	public static void Main()
 	{
-		new Interaction.Rect().Alignment();
+		new Movement.Round().Forward();
 	}
 }

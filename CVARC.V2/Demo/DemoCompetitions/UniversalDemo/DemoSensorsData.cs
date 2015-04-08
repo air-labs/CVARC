@@ -22,8 +22,8 @@ namespace Demo
 		[FromSensor(typeof(CollisionSensor))]
 		public List<CollisionData> Collisions { get; set; }
 
-		[DataMember]
-		[FromSensor(typeof(DemoCamera))]
-		public byte[] CameraImage { get; set; }
+		//[DataMember]
+		//[FromSensor(typeof(DemoCamera))]
+		//public byte[] CameraImage { get; set; }
     }
 }

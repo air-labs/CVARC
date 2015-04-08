@@ -9,7 +9,7 @@ namespace Demo
 {
     partial class DemoLogicPartHelper
     {
-        DemoTestEntry LocationTest(double X, double Y, double angleInGrad, params MoveAndGripCommand[] command)
+        DemoTestEntry LocationTest(double X, double Y, double angleInGrad, params DemoCommand[] command)
         {
             return LocationTest(
                 (frame, asserter) =>
@@ -21,7 +21,7 @@ namespace Demo
                     command);   
         }
 
-        DemoTestEntry LocationTest(Action<Frame2D, IAsserter> test, params MoveAndGripCommand[] command)
+        DemoTestEntry LocationTest(Action<Frame2D, IAsserter> test, params DemoCommand[] command)
         {
             return (client, world, asserter) =>
             {
@@ -33,7 +33,7 @@ namespace Demo
         }
 
 
-        void LoadMovementTests(LogicPart logic, MoveAndGripRules rules)
+        void LoadMovementTests(LogicPart logic, DemoRules rules)
         {
             logic.Tests["Movement_Round_Forward"] = new RoundMovementTestBase(LocationTest(10,0, 0, rules.Move(10)));
 			logic.Tests["Movement_Round_Backward"] = new RoundMovementTestBase(LocationTest(-10, 0, 0, rules.Move(-10)));

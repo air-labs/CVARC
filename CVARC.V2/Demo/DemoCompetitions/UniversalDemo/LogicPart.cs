@@ -10,9 +10,9 @@ namespace Demo
     public partial class DemoLogicPartHelper : LogicPartHelper
     {
 
-        public static Tuple<MoveAndGripRules,LogicPart> CreateWorldFactory()
+        public static Tuple<DemoRules,LogicPart> CreateWorldFactory()
         {
-            var rules = new MoveAndGripRules();
+            var rules = new DemoRules();
 
             var logicPart = new LogicPart();
             logicPart.CreateWorld = () => new DemoWorld();
@@ -21,7 +21,7 @@ namespace Demo
             logicPart.PredefinedWorldStates.Add("Empty");
             logicPart.WorldStateType = typeof(DemoWorldState);
 
-            return new Tuple<MoveAndGripRules, LogicPart>(rules, logicPart);
+            return new Tuple<DemoRules, LogicPart>(rules, logicPart);
         }
 
         public override LogicPart Create()

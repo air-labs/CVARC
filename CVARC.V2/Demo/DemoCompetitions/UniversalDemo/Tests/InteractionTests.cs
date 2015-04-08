@@ -9,7 +9,7 @@ namespace Demo
 {
 	partial class DemoLogicPartHelper
 	{
-		void LoadInteractionTests(LogicPart logic, MoveAndGripRules rules)
+		void LoadInteractionTests(LogicPart logic, DemoRules rules)
 		{
 			//выравнивание при ударении о стену (проверяется на locationtest)
 			logic.Tests["Interaction_Rect_Alignment"] = new RectangularInteractionTestBase(

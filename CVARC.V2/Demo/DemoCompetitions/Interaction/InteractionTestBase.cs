@@ -6,9 +6,9 @@
 
 //namespace Demo
 //{
-//	public delegate void InteractionTestEntry(CvarcClient<InteractionSensorData, MoveAndGripCommand> client, MovementWorld world, IAsserter asserter);
+//	public delegate void InteractionTestEntry(CvarcClient<InteractionSensorData, DemoCommand> client, MovementWorld world, IAsserter asserter);
 
-//	public class InteractionTestBase : DelegatedCvarcTest<InteractionSensorData, MoveAndGripCommand, MovementWorld, MovementWorldState>
+//	public class InteractionTestBase : DelegatedCvarcTest<InteractionSensorData, DemoCommand, MovementWorld, MovementWorldState>
 //	{
 //		public override SettingsProposal GetSettings()
 //		{

@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Demo
 {
-	public delegate void DemoTestEntry(CvarcClient<DemoSensorsData, MoveAndGripCommand> client, DemoWorld world, IAsserter asserter);
+	public delegate void DemoTestEntry(CvarcClient<DemoSensorsData, DemoCommand> client, DemoWorld world, IAsserter asserter);
 
-	public class DemoTestBase : DelegatedCvarcTest<DemoSensorsData, MoveAndGripCommand, DemoWorld, DemoWorldState>
+	public class DemoTestBase : DelegatedCvarcTest<DemoSensorsData, DemoCommand, DemoWorld, DemoWorldState>
 	{
 		public override SettingsProposal GetSettings()
 		{
