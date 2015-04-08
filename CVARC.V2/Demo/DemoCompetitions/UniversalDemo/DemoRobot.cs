@@ -7,13 +7,30 @@ using CVARC.V2;
 
 namespace Demo
 {
-    public class DemoRobot : MoveAndGripRobot<IActorManager,DemoWorld,DemoSensorsData>
+    public class DemoRobot : Robot<IActorManager,DemoWorld,DemoSensorsData,DemoCommand,DemoRules>,
+                IGrippableRobot
     {
+		public DWMUnit DWMUnit { get; private set;  }
+		public SimpleMovementUnit SimpleMovementUnit { get; private set; }
+		public GripperUnit Gripper { get; private set; }
+
+		public override IEnumerable<IUnit> Units
+		{
+			get
+			{
+				yield return Gripper;
+				yield return SimpleMovementUnit;
+				yield return DWMUnit;
+			}
+		}
 	
 		public override void AdditionalInitialization()
 		{
 			base.AdditionalInitialization();
-		    base.Gripper.FindDetail = () =>
+			SimpleMovementUnit = new SimpleMovementUnit(this);
+			Gripper = new GripperUnit(this);
+			DWMUnit = new DWMUnit(this);
+		    Gripper.FindDetail = () =>
 		    {
 		        var all = World.IdGenerator.GetAllPairsOfType<DemoObjectData>()
 		            .Where(z => World.Engine.ContainBody(z.Item2))
@@ -28,7 +45,7 @@ namespace Demo
 		            .Select(z => z.Item.Item2)
 		            .FirstOrDefault();
 		    };
-            base.Gripper.GrippingPoint = new Frame3D(12.5, 0, 10);
+            Gripper.GrippingPoint = new Frame3D(12.5, 0, 10);
 		}
 	}
 }

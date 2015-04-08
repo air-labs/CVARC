@@ -52,6 +52,8 @@
     <Compile Include="Collision\LogicPart.Tests.cs" />
     <Compile Include="UniversalDemo\CollisionSensor.cs" />
     <Compile Include="UniversalDemo\DemoCamera.cs" />
+    <Compile Include="UniversalDemo\DemoCommand.cs" />
+    <Compile Include="UniversalDemo\DemoRules.cs" />
     <Compile Include="UniversalDemo\TestBases\TestBases.cs" />
     <Compile Include="UniversalDemo\Tests\CollisionTests.cs" />
     <Compile Include="UniversalDemo\Tests\GrippingTest.cs" />

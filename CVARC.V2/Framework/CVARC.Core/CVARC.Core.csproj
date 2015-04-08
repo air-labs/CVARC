@@ -150,6 +150,11 @@
     <Compile Include="Sensors\Sensor.cs" />
     <Compile Include="Sensors\SensorPack.cs" />
     <Compile Include="Units\Bot.cs" />
+    <Compile Include="Units\DWMUnit\DifWheelMovement.cs" />
+    <Compile Include="Units\DWMUnit\DWMUnit.cs" />
+    <Compile Include="Units\DWMUnit\IDWMCommand.cs" />
+    <Compile Include="Units\DWMUnit\IDWMRules.cs" />
+    <Compile Include="Units\DWMUnit\RulesExtension.cs" />
     <Compile Include="Units\GripperUnit\RulesExtensions.cs" />
     <Compile Include="Units\GripperUnit\GripperAction.cs" />
     <Compile Include="Units\GripperUnit\GripperUnit.cs" />
