@@ -74,7 +74,8 @@
                                 <td>
                                     @if (replay.Id != Guid.Empty)
                                     {
-                                        var url = "/Replay/Get?level=" + replays.Level + "&points=" + replay.Points + "&id=" + replay.Id;
+                                        var url = string.Format("/Replay/Get?level={0}&redPoints={1}&bluePoints={2}&id={3}", 
+                                            replays.Level, replay.PlayerPoints, replay.Player2Points, replay.Id);
                                         <a teamName="true" href="@url" class="linkName">
                                             @Html.Partial("TeamView", replay)
                                         </a>
@@ -87,7 +88,7 @@
                                     }
                                 </td>
                                 <td>
-                                    @(string.IsNullOrEmpty(replay.Points) ? "Матч ещё не сыгран" : replay.Points)
+                                    @(replay.IsMatchPlayed ? replay.PlayerPoints + ":" + replay.Player2Points : "Матч ещё не сыгран")
                                 </td>
                             </tr>
                         }

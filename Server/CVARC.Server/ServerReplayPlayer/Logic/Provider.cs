@@ -48,13 +48,10 @@ namespace ServerReplayPlayer.Logic
             return new CompetitionsInfo
             {
                 Level = level,
-                MatchResults = matchResults.OrderByDescending(x =>
-                    {
-                        if (x.Points == null)
-                            return -1;
-                        var splits = x.Points.Split(':');
-                        return int.Parse(splits[0]) + int.Parse(splits[1]);
-                    }).ToArray()
+                MatchResults = matchResults.OrderByDescending(x => x.PlayerPoints + x.PlayerPoints)
+                                           .ThenByDescending(x => x.IsMatchPlayed)
+                                           .ThenBy(x => x.PlayerPoints)
+                                           .ToArray()
             };
         }
 
@@ -75,14 +72,15 @@ namespace ServerReplayPlayer.Logic
         {
             var key = GetKey(playerId, opponentId);
             var result = results.ContainsKey(key) ? results[key] : new MatchResultEntity();
+            var points = result.Points == null ? null : result.Points.Split(':');
             return new MatchResult
             {
                 Id = result.Id,
-                Points = result.Points,
+                IsMatchPlayed = result.Points != null,
+                PlayerPoints = points == null ? 0 : int.Parse(points[0]),
+                Player2Points = points == null ? 0 : int.Parse(points[1]),
                 Player = ConvertPlayer(players[playerId]),
                 Player2 = players.ContainsKey(opponentId) ? ConvertPlayer(players[opponentId]) : null,
-                Player1CreationDate = result.Player1CreationDate,
-                Player2CreationDate = result.Player2CreationDate
             };
         }
 

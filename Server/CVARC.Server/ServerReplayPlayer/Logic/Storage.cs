@@ -102,7 +102,7 @@ namespace ServerReplayPlayer.Logic
         {
             var cache = GetCache(level).MatchResultCache;
             var exsistingResult = cache.TryGetEntity(x => x.Player == matchResult.Player.Id && (matchResult.Player2 == null || x.Player2 == matchResult.Player2.Id)) ?? new MatchResultEntity {Id = Guid.NewGuid()};
-            exsistingResult.Points = matchResult.Points;
+            exsistingResult.Points = matchResult.PlayerPoints + ":" + matchResult.Player2Points;
             exsistingResult.Player = matchResult.Player.Id;
             exsistingResult.Player1CreationDate = matchResult.Player.CreationDate;
             if (matchResult.Player2 != null)

@@ -27,7 +27,7 @@ namespace NetworkCompetitionsPlayer
         [STAThread]
         static void Main()
         {
-            var unplayedMatchs = Client.SendRequest<CompetitionsInfo>(GetUrl(Urls.GetCompetitionsInfo)).MatchResults.Where(x => string.IsNullOrEmpty(x.Points)).ToArray();
+            var unplayedMatchs = Client.SendRequest<CompetitionsInfo>(GetUrl(Urls.GetCompetitionsInfo)).MatchResults.Where(x => !x.IsMatchPlayed).ToArray();
             foreach (var unplayedMatch in unplayedMatchs)
             {
                 var player1 = GetPlayer(unplayedMatch.Player.Id);
@@ -36,7 +36,9 @@ namespace NetworkCompetitionsPlayer
                 var replayFile = matchPlayer.Play();
                 var splits = replayFile.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
                 unplayedMatch.Replay = splits.Last();
-                unplayedMatch.Points = splits[1];
+                var points = splits[1].Split(':');
+                unplayedMatch.PlayerPoints = int.Parse(points[0]);
+                unplayedMatch.Player2Points = int.Parse(points[1]);
                 Client.SendRequest(GetUrl(Urls.SaveMatchResult), unplayedMatch);
             }
         }
