@@ -7,7 +7,8 @@
 
         public static string GetSettingsFilePath(string fileName)
         {
-            return Helpers.GetServerPath(string.Format("settings\\{0}\\{1}", ConfigType, fileName));
+            var folder = ConfigType == "debug" ? "test" : "production";
+            return Helpers.GetServerPath(string.Format("settings\\{0}\\{1}", folder, fileName));
         }
     }
 }

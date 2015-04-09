@@ -165,9 +165,9 @@
     <Content Include="Scripts\replayLoader.js" />
     <Content Include="Scripts\replayWindow.js" />
     <Content Include="Scripts\three.js" />
-    <Content Include="settings\debug\deadlines.txt" />
-    <Content Include="settings\debug\log4netConfig.xml" />
-    <Content Include="settings\debug\tokenTripleDESKey.txt" />
+    <Content Include="settings\test\deadlines.txt" />
+    <Content Include="settings\test\log4netConfig.xml" />
+    <Content Include="settings\test\tokenTripleDESKey.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -179,7 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="settings\release\" />
+    <Folder Include="settings\production\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -208,7 +208,7 @@
     <Content Include="Views\Home\TeamView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="settings\debug\logins.csv" />
+    <Content Include="settings\test\logins.csv" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Replay\AccessDenied.cshtml" />
