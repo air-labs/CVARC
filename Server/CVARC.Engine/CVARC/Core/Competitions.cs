@@ -100,7 +100,7 @@ namespace CVARC.Basic
                 command.Time = 0;
             if (Math.Abs(command.LinearVelocity) > LinearVelocityLimit)
                command.LinearVelocity = Math.Sign(command.LinearVelocity) * LinearVelocityLimit;
-            if (command.AngularVelocity.Grad > AngularVelocityLimit)
+            if (Math.Abs(command.AngularVelocity.Grad) > AngularVelocityLimit)
                 command.AngularVelocity = Angle.FromGrad(Math.Sign(command.AngularVelocity.Grad) * AngularVelocityLimit);
             return new Tuple<Command, Exception>(command, null);
         }
