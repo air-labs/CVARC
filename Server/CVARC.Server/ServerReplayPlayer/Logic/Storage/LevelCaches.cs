@@ -1,6 +1,6 @@
 using ServerReplayPlayer.Contracts;
 
-namespace ServerReplayPlayer.Logic
+namespace ServerReplayPlayer.Logic.Storage
 {
     class LevelCaches
     {

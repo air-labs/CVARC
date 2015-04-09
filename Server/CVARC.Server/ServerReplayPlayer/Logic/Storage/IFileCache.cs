@@ -1,7 +1,7 @@
 ﻿using System;
 using ServerReplayPlayer.Contracts;
 
-namespace ServerReplayPlayer.Logic
+namespace ServerReplayPlayer.Logic.Storage
 {
     public interface IFileCache<TEntity> where TEntity : IWithId
     {

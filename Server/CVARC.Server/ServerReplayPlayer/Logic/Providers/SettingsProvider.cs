@@ -1,4 +1,6 @@
-﻿namespace ServerReplayPlayer.Logic
+﻿using ServerReplayPlayer.Logic.Storage;
+
+namespace ServerReplayPlayer.Logic.Providers
 {
     public class SettingsProvider
     {

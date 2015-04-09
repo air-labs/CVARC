@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using ServerReplayPlayer.Logic.Providers;
 
 namespace ServerReplayPlayer.Logic.Cryptographer
 {

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Web.Hosting;
 
-namespace ServerReplayPlayer.Logic
+namespace ServerReplayPlayer.Logic.Storage
 {
     static class Helpers
     {

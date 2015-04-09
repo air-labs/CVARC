@@ -7,6 +7,7 @@ using CommonTypes;
 using Newtonsoft.Json;
 using ServerReplayPlayer.Contracts;
 using ServerReplayPlayer.Logic;
+using ServerReplayPlayer.Logic.Providers;
 
 namespace ServerReplayPlayer.Controllers
 {
@@ -25,7 +26,7 @@ namespace ServerReplayPlayer.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadFile(string level, HttpPostedFileBase file)
+        public ActionResult UploadFile(string level, HttpPostedFileBase file, string backLevel)
         {
             if (Command == null)
                 return View("AccessDenied");
@@ -35,7 +36,7 @@ namespace ServerReplayPlayer.Controllers
             if (!DeadlineProvider.CanUploadClient(level))
                 throw new Exception("Time for upload client is over!");
             Provider.AddPlayer(level, client, Command.CommandName);
-            return RedirectToAction("Index", "Home", new {level});
+            return RedirectToAction("Index", "Home", new { level = backLevel });
         }
 
         [HttpPost]

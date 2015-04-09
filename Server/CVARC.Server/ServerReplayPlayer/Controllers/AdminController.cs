@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using ServerReplayPlayer.Logic;
+using ServerReplayPlayer.Logic.Providers;
 
 namespace ServerReplayPlayer.Controllers
 {

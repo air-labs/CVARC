@@ -7,7 +7,7 @@ using Microsoft.VisualBasic.FileIO;
 using ServerReplayPlayer.Contracts;
 using ServerReplayPlayer.Logic.Cryptographer;
 
-namespace ServerReplayPlayer.Logic
+namespace ServerReplayPlayer.Logic.Providers
 {
     public class LoginProvider
     {

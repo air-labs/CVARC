@@ -137,17 +137,17 @@
     </Compile>
     <Compile Include="Logic\Cryptographer\TokenSerializer.cs" />
     <Compile Include="Logic\Cryptographer\TripleDesCryptographer.cs" />
-    <Compile Include="Logic\DeadlineProvider.cs" />
-    <Compile Include="Logic\FileCache.cs" />
+    <Compile Include="Logic\Providers\DeadlineProvider.cs" />
+    <Compile Include="Logic\Storage\FileCache.cs" />
     <Compile Include="Logic\ZipClientReader.cs" />
-    <Compile Include="Logic\Helpers.cs" />
-    <Compile Include="Logic\IFileCache.cs" />
-    <Compile Include="Logic\LevelCaches.cs" />
+    <Compile Include="Logic\Storage\Helpers.cs" />
+    <Compile Include="Logic\Storage\IFileCache.cs" />
+    <Compile Include="Logic\Storage\LevelCaches.cs" />
     <Compile Include="Logic\Logger.cs" />
-    <Compile Include="Logic\LoginProvider.cs" />
-    <Compile Include="Logic\Provider.cs" />
-    <Compile Include="Logic\SettingsProvider.cs" />
-    <Compile Include="Logic\Storage.cs" />
+    <Compile Include="Logic\Providers\LoginProvider.cs" />
+    <Compile Include="Logic\Providers\Provider.cs" />
+    <Compile Include="Logic\Providers\SettingsProvider.cs" />
+    <Compile Include="Logic\Storage\Storage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

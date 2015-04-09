@@ -5,26 +5,26 @@ using System.Text;
 using CommonTypes;
 using ServerReplayPlayer.Contracts;
 
-namespace ServerReplayPlayer.Logic
+namespace ServerReplayPlayer.Logic.Providers
 {
     public class Provider
     {
         public void AddPlayer(string level, byte[] bytes, string commandName)
         {
             Logger.InfoFormat("Start add Player level={0} command={1}", level, commandName);
-            var playerId = Storage.SavePlayerClient(level, commandName, bytes);
+            var playerId = Storage.Storage.SavePlayerClient(level, commandName, bytes);
             Logger.InfoFormat("Ok add Player id={0} level={1} command={2}", playerId, level, commandName);
-            Storage.RemoveReplaysByPlayerId(level, playerId);
+            Storage.Storage.RemoveReplaysByPlayerId(level, playerId);
         }
 
         public Player GetPlayer(string level, Guid id)
         {
-            var player = Storage.GetPlayer(level, id);
+            var player = Storage.Storage.GetPlayer(level, id);
             return new Player
             {
                 Id = id,
                 CreationDate = player.CreationDate,
-                Zip = Storage.GetPlayerClient(level, id),
+                Zip = Storage.Storage.GetPlayerClient(level, id),
                 Name = player.Name
             };
         }
@@ -41,8 +41,8 @@ namespace ServerReplayPlayer.Logic
 
         public CompetitionsInfo GetCompetitionsInfo(string level)
         {
-            var players = Storage.GetPlayers(level).ToDictionary(x => x.Id);
-            var results = Storage.GetMatchResults(level).ToDictionary(x => GetKey(x.Player, x.Player2));
+            var players = Storage.Storage.GetPlayers(level).ToDictionary(x => x.Id);
+            var results = Storage.Storage.GetMatchResults(level).ToDictionary(x => GetKey(x.Player, x.Player2));
             var firstLevel = String.Compare(level, LevelName.Level1.ToString(), StringComparison.OrdinalIgnoreCase) == 0;
             var matchResults = (firstLevel ? GetCompetitionsInfoWithoutOpponent(players, results) : GetCompetitionsInfoWithOpponent(players, results));
             return new CompetitionsInfo
@@ -91,18 +91,18 @@ namespace ServerReplayPlayer.Logic
 
         public string GetReplay(string level, Guid id)
         {
-            return Encoding.UTF8.GetString(Storage.GetReplay(level, id));
+            return Encoding.UTF8.GetString(Storage.Storage.GetReplay(level, id));
         }
 
         public void SaveMatchResult(string level, MatchResult matchResult)
         {
-            Storage.SaveMatchResult(level, matchResult);
+            Storage.Storage.SaveMatchResult(level, matchResult);
         }
 
         public CompetitionsInfo[] GetCompetitionsInfos(string level)
         {
             LevelName levelName;
-            var levels = Enum.TryParse(level, out levelName) ? new[] {levelName} : Storage.GetOpenLevels();
+            var levels = Enum.TryParse(level, out levelName) ? new[] {levelName} : Storage.Storage.GetOpenLevels();
             return levels.Select(x => GetCompetitionsInfo(x.ToString())).ToArray();
         }
 
@@ -111,7 +111,7 @@ namespace ServerReplayPlayer.Logic
             var removeLevel = level.StartsWith("-");
             if (removeLevel)
                 level = level.Substring(1);
-            Storage.ChangeOpenLevels((LevelName)Enum.Parse(typeof(LevelName), level), removeLevel);
+            Storage.Storage.ChangeOpenLevels((LevelName)Enum.Parse(typeof(LevelName), level), removeLevel);
         }
     }
 }

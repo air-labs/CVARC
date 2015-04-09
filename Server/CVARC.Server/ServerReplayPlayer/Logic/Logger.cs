@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ServerReplayPlayer.Logic.Providers;
 using log4net;
 
 namespace ServerReplayPlayer.Logic

@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 
-namespace ServerReplayPlayer.Logic
+namespace ServerReplayPlayer.Logic.Providers
 {
     public class DeadlineProvider
     {

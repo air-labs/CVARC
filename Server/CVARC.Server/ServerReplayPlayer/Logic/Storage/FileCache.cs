@@ -8,7 +8,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using ServerReplayPlayer.Contracts;
 
-namespace ServerReplayPlayer.Logic
+namespace ServerReplayPlayer.Logic.Storage
 {
     public class FileCache<TEntity> : IFileCache<TEntity> where TEntity : IWithId
     {

@@ -10,7 +10,8 @@ namespace ServerReplayPlayer.Controllers
             var model = new CompetitionsViewModel
             {
                 Command = Command,
-                CompetitionsInfos = Provider.GetCompetitionsInfos(level)
+                CompetitionsInfos = Provider.GetCompetitionsInfos(level),
+                BackLevel = level
             };
             return View(model);
         }

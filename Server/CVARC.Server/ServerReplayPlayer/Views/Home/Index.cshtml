@@ -1,4 +1,4 @@
-﻿@using ServerReplayPlayer.Logic
+﻿@using ServerReplayPlayer.Logic.Providers
 @model ServerReplayPlayer.Contracts.CompetitionsViewModel
 
 @{
@@ -45,7 +45,7 @@
                         @if (Model.Command != null && DeadlineProvider.CanUploadClient(replay.Level))
                         {
                             <div class="ajax-file-upload">Загрузить решение
-                                <form method="POST" action="/Replay/UploadFile?level=@replay.Level" enctype="multipart/form-data">
+                                <form method="POST" action="@string.Format("/Replay/UploadFile?level={0}&backLevel={1}", replay.Level, Model.BackLevel)" enctype="multipart/form-data">
                                     <input type="file" name="file" accept=".zip" class="input">
                                 </form>
                             </div>

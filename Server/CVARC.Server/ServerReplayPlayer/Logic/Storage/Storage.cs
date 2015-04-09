@@ -7,7 +7,7 @@ using System.Text;
 using CommonTypes;
 using ServerReplayPlayer.Contracts;
 
-namespace ServerReplayPlayer.Logic
+namespace ServerReplayPlayer.Logic.Storage
 {
     static class Storage
     {
