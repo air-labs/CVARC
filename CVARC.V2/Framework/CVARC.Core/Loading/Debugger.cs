@@ -12,7 +12,8 @@ namespace CVARC.V2
         UnityTest,
         Protocol,
         Error,
-        Workflow
+        Workflow,
+        Drawing,
     }
     public static class Debugger
     {
