@@ -7,9 +7,9 @@ namespace CommonTypes
         public Guid Id { get; set; }
         public Player Player { get; set; }
         public Player Player2 { get; set; }
-        public string Points { get; set; }
+        public int PlayerPoints { get; set; }
+        public int Player2Points { get; set; }
+        public bool IsMatchPlayed { get; set; }
         public string Replay { get; set; }
-        public DateTime Player1CreationDate { get; set; }
-        public DateTime? Player2CreationDate { get; set; }
     }
 }

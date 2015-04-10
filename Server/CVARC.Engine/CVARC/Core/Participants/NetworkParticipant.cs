@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using CVARC.Basic.Controllers;
 using CVARC.Basic.Core.Serialization;
@@ -26,11 +27,18 @@ namespace CVARC.Basic.Core.Participants
 
         public override Command MakeTurn()
         {
-            var sensorsData = Competitions.GetSensorsData<ISensorsData>(ControlledRobot);
-            client.Send(Serializer.Serialize(sensorsData));
-            var command = Serializer.Deserialize<Command>(client.ReadToEnd());
-            command.RobotId = ControlledRobot;
-            return command;
+            try
+            {
+                var sensorsData = Competitions.GetSensorsData<ISensorsData>(ControlledRobot);
+                client.Send(Serializer.Serialize(sensorsData));
+                var command = Serializer.Deserialize<Command>(client.ReadToEnd());
+                command.RobotId = ControlledRobot;
+                return command;
+            }
+            catch (Exception)
+            {
+                return Command.Sleep();
+            }
         }
     }
 }

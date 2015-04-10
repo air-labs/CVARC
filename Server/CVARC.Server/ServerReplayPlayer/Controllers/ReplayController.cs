@@ -7,16 +7,16 @@ using CommonTypes;
 using Newtonsoft.Json;
 using ServerReplayPlayer.Contracts;
 using ServerReplayPlayer.Logic;
+using ServerReplayPlayer.Logic.Providers;
 
 namespace ServerReplayPlayer.Controllers
 {
     public class ReplayController : BaseController
     {
         [HttpGet]
-        public ActionResult Get(string level, Guid id, string points)
+        public ActionResult Get(string level, Guid id, string redPoints, string bluePoints)
         {
-            var splits = points.Split(new[] {":", " "}, StringSplitOptions.RemoveEmptyEntries);
-            return View("PlayReplay", new ReplayViewModel(level, id, splits[0], splits[1]));
+            return View("PlayReplay", new ReplayViewModel(level, id, redPoints, bluePoints));
         }
 
         [HttpGet]
@@ -26,17 +26,17 @@ namespace ServerReplayPlayer.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadFile(string level, HttpPostedFileBase file)
+        public ActionResult UploadFile(string level, HttpPostedFileBase file, string backLevel)
         {
             if (Command == null)
                 return View("AccessDenied");
-            if (!FileValidator.IsValid(file))
-            {
-                Provider.SaveInvalidClient(file);
+            var client = ZipClientReader.Read(file);
+            if (client == null)
                 return View("FileFormatError");
-            }
-            Provider.AddPlayer(level, file, Command.CommandName);
-            return RedirectToAction("Index", "Home", new {level});
+            if (!DeadlineProvider.CanUploadClient(level))
+                throw new Exception("Time for upload client is over!");
+            Provider.AddPlayer(level, client, Command.CommandName);
+            return RedirectToAction("Index", "Home", new { level = backLevel });
         }
 
         [HttpPost]

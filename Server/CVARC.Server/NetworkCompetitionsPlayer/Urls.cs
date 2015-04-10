@@ -4,10 +4,9 @@ namespace NetworkCompetitionsPlayer
 {
     public static class Urls
     {
-        private static readonly string Port = ConfigurationManager.AppSettings["portNumber"];
-        private static readonly string Url = string.Format("http://localhost:{0}/Replay/", Port);
-        public static readonly string GetPlayer = Url + "GetPlayer";
-        public static string SaveMatchResult = Url + "SaveMatchResult";
-        public static readonly string GetCompetitionsInfo = Url + "GetCompetitionsInfo";
+        private static readonly string Url = ConfigurationManager.AppSettings["hostName"];
+        public static readonly string GetPlayer = Url + "Replay/GetPlayer";
+        public static readonly string SaveMatchResult = Url + "Replay/SaveMatchResult";
+        public static readonly string GetCompetitionsInfo = Url + "Replay/GetCompetitionsInfo";
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using ServerReplayPlayer.Contracts;
 
-namespace ServerReplayPlayer.Logic
+namespace ServerReplayPlayer.Logic.Storage
 {
     public interface IFileCache<TEntity> where TEntity : IWithId
     {
@@ -10,5 +10,6 @@ namespace ServerReplayPlayer.Logic
         TEntity GetEntity(Guid id);
         TEntity[] GetAllEntities();
         byte[] GetFile(Guid id);
+        void Remove(Guid playerId);
     }
 }

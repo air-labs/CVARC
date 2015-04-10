@@ -6,5 +6,6 @@ namespace ServerReplayPlayer.Contracts
     {
         public CompetitionsInfo[] CompetitionsInfos { get; set; }
         public CommandEntity Command { get; set; }
+        public string BackLevel { get; set; }
     }
 }

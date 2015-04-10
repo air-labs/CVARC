@@ -104,12 +104,12 @@ namespace CVARC.Basic
                 command.Time = 0;
             if (Math.Abs(command.LinearVelocity) > LinearVelocityLimit)
                command.LinearVelocity = Math.Sign(command.LinearVelocity) * LinearVelocityLimit;
-            if (command.AngularVelocity.Grad > AngularVelocityLimit)
+            if (Math.Abs(command.AngularVelocity.Grad) > AngularVelocityLimit)
                 command.AngularVelocity = Angle.FromGrad(Math.Sign(command.AngularVelocity.Grad) * AngularVelocityLimit);
             return new Tuple<Command, Exception>(command, null);
         }
 
-        public void ProcessParticipants(bool realTime, int operationalMilliseconds, bool saveReplay = false, params Participant[] participants)
+        public void ProcessParticipants(bool realTime, int operationalMilliseconds, bool saveReplay = false, bool allowExitFromMatch = true, params Participant[] participants)
         {
             needSaveReplay = saveReplay;
             double time = GameTimeLimit;
@@ -182,7 +182,7 @@ namespace CVARC.Basic
                     cmd.RobotId = p.ControlledRobot;
                     Robots[p.ControlledRobot].ProcessCommand(cmd);
                     p.WaitForNextCommandTime = cmd.Time;
-					if (cmd.Action == CommandAction.WaitForExit)
+                    if (cmd.Action == CommandAction.WaitForExit && allowExitFromMatch)
 						clientExited = true;
                 }
                 var minTime = Math.Min(time, participants.Min(z => z.WaitForNextCommandTime));

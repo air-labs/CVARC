@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using System;
+using System.Net.Sockets;
 using System.Text;
 using CVARC.Basic;
 using CVARC.Basic.Controllers;
@@ -50,8 +51,17 @@ namespace ClientBase
 
         public TSensorsData SendCommand(Command command)
         {
-            client.Send(serializer.Serialize(command));
-            return serializer.Deserialize<TSensorsData>(client.ReadToEnd());
+            try
+            {
+                client.Send(serializer.Serialize(command));
+                return serializer.Deserialize<TSensorsData>(client.ReadToEnd());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Сервер завершил работу");
+                Environment.Exit(0);
+            }
+            return default(TSensorsData);
         }
 
         public class HelloPackageAns

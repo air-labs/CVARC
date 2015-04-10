@@ -7,7 +7,7 @@ using Microsoft.VisualBasic.FileIO;
 using ServerReplayPlayer.Contracts;
 using ServerReplayPlayer.Logic.Cryptographer;
 
-namespace ServerReplayPlayer.Logic
+namespace ServerReplayPlayer.Logic.Providers
 {
     public class LoginProvider
     {
@@ -59,7 +59,7 @@ namespace ServerReplayPlayer.Logic
 
         public bool TryLogin(HttpResponseBase response, string login, string password)
         {
-            if (Commands.Values.Any(x => x.Password == password && x.Email == login))
+            if (Commands.Values.Any(x => x.Password == password && (x.Email == login || x.CommandName == login)))
             {
                 response.Cookies.Add(new HttpCookie(KeyName, TokenSerializer.Serialize(login)));
                 return true;

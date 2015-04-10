@@ -137,16 +137,17 @@
     </Compile>
     <Compile Include="Logic\Cryptographer\TokenSerializer.cs" />
     <Compile Include="Logic\Cryptographer\TripleDesCryptographer.cs" />
-    <Compile Include="Logic\FileCache.cs" />
-    <Compile Include="Logic\FileValidator.cs" />
-    <Compile Include="Logic\Helpers.cs" />
-    <Compile Include="Logic\IFileCache.cs" />
-    <Compile Include="Logic\LevelCaches.cs" />
+    <Compile Include="Logic\Providers\DeadlineProvider.cs" />
+    <Compile Include="Logic\Storage\FileCache.cs" />
+    <Compile Include="Logic\ZipClientReader.cs" />
+    <Compile Include="Logic\Storage\Helpers.cs" />
+    <Compile Include="Logic\Storage\IFileCache.cs" />
+    <Compile Include="Logic\Storage\LevelCaches.cs" />
     <Compile Include="Logic\Logger.cs" />
-    <Compile Include="Logic\LoginProvider.cs" />
-    <Compile Include="Logic\Provider.cs" />
-    <Compile Include="Logic\SettingsProvider.cs" />
-    <Compile Include="Logic\Storage.cs" />
+    <Compile Include="Logic\Providers\LoginProvider.cs" />
+    <Compile Include="Logic\Providers\Provider.cs" />
+    <Compile Include="Logic\Providers\SettingsProvider.cs" />
+    <Compile Include="Logic\Storage\Storage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -164,8 +165,9 @@
     <Content Include="Scripts\replayLoader.js" />
     <Content Include="Scripts\replayWindow.js" />
     <Content Include="Scripts\three.js" />
-    <Content Include="settings\debug\log4netConfig.xml" />
-    <Content Include="settings\debug\tokenTripleDESKey.txt" />
+    <Content Include="settings\test\deadlines.txt" />
+    <Content Include="settings\test\log4netConfig.xml" />
+    <Content Include="settings\test\tokenTripleDESKey.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -177,7 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="settings\release\" />
+    <Folder Include="settings\production\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -206,7 +208,7 @@
     <Content Include="Views\Home\TeamView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="settings\debug\logins.csv" />
+    <Content Include="settings\test\logins.csv" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Replay\AccessDenied.cshtml" />

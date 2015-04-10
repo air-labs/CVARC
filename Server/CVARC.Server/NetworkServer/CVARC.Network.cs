@@ -20,7 +20,7 @@ namespace CVARC.Network
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var form = new TutorialForm(settings.Competitions);
-            Task.Factory.StartNew(() => settings.Competitions.ProcessParticipants(settings.RealTime, 60 * 1000, settings.NeedSaveReplay, settings.Participants));
+            Task.Factory.StartNew(() => settings.Competitions.ProcessParticipants(settings.RealTime, 60 * 1000, settings.NeedSaveReplay, settings.AllowExitFromMatch, settings.Participants));
             Application.Run(form);
         }
     }

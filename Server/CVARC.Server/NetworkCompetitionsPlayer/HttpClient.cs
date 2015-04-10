@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -8,6 +9,8 @@ namespace NetworkCompetitionsPlayer
 {
     abstract class HttpClient
     {
+        private readonly string cookie = ConfigurationManager.AppSettings["cookie"];
+
         protected string SendRequestInternal(string url, MethodType method, byte[] content = null)
         {
             var request = (HttpWebRequest) WebRequest.Create(url);
@@ -17,7 +20,7 @@ namespace NetworkCompetitionsPlayer
             request.Headers.Add("Accept-Encoding", "gzip");
             request.ContentLength = method == MethodType.POST && content != null ? content.Length : 0;
             request.CookieContainer = new CookieContainer();
-            request.CookieContainer.Add(new Uri(url), new Cookie("rtsToken", "ubwVq61ptjfPzoq03FYxyw=="));
+            request.CookieContainer.Add(new Uri(url), new Cookie("rtsToken", cookie));
             
             if (content != null)
                 using (var stream = request.GetRequestStream())

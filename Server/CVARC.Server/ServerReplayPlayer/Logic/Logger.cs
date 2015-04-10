@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ServerReplayPlayer.Logic.Providers;
 using log4net;
 
 namespace ServerReplayPlayer.Logic
@@ -23,6 +24,11 @@ namespace ServerReplayPlayer.Logic
         public static void Info(string message)
         {
             logger.Info(message);
+        }
+
+        public static void InfoFormat(string format, params object[] args)
+        {
+            logger.InfoFormat(format, args);
         }
     }
 }
