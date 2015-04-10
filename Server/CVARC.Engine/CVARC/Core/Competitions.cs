@@ -32,12 +32,15 @@ namespace CVARC.Basic
         public virtual int CompetitionId { get { return 1; } }
         private bool needSaveReplay;
 
+        public double InternalTime = 0;
+
 		public event Action Exited;
 
         public Competitions()
         {
             GameTimeLimit = 90;
             NetworkTimeLimit = 1;
+
             AvailableBots = new Dictionary<string, Type>();
         }
 
@@ -65,6 +68,7 @@ namespace CVARC.Basic
         public void MakeCycle(double time, bool realtime)
         {
             Engine.RunEngine(time, realtime);
+            InternalTime = time;
             if (CycleFinished != null)
                 CycleFinished(this, EventArgs.Empty);
         }

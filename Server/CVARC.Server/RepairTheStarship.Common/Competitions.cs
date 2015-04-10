@@ -68,6 +68,8 @@ namespace RepairTheStarship
             Score.AddPenalty(new Penalty { Message = message, RobotNumber = robotNumber, Value = points });
         }
 
+        double LastCollisionCallInternalTime;
+
         private void EngineOnCollision(OnCollisionEventHandlerArgs args)
         {
             int robotNumber = int.Parse(args.FirstBodyId) - 1;
@@ -75,11 +77,12 @@ namespace RepairTheStarship
             {
                 case CollisionType.RobotCollision:
                     bool isRobot = args.SecondBodyId == "1" || args.SecondBodyId == "2";
-                    if (isRobot && (DateTime.Now - oldCollisionTime).TotalMilliseconds > 1000 && IsFault(args.FirstBodyId, args.SecondBodyId))
+                    if (isRobot && (InternalTime-LastCollisionCallInternalTime)>0.5 && IsFault(args.FirstBodyId, args.SecondBodyId))
                     {
                         oldCollisionTime = DateTime.Now;
                         AddScore("RobotCollision", robotNumber, -30);
                     }
+                    LastCollisionCallInternalTime = InternalTime;
                     break;
                 case CollisionType.BlueWallRepaired:
                 case CollisionType.GreenWallRepaired:
@@ -96,6 +99,7 @@ namespace RepairTheStarship
                 default:
                     throw new ArgumentOutOfRangeException(args.CollisionType.ToString());
             }
+
         }
 
         private void AddRobotsPoints(string text, int points)
