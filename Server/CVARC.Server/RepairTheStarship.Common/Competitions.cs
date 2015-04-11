@@ -68,7 +68,7 @@ namespace RepairTheStarship
             Score.AddPenalty(new Penalty { Message = message, RobotNumber = robotNumber, Value = points });
         }
 
-        double LastCollisionCallInternalTime;
+        Dictionary<string, double> LastCollisionTimes = new Dictionary<string, double>();
 
         private void EngineOnCollision(OnCollisionEventHandlerArgs args)
         {
@@ -77,12 +77,15 @@ namespace RepairTheStarship
             {
                 case CollisionType.RobotCollision:
                     bool isRobot = args.SecondBodyId == "1" || args.SecondBodyId == "2";
-                    if (isRobot && (InternalTime-LastCollisionCallInternalTime)>0.5 && IsFault(args.FirstBodyId, args.SecondBodyId))
+                    if (isRobot && IsFault(args.FirstBodyId, args.SecondBodyId))
                     {
-                        oldCollisionTime = DateTime.Now;
-                        AddScore("RobotCollision", robotNumber, -30);
+                        if (!LastCollisionTimes.ContainsKey(args.FirstBodyId) ||InternalTime - LastCollisionTimes[args.FirstBodyId]  > 0.5)
+                        {
+                            AddScore("RobotCollision", robotNumber, -30);
+                            LastCollisionTimes[args.FirstBodyId] = InternalTime;
+                        }
                     }
-                    LastCollisionCallInternalTime = InternalTime;
+                    
                     break;
                 case CollisionType.BlueWallRepaired:
                 case CollisionType.GreenWallRepaired:

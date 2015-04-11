@@ -68,7 +68,7 @@ namespace CVARC.Basic
         public void MakeCycle(double time, bool realtime)
         {
             Engine.RunEngine(time, realtime);
-            InternalTime = time;
+            InternalTime += time;
             if (CycleFinished != null)
                 CycleFinished(this, EventArgs.Empty);
         }
