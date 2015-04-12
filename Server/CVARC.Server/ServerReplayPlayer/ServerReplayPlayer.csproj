@@ -127,11 +127,13 @@
     <Compile Include="Contracts\IWithId.cs" />
     <Compile Include="Contracts\MatchResultEntity.cs" />
     <Compile Include="Contracts\PlayerEntity.cs" />
+    <Compile Include="Contracts\TeamResult.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ReplayController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -215,6 +217,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\rts.pubxml" />
+    <Content Include="Views\Statistics\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

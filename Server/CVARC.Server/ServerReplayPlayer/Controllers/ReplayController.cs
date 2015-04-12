@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -48,7 +49,7 @@ namespace ServerReplayPlayer.Controllers
         [HttpPost]
         public JsonResult GetCompetitionsInfo(string level)
         {
-            return Json(Provider.GetCompetitionsInfo(level));
+            return Json(Provider.GetCompetitionsInfos(level).Single());
         }
 
         [HttpPost]

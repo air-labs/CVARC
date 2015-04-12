@@ -39,7 +39,7 @@ namespace ServerReplayPlayer.Logic.Providers
             };
         }
 
-        public CompetitionsInfo GetCompetitionsInfo(string level)
+        private CompetitionsInfo GetCompetitionsInfo(string level)
         {
             var players = Storage.Storage.GetPlayers(level).ToDictionary(x => x.Id);
             var results = Storage.Storage.GetMatchResults(level).ToDictionary(x => GetKey(x.Player, x.Player2));
@@ -104,6 +104,36 @@ namespace ServerReplayPlayer.Logic.Providers
             LevelName levelName;
             var levels = Enum.TryParse(level, out levelName) ? new[] {levelName} : Storage.Storage.GetOpenLevels();
             return levels.Select(x => GetCompetitionsInfo(x.ToString())).ToArray();
+        }
+
+        public class TeamResult
+        {
+            public int Number { get; set; }
+            public string TeamName { get; set; }
+            public LevelResult[] LevelsResult { get; set; }
+        }
+
+        public class LevelResult
+        {
+            public string LevelName { get; set; }
+            public int Points { get; set; }
+        }
+
+        public void GetResult()
+        {
+            var info = GetCompetitionsInfos(null);
+            var teams = info.SelectMany(x => x.MatchResults);
+//            var teams = info.Select(x => new
+//            {
+//                x.Level,
+//                Result = x.MatchResults.SelectMany(y => new[]
+//                {
+//                    new {Player = y.Player, Points = y.PlayerPoints},
+//                    new {Player = y.Player2, Points = y.Player2Points}
+//                }).Where(y => y.Player != null)
+//                  .GroupBy(y => y.Player.Name)
+//                  .ToDictionary(y => y.Key, y => y.Sum(p => p.Points))
+//            });
         }
 
         public void ChangeOpenLevel(string level)
