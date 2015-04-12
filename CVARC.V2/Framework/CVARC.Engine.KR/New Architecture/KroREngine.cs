@@ -176,7 +176,7 @@ namespace CVARC.V2
 
 
         private readonly Dictionary<int, double> frictionCoefficientsById = new Dictionary<int, double>();
-
+        private readonly Dictionary<int, Density> densityById = new Dictionary<int, Density>();
 
         public void Attach(string _objectToAttach, string _host, Frame3D relativePosition)
         {
@@ -188,7 +188,10 @@ namespace CVARC.V2
             Root.Remove(objectToAttach);
             objectToAttach.Location = relativePosition;
             frictionCoefficientsById.SafeAdd(objectToAttach.Id, objectToAttach.FrictionCoefficient);
+            densityById.SafeAdd(objectToAttach.Id, objectToAttach.Density);
             objectToAttach.FrictionCoefficient = 0;
+            objectToAttach.Density = Density.None;
+            
             host.Add(objectToAttach);
         }
 
@@ -201,6 +204,7 @@ namespace CVARC.V2
             host.Remove(objectToDetach);
 
             objectToDetach.FrictionCoefficient = frictionCoefficientsById.SafeGet(objectToDetach.Id);
+            objectToDetach.Density = densityById.SafeGet(objectToDetach.Id);
             objectToDetach.Location = absolutePosition;
             objectToDetach.Velocity = new Frame3D(0, 0, 0);
             Root.Add(objectToDetach);
