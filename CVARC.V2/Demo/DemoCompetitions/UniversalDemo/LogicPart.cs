@@ -16,7 +16,7 @@ namespace Demo
 
             var logicPart = new LogicPart();
             logicPart.CreateWorld = () => new DemoWorld();
-            logicPart.CreateDefaultSettings = () => new Settings { OperationalTimeLimit = 1, TimeLimit = 10 };
+            logicPart.CreateDefaultSettings = () => new Settings { OperationalTimeLimit = 1, TimeLimit = 15 };
             logicPart.CreateWorldState = stateName => new DemoWorldState();
             logicPart.PredefinedWorldStates.Add("Empty");
             logicPart.WorldStateType = typeof(DemoWorldState);
@@ -41,7 +41,6 @@ namespace Demo
 			LoadInteractionTests(logicPart, rules);
             LoadGrippingTests(logicPart, rules);
             LoadCollisionTests(logicPart, rules);
-            //LoadCameraTests(logicPart, rules);
 
             return logicPart;
         }

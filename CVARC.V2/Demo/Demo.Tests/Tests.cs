@@ -47,9 +47,24 @@ namespace Interaction {
 namespace Interaction { 
 [TestFixture] public partial class Rect {
 [Test] public void Collision() { TestRunner.Run("Interaction_Rect_Collision"); }}}
+namespace Interaction { 
+[TestFixture] public partial class Rect {
+[Test] public void BrickCollision() { TestRunner.Run("Interaction_Rect_BrickCollision"); }}}
 namespace Gripping { 
 [TestFixture] public partial class Rect {
 [Test] public void Grip() { TestRunner.Run("Gripping_Rect_Grip"); }}}
+namespace Gripping { 
+[TestFixture] public partial class Round {
+[Test] public void Grip() { TestRunner.Run("Gripping_Round_Grip"); }}}
+namespace Gripping { 
+[TestFixture] public partial class Round {
+[Test] public void GripAndMove() { TestRunner.Run("Gripping_Round_GripAndMove"); }}}
+namespace Gripping { 
+[TestFixture] public partial class Rect {
+[Test] public void GripAndMove() { TestRunner.Run("Gripping_Rect_GripAndMove"); }}}
+namespace Gripping { 
+[TestFixture] public partial class Rect {
+[Test] public void GripAndMove2() { TestRunner.Run("Gripping_Rect_GripAndMove2"); }}}
 namespace Gripping { 
 [TestFixture] public partial class Rect {
 [Test] public void GripThroughWall() { TestRunner.Run("Gripping_Rect_GripThroughWall"); }}}
@@ -80,3 +95,18 @@ namespace Collision {
 namespace Collision { 
 [TestFixture] public partial class Rect {
 [Test] public void RotateBox() { TestRunner.Run("Collision_Rect_RotateBox"); }}}
+namespace Collision { 
+[TestFixture] public partial class Rect {
+[Test] public void WallCollisionTime() { TestRunner.Run("Collision_Rect_WallCollisionTime"); }}}
+namespace Collision { 
+[TestFixture] public partial class Rect {
+[Test] public void PushingWithBrick() { TestRunner.Run("Collision_Rect_PushingWithBrick"); }}}
+namespace Collision { 
+[TestFixture] public partial class Rect {
+[Test] public void RotateWallCollision() { TestRunner.Run("Collision_Rect_RotateWallCollision"); }}}
+namespace Collision { 
+[TestFixture] public partial class Rect {
+[Test] public void BrickCollision() { TestRunner.Run("Collision_Rect_BrickCollision"); }}}
+namespace Collision { 
+[TestFixture] public partial class Rect {
+[Test] public void WallAndBrickCollision() { TestRunner.Run("Collision_Rect_WallAndBrickCollision"); }}}
