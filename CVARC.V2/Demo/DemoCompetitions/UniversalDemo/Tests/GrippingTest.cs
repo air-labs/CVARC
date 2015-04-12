@@ -30,6 +30,52 @@ namespace Demo
                 rules.Move(-10),
                 rules.Stand(5)
                 ));
+            logic.Tests["Gripping_Round_Grip"] = new RoundGrippingTestBase(GrippingTest(
+                true,
+                rules.Move(50),
+                rules.Stand(1),
+                rules.Grip(),
+                rules.Move(-10),
+                rules.Stand(5)
+                ));
+            logic.Tests["Gripping_Round_GripAndMove"] = new RoundGrippingTestBase(LocationTest(
+                0, 0, 0,
+                rules.Move(50),
+                rules.Stand(1),
+                rules.Grip(),
+                rules.Move(-50),
+                rules.Rotate(-Angle.HalfPi),
+                rules.Move(50),
+                rules.Rotate(-Angle.HalfPi),
+                rules.Move(50),
+                rules.Rotate(-Angle.HalfPi),
+                rules.Move(50),
+                rules.Rotate(-Angle.HalfPi)
+                ));
+            logic.Tests["Gripping_Rect_GripAndMove"] = new RectangularGrippingTestBase(LocationTest(
+                0, 0, 0,
+                rules.Move(50),
+                rules.Stand(1),
+                rules.Grip(),
+                rules.Move(-50),
+                rules.Rotate(-Angle.HalfPi),
+                rules.Move(50),
+                rules.Rotate(-Angle.HalfPi),
+                rules.Move(50),
+                rules.Rotate(-Angle.HalfPi),
+                rules.Move(50),
+                rules.Rotate(-Angle.HalfPi)
+                ));
+            logic.Tests["Gripping_Rect_GripAndMove2"] = new RectangularGrippingTestBase(LocationTest(
+                46.1, 0, 0,
+                rules.Move(50),
+                rules.Stand(1),
+                rules.Grip(),
+                rules.Rotate(-Angle.HalfPi),
+                rules.Rotate(-Angle.HalfPi),
+                rules.Rotate(-Angle.HalfPi),
+                rules.Rotate(-Angle.HalfPi)
+                ));
 
             logic.Tests["Gripping_Rect_GripThroughWall"] = new RectangularGrippingTestBase(GrippingTest(
                 false,

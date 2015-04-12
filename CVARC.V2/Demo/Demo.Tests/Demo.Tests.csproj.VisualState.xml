@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1000]C:\Users\el_razor\Source\Repos\CVARC\CVARC.V2\Demo\Demo.Tests\Demo.Tests.csproj</TopNode>
+  <SelectedNode>[0-1000]C:\Users\el_razor\Source\Repos\CVARC\CVARC.V2\Demo\Demo.Tests\Demo.Tests.csproj</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1000]C:\Users\el_razor\Source\Repos\CVARC\CVARC.V2\Demo\Demo.Tests\Demo.Tests.csproj" Expanded="true" />
+    <Node UniqueName="[0-1045]C:\Users\el_razor\Source\Repos\CVARC\CVARC.V2\Demo\Demo.Tests\bin\Debug\Demo.Tests.exe" Expanded="true" />
+    <Node UniqueName="[0-1049]Collision" Expanded="true" />
+    <Node UniqueName="[0-1048]Gripping" Expanded="true" />
+    <Node UniqueName="[0-1047]Interaction" Expanded="true" />
+    <Node UniqueName="[0-1046]Movement" Expanded="true" />
+    <Node UniqueName="[0-1011]Movement.Limit" Expanded="true" />
+    <Node UniqueName="[0-1006]Movement.Rect" Expanded="true" />
+    <Node UniqueName="[0-1001]Movement.Round" Expanded="true" />
+  </Nodes>
+</VisualState>

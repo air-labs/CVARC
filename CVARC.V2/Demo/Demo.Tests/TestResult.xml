@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\Users\el_razor\Source\Repos\CVARC\CVARC.V2\Demo\Demo.Tests\Demo.Tests.csproj" total="1" errors="0" failures="1" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2015-04-12" time="17:48:55">
+  <environment nunit-version="2.6.3.13283" clr-version="2.0.50727.8009" os-version="Microsoft Windows NT 6.2.9200.0" platform="Win32NT" cwd="C:\Program Files (x86)\NUnit 2.6.3\bin" machine-name="EL_RAZOR-ПК" user="el_razor" user-domain="EL_RAZOR-ПК" />
+  <culture-info current-culture="ru-RU" current-uiculture="ru-RU" />
+  <test-suite type="Project" name="C:\Users\el_razor\Source\Repos\CVARC\CVARC.V2\Demo\Demo.Tests\Demo.Tests.csproj" executed="True" result="Failure" success="False" time="2.357" asserts="0">
+    <results>
+      <test-suite type="Assembly" name="C:\Users\el_razor\Source\Repos\CVARC\CVARC.V2\Demo\Demo.Tests\bin\Debug\Demo.Tests.exe" executed="True" result="Failure" success="False" time="2.339" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="Collision" executed="True" result="Failure" success="False" time="2.338" asserts="0">
+            <results>
+              <test-suite type="TestFixture" name="Rect" executed="True" result="Failure" success="False" time="2.335" asserts="0">
+                <results>
+                  <test-case name="Collision.Rect.PushingWithBrick" executed="True" result="Failure" success="False" time="2.320" asserts="1">
+                    <failure>
+                      <message><![CDATA[  Expected: 2.0d +/- 0.0d
+  But was:  0.0d
+]]></message>
+                      <stack-trace><![CDATA[в CVARC.V2.Loader.RunSelfTestInVSContext(String assemblyName, String level, String testName, IAsserter asserter) в c:\Users\el_razor\Source\Repos\CVARC\CVARC.V2\Framework\CVARC.Core\Loading\Loader\Loader.SelfTest.cs:строка 132
+в TestRunner.Run(String testName) в c:\Users\el_razor\Source\Repos\CVARC\CVARC.V2\Demo\Demo.Tests\Runner.cs:строка 30
+в Collision.Rect.PushingWithBrick() в c:\Users\el_razor\Source\Repos\CVARC\CVARC.V2\Demo\Demo.Tests\Tests.cs:строка 100
+]]></stack-trace>
+                    </failure>
+                  </test-case>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
