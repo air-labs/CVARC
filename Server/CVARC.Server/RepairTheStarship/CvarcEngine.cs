@@ -84,8 +84,16 @@ namespace RepairTheStarship
             root.Add(first);
             root.Add(second);
 
-            first.Collision += body => engine.RaiseOnCollision(first.Id.ToString(), body.Id.ToString(), CollisionType.RobotCollision);
-            second.Collision += body => engine.RaiseOnCollision(second.Id.ToString(), body.Id.ToString(), CollisionType.RobotCollision);
+            first.Collision += body =>
+            {
+                if (body.Id == second.Id)
+                    RaiseRobotCollision(engine, first, second);
+            };
+            second.Collision += body =>
+            {
+                if (body.Id == first.Id)
+                    RaiseRobotCollision(engine, second, first);
+            };
             
             root.Add(new Box
             {
@@ -126,9 +134,15 @@ namespace RepairTheStarship
                 box.Collision += body =>
                     {
                         if (box.Parent.Id == first.Id && body.Id == second.Id)
-                            engine.RaiseOnCollision(second.Id.ToString(), first.Id.ToString(), CollisionType.RobotCollision);
+                        {
+                            RaiseRobotCollision(engine, first, second);
+                            RaiseRobotCollision(engine, second, first);
+                        }
                         if (box.Parent.Id == second.Id && body.Id == first.Id)
-                            engine.RaiseOnCollision(first.Id.ToString(), second.Id.ToString(), CollisionType.RobotCollision);
+                        {
+                            RaiseRobotCollision(engine, first, second);
+                            RaiseRobotCollision(engine, second, first);
+                        }
                     };
             }
 
@@ -139,6 +153,11 @@ namespace RepairTheStarship
             CreateBorders(root);
 
             return root;
+        }
+
+        private void RaiseRobotCollision(ICvarcEngine engine, Cylinder firstRobot, Cylinder secondRobot)
+        {
+            engine.RaiseOnCollision(firstRobot.Id.ToString(), secondRobot.Id.ToString(), CollisionType.RobotCollision);
         }
 
         private void CreateBorders(Body root)

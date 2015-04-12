@@ -14,7 +14,6 @@ namespace RepairTheStarship
         private const double MaxLinearVelocity = 50;
         private const double MaxAngularVelocity = 90;
         public static readonly Color WallColor = Color.LightGray;
-        private DateTime oldCollisionTime = DateTime.Now;
         private Dictionary<CollisionType, int> countRepairedWalls = new Dictionary<CollisionType, int>
         {
             {CollisionType.BlueWallRepaired, 0},
@@ -76,16 +75,14 @@ namespace RepairTheStarship
             switch (args.CollisionType)
             {
                 case CollisionType.RobotCollision:
-                    bool isRobot = args.SecondBodyId == "1" || args.SecondBodyId == "2";
-                    if (isRobot && IsFault(args.FirstBodyId, args.SecondBodyId))
+                    if (IsFault(args.FirstBodyId, args.SecondBodyId))
                     {
-                        if (!LastCollisionTimes.ContainsKey(args.FirstBodyId) ||InternalTime - LastCollisionTimes[args.FirstBodyId]  > 0.5)
+                        if (!LastCollisionTimes.ContainsKey(args.FirstBodyId) || InternalTime - LastCollisionTimes[args.FirstBodyId]  > 0.5)
                         {
                             AddScore("RobotCollision", robotNumber, -30);
                             LastCollisionTimes[args.FirstBodyId] = InternalTime;
                         }
                     }
-                    
                     break;
                 case CollisionType.BlueWallRepaired:
                 case CollisionType.GreenWallRepaired:
