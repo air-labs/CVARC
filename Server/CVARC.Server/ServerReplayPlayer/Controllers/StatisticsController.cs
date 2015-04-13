@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using ServerReplayPlayer.Contracts;
 
 namespace ServerReplayPlayer.Controllers
 {
@@ -6,9 +7,13 @@ namespace ServerReplayPlayer.Controllers
     {
         public ActionResult Index()
         {
-            var info = Provider.GetCompetitionsInfos(null);
-            return View();
+            string[] levels;
+            var result = Provider.GetResult(out levels);
+            return View(new StatisticsViewModel
+                {
+                    TeamResults = result,
+                    Levels = levels
+                });
         }
-
     }
 }

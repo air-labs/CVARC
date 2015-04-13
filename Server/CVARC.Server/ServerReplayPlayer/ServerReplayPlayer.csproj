@@ -121,12 +121,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\LevelResult.cs" />
     <Compile Include="Contracts\CommandEntity.cs" />
     <Compile Include="Contracts\CompetitionsViewModel.cs" />
     <Compile Include="Contracts\ReplayViewModel.cs" />
     <Compile Include="Contracts\IWithId.cs" />
     <Compile Include="Contracts\MatchResultEntity.cs" />
     <Compile Include="Contracts\PlayerEntity.cs" />
+    <Compile Include="Contracts\StatisticsViewModel.cs" />
     <Compile Include="Contracts\TeamResult.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -157,6 +159,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\jquery.tablesorter.min.js" />
     <Content Include="Scripts\homeIndex.js" />
     <Content Include="other\blue.png" />
     <Content Include="other\css.css" />

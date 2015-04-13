@@ -25,6 +25,24 @@ body {
     table-layout: fixed
 }
 
+.resultTable {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 1px solid #fff;
+    padding: 5px;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.resultTable th {
+    cursor: pointer;
+    padding-left: 15px
+}
+
+.resultTable td {
+    padding-left: 15px
+}
+
 #loginInfo {
     text-align: center
 }
@@ -78,6 +96,14 @@ body {
 
 .levelName {
     color: black;
+}
+
+.resultLink {
+    color: black;
+}
+
+.resultLinkContainer {
+    text-align: center
 }
 
 .input {

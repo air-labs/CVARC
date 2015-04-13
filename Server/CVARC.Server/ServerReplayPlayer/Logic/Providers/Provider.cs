@@ -106,34 +106,24 @@ namespace ServerReplayPlayer.Logic.Providers
             return levels.Select(x => GetCompetitionsInfo(x.ToString())).ToArray();
         }
 
-        public class TeamResult
-        {
-            public int Number { get; set; }
-            public string TeamName { get; set; }
-            public LevelResult[] LevelsResult { get; set; }
-        }
 
-        public class LevelResult
-        {
-            public string LevelName { get; set; }
-            public int Points { get; set; }
-        }
-
-        public void GetResult()
+        public TeamResult[] GetResult(out string[] levels)
         {
             var info = GetCompetitionsInfos(null);
-            var teams = info.SelectMany(x => x.MatchResults);
-//            var teams = info.Select(x => new
-//            {
-//                x.Level,
-//                Result = x.MatchResults.SelectMany(y => new[]
-//                {
-//                    new {Player = y.Player, Points = y.PlayerPoints},
-//                    new {Player = y.Player2, Points = y.Player2Points}
-//                }).Where(y => y.Player != null)
-//                  .GroupBy(y => y.Player.Name)
-//                  .ToDictionary(y => y.Key, y => y.Sum(p => p.Points))
-//            });
+            levels = info.Select(x => x.Level).ToArray();
+            return info
+                .SelectMany(x => x.MatchResults.SelectMany(y => new[]
+                    {
+                        new {Player = y.Player, Points = y.PlayerPoints, x.Level},
+                        new {Player = y.Player2, Points = y.Player2Points, x.Level}
+                    }))
+                .Where(x => x.Player != null)
+                .GroupBy(x => x.Player.Name)
+                .Select((x, i) => new TeamResult(x.Key,
+                                        x.GroupBy(y => y.Level)
+                                         .ToDictionary(y => y.Key, y => y.Sum(z => z.Points))))
+                .OrderByDescending(x => x.PointByLevel.Sum(y => y.Value))
+                .ToArray();
         }
 
         public void ChangeOpenLevel(string level)

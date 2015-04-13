@@ -1,3 +1,50 @@
-﻿@model dynamic
+﻿@model ServerReplayPlayer.Contracts.StatisticsViewModel
 
-<h2>title</h2>
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Replayer</title>
+        <script lang="text/javascript" src="/Scripts/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="/Scripts/jquery.tablesorter.min.js"></script> 
+        <link type="text/css" rel="stylesheet" href="/other/css.css" />
+        <script>
+            function onLoad() {
+                $(document).ready(function () {
+                    $(".resultTable").tablesorter();
+                });
+            }
+        </script>
+    </head>
+    <body onload="onLoad()">
+        <table class="resultTable" align="center">
+            <thead>
+                <tr>
+                    <td colspan="2"><h3>Результаты:</h3></td>
+                </tr>
+                <tr>
+                    <th>№</th>
+                    <th>Команда</th>
+                    @foreach (var level in Model.Levels)
+                    {
+                        <th>@level</th>
+                    }
+                    <th>Сумма</th>
+                </tr>
+            </thead>
+            @for (var i = 0; i < Model.TeamResults.Length;i++)
+            {
+                var result = Model.TeamResults[i];
+                <tr>
+                    <td>@(i+1)</td>
+                    <td>@result.TeamName</td>
+                    @foreach (var level in Model.Levels)
+                    {
+                        <td>@(result.PointByLevel.ContainsKey(level) ? result.PointByLevel[level] : 0)</td>
+                    }
+                    <td>@result.PointByLevel.Sum(x => x.Value)</td>
+                </tr>
+            }
+        </table>
+    </body>
+</html>
