@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using CVARC.Network;
@@ -10,7 +11,7 @@ namespace NetworkCompetitionsPlayer
     public class MatchsPlayer
     {
         private readonly HelloPackage package;
-        private Dictionary<Guid, Player> players;
+        private Dictionary<Guid, byte[]> players;
         private readonly JsonHttpClient client = new JsonHttpClient();
         private readonly AutoResetEvent autoResetEvent = new AutoResetEvent(true);
 
@@ -25,7 +26,7 @@ namespace NetworkCompetitionsPlayer
                 return;
             try
             {
-                players = new Dictionary<Guid, Player>();
+                players = new Dictionary<Guid, byte[]>();
                 var unplayedMatchs = GetUnplyedMatches();
                 foreach (var unplayedMatch in unplayedMatchs)
                     PlayMatch(unplayedMatch);
@@ -61,11 +62,28 @@ namespace NetworkCompetitionsPlayer
             client.SendRequest(GetUrl(Urls.SaveMatchResult), unplayedMatch);
         }
 
-        private Player GetPlayer(Guid id)
+        private PlayerClient GetPlayer(Guid id)
         {
             if (!players.ContainsKey(id))
-                players[id] = client.SendRequest<Player>(GetUrl(Urls.GetPlayer, new KeyValuePair<string, string>("id", id.ToString())));
-            return players[id];
+            {
+                players[id] = GetFromFile(id);
+//                players[id] = GetFromNetwork(id);
+            }
+            return new PlayerClient
+                {
+                    Id = id.ToString(),
+                    Zip = players[id]
+                };
+        }
+
+        private byte[] GetFromFile(Guid id)
+        {
+            return File.ReadAllBytes(string.Format("C:\\Level2_players\\{0}.file", id));
+        }
+
+        private byte[] GetFromNetwork(Guid id)
+        {
+           return client.SendRequest<Player>(GetUrl(Urls.GetPlayer, new KeyValuePair<string, string>("id", id.ToString()))).Zip;
         }
 
         private string GetUrl(string prefix, params KeyValuePair<string, string>[] urlParameters)

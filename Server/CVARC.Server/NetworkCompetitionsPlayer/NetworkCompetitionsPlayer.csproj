@@ -59,6 +59,7 @@
     <Compile Include="MatchPlayer.cs" />
     <Compile Include="MatchsPlayer.cs" />
     <Compile Include="MethodType.cs" />
+    <Compile Include="PlayerClient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Urls.cs" />

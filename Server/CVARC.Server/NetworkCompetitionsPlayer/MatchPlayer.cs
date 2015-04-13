@@ -4,7 +4,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading;
-using CommonTypes;
 using CVARC.Network;
 
 namespace NetworkCompetitionsPlayer
@@ -12,12 +11,12 @@ namespace NetworkCompetitionsPlayer
     class MatchPlayer
     {
         private readonly HelloPackage package;
-        private readonly Player player;
-        private readonly Player player2;
+        private readonly PlayerClient player;
+        private readonly PlayerClient player2;
         private const string ReplayDirectory = "RawReplays";
         private readonly Random random = new Random();
 
-        public MatchPlayer(HelloPackage package, Player player, Player player2)
+        public MatchPlayer(HelloPackage package, PlayerClient player, PlayerClient player2)
         {
             this.package = package;
             this.player = player;
@@ -56,16 +55,16 @@ namespace NetworkCompetitionsPlayer
                 UnZipAndRunClient(player2);
         }
 
-        private void UnZipAndRunClient(Player playerClient)
+        private void UnZipAndRunClient(PlayerClient playerClient)
         {
-            Directory.CreateDirectory(playerClient.Name);
-            var zipFilePath = Path.Combine(playerClient.Name, playerClient.Name) + ".zip";
+            Directory.CreateDirectory(playerClient.Id);
+            var zipFilePath = Path.Combine(playerClient.Id, playerClient.Id) + ".zip";
             File.WriteAllBytes(zipFilePath, playerClient.Zip);
-            ZipFile.ExtractToDirectory(zipFilePath, playerClient.Name);
+            ZipFile.ExtractToDirectory(zipFilePath, playerClient.Id);
             Process.Start(new ProcessStartInfo("run.bat")
             {
                 Arguments = "noRunServer",
-                WorkingDirectory = playerClient.Name
+                WorkingDirectory = playerClient.Id
             });
         }
 
@@ -80,9 +79,9 @@ namespace NetworkCompetitionsPlayer
                 SafeAction(currentProcess.Kill);
                 process.WaitForExit(1000);
             }
-            SafeAction(() => Directory.Delete(player.Name, true));
+            SafeAction(() => Directory.Delete(player.Id, true));
             if (player2 != null)
-                SafeAction(() => Directory.Delete(player2.Name, true));
+                SafeAction(() => Directory.Delete(player2.Id, true));
             SafeAction(() => Directory.Delete(ReplayDirectory, true));
         }
 
