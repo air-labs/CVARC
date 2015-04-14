@@ -198,8 +198,12 @@ namespace CVARC.Basic
                 if (time <= 0) break;
 				if (clientExited) break;
             }
-			if (needSaveReplay)
-                SaveReplay(time);			
+            if (needSaveReplay)
+            {
+                if (GameTimeLimit - time == 0)
+                    Environment.Exit(1);
+                SaveReplay(time);
+            }			
             if (Exited != null) 
                 Exited();
 		}
