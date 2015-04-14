@@ -66,8 +66,8 @@ namespace NetworkCompetitionsPlayer
         {
             if (!players.ContainsKey(id))
             {
-                players[id] = GetFromFile(id);
-//                players[id] = GetFromNetwork(id);
+//                players[id] = GetFromFile(id);
+                players[id] = GetFromNetwork(id);
             }
             return new PlayerClient
                 {
