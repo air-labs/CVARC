@@ -11,6 +11,7 @@ namespace CVARC.Basic.Core.Participants
         private Competitions Competitions { get; set; }
         private static readonly ISerializer Serializer = new JsonSerializer();
         private readonly GroboTcpClient client;
+        private bool clientCrashed = false;
 
         public NetworkParticipant(Competitions competitionsBundle, int controlledRobot, GroboTcpClient client)
         {
@@ -27,16 +28,20 @@ namespace CVARC.Basic.Core.Participants
 
         public override Command MakeTurn()
         {
+            if (clientCrashed)
+                return Command.Sleep();
             try
             {
+                
                 var sensorsData = Competitions.GetSensorsData<ISensorsData>(ControlledRobot);
                 client.Send(Serializer.Serialize(sensorsData));
                 var command = Serializer.Deserialize<Command>(client.ReadToEnd());
                 command.RobotId = ControlledRobot;
                 return command;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                clientCrashed = true;
                 return Command.Sleep();
             }
         }
