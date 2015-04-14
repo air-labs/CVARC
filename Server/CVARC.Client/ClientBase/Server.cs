@@ -10,7 +10,7 @@ using CVARC.Network;
 
 namespace ClientBase
 {
-    public class Server<TSensorsData> where TSensorsData : ISensorsData
+    public class Server<TSensorsData> : IDisposable where TSensorsData : ISensorsData
     {
         private readonly ClientSettings settings;
         private readonly ISerializer serializer = new JsonSerializer();
@@ -68,6 +68,11 @@ namespace ClientBase
         {
             public TSensorsData SensorsData { get; set; }
             public Side RealSide { get; set; }
+        }
+
+        public void Dispose()
+        {
+            client.Dispose();
         }
     }
 }

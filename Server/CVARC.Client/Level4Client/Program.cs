@@ -21,16 +21,18 @@ namespace Level4Client
 
         private static void Main(string[] args)
         {
-            var server = new CvarcClient(args, Settings).GetServer<ImageSensorsData>();
-            var sensorData = server.Run().SensorsData;
-            if (!Directory.Exists(Path))
-                Directory.CreateDirectory(Path);
-            int i = 0;
-            while (true)
+            using (var server = new CvarcClient(args, Settings).GetServer<ImageSensorsData>())
             {
-                File.WriteAllBytes(Path + i++ + "image.jpeg", sensorData.Image.Bytes);
-                var bitmap = new Bitmap(new MemoryStream(sensorData.Image.Bytes));
-                sensorData = server.SendCommand(FindRedDetail(bitmap));
+                var sensorData = server.Run().SensorsData;
+                if (!Directory.Exists(Path))
+                    Directory.CreateDirectory(Path);
+                int i = 0;
+                while (true)
+                {
+                    File.WriteAllBytes(Path + i++ + "image.jpeg", sensorData.Image.Bytes);
+                    var bitmap = new Bitmap(new MemoryStream(sensorData.Image.Bytes));
+                    sensorData = server.SendCommand(FindRedDetail(bitmap));
+                }
             }
         }
 

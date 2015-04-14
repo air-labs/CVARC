@@ -19,21 +19,23 @@ namespace Level2Client
 
         private static void Main(string[] args)
         {
-            var server = new CvarcClient(args, Settings).GetServer<PositionSensorsData>();
-            var sensorData = server.Run().SensorsData;
-            var map = sensorData.BuildMap();
-            var robotLocator = new RobotLocator(map);
-            var path = PathSearcher.FindPath(map, map.GetDiscretePosition(map.CurrentPosition), new Point(2, 1));//(2, 1) - just random point
-
-            foreach (var direction in path)
+            using (var server = new CvarcClient(args, Settings).GetServer<PositionSensorsData>())
             {
-                foreach (var command in robotLocator.GetCommandsByDirection(direction))
+                var sensorData = server.Run().SensorsData;
+                var map = sensorData.BuildMap();
+                var robotLocator = new RobotLocator(map);
+                var path = PathSearcher.FindPath(map, map.GetDiscretePosition(map.CurrentPosition), new Point(2, 1));//(2, 1) - just random point
+
+                foreach (var direction in path)
                 {
-                    sensorData = server.SendCommand(command);
-                    robotLocator.Update(sensorData);
+                    foreach (var command in robotLocator.GetCommandsByDirection(direction))
+                    {
+                        sensorData = server.SendCommand(command);
+                        robotLocator.Update(sensorData);
+                    }
                 }
+                server.SendCommand(new Command { Action = CommandAction.WaitForExit });
             }
-            server.SendCommand(new Command { Action = CommandAction.WaitForExit });
         }
     }
 }
