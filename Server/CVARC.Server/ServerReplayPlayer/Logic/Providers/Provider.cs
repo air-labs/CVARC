@@ -57,10 +57,17 @@ namespace ServerReplayPlayer.Logic.Providers
 
         private IEnumerable<MatchResult> GetCompetitionsInfoWithOpponent(Dictionary<Guid, PlayerEntity> players, Dictionary<string, MatchResultEntity> results)
         {
-            return from player in players.Values
-                   from opponent in players.Values
-                   where player.Id != opponent.Id
-                   select GetMatchResult(players, results, player.Id, opponent.Id);
+            var sortedPlayers = players.Values.OrderBy(x => x.Name).ToArray();
+            for (var i = 0; i < sortedPlayers.Length; i++)
+            {
+                for (var j = i + 1; j < sortedPlayers.Length; j++)
+                {
+                    var side = (sortedPlayers[i].Name + sortedPlayers[j].Name).GetHashCode() % 2 == 0;
+                    var first = side ? sortedPlayers[i] : sortedPlayers[j];
+                    var second = side ? sortedPlayers[j] : sortedPlayers[i];
+                    yield return GetMatchResult(players, results, first.Id, second.Id);
+                }
+            }
         }
 
         private string GetKey(Guid playerId, Guid opponentId)
