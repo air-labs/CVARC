@@ -27,8 +27,14 @@ namespace Demo
             return (client, world, asserter) =>
             {
                 DemoSensorsData data = null;
+                int x = 0;
                 foreach (var c in command)
+                {
+                    Debugger.Log(DebuggerMessageType.UnityTest, "Before performance");
                     data = client.Act(c);
+                    Debugger.Log(DebuggerMessageType.UnityTest, String.Format("Performed: {0} {1}", c.ToString(), x++));
+                }
+                Debugger.Log(DebuggerMessageType.UnityTest, "All commands performed");
                 test(new Frame2D(data.Locations[0].X, data.Locations[0].Y, Angle.FromGrad(data.Locations[0].Angle)),asserter);
             };
         }
