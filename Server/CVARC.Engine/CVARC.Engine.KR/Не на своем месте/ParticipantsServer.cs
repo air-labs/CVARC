@@ -8,6 +8,7 @@ namespace CVARC.Basic.Core.Participants
 {
     public class ParticipantsServer : IDisposable
     {
+        private const int ReceiveTimeout = 3*1000;
         private readonly string competitionsName;
         private readonly TcpListener listener;
         private CompetitionsBundle competitionsBundle;
@@ -56,6 +57,7 @@ namespace CVARC.Basic.Core.Participants
 
             public ClientWithPackage(TcpClient client)
             {
+                client.ReceiveTimeout = ReceiveTimeout;
                 Client = new GroboTcpClient(client);
                 HelloPackage = Serializer.Deserialize<HelloPackage>(Client.ReadToEnd());
             }
