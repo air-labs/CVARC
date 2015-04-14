@@ -59,9 +59,10 @@ namespace ServerReplayPlayer.Logic.Providers
 
         public bool TryLogin(HttpResponseBase response, string login, string password)
         {
-            if (Commands.Values.Any(x => x.Password == password && (x.Email == login || x.CommandName == login)))
+            var command = Commands.Values.SingleOrDefault(x => x.Password == password && (x.Email == login || x.CommandName == login));
+            if (command != null)
             {
-                response.Cookies.Add(new HttpCookie(KeyName, TokenSerializer.Serialize(login)));
+                response.Cookies.Add(new HttpCookie(KeyName, TokenSerializer.Serialize(command.Email)));
                 return true;
             }
             return false;
