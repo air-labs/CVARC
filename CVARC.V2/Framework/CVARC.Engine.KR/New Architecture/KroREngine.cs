@@ -134,13 +134,14 @@ namespace CVARC.V2
 
         public void DefineCamera(string cameraName, string host, RobotCameraSettings settings)
         {
-            var hostBody = GetBodyOrException(host);
-            Cameras[cameraName] = new CVARCEngineCamera(hostBody, DrawerFactory, settings);
+            //var hostBody = GetBodyOrException(host);
+            //Cameras[cameraName] = new CVARCEngineCamera(hostBody, DrawerFactory, settings);
         }
 
         public byte[] GetImageFromCamera(string cameraName)
         {
-            return Cameras[cameraName].Measure();
+            return new byte[0];
+            //return Cameras[cameraName].Measure();
         }
 
         public string GetReplay()
