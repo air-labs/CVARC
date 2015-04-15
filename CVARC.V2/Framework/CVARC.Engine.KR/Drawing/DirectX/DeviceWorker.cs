@@ -118,7 +118,7 @@ namespace CVARC.Graphics.DirectX
 
 		public void TryDispose()
 		{
-			Console.WriteLine("Drawers left: {0}", _requestedSizes.Count);
+			//Console.WriteLine("Drawers left: {0}", _requestedSizes.Count);
 			if(_requestedSizes.Count == 0)
 				DisposeInternal();
 		}
@@ -168,7 +168,7 @@ namespace CVARC.Graphics.DirectX
 
 		private static void LogInfo(string message, params object[] args)
 		{
-			Console.WriteLine(message, args);
+			//Console.WriteLine(message, args);
 		}
 
 		private void Initialize()

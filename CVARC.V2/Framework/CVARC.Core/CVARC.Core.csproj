@@ -89,6 +89,7 @@
     <Compile Include="Loading\Competitions\ActorFactory.cs" />
     <Compile Include="Loading\Competitions\LogicPartHelper.cs" />
     <Compile Include="Loading\Configuration\IWorldState.cs" />
+    <Compile Include="Loading\ControllerFactory\TournamentControllerFactory.cs" />
     <Compile Include="Loading\Loader\Loader.Levels.cs" />
     <Compile Include="Loading\Debugger.cs" />
     <Compile Include="Loading\Loader\Loader.SelfTest.cs" />

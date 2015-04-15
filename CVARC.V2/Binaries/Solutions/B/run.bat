@@ -1,1 +1,1 @@
-Level1Client.exe %*
+RTSSampleClient.exe %*

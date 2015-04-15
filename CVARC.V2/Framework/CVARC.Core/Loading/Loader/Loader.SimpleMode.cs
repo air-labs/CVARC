@@ -23,6 +23,8 @@ namespace CVARC.V2
 			var competitions = GetCompetitions(configuration.LoadingData);
 			var world = competitions.Logic.CreateWorld();
 			world.Initialize(competitions, configuration, controllerFactory, state);
+			world.Exit += ()=>
+				controllerFactory.Exit();
 			return world;
 		}
 
@@ -57,13 +59,19 @@ namespace CVARC.V2
 		/// </summary>
 		/// <param name="modeName">BotDemo or Tutorial</param>
 		/// <returns></returns>
-		public ControllerFactory CreateControllerFactory(string modeName)
+		public ControllerFactory CreateControllerFactory(string modeName, SettingsProposal proposal)
 		{
 			ControllerFactory factory = null;
 			if (modeName == "BotDemo")
 				factory = new BotDemoControllerFactory();
 			else if (modeName == "Tutorial")
 				factory = new TutorialControllerFactory();
+			else if (modeName  == "Tournament")
+			{
+				var port = 14000;
+				if (proposal.Port.HasValue) port = proposal.Port.Value;
+				factory = new TournamentControllerFactory(port);
+			}
 			else throw new Exception("Mode '" + modeName + "' is unknown");
 			return factory;
 		}
@@ -104,8 +112,8 @@ namespace CVARC.V2
 		/// <returns></returns>
 		public IWorld CreateSimpleMode(CommandLineData cmdLineData)
 		{
-			ControllerFactory factory = CreateControllerFactory(cmdLineData.Unnamed[2]);
 			var proposal = SettingsProposal.FromCommandLineData(cmdLineData);
+			ControllerFactory factory = CreateControllerFactory(cmdLineData.Unnamed[2], proposal);
 			var loadingData = new LoadingData { AssemblyName = cmdLineData.Unnamed[0], Level = cmdLineData.Unnamed[1] };
 			return CreateSimpleMode(loadingData, proposal, factory);
 		}

@@ -1,0 +1,61 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using AIRLab.Mathematics;
+using CVARC.V2;
+
+namespace Demo
+{
+    public class DemoWorld : World<DemoWorldState, IDemoWorldManager>
+    {
+
+		public readonly List<CollisionData> CurrentCollisions = new List<CollisionData>();
+		public override void AdditionalInitialization()
+		{
+			base.AdditionalInitialization();
+			var detector = new CollisionDetector(this);
+			detector.FindControllableObject = side =>
+			{
+				var actor = Actors
+					.OfType<DemoRobot>()
+					.Where(z => z.ObjectId == side.ObjectId || z.Gripper.GrippedObjectId == side.ObjectId)
+					.FirstOrDefault();
+				if (actor != null)
+				{
+					side.ControlledObjectId = actor.ObjectId;
+					side.ControllerId = actor.ControllerId;
+				}
+			};
+
+			detector.Account = c =>
+			{
+				var guilty = c.Victim.IsControllable && detector.Guilty(c);
+				CurrentCollisions.Add(new CollisionData
+				{
+					Time = Clocks.CurrentTime,
+					CollisionCase = c,
+					Guilty = guilty
+				});
+			};
+		}
+
+        public override void CreateWorld()
+        {
+<<<<<<< HEAD
+            Manager.CreateWorld(IdGenerator);
+            foreach (var obj in WorldState.Objects)
+                Manager.CreateObject(obj);
+=======
+           Manager.CreateWorld(IdGenerator);
+            foreach (var obj in WorldState.Objects)
+            {
+                var id = IdGenerator.CreateNewId(obj);
+                Manager.CreateObject(obj);
+            }
+>>>>>>> Stable
+        }
+
+    }
+}

@@ -13,7 +13,7 @@ namespace CVARC.V2
     public static class CVARCProgram
     {
 
-        public static void RunServerInTheSameThread(Action<int> Control)
+        public static void RunServerInTheSameThread(Action<int,bool> Control)
         {
 
             var nsData = new NetworkServerData();
@@ -22,7 +22,7 @@ namespace CVARC.V2
             new Action(() =>
             {
                 nsData.WaitForServer();
-                Control(nsData.Port);
+                Control(nsData.Port,true);
             }).BeginInvoke(null, null);
 
             var loader = GetLoader();
@@ -41,9 +41,9 @@ namespace CVARC.V2
         {
             var loader = new Loader();
 
-			//loader.AddLevel("RepairTheStarship", "Level1", () => new RepairTheStarship.KroR.Level1());
-			//loader.AddLevel("RepairTheStarship", "Level2", () => new RepairTheStarship.KroR.Level2());
-			//loader.AddLevel("RepairTheStarship", "Level3", () => new RepairTheStarship.KroR.Level3());
+			loader.AddLevel("RepairTheStarship", "Level1", () => new RepairTheStarship.KroR.Level1());
+			loader.AddLevel("RepairTheStarship", "Level2", () => new RepairTheStarship.KroR.Level2());
+			loader.AddLevel("RepairTheStarship", "Level3", () => new RepairTheStarship.KroR.Level3());
 			loader.AddLevel("Demo", "Demo", () => new Demo.KroR.DemoCompetitions());
       
             return loader;

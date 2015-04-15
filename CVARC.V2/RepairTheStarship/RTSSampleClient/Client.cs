@@ -27,44 +27,57 @@ namespace ClientExample
 
         static void Control(int port)
         {
-            var client = new Level1Client();
+            var client = new Level2Client();
 			client.SensorDataReceived += sensorData => form.ShowMap(sensorData.Map);
-			client.Configurate(port, true);
+			client.Configurate(port, true, RepairTheStarshipBots.MolagBal);
 			client.Rotate(-90);
             client.Move(100);
             client.Rotate(90);
-            client.Move(100);
-            for (int i = 0; i < 100; i++)
+            client.Move(110);
+            for (int i = 0; i < 10; i++)
             {
                 client.Rotate(10);
             }
             client.Exit();
         }
 
-        static void Run(int port)
+        static void Run(int port, bool debug)
         {
             form = new ClientForm();
-            new Action<int>(Control).BeginInvoke(port, null, null);
+			new Thread(
+				() =>
+				{
+					if (debug)
+					{
+						Control(port);
+						return;
+					}
+					try
+					{
+						Control(port);
+					}
+					catch (Exception e)
+					{
+						Console.WriteLine(e.Message);
+					}
+				}).Start();
             Application.Run(form);
         }
 
-
-
+		
         [STAThread]
         public static void Main(string[] args)
         {
-            int port = 14000;
             if (args.Length == 0)
             {
-                //Level1Client.StartKrorServer(port);
 				CVARC.V2.CVARCProgram.RunServerInTheSameThread(Run);
             }
             else
             {
-                port = int.Parse(args[0]);
+				var port = int.Parse(args[0]);
+				Run(port, false);
             }
-
-            Run(port);
         }
+
     }
 }

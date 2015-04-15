@@ -89,7 +89,7 @@ namespace CVARC.V2
                 e.Initialize(manager, this, rules, actorObjectId, id);
                 manager.Initialize(e);
                 manager.CreateActorBody();
-                var controller = controllerFactory.Create(e.ControllerId);
+                var controller = controllerFactory.Create(e.ControllerId, e);
                 controller.Initialize(e);
                 var preprocessor = factory.CreatePreprocessor();
                 preprocessor.Initialize(e);

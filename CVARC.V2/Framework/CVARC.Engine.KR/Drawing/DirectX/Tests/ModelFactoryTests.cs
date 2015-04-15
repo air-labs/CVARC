@@ -70,7 +70,7 @@ namespace CVARC.Graphics.DirectX
 				Assert.AreEqual(3, _model.Textures.Count);
 				foreach(ExtendedMaterial mat in _model.Mesh.GetMaterials())
 				{
-					Console.WriteLine("{0}: {1}", mat.TextureFileName, mat.MaterialD3D.Diffuse);
+					//Console.WriteLine("{0}: {1}", mat.TextureFileName, mat.MaterialD3D.Diffuse);
 					
 					if(string.IsNullOrEmpty(mat.TextureFileName))
 						BrushConverterTests.CheckMaterial(defaultColor, mat.MaterialD3D);

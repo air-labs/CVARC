@@ -1,0 +1,29 @@
+obj
+bin
+*.suo
+/TestResults
+*.user
+/CVARC.sln.DotSettings.user
+/build
+/Cvarc.Logs
+/packages
+
+CVARC.V2/Binaries/*.pdb
+CVARC.V2/Binaries/*.dll
+CVARC.V2/Binaries/*.exe
+CVARC.V2/Binaries/*.manifest
+CVARC.V2/Binaries/*.config
+
+CVARC.V2/Binaries/Solutions/A/*.pdb
+CVARC.V2/Binaries/Solutions/A/*.dll
+CVARC.V2/Binaries/Solutions/A/*.exe
+CVARC.V2/Binaries/Solutions/B/*.pdb
+CVARC.V2/Binaries/Solutions/B/*.dll
+CVARC.V2/Binaries/Solutions/B/*.exe
+
+<<<<<<< HEAD
+=======
+CVARC.V2/Binaries/Solutions/A/RTSSampleClient.vshost.exe.manifest
+CVARC.V2/Binaries/Solutions/B/RTSSampleClient.vshost.exe.manifest
+>>>>>>> Stable
+CVARC.V2/Binaries/log.txt

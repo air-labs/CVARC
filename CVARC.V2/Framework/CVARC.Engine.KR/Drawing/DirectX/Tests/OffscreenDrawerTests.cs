@@ -98,7 +98,7 @@ namespace CVARC.Graphics.DirectX
 			var bitmap = new Bitmap(new MemoryStream(bitmapBytes));
 			CheckBitmapCenter(bitmap, Color.Green);
 			sourceBody.Location = sourceBody.Location.NewYaw(Angle.Pi);
-			Console.WriteLine(sourceBody.Location);
+			//Console.WriteLine(sourceBody.Location);
 			_offscreenDrawer.TryGetImage(camera, out bitmapBytes);
 			SaveImage(bitmapBytes);
 			bitmap = new Bitmap(new MemoryStream(bitmapBytes));

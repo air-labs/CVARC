@@ -18,7 +18,7 @@ namespace CVARC.Graphics.DirectX
 
 		public void Dispose()
 		{
-			Console.WriteLine("Model disposed");
+			//Console.WriteLine("Model disposed");
 			Mesh.Dispose();
 			foreach(var texture in Textures)
 				texture.Value.Dispose();

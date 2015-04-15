@@ -23,15 +23,39 @@ namespace Demo
 				rules.Rotate(Angle.HalfPi / 2),
 				rules.Move(50)));
 
+            logic.Tests["Interaction_Round_Alignment"] = new RoundInteractionTestBase(
+                LocationTest((frame, asserter) => asserter.IsEqual(Angle.HalfPi.Grad / 2, frame.Angle.Grad, 1),
+                rules.Rotate(Angle.HalfPi / 2),
+                rules.Move(30)));
 
+            logic.Tests["Interaction_Round_Alignment2"] = new RoundInteractionTestBase(
+                LocationTest((frame, asserter) =>
+                {
+                    asserter.IsEqual(Angle.HalfPi.Grad, frame.Angle.Grad % 360, 1);
+                    asserter.IsEqual(22.45, frame.Y, 1e-3);
+                },
+                rules.Rotate(Angle.HalfPi / 2),
+                rules.Move(30),
+                rules.Rotate(Angle.HalfPi / 2),
+                rules.Rotate(Angle.Pi * 2),
+                rules.Move(10)));
 
-			logic.Tests["Interaction_Rect_Collision"] = new RectangularInteractionTestBase(LocationTest(
-			   (frame, asserter) => asserter.True(frame.X < 100 && frame.X > 70),
-			   rules.Move(100))); //думаю что тест не проходит из-за физики, поэтому не баг а фича
-
-			//тут явно нужны схожие тесты для круглого робота, плюс еще какие-нибудь ситуации со взаимодействием робота и стены
-
-		}
-	}
+            logic.Tests["Interaction_Rect_Collision"] = new RectangularInteractionTestBase(LocationTest(
+               (frame, asserter) => asserter.True(frame.X < 100 && frame.X > 70),
+               rules.Move(100)));
+            
+            logic.Tests["Interaction_Rect_BrickCollision"] = new RectangularInteractionTestBase(
+                LocationTest((frame, asserter) =>
+                {
+                    asserter.IsEqual(0, frame.Angle.Grad % 360, 1);
+                    asserter.IsEqual(-10, frame.Y, 1e-3);
+                    asserter.IsEqual(100, frame.X, 1e-3);
+                },
+                rules.Rotate(-Angle.HalfPi),
+                rules.Move(10),
+                rules.Rotate(Angle.HalfPi),
+                rules.Move(100)));
+        }
+    }
 }
 

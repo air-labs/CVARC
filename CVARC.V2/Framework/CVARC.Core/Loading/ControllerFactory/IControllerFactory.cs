@@ -34,7 +34,9 @@ namespace CVARC.V2
         }
 
 
-        public abstract IController Create(string controllerId);
+        public abstract IController Create(string controllerId, IActor actor);
+
+		public virtual void Exit() { }
     }
 
 }

@@ -17,6 +17,9 @@ namespace Demo
 		[DataMember]
 		[FromSensor(typeof(GripSensor))]
 		public bool IsGripped { get; set; }
-        
+
+		[DataMember]
+		[FromSensor(typeof(CollisionSensor))]
+		public List<CollisionData> Collisions { get; set; }
     }
 }

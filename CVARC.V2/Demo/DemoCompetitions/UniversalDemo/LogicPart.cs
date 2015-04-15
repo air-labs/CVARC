@@ -16,7 +16,7 @@ namespace Demo
 
             var logicPart = new LogicPart();
             logicPart.CreateWorld = () => new DemoWorld();
-            logicPart.CreateDefaultSettings = () => new Settings { OperationalTimeLimit = 1, TimeLimit = 10 };
+            logicPart.CreateDefaultSettings = () => new Settings { OperationalTimeLimit = 1, TimeLimit = 15 };
             logicPart.CreateWorldState = stateName => new DemoWorldState();
             logicPart.PredefinedWorldStates.Add("Empty");
             logicPart.WorldStateType = typeof(DemoWorldState);
@@ -32,13 +32,15 @@ namespace Demo
 
             var actorFactory = ActorFactory.FromRobot(new DemoRobot(), rules);
             logicPart.Actors[TwoPlayersId.Left] = actorFactory;
-            
+            logicPart.Actors[TwoPlayersId.Right] = actorFactory;            
             logicPart.Bots["Stand"] = () => rules.CreateStandingBot();
             logicPart.Bots["Square"] = () => rules.CreateSquareWalkingBot(50);
             logicPart.Bots["Random"] = () => rules.CreateRandomWalkingBot(50);
 
             LoadMovementTests(logicPart, rules);
 			LoadInteractionTests(logicPart, rules);
+            LoadGrippingTests(logicPart, rules);
+            LoadCollisionTests(logicPart, rules);
 
             return logicPart;
         }

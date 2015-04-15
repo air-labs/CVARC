@@ -49,8 +49,9 @@ namespace Demo
 				ZSize = data.ZSize,
 				DefaultColor = ToColor(data.Color),
 				IsStatic = data.IsStatic,
-				IsMaterial=true,
-				NewId = World.IdGenerator.CreateNewId(new object())
+				FrictionCoefficient = 99,
+                IsMaterial=true,
+				NewId = World.IdGenerator.CreateNewId(data)
 			});
 		}
 	}

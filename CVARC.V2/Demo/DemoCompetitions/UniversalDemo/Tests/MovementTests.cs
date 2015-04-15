@@ -22,7 +22,7 @@ namespace Demo
                         
         }
 
-        DemoTestEntry LocationTest(Action<Frame2D,IAsserter> test, params MoveAndGripCommand[] command)
+        DemoTestEntry LocationTest(Action<Frame2D, IAsserter> test, params MoveAndGripCommand[] command)
         {
             return (client, world, asserter) =>
             {
@@ -35,7 +35,7 @@ namespace Demo
                     Debugger.Log(DebuggerMessageType.UnityTest, String.Format("Performed: {0} {1}", c.ToString(), x++));
                 }
                 Debugger.Log(DebuggerMessageType.UnityTest, "All commands performed");
-                test(new Frame2D(data.Locations[0].X, data.Locations[0].Y, Angle.FromGrad(data.Locations[0].Angle)),asserter);
+                test(new Frame2D(data.Locations[0].X, data.Locations[0].Y, Angle.FromGrad(data.Locations[0].Angle)), asserter);
             };
         }
 
@@ -70,21 +70,11 @@ namespace Demo
             logic.Tests["Movement_Limit_Linear"] = new RoundMovementTestBase(LocationTest(50, 0, 0, 1,
                 rules.MoveWithVelocityForTime(100000, 1)));
 			logic.Tests["Movement_Limit_Round"] = new RoundMovementTestBase(LocationTest(0, 0, 0, 1,
-                rules.RotateWithVelocityForTime(Angle.Pi*10, 4)));
-
-			//для AlignmentRect пришлось увеличить delta на проверке угла поворота до 0,005
-			//logic.Tests["AlignmentRect"] = new MovementTestBase(LocationTest(25.355, 17.357, Angle.HalfPi.Grad,
-			//	rules.Move(-10),
-			//	rules.Rotate(Angle.HalfPi / 2),
-			//	rules.Move(50)), true);
-
-
-
-			//logic.Tests["FuckTheBoxRect"] = new MovementTestBase(LocationTest(
-			//   (frame, asserter) => asserter.True(frame.X < 100 && frame.X > 70),
-			//   rules.Move(100)), false, true); //думаю что тест не проходит из-за физики, поэтому не баг а фича
-            
-      
+                rules.MoveWithVelocityForTime(-100000, 1)));
+            logic.Tests["Movement_Limit_Round"] = new RoundMovementTestBase(LocationTest(0, 0, 0, 1,
+                rules.RotateWithVelocityForTime(Angle.Pi * 10, 4)));
+            logic.Tests["Movement_Limit_Round2"] = new RoundMovementTestBase(LocationTest(0, 0, 0, 1,
+                rules.RotateWithVelocityForTime(-Angle.Pi * 19 / 10, 4)));
         }
     }
 }

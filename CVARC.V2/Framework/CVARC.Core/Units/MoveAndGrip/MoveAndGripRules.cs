@@ -13,7 +13,7 @@ namespace CVARC.V2
 			var pool = Compatibility.Check<KeyboardController<MoveAndGripCommand>>(this, _pool);
 			this.AddGripKeys(pool, controllerId);
 			this.AddSimpleMovementKeys(pool, controllerId);
-            pool.StopCommand = () => new MoveAndGripCommand();
+            pool.StopCommand = () => new MoveAndGripCommand { SimpleMovement = SimpleMovement.Stand(0.1) };
 		}
 
 		public double LinearVelocityLimit

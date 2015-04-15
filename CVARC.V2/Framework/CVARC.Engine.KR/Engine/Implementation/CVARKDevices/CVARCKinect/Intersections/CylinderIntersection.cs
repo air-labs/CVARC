@@ -138,7 +138,7 @@ namespace kinect
         {
             var computedDistance = Intersector.IntersectCylinder(cylinder, ray);
             Assert.AreEqual(distance, computedDistance);
-            Console.WriteLine("Expected: {0}. But was: {1}", distance, computedDistance);
+           // Console.WriteLine("Expected: {0}. But was: {1}", distance, computedDistance);
         }
     }
 }

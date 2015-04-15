@@ -135,7 +135,7 @@ namespace kinect
             Point3D? computedPoint = Intersector.IntersectPlane(plane, ray);
             Assert.AreEqual(point, computedPoint);
             {
-                Console.WriteLine("Point:  {0}. Expected: {1}", computedPoint, point);
+              //  Console.WriteLine("Point:  {0}. Expected: {1}", computedPoint, point);
             }
         }
     }

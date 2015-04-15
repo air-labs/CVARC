@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace CVARC.V2
 {
-
+	[DataContract]
     public class CollisionSide
     {
+		[DataMember]
         public string ObjectId;
-        public string ControllerId;
-        public string ControlledObjectId;
+		[DataMember]
+		public string ControllerId;
+		[DataMember]
+		public string ControlledObjectId;
         public bool IsControllable { get { return ControllerId != null; } }
         public bool Match(CollisionSide side)
         {
@@ -21,9 +25,12 @@ namespace CVARC.V2
         }
     }
 
+	[DataContract]
     public class CollisionCase
     {
+		[DataMember]
         public CollisionSide Offender;
+		[DataMember]
         public CollisionSide Victim;
     }
 
