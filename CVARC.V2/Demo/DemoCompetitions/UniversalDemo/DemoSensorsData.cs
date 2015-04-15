@@ -19,11 +19,11 @@ namespace Demo
 		public bool IsGripped { get; set; }
 
 		[DataMember]
-		[FromSensor(typeof(CollisionSensor))]
+		//[FromSensor(typeof(CollisionSensor))]
 		public List<CollisionData> Collisions { get; set; }
 
         [DataMember]
-        [FromSensor(typeof(DemoCamera))]
+        //[FromSensor(typeof(DemoCamera))]
         public byte[] Image { get; set; }
     }
 }

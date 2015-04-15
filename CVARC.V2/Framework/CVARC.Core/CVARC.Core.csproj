@@ -91,7 +91,7 @@
     <Compile Include="Loading\Configuration\IWorldState.cs" />
     <Compile Include="Loading\ControllerFactory\TournamentControllerFactory.cs" />
     <Compile Include="Loading\Loader\Loader.Levels.cs" />
-    <Compile Include="Loading\Debugger.cs" />
+    <Compile Include="Debugger.cs" />
     <Compile Include="Loading\Loader\Loader.SelfTest.cs" />
     <Compile Include="Loading\Loader\Loader.SoloNetwork.cs" />
     <Compile Include="Loading\Loader\Loader.SimpleMode.cs" />

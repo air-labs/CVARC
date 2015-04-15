@@ -24,6 +24,17 @@ namespace Demo
 						 YSize=robotIsRectangular?10:5,
 						 XSize=robotIsRectangular?10:5,
 						 ZSize=10
+					},
+                    new DemoRobotData
+					{
+						 Color= ObjectColor.Blue,
+						 IsRound=!robotIsRectangular,
+						 RobotName=TwoPlayersId.Right,
+						 X=400,
+						 Y=400,
+						 YSize=robotIsRectangular?10:5,
+						 XSize=robotIsRectangular?10:5,
+						 ZSize=10
 					}
 				}
             };
