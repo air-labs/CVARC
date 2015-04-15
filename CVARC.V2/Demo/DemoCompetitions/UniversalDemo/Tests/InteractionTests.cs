@@ -17,7 +17,7 @@ namespace Demo
 				LocationTest((frame,asserter)=>
 					{
 						asserter.IsEqual(Angle.HalfPi.Grad,frame.Angle.Grad,1);
-						asserter.IsEqual(22.36, frame.Y, 1e-3);
+						asserter.IsEqual(22.36, frame.Y, 1);
 					},
 				rules.Move(-10),
 				rules.Rotate(Angle.HalfPi / 2),
