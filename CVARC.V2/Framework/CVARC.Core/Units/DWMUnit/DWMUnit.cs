@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using AIRLab.Mathematics;
 namespace CVARC.V2
 {
 	public class DWMUnit : IUnit
@@ -25,14 +25,39 @@ namespace CVARC.V2
 			this.movement = command.DifWheelMovement;
 			return UnitResponse.Accepted(command.DifWheelMovement.Duration);
 		}
-
+        /// <summary>
+        /// Update unit speed based on wheels speed
+        /// </summary>
+        /// <param name="currentTime"></param>
 		public void UpdateSpeed(double currentTime)
 		{
 			if (movement == null) return;
-			//0) обрезать скорости в соответствие с лимитом
+            //TODO:
+			//0) обрезать скорости в соответствие с лимитом ???
 			//1) нужно посчитать скорость робота в данный момент времени в локальных координатах (элементарная геометрия) X - вперед, Y - влево (=0), Yaw - угловая скорость
 			//2) нужно перевести эту скорость в систему глобальных координат (см. SimpleMovementUnit)
-			actor.World.Engine.SetSpeed(actor.ObjectId, new AIRLab.Mathematics.Frame3D());
+            
+            double linear = 0, angular = 0;
+            var angle = actor.World.Engine.GetAbsoluteLocation(actor.ObjectId).Yaw.Radian;
+            if (movement.LeftRotatingVelocity.Radian == movement.RightRotatingVelocity.Radian)
+            {
+                var requestedSpeed = movement.LeftRotatingVelocity.Radian * rules.WheelRadius;
+                linear = requestedSpeed;
+            }
+            else if (Math.Abs(movement.LeftRotatingVelocity.Radian) == Math.Abs(movement.RightRotatingVelocity.Radian))
+            {
+                linear = 0;
+                angular = movement.LeftRotatingVelocity.Radian;
+            }
+            var unitSpeed = new AIRLab.Mathematics.Frame3D(
+               linear * Math.Cos(angle),
+               linear * Math.Sin(angle),
+               0,
+               Angle.Zero,
+               Angle.FromRad(angular),
+               Angle.Zero);
+
+			actor.World.Engine.SetSpeed(actor.ObjectId, unitSpeed);
 		}
 	}
 }
