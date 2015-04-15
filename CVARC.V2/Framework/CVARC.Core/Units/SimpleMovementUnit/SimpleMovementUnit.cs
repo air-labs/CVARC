@@ -56,6 +56,7 @@ namespace CVARC.V2
                 return UnitResponse.Denied();
             }
             currentMovement = c;
+            ApplyCommand(actor.World.Clocks.CurrentTime);
             return UnitResponse.Accepted(command.SimpleMovement.Duration);
         }
     }
