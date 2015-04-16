@@ -121,7 +121,8 @@ namespace ServerReplayPlayer.Logic.Providers
             return teams.Select(x => new TeamResult(x,
                 info.ToDictionary(y => y.Level, y => 
                     y.MatchResults.Sum(z => z.Player.Name == x ? z.PlayerPoints : 
-                        (z.Player2 != null && z.Player2.Name == x ? z.Player2Points : 0))))).ToArray();
+                        (z.Player2 != null && z.Player2.Name == x ? z.Player2Points : 0)))))
+                .OrderByDescending(x => x.PointByLevel.Sum(z => z.Value)).ToArray();
         }
 
         public void ChangeOpenLevel(string level)
