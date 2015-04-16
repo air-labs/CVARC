@@ -41,7 +41,11 @@ namespace Demo
 			LoadInteractionTests(logicPart, rules);
             LoadGrippingTests(logicPart, rules);
             LoadCollisionTests(logicPart, rules);
+<<<<<<< HEAD
 			LoadDWMTests(logicPart, rules);
+            //LoadCameraTests(logicPart, rules);
+=======
+>>>>>>> origin/Stable
 
             return logicPart;
         }

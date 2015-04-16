@@ -21,7 +21,12 @@ namespace CVARC.V2
             {
                 //initializing sensors
                 var attributes = property.GetCustomAttributes(typeof(FromSensorAttribute), false);
-                if (attributes.Length == 0) throw new Exception("The type " + type.Name + " cannot be used as a sensor data, because no sensor specified for the property " + property.Name);
+                if (attributes.Length == 0)
+                {
+                    // throw new Exception("The type " + type.Name + " cannot be used as a sensor data, because no sensor specified for the property " + property.Name);
+                    continue;
+                }
+                
                 var attribute = attributes[0] as FromSensorAttribute;
                 var sensorType = attribute.SensorType;
                 var ctor = sensorType.GetConstructor(new Type[0]);

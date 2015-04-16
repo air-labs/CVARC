@@ -11,23 +11,23 @@ namespace CVARC.V2
 	{
 		IActor actor;
         ISimpleMovementRules rules;
+        const double commandRenewmentRate = 0.01;
+        SimpleMovement currentMovement = null;
 
 		public SimpleMovementUnit(IActor actor)
 		{
 			this.actor = actor;
             rules = Compatibility.Check<ISimpleMovementRules>(this, actor.Rules);
+            actor.World.Clocks.AddTrigger(new TimerTrigger(ApplyCommand, commandRenewmentRate));
 		}
 
-
-        public UnitResponse ProcessCommand(object _command)
+        void ApplyCommand(double time)
         {
-            var command = Compatibility.Check<ISimpleMovementCommand>(this, _command);
-            Debugger.Log(DebuggerMessageType.Workflow, "Command accepted in SMUnit");
-			var location = actor.World.Engine.GetAbsoluteLocation(actor.ObjectId);
+            if (currentMovement == null) return;
+            var location = actor.World.Engine.GetAbsoluteLocation(actor.ObjectId);
 
-            var c = command.SimpleMovement;
-            if (c == null) return UnitResponse.Denied();
 
+            var c = currentMovement;
             var linear = Math.Sign(c.LinearVelocity) * Math.Min(Math.Abs(c.LinearVelocity), rules.LinearVelocityLimit);
             var angular = Math.Sign(c.AngularVelocity.Radian) * Math.Min(Math.Abs(c.AngularVelocity.Radian), rules.AngularVelocityLimit.Radian);
             var angle = location.Yaw.Radian;
@@ -35,13 +35,28 @@ namespace CVARC.V2
 
             var requestedSpeed = new Frame3D(
                 linear * Math.Cos(angle),
-                linear * Math.Sin(angle), 
-                0, 
-                Angle.Zero, 
+                linear * Math.Sin(angle),
+                0,
+                Angle.Zero,
                 Angle.FromRad(angular),
                 Angle.Zero);
 
-			actor.World.Engine.SetSpeed(actor.ObjectId, requestedSpeed);
+            actor.World.Engine.SetSpeed(actor.ObjectId, requestedSpeed);
+        }
+
+
+        public UnitResponse ProcessCommand(object _command)
+        {
+            var command = Compatibility.Check<ISimpleMovementCommand>(this, _command);
+            Debugger.Log(DebuggerMessageType.Workflow, "Command accepted in SMUnit");
+            var c = command.SimpleMovement;
+            if (c == null)
+            {
+                currentMovement = null;
+                return UnitResponse.Denied();
+            }
+            currentMovement = c;
+            ApplyCommand(actor.World.Clocks.CurrentTime);
             return UnitResponse.Accepted(command.SimpleMovement.Duration);
         }
     }

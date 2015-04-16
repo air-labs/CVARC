@@ -12,7 +12,10 @@ namespace CVARC.V2
         UnityTest,
         Protocol,
         Error,
-        Workflow
+        Workflow,
+        Drawing,
+        Initialization,
+        Always
     }
     public static class Debugger
     {
@@ -24,14 +27,21 @@ namespace CVARC.V2
             EnabledTypes = new List<DebuggerMessageType>();
             File.Delete("log.txt");
         }
-        public static void Log(DebuggerMessageType messageType, string str)
+        public static void Log(DebuggerMessageType messageType, object obj)
         {
-            if (DisableByDefault && !EnabledTypes.Contains(messageType))
+            var str = obj.ToString();
+            if (DisableByDefault && !EnabledTypes.Contains(messageType) && messageType!= DebuggerMessageType.Always)
                 return;
             if (Logger != null)
                 Logger(str);
             File.AppendAllText("log.txt", str + "\n");
         }
+
+        public static void Mark()
+        {
+            Log(DebuggerMessageType.Always, "!");
+        }
+
         public static Action<string> Logger;
     }
 }

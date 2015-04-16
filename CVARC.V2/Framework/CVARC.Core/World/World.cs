@@ -46,7 +46,8 @@ namespace CVARC.V2
 
         public void Initialize(Competitions competitions, Configuration configuration, ControllerFactory controllerFactory, IWorldState worldState)
         {
-
+            Debugger.Log(DebuggerMessageType.Initialization, "World initialization");
+            Debugger.Log(DebuggerMessageType.Initialization, "Starting basic fields");
             Competitions = competitions;
             Configuration = configuration;
             WorldState = Compatibility.Check<TWorldState>(this, worldState);
@@ -71,32 +72,49 @@ namespace CVARC.V2
             //Initializing world
             this.Engine = competitions.Engine.EngineFactory();
             this.Manager = Compatibility.Check<TWorldManager>(this, competitions.Manager.WorldManagerFactory());
-            Engine.Initialize(this);
-            Manager.Initialize(this);
-            controllerFactory.Initialize(this);
-            CreateWorld();
 
+            Debugger.Log(DebuggerMessageType.Initialization, "Complete: basic fields. Starting engine");
+            Engine.Initialize(this);
+            Debugger.Log(DebuggerMessageType.Initialization, "Complete: engine. Starting world manager");
+            Manager.Initialize(this);
+            Debugger.Log(DebuggerMessageType.Initialization, "Complete: world manager. Starting controller factory");
+            controllerFactory.Initialize(this);
+            Debugger.Log(DebuggerMessageType.Initialization, "Complete: controller factory. Creating world");
+            CreateWorld();
+            Debugger.Log(DebuggerMessageType.Initialization, "World created");
+            
 
             //Initializing actors
             actors = new List<IActor>();
             foreach (var id in competitions.Logic.Actors.Keys)
             {
+                Debugger.Log(DebuggerMessageType.Initialization, "Actor "+id+" initialization");
+                Debugger.Log(DebuggerMessageType.Initialization, "Creating actor");
                 var factory = competitions.Logic.Actors[id];
                 var e = factory.CreateActor();
                 var actorObjectId = IdGenerator.CreateNewId(e);
+                Debugger.Log(DebuggerMessageType.Initialization, "Complete: actor. Creating manager");
                 var manager = competitions.Manager.CreateActorManagerFor(e);
                 var rules = factory.CreateRules();
                 e.Initialize(manager, this, rules, actorObjectId, id);
+
+                Debugger.Log(DebuggerMessageType.Initialization, "Comlete: manager creation. Initializing manager");
                 manager.Initialize(e);
+                Debugger.Log(DebuggerMessageType.Initialization, "Comlete: manager initialization. Creating actor body");
                 manager.CreateActorBody();
+
+                Debugger.Log(DebuggerMessageType.Initialization, "Complete: body. Starting controller");
+                
                 var controller = controllerFactory.Create(e.ControllerId, e);
                 controller.Initialize(e);
                 var preprocessor = factory.CreatePreprocessor();
                 preprocessor.Initialize(e);
                 Clocks.AddTrigger(new ControlTrigger(controller, e, preprocessor));
                 actors.Add(e);
+                Debugger.Log(DebuggerMessageType.Initialization, "Actor "+id+" is initialized");   
             }
 
+            Debugger.Log(DebuggerMessageType.Initialization, "Additional world initialization");
             AdditionalInitialization();
         }
 

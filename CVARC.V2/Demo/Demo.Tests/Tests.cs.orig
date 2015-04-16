@@ -95,6 +95,19 @@ namespace Collision {
 namespace Collision { 
 [TestFixture] public partial class Rect {
 [Test] public void RotateBox() { TestRunner.Run("Collision_Rect_RotateBox"); }}}
+<<<<<<< HEAD
+
+[TestFixture] public partial class DWM {
+[Test] public void Forward() { TestRunner.Run("DWM_Forward"); }}
+[TestFixture]  public partial class DWM{
+[Test]public void Backward() { TestRunner.Run("DWM_Backward"); }}
+[TestFixture]public partial class DWM{
+[Test]public void ForwardAndReturn() { TestRunner.Run("DWM_ForwardAndReturn"); }}
+[TestFixture]public partial class DWM{
+[Test]public void RotateAndReturn() { TestRunner.Run("DWM_RotateAndReturn"); }}
+[TestFixture]public partial class DWM{
+[Test]public void SquareMoving() { TestRunner.Run("DWM_SquareMoving"); }}
+=======
 namespace Collision { 
 [TestFixture] public partial class Rect {
 [Test] public void WallCollisionTime() { TestRunner.Run("Collision_Rect_WallCollisionTime"); }}}
@@ -110,3 +123,4 @@ namespace Collision {
 namespace Collision { 
 [TestFixture] public partial class Rect {
 [Test] public void WallAndBrickCollision() { TestRunner.Run("Collision_Rect_WallAndBrickCollision"); }}}
+>>>>>>> origin/Stable
