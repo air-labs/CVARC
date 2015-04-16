@@ -81,5 +81,10 @@ namespace ServerReplayPlayer.Logic.Providers
             file.SaveAs(LoginsFile);
             commands = null;
         }
+
+        public string[] GetTeams()
+        {
+            return Commands.Select(x => x.Value.CommandName).ToArray();
+        }
     }
 }

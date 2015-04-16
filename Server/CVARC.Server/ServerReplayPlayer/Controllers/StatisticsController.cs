@@ -8,7 +8,7 @@ namespace ServerReplayPlayer.Controllers
         public ActionResult Index()
         {
             string[] levels;
-            var result = Provider.GetResult(out levels);
+            var result = Provider.GetResult(LoginProvider.GetTeams(), out levels);
             return View(new StatisticsViewModel
                 {
                     TeamResults = result,

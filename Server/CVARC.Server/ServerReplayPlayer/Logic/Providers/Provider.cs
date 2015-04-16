@@ -114,23 +114,14 @@ namespace ServerReplayPlayer.Logic.Providers
         }
 
 
-        public TeamResult[] GetResult(out string[] levels)
+        public TeamResult[] GetResult(string[] teams, out string[] levels)
         {
             var info = GetCompetitionsInfos(null);
             levels = info.Select(x => x.Level).ToArray();
-            return info
-                .SelectMany(x => x.MatchResults.SelectMany(y => new[]
-                    {
-                        new {Player = y.Player, Points = y.PlayerPoints, x.Level},
-                        new {Player = y.Player2, Points = y.Player2Points, x.Level}
-                    }))
-                .Where(x => x.Player != null)
-                .GroupBy(x => x.Player.Name)
-                .Select((x, i) => new TeamResult(x.Key,
-                                        x.GroupBy(y => y.Level)
-                                         .ToDictionary(y => y.Key, y => y.Sum(z => z.Points))))
-                .OrderByDescending(x => x.PointByLevel.Sum(y => y.Value))
-                .ToArray();
+            return teams.Select(x => new TeamResult(x,
+                info.ToDictionary(y => y.Level, y => 
+                    y.MatchResults.Sum(z => z.Player.Name == x ? z.PlayerPoints : 
+                        (z.Player2 != null && z.Player2.Name == x ? z.Player2Points : 0))))).ToArray();
         }
 
         public void ChangeOpenLevel(string level)
