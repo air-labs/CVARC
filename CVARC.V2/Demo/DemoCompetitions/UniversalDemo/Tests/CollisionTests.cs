@@ -23,7 +23,7 @@ namespace Demo
             };
         }
 
-        DemoTestEntry ComplexCollisionTest(int count, double time, bool first, bool second, params MoveAndGripCommand[] command)
+		DemoTestEntry ComplexCollisionTest(int count, double time, bool first, bool second, params DemoCommand[] command)
         {
             return (client, world, asserter) =>
             {
@@ -37,7 +37,7 @@ namespace Demo
                 asserter.IsEqual(result.Collisions[count-2].Time, result.Collisions[count-1].Time, 0);
             };
         }
-        DemoTestEntry CollisionTest(int count, bool first, bool second, params MoveAndGripCommand[] command)
+		DemoTestEntry CollisionTest(int count, bool first, bool second, params DemoCommand[] command)
         {
             return (client, world, asserter) =>
             {

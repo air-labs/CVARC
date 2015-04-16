@@ -9,7 +9,7 @@ namespace Demo
 {
     partial class DemoLogicPartHelper
     {
-        DemoTestEntry LocationTest(double X, double Y, double angleInGrad, double tolerance, params MoveAndGripCommand[] command)
+        DemoTestEntry LocationTest(double X, double Y, double angleInGrad, double tolerance, params DemoCommand[] command)
         {
             return LocationTest(
                 (frame, asserter) =>

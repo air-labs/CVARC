@@ -28,9 +28,6 @@ namespace Movement {
 [Test] public void Linear() { TestRunner.Run("Movement_Limit_Linear"); }}}
 namespace Movement { 
 [TestFixture] public partial class Limit {
-[Test] public void Linear2() { TestRunner.Run("Movement_Limit_Linear2"); }}}
-namespace Movement { 
-[TestFixture] public partial class Limit {
 [Test] public void Round() { TestRunner.Run("Movement_Limit_Round"); }}}
 namespace Movement { 
 [TestFixture] public partial class Limit {
@@ -110,3 +107,13 @@ namespace Collision {
 namespace Collision { 
 [TestFixture] public partial class Rect {
 [Test] public void WallAndBrickCollision() { TestRunner.Run("Collision_Rect_WallAndBrickCollision"); }}}
+[TestFixture] public partial class DWM {
+[Test] public void Forward() { TestRunner.Run("DWM_Forward"); }}
+[TestFixture] public partial class DWM {
+[Test] public void Backward() { TestRunner.Run("DWM_Backward"); }}
+[TestFixture] public partial class DWM {
+[Test] public void ForwardAndReturn() { TestRunner.Run("DWM_ForwardAndReturn"); }}
+[TestFixture] public partial class DWM {
+[Test] public void RotateAndReturn() { TestRunner.Run("DWM_RotateAndReturn"); }}
+[TestFixture] public partial class DWM {
+[Test] public void SquareMoving() { TestRunner.Run("DWM_SquareMoving"); }}
