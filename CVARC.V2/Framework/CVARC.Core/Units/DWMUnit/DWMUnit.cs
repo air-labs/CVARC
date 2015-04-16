@@ -8,12 +8,12 @@ namespace CVARC.V2
 	public class DWMUnit : IUnit
 	{
 		DifWheelMovement movement;
-		IActor actor;
+		IDWMRobot actor;
 		IDWMRules rules;
 
 		public DWMUnit(IActor actor)
 		{
-			this.actor = actor;
+			this.actor = Compatibility.Check<IDWMRobot>(this,actor);
 			actor.World.Clocks.AddTrigger(new TimerTrigger(UpdateSpeed, 0.005));
 			rules = Compatibility.Check<IDWMRules>(this, actor.Rules);
 		}
@@ -58,6 +58,8 @@ namespace CVARC.V2
                Angle.Zero);
 
 			actor.World.Engine.SetSpeed(actor.ObjectId, unitSpeed);
+
+			// + добавлять соответствующие записи в actor.DWMData.EncodersHistory
 		}
 	}
 }
