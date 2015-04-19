@@ -200,7 +200,7 @@ namespace CVARC.Basic
             }
             if (needSaveReplay)
             {
-                if (GameTimeLimit - time == 0)
+                if (GameTimeLimit - time < 0.00001)
                     Environment.Exit(1);
                 SaveReplay(time);
             }			
