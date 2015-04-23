@@ -49,6 +49,7 @@ namespace NetworkCompetitionsPlayer
 
         private void RunClients()
         {
+            Thread.Sleep(100);
             UnZipAndRunClient(player);
             Thread.Sleep(100);
             if (player2 != null)

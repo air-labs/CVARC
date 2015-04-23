@@ -50,16 +50,22 @@ namespace NetworkCompetitionsPlayer
 
         private void PlayMatch(MatchResult unplayedMatch)
         {
-            var player1 = GetPlayer(unplayedMatch.Player.Id);
-            var player2 = unplayedMatch.Player2 == null ? null : GetPlayer(unplayedMatch.Player2.Id);
-            var matchPlayer = new MatchPlayer(package, player1, player2);
-            var replayFile = matchPlayer.Play();
-            var splits = replayFile.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-            unplayedMatch.Replay = splits.Last();
-            var points = splits[1].Split(':');
-            unplayedMatch.PlayerPoints = int.Parse(points[0]);
-            unplayedMatch.Player2Points = int.Parse(points[1]);
-            client.SendRequest(GetUrl(Urls.SaveMatchResult), unplayedMatch);
+            try
+            {
+                var player1 = GetPlayer(unplayedMatch.Player.Id);
+                var player2 = unplayedMatch.Player2 == null ? null : GetPlayer(unplayedMatch.Player2.Id);
+                var matchPlayer = new MatchPlayer(package, player1, player2);
+                var replayFile = matchPlayer.Play();
+                var splits = replayFile.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+                unplayedMatch.Replay = splits.Last();
+                var points = splits[1].Split(':');
+                unplayedMatch.PlayerPoints = int.Parse(points[0]);
+                unplayedMatch.Player2Points = int.Parse(points[1]);
+                client.SendRequest(GetUrl(Urls.SaveMatchResult), unplayedMatch);
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private PlayerClient GetPlayer(Guid id)
@@ -78,7 +84,7 @@ namespace NetworkCompetitionsPlayer
 
         private byte[] GetFromFile(Guid id)
         {
-            return File.ReadAllBytes(string.Format("C:\\Level2_players\\{0}.file", id));
+            return File.ReadAllBytes(string.Format("C:\\{0}_players\\{1}.file", package.LevelName, id));
         }
 
         private byte[] GetFromNetwork(Guid id)
