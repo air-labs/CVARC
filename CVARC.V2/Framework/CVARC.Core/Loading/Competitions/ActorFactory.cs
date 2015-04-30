@@ -10,7 +10,7 @@ namespace CVARC.V2
     {
         public Func<IActor> CreateActor { get; set; }
         public Func<IRules> CreateRules { get; set; }
-        public Func<ICommandPreprocessor> CreatePreprocessor { get; set; }
+        public Func<CommandFilterSet> CreateCommandFilterSet { get; set; }
         public Func<INetworkController> CreateNetworkController { get; set; }
         public Func<IKeyboardController> CreateKeyboardController { get; set; }
 
@@ -25,7 +25,7 @@ namespace CVARC.V2
             var factory = new ActorFactory();
             factory.CreateNetworkController = () => new NetworkController<TCommand>();
             factory.CreateKeyboardController = () => new KeyboardController<TCommand>();
-            factory.CreatePreprocessor = () => new IdentityCommandPreprocessor<TCommand>();
+            factory.CreateCommandFilterSet = () => new CommandFilterSet();
             factory.CreateRules = () => rules;
 
             factory.CreateActor =
