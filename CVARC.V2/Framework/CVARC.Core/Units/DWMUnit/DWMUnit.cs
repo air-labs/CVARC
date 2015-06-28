@@ -39,16 +39,18 @@ namespace CVARC.V2
             
             double linear = 0, angular = 0;
             var angle = actor.World.Engine.GetAbsoluteLocation(actor.ObjectId).Yaw.Radian;
-            if (movement.LeftRotatingVelocity.Radian == movement.RightRotatingVelocity.Radian)
-            {
-                var requestedSpeed = movement.LeftRotatingVelocity.Radian * rules.WheelRadius;
-                linear = requestedSpeed;
-            }
-            else if (Math.Abs(movement.LeftRotatingVelocity.Radian) == Math.Abs(movement.RightRotatingVelocity.Radian))
-            {
-                linear = 0;
-                angular = movement.LeftRotatingVelocity.Radian;
-            }
+
+            //convert unit velocity form wheel velocity
+
+            double wheelR = rules.WheelRadius;
+            double leftV = movement.LeftRotatingVelocity.Radian;
+            double rightV = movement.RightRotatingVelocity.Radian;
+            double distBetween = rules.DistanceBetweenWheels;
+            angular = wheelR * (rightV - leftV) / distBetween;
+            linear = wheelR * Math.Cos(angular) * (leftV + rightV) / 2;
+
+            //convert into cvarc world velocity
+ 
             var unitSpeed = new AIRLab.Mathematics.Frame3D(
                linear * Math.Cos(angle),
                linear * Math.Sin(angle),
