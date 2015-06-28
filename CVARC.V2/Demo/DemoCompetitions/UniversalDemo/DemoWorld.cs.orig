@@ -43,12 +43,18 @@ namespace Demo
 
         public override void CreateWorld()
         {
+<<<<<<< HEAD
             Manager.CreateWorld(IdGenerator);
+            foreach (var obj in WorldState.Objects)
+                Manager.CreateObject(obj);
+=======
+           Manager.CreateWorld(IdGenerator);
             foreach (var obj in WorldState.Objects)
             {
                 var id = IdGenerator.CreateNewId(obj);
                 Manager.CreateObject(obj);
             }
+>>>>>>> Stable
         }
 
     }

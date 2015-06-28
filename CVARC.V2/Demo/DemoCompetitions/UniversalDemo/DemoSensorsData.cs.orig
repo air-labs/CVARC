@@ -22,16 +22,14 @@ namespace Demo
 		[FromSensor(typeof(CollisionSensor))]
 		public List<CollisionData> Collisions { get; set; }
 
+<<<<<<< HEAD
+		//[DataMember]
+		//[FromSensor(typeof(DemoCamera))]
+		//public byte[] CameraImage { get; set; }
+=======
         [DataMember]
         [FromSensor(typeof(DemoCamera))]
         public byte[] Image { get; set; }
-
-		[FromSensor(typeof(GAXSensor))]
-		[DataMember]
-		public List<GAXData> GAX { get; set; }
-
-		[FromSensor(typeof(EncodersSensor))]
-		[DataMember]
-		public List<EncodersData> Encoders { get; set; }
+>>>>>>> origin/Stable
     }
 }

@@ -91,7 +91,7 @@
     <Compile Include="Loading\Configuration\IWorldState.cs" />
     <Compile Include="Loading\ControllerFactory\TournamentControllerFactory.cs" />
     <Compile Include="Loading\Loader\Loader.Levels.cs" />
-    <Compile Include="Loading\Debugger.cs" />
+    <Compile Include="Debugger.cs" />
     <Compile Include="Loading\Loader\Loader.SelfTest.cs" />
     <Compile Include="Loading\Loader\Loader.SoloNetwork.cs" />
     <Compile Include="Loading\Loader\Loader.SimpleMode.cs" />
@@ -143,6 +143,9 @@
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sensors\FromSensorAttribute.cs" />
+    <Compile Include="Sensors\Implementation\EncodersSensor.cs" />
+    <Compile Include="Sensors\Implementation\GAXData.cs" />
+    <Compile Include="Sensors\Implementation\GAXSensor.cs" />
     <Compile Include="Sensors\Implementation\LocatorItem.cs" />
     <Compile Include="Sensors\Implementation\LocatorSensor.cs" />
     <Compile Include="Sensors\Implementation\SelfIdSensor.cs" />
@@ -153,6 +156,7 @@
     <Compile Include="Units\DWMUnit\DifWheelMovement.cs" />
     <Compile Include="Units\DWMUnit\DWMUnit.cs" />
     <Compile Include="Units\DWMUnit\IDWMCommand.cs" />
+    <Compile Include="Units\DWMUnit\IDWMRobot.cs" />
     <Compile Include="Units\DWMUnit\IDWMRules.cs" />
     <Compile Include="Units\DWMUnit\RulesExtension.cs" />
     <Compile Include="Units\GripperUnit\RulesExtensions.cs" />
