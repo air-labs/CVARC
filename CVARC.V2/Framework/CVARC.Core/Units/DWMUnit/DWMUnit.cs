@@ -34,7 +34,7 @@ namespace CVARC.V2
 			if (movement == null) return;
             //TODO:
 			//0) обрезать скорости в соответствие с лимитом ???
-			//1) нужно посчитать скорость робота в данный момент времени в локальных координатах (элементарная геометрия) X - вперед, Y - влево (=0), Yaw - угловая скорость
+			//1) нужно посчитать скороaсть робота в данный момент времени в локальных координатах (элементарная геометрия) X - вперед, Y - влево (=0), Yaw - угловая скорость
 			//2) нужно перевести эту скорость в систему глобальных координат (см. SimpleMovementUnit)
             
             double linear = 0, angular = 0;
@@ -47,7 +47,7 @@ namespace CVARC.V2
             double rightV = movement.RightRotatingVelocity.Radian;
             double distBetween = rules.DistanceBetweenWheels;
             angular = wheelR * (rightV - leftV) / distBetween;
-            linear = wheelR * Math.Cos(angular) * (leftV + rightV) / 2;
+            linear = wheelR  * (leftV + rightV) / 2;
 
             //convert into cvarc world velocity
  
