@@ -8,7 +8,7 @@ namespace CVARC.V2
 {
 	public class EncodersData
 	{
-		public double TImestamp { get; set; }
+		public double Timestamp { get; set; }
 		public Angle TotalLeftRotation { get; set; }
 		public Angle TotalRightRotation { get; set; }
 	}

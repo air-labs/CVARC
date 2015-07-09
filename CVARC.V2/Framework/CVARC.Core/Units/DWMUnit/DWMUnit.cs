@@ -50,7 +50,7 @@ namespace CVARC.V2
             linear = wheelR  * (leftV + rightV) / 2;
 
             //convert into cvarc world velocity
- 
+           
             var unitSpeed = new AIRLab.Mathematics.Frame3D(
                linear * Math.Cos(angle),
                linear * Math.Sin(angle),
@@ -62,6 +62,13 @@ namespace CVARC.V2
 			actor.World.Engine.SetSpeed(actor.ObjectId, unitSpeed);
 
 			// + добавлять соответствующие записи в actor.DWMData.EncodersHistory
+            EncodersData encoderRecord = new EncodersData
+            {
+                Timestamp = actor.World.Clocks.CurrentTime,
+                TotalLeftRotation = Angle.FromRad(movement.LeftRotatingVelocity.Radian * 0.005),
+                TotalRightRotation = Angle.FromRad(movement.RightRotatingVelocity.Radian * 0.005)
+            };
+            actor.DWMData.EncodersHistory.Add(encoderRecord);
 		}
 	}
 }
