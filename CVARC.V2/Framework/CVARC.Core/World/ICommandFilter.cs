@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CVARC.V2
 {
-    public interface ICommandPreprocessor
+    public interface ICommandFilter
     {
         IEnumerable<ICommand> Preprocess(ICommand command);
         void Initialize(IActor actor);
