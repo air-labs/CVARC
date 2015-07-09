@@ -11,10 +11,12 @@ namespace CVARC.V2
 
 		public override List<EncodersData> Measure()
 		{
-			return null;
-			//создать лист, переписать туда данные из Actor.DWMData.EncodersHistory начиная с pointer
-			pointer = Actor.DWMData.EncodersHistory.Count;
 			
+			//создать лист, переписать туда данные из Actor.DWMData.EncodersHistory начиная с pointer
+            List<EncodersData> encoderRecords = new List<EncodersData>();
+            encoderRecords.AddRange(Actor.DWMData.EncodersHistory.Skip(pointer));
+			pointer = Actor.DWMData.EncodersHistory.Count;
+            return encoderRecords;
 		}
 	}
 }

@@ -34,21 +34,23 @@ namespace CVARC.V2
 			if (movement == null) return;
             //TODO:
 			//0) обрезать скорости в соответствие с лимитом ???
-			//1) нужно посчитать скорость робота в данный момент времени в локальных координатах (элементарная геометрия) X - вперед, Y - влево (=0), Yaw - угловая скорость
+			//1) нужно посчитать скороaсть робота в данный момент времени в локальных координатах (элементарная геометрия) X - вперед, Y - влево (=0), Yaw - угловая скорость
 			//2) нужно перевести эту скорость в систему глобальных координат (см. SimpleMovementUnit)
             
             double linear = 0, angular = 0;
             var angle = actor.World.Engine.GetAbsoluteLocation(actor.ObjectId).Yaw.Radian;
-            if (movement.LeftRotatingVelocity.Radian == movement.RightRotatingVelocity.Radian)
-            {
-                var requestedSpeed = movement.LeftRotatingVelocity.Radian * rules.WheelRadius;
-                linear = requestedSpeed;
-            }
-            else if (Math.Abs(movement.LeftRotatingVelocity.Radian) == Math.Abs(movement.RightRotatingVelocity.Radian))
-            {
-                linear = 0;
-                angular = movement.LeftRotatingVelocity.Radian;
-            }
+
+            //convert unit velocity form wheel velocity
+
+            double wheelR = rules.WheelRadius;
+            double leftV = movement.LeftRotatingVelocity.Radian;
+            double rightV = movement.RightRotatingVelocity.Radian;
+            double distBetween = rules.DistanceBetweenWheels;
+            angular = wheelR * (rightV - leftV) / distBetween;
+            linear = wheelR  * (leftV + rightV) / 2;
+
+            //convert into cvarc world velocity
+           
             var unitSpeed = new AIRLab.Mathematics.Frame3D(
                linear * Math.Cos(angle),
                linear * Math.Sin(angle),
@@ -60,6 +62,13 @@ namespace CVARC.V2
 			actor.World.Engine.SetSpeed(actor.ObjectId, unitSpeed);
 
 			// + добавлять соответствующие записи в actor.DWMData.EncodersHistory
+            EncodersData encoderRecord = new EncodersData
+            {
+                Timestamp = actor.World.Clocks.CurrentTime,
+                TotalLeftRotation = Angle.FromRad(movement.LeftRotatingVelocity.Radian * 0.005),
+                TotalRightRotation = Angle.FromRad(movement.RightRotatingVelocity.Radian * 0.005)
+            };
+            actor.DWMData.EncodersHistory.Add(encoderRecord);
 		}
 	}
 }
