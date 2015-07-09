@@ -54,8 +54,9 @@ namespace CVARC.V2
 
 		public override List<GAXData> Measure()
 		{
-			return buffer;
-			buffer = new List<GAXData>();
+            var result = buffer.ToList();
+            buffer = new List<GAXData>();
+            return result;
 		}
 	}
 }

@@ -8,7 +8,7 @@ using CVARC.V2;
 namespace Demo
 {
     public class DemoRobot : Robot<IActorManager,DemoWorld,DemoSensorsData,DemoCommand,DemoRules>,
-                IGrippableRobot
+                IGrippableRobot, IDWMRobot
     {
 		public DWMUnit DWMUnit { get; private set;  }
 		public SimpleMovementUnit SimpleMovementUnit { get; private set; }
@@ -46,6 +46,13 @@ namespace Demo
 		            .FirstOrDefault();
 		    };
             Gripper.GrippingPoint = new Frame3D(12.5, 0, 10);
+            DWMData = new DWMData();
 		}
-	}
+
+        public DWMData DWMData
+        {
+            get;
+            set;
+        }
+    }
 }
