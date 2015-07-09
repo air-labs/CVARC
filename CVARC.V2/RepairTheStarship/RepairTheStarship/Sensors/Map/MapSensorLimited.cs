@@ -8,7 +8,7 @@ using AIRLab.Mathematics;
 using CVARC.Basic.Sensors;
 using CVARC.V2;
 
-namespace RepairTheStarship
+namespace RoboMovies
 {
     public class MapSensorLimited : MapSensor
     {

@@ -4,13 +4,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using CVARC.Basic;
-using RepairTheStarship.MapBuilder;
-using RepairTheStarship.Sensors;
+using RoboMovies.MapBuilder;
+using RoboMovies.Sensors;
 
-namespace RepairTheStarship
+namespace RoboMovies
 {
-
-
     public class SceneSettings : ISceneSettings
     {
         public readonly WallSettings[,] VerticalWalls;

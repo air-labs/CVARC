@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace RepairTheStarship
+namespace RoboMovies
 {
     [DataContract]
     public class WallMapData

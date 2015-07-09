@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{748DB258-2D25-42A4-AF68-F852DA397324}</ProjectGuid>
+    <ProjectGuid>{38C5F68E-4B42-4457-AC17-001FC1DBBF4F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RepairTheStarship.KroR</RootNamespace>
@@ -41,11 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clapperboard.cs" />
     <Compile Include="Levels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RTSActorManager.cs" />
-    <Compile Include="RTSManager.cs" />
-    <Compile Include="RTSWorldManager.cs" />
+    <Compile Include="RMActorManager.cs" />
+    <Compile Include="RMManager.cs" />
+    <Compile Include="RMWorldManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\CVARC.Core\CVARC.Core.csproj">
@@ -56,9 +57,9 @@
       <Project>{1c435b15-949f-420b-b5d5-f433439fb69c}</Project>
       <Name>CVARC.KroR</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RepairTheStarship\RepairTheStarship.General.csproj">
-      <Project>{11b6a7c1-e6aa-4f81-9710-ec84069ca858}</Project>
-      <Name>RepairTheStarship.General</Name>
+    <ProjectReference Include="..\RepairTheStarship\RoboMovies.General.csproj">
+      <Project>{4c00a5ba-5f04-4173-910d-e7813b313001}</Project>
+      <Name>RoboMovies.General</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +67,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\field.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

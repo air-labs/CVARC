@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{11B6A7C1-E6AA-4F81-9710-EC84069CA858}</ProjectGuid>
+    <ProjectGuid>{4C00A5BA-5F04-4173-910D-E7813B313001}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RepairTheStarship</RootNamespace>
@@ -84,7 +84,7 @@
     <Compile Include="Sensors\Map\WallMapData.cs" />
     <Compile Include="Sensors\LocationSensor.cs" />
     <Compile Include="World\RTSRules.cs" />
-    <Compile Include="World\RTSWorld.cs" />
+    <Compile Include="World\RMWorld.cs" />
     <Compile Include="World\IRTSWorldManager.cs" />
     <Compile Include="SceneSettings\Node.cs" />
     <Compile Include="SceneSettings\SceneSettings.cs" />

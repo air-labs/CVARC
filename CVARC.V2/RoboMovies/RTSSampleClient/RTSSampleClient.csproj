@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6E5805B4-E867-44C6-B684-51278BF75C63}</ProjectGuid>
+    <ProjectGuid>{F1B482FD-E651-4BB9-9E40-2EEF0D756266}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Level2Client</RootNamespace>
@@ -78,9 +78,9 @@
       <Project>{570f2ccc-cb76-4a27-b1ca-d38888d34a5e}</Project>
       <Name>CVARC</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RepairTheStarship\RepairTheStarship.General.csproj">
-      <Project>{11b6a7c1-e6aa-4f81-9710-ec84069ca858}</Project>
-      <Name>RepairTheStarship.General</Name>
+    <ProjectReference Include="..\RepairTheStarship\RoboMovies.General.csproj">
+      <Project>{4c00a5ba-5f04-4173-910d-e7813b313001}</Project>
+      <Name>RoboMovies.General</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

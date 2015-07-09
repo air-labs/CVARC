@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CVARC.V2;
-using RepairTheStarship.Bots;
+using RoboMovies.Bots;
 
-namespace RepairTheStarship
+namespace RoboMovies
 {
     public class RTSLogicPartHepler<TSensorsData> : LogicPartHelper
 		where TSensorsData : new()
@@ -16,7 +16,7 @@ namespace RepairTheStarship
 			var rules = RTSRules.Current;
 
             var logicPart = new LogicPart();
-            logicPart.CreateWorld = () => new RTSWorld();
+            logicPart.CreateWorld = () => new RMWorld();
             logicPart.CreateDefaultSettings = () => new Settings { OperationalTimeLimit = 5, TimeLimit = 90 };
             logicPart.CreateWorldState = stateName => new RTSWorldState() { Seed=int.Parse(stateName) };
             logicPart.PredefinedWorldStates.AddRange(Enumerable.Range(0,10).Select(z=>z.ToString()));

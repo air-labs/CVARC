@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RepairTheStarship.Properties {
+namespace RoboMovies.Properties {
     using System;
     
     

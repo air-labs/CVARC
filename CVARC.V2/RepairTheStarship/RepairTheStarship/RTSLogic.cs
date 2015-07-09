@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CVARC.V2;
-using RepairTheStarship.Bots;
+using RoboMovies.Bots;
 
-namespace RepairTheStarship
+namespace RoboMovies
 {
     public class RTSLogicPartHepler<TSensorsData> : LogicPartHelper
 		where TSensorsData : new()

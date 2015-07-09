@@ -1,4 +1,4 @@
-﻿namespace RepairTheStarship.MapBuilder
+﻿namespace RoboMovies.MapBuilder
 {
     public class Point
     {

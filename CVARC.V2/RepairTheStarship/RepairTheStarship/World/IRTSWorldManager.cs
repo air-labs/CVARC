@@ -5,7 +5,7 @@ using System.Text;
 using AIRLab.Mathematics;
 using CVARC.V2;
 
-namespace RepairTheStarship
+namespace RoboMovies
 {
     public interface IRTSWorldManager : IWorldManager
     {

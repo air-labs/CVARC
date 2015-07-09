@@ -5,18 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using CVARC.V2;
 
-namespace RepairTheStarship.KroR
+namespace RoboMovies.KroR
 {
-    public class RTSManagerPart : ManagerPart
+    public class RMManagerPart : ManagerPart
     {
-        public RTSManagerPart() : base(()=>new RTSWorldManager())
+        public RMManagerPart() : base(()=>new RMWorldManager())
         {
 
         }
 
         public override IActorManager CreateActorManagerFor(IActor actor)
         {
-            return new RTSActorManager();
+            return new RMActorManager();
         }
     }
 }

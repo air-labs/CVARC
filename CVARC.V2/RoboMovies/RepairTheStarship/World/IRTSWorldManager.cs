@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 using AIRLab.Mathematics;
 using CVARC.V2;
 
-namespace RepairTheStarship
+namespace RoboMovies
 {
     public interface IRTSWorldManager : IWorldManager
     {
-        void RemoveDetail(string detailId);
-        void ShutTheWall(string wallId);
+        void RemoveObject(string objectId);
         void CreateEmptyTable();
-        void CreateWall(string wallId, Point2D centerLocation, WallData settings);
-        void CreateDetail(string detailId, Point2D detailLocation, DetailColor color);
+        void CloseClapperboard(string clapperboardId);
+        void CreateStartingArea(Point2D centerLocation, SideColor color);
+        void CreateStairs(string stairsId, Point2D centerLocation, SideColor color);
+        void CreateLight(string lightId, Point2D location);
+        void CreateStand(string standId, Point2D location, SideColor color);
+        void CreateClapperboard(string clapperboardId, Point2D location, SideColor color);
     }
 }

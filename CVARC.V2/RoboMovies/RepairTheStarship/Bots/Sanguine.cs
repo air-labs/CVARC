@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using CVARC.V2;
-using RepairTheStarship.MapBuilder;
+using RoboMovies.MapBuilder;
 
-namespace RepairTheStarship.Bots
+namespace RoboMovies.Bots
 {
     public class Sanguine : RepairTheStarshipBot
     {

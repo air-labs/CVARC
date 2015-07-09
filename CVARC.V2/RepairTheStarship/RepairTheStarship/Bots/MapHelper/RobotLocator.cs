@@ -4,10 +4,10 @@ using System.Linq;
 using AIRLab.Mathematics;
 using CVARC.V2;
 using CVARC.V2;
-using RepairTheStarship;
-using RepairTheStarship.Sensors;
+using RoboMovies;
+using RoboMovies.Sensors;
 
-namespace RepairTheStarship.MapBuilder
+namespace RoboMovies.MapBuilder
 {
     public class RobotLocator
     {

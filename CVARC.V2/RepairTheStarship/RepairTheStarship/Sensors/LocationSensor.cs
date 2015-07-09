@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using CVARC.V2;
 
-namespace RepairTheStarship
+namespace RoboMovies
 {
     public class RTSLocationSensor : Sensor<RTSLocatorItem,IActor>
     {

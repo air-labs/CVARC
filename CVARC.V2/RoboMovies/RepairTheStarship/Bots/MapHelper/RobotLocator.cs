@@ -4,10 +4,10 @@ using System.Linq;
 using AIRLab.Mathematics;
 using CVARC.V2;
 using CVARC.V2;
-using RepairTheStarship;
-using RepairTheStarship.Sensors;
+using RoboMovies;
+using RoboMovies.Sensors;
 
-namespace RepairTheStarship.MapBuilder
+namespace RoboMovies.MapBuilder
 {
     public class RobotLocator
     {
@@ -16,9 +16,9 @@ namespace RepairTheStarship.MapBuilder
         private Direction currentDirection;
         private double realRobotAngle;
         private double expectedRobotAngle;
-        private RTSWorld world;
+        private RMWorld world;
 
-        public RobotLocator(InternalMap map, RTSWorld world)
+        public RobotLocator(InternalMap map, RMWorld world)
         {
             this.world = world;
             this.map = map;

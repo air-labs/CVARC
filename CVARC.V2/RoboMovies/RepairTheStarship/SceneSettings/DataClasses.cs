@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 
-namespace RepairTheStarship
+namespace RoboMovies
 {
     public enum WallSettings
     {
@@ -15,11 +15,54 @@ namespace RepairTheStarship
         BlueSocket,
     }
 
+    public enum SideColor
+    {
+        Green,
+        Yellow,
+        Any,
+    }
+
+    public enum ObjectType
+    {
+        Robot,
+        Clapperboard,
+        Stand,
+        Stairs,
+        Light,
+    }
+
+    public struct RMObject
+    {
+        public readonly SideColor Color;
+        public readonly ObjectType Type;
+
+        public RMObject(SideColor color, ObjectType type)
+        {
+            Color = color; 
+            Type = type;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is RMObject)) return false;
+            var rmobj = (RMObject)obj;
+            return rmobj.Color == this.Color && rmobj.Type == this.Type;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (int)Color * 1025 ^ (int)Type;
+            }
+        }
+    }
+
     public enum DetailColor
     {
-        Red,
         Green,
-        Blue,
+        Red,
+        Blue
     }
 
     public struct DetailData
