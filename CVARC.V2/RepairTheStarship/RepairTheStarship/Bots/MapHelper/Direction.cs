@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RoboMovies.MapBuilder
+namespace RepairTheStarship.MapBuilder
 {
     [Flags]
     public enum Direction

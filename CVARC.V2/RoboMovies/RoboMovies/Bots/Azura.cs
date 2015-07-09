@@ -34,7 +34,7 @@ namespace RoboMovies.Bots
                 if (Map.CurrentPosition.Y - nearSocket.AbsoluteCoordinate.Y < -Epsilon)
                     return RobotLocator.GetCommandsByDirection(Direction.Up);
                 hasDetail = false;
-                return new[] {RTSRules.Current.Grip() };
+                return new[] {RMRules.Current.Grip() };
             }
             return RobotLocator.GetCommandsByDirection(path.First());
         }
@@ -47,7 +47,7 @@ namespace RoboMovies.Bots
             color = nearDetail.Type.Split(new[] {"Detail"}, StringSplitOptions.None).First().ToLower();
             var path = PathSearcher.FindPath(Map, OurCoordinates, nearDetail.DiscreteCoordinate);
             hasDetail = path.Length == 0;
-            return hasDetail ? new[] { RTSRules.Current.Grip() } : RobotLocator.GetCommandsByDirection(path.First());
+            return hasDetail ? new[] { RMRules.Current.Grip() } : RobotLocator.GetCommandsByDirection(path.First());
         }
 
         private int GetDistance(StarshipObject starshipObject)

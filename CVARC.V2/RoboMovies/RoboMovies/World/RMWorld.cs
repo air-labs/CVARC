@@ -7,7 +7,7 @@ using CVARC.V2;
 
 namespace RoboMovies
 {
-    public class RMWorld : World<RTSWorldState, IRTSWorldManager>
+    public class RMWorld : World<RTSWorldState, IRMWorldManager>
      {
         Dictionary<DetailColor, int> repairs = new Dictionary<DetailColor, int>();
 

@@ -23,7 +23,7 @@ namespace RoboMovies.KroR
         }
     }
 
-    public class RMWorldManager : KroRWorldManager<RMWorld>, IRTSWorldManager
+    public class RMWorldManager : KroRWorldManager<RMWorld>, IRMWorldManager
     {
         static int length = 300;
         static int width = 200;

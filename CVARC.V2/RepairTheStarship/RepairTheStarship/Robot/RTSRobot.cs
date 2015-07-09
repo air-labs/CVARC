@@ -7,7 +7,7 @@ using CVARC.Basic;
 using CVARC.V2;
 using CVARC.V2;
 
-namespace RoboMovies
+namespace RepairTheStarship
 {
     public class RTSRobot<TSensorsData> : MoveAndGripRobot<IRTSActorManager,RTSWorld,TSensorsData>
         where TSensorsData : new()

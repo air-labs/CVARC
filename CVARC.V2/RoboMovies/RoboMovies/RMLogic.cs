@@ -7,13 +7,13 @@ using RoboMovies.Bots;
 
 namespace RoboMovies
 {
-    public class RTSLogicPartHepler<TSensorsData> : LogicPartHelper
+    public class RMLogicPartHepler<TSensorsData> : LogicPartHelper
 		where TSensorsData : new()
     {
 		       
 		public override LogicPart Create()
 		{
-			var rules = RTSRules.Current;
+			var rules = RMRules.Current;
 
             var logicPart = new LogicPart();
             logicPart.CreateWorld = () => new RMWorld();

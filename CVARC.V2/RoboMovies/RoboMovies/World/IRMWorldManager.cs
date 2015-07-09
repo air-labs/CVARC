@@ -8,7 +8,7 @@ using CVARC.V2;
 
 namespace RoboMovies
 {
-    public interface IRTSWorldManager : IWorldManager
+    public interface IRMWorldManager : IWorldManager
     {
         void RemoveObject(string objectId);
         void CreateEmptyTable();

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace RoboMovies.Sensors
+namespace RepairTheStarship.Sensors
 {
     public class SettingsMap
     {

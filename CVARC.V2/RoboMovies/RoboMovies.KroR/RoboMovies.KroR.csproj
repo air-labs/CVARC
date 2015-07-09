@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F1B482FD-E651-4BB9-9E40-2EEF0D756266}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{38C5F68E-4B42-4457-AC17-001FC1DBBF4F}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Level2Client</RootNamespace>
-    <AssemblyName>RTSSampleClient</AssemblyName>
+    <RootNamespace>RepairTheStarship.KroR</RootNamespace>
+    <AssemblyName>RepairTheStarship</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,8 +20,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,70 +28,50 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BEPUphysics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31f6a8732a21de19, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\BEPUphysics.dll</HintPath>
-    </Reference>
-    <Reference Include="FarseerPhysics, Version=3.3.4463.28301, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\FarseerPhysics.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.6.1.12217, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\SlimDX.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client.cs" />
-    <Compile Include="ClientForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Clapperboard.cs" />
+    <Compile Include="Levels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RMActorManager.cs" />
+    <Compile Include="RMManager.cs" />
+    <Compile Include="RMWorldManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\CVARC.Core\CVARC.Core.csproj">
       <Project>{f7b5021f-09e8-4388-97a2-4b44b9770d03}</Project>
       <Name>CVARC.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Framework\CVARC\CVARC.csproj">
-      <Project>{570f2ccc-cb76-4a27-b1ca-d38888d34a5e}</Project>
-      <Name>CVARC</Name>
+    <ProjectReference Include="..\..\Framework\CVARC.Engine.KR\CVARC.KroR.csproj">
+      <Project>{1c435b15-949f-420b-b5d5-f433439fb69c}</Project>
+      <Name>CVARC.KroR</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RepairTheStarship\RoboMovies.General.csproj">
+    <ProjectReference Include="..\RoboMovies\RoboMovies.General.csproj">
       <Project>{4c00a5ba-5f04-4173-910d-e7813b313001}</Project>
       <Name>RoboMovies.General</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="run.bat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <EmbeddedResource Include="Resources\blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\field.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>del ..\..\..\..\Binaries\Solutions\A\*.* /Q
-copy *.* ..\..\..\..\Binaries\Solutions\A\
-del ..\..\..\..\Binaries\Solutions\B\*.* /Q
-copy *.* ..\..\..\..\Binaries\Solutions\B\</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

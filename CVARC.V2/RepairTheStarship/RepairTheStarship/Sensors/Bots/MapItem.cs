@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using AIRLab.Mathematics;
 
-namespace RoboMovies
+namespace RepairTheStarship
 {
     [DataContract]
     public class MapItem

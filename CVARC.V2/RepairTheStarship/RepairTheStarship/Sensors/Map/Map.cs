@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace RoboMovies
+namespace RepairTheStarship
 {
     [DataContract]
     public class Map

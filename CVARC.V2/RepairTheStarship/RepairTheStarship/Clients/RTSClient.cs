@@ -6,7 +6,7 @@ using AIRLab.Mathematics;
 using CVARC.V2;
 using CVARC.V2;
 
-namespace RoboMovies
+namespace RepairTheStarship
 {
 
     public abstract class RTSClient<TSensorData> : CvarcClient<TSensorData, MoveAndGripCommand>

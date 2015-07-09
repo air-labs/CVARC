@@ -7,10 +7,10 @@ using System.Text;
 
 namespace RoboMovies
 {
-	public class RTSRules
+	public class RMRules
 	{
 		public static readonly MoveAndGripRules Current;
-		static RTSRules()
+		static RMRules()
 		{
 			Current = new MoveAndGripRules(90, Angle.FromGrad(90), 1, 1);
 		}

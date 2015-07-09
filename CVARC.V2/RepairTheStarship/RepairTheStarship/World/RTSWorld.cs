@@ -6,7 +6,7 @@ using AIRLab.Mathematics;
 using CVARC.V2;
 using CVARC.V2;
 
-namespace RoboMovies
+namespace RepairTheStarship
 {
     public class RTSWorld : World<RTSWorldState, IRTSWorldManager>
      {
@@ -70,7 +70,7 @@ namespace RoboMovies
         override public void CreateWorld()
         {
 
-            var SceneSettings = RoboMovies.SceneSettings.GetRandomMap(WorldState.Seed);
+            var SceneSettings = RepairTheStarship.SceneSettings.GetRandomMap(WorldState.Seed);
             Manager.CreateEmptyTable();
             foreach (var e in SceneSettings.Details)
                 Manager.CreateDetail(

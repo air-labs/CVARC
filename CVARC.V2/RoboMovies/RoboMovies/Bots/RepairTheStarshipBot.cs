@@ -24,7 +24,7 @@ namespace RoboMovies.Bots
                 return enumerator.Current;
             currentCommands = FindNextCommands();
             enumerator = currentCommands.GetEnumerator();
-            return enumerator.MoveNext() ? enumerator.Current : RTSRules.Current.Stand(1);
+            return enumerator.MoveNext() ? enumerator.Current : RMRules.Current.Stand(1);
         }
 
         override public void Initialize(IActor controllableActor)

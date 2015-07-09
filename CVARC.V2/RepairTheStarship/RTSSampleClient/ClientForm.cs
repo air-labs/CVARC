@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using RoboMovies;
+using RepairTheStarship;
 
 namespace ClientExample
 {
@@ -24,9 +24,9 @@ namespace ClientExample
         {
             switch (color)
             {
-                case RoboMovies.DetailColor.Blue: return Color.Blue;
-                case RoboMovies.DetailColor.Green: return Color.Green;
-                case RoboMovies.DetailColor.Red: return Color.Red;
+                case RepairTheStarship.DetailColor.Blue: return Color.Blue;
+                case RepairTheStarship.DetailColor.Green: return Color.Green;
+                case RepairTheStarship.DetailColor.Red: return Color.Red;
             }
             throw new ArgumentException();
         }

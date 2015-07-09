@@ -39,27 +39,27 @@ namespace RoboMovies
 
         public TSensorData Move(double distance)
         {
-            return Act(RTSRules.Current.Move(distance));
+            return Act(RMRules.Current.Move(distance));
         }
 
         public TSensorData Rotate(double angleInGrad)
         {
-            return Act(RTSRules.Current.Rotate(Angle.FromGrad(angleInGrad)));
+            return Act(RMRules.Current.Rotate(Angle.FromGrad(angleInGrad)));
         }
 
         public TSensorData Grip()
         {
-            return Act(RTSRules.Current.Grip());
+            return Act(RMRules.Current.Grip());
         }
 
 		public TSensorData Release()
 		{
-			return Act(RTSRules.Current.Release());
+			return Act(RMRules.Current.Release());
 		}
 
         public void Stand(double time)
         {
-            Act(RTSRules.Current.Stand(time));
+            Act(RMRules.Current.Stand(time));
         }
 
     }

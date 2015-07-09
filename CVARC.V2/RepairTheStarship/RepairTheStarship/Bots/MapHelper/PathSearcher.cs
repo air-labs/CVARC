@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using CVARC.V2;
 
-namespace RoboMovies.MapBuilder
+namespace RepairTheStarship.MapBuilder
 {
     public class PathSearcher
     {

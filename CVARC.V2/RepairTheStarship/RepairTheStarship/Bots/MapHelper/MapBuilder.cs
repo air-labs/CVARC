@@ -1,6 +1,6 @@
-﻿using RoboMovies;
+﻿using RepairTheStarship;
 
-namespace RoboMovies.MapBuilder
+namespace RepairTheStarship.MapBuilder
 {
     public static class MapBuilder
     {

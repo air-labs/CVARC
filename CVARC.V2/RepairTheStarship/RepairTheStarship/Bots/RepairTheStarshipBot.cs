@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using CVARC.V2;
 using CVARC.V2;
-using RoboMovies.MapBuilder;
-using Map = RoboMovies.MapBuilder.InternalMap;
+using RepairTheStarship.MapBuilder;
+using Map = RepairTheStarship.MapBuilder.InternalMap;
 
-namespace RoboMovies.Bots
+namespace RepairTheStarship.Bots
 {
     public abstract class RepairTheStarshipBot : Controller<MoveAndGripCommand>
     {

@@ -38,10 +38,10 @@ namespace RoboMovies.MapBuilder
             currentDirection = direction;
             yield return CorrectRobotPosition();
             var directionAngle = direction.ToAngle();
-            yield return RTSRules.Current.Rotate(Normilize(Angle.FromGrad(directionAngle - expectedRobotAngle)));
+            yield return RMRules.Current.Rotate(Normilize(Angle.FromGrad(directionAngle - expectedRobotAngle)));
             expectedRobotAngle = currentDirection.ToAngle();
             yield return CorrectRobotPosition();
-            yield return RTSRules.Current.Move(50);
+            yield return RMRules.Current.Move(50);
         }
 
         public IEnumerable<MoveAndGripCommand> GetCommandsByDirection(Direction direction)
@@ -52,7 +52,7 @@ namespace RoboMovies.MapBuilder
         private MoveAndGripCommand CorrectRobotPosition()
         {
             var angleError = expectedRobotAngle - realRobotAngle;
-            return RTSRules.Current.Rotate(Normilize(Angle.FromGrad(angleError)));
+            return RMRules.Current.Rotate(Normilize(Angle.FromGrad(angleError)));
         }
 
         public Angle Normilize(Angle angle)

@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using CVARC.V2;
 
-namespace RoboMovies
+namespace RepairTheStarship
 {
     public class BotsSensorsData
     {

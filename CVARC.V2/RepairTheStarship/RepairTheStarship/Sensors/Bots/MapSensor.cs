@@ -7,7 +7,7 @@ using AIRLab.Mathematics;
 using CVARC.Basic.Sensors;
 using CVARC.V2;
 
-namespace RoboMovies
+namespace RepairTheStarship
 {
     public class InternalMapSensor : Sensor<MapItem[],IActor>
     {

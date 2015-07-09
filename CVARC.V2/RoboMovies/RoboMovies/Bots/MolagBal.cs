@@ -19,7 +19,7 @@ namespace RoboMovies.Bots
 
         private IEnumerable<MoveAndGripCommand> GoBack()
         {
-            return RobotLocator.GetCommandsByDirection(lastCommand.Invert()).Concat(new[] { RTSRules.Current.Stand(3) });
+            return RobotLocator.GetCommandsByDirection(lastCommand.Invert()).Concat(new[] { RMRules.Current.Stand(3) });
         }
     }
 }

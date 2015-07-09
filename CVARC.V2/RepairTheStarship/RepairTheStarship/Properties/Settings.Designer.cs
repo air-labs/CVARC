@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RoboMovies.Properties {
+namespace RepairTheStarship.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
