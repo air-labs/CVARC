@@ -20,14 +20,18 @@ namespace CVARC.V2
             collectedIds = new Queue<string>();
         }
 
+        public int Capacity { get { return rules.BuilderCapacity; } }
+        
         public IEnumerable<string> CollectedIds { get { return collectedIds; } }
         public string LastCollectedId { get { return collectedIds.Peek(); } }
         public int CollectedCount { get { return collectedIds.Count; } }
-        public int Capacity { get { return rules.BuilderCapacity; } }
+        
         public Frame3D GrippingPoint { get; set; }
+        public Frame3D RobotLocation { get { return actor.World.Engine.GetAbsoluteLocation(actor.ObjectId); } }
+
         public Func<IEnumerable<string>> FindCollectable { get; set; }
         public Action<IEnumerable<string>, Frame3D> OnTowerBuild { get; set; }
-        public Frame3D RobotLocation { get { return actor.World.Engine.GetAbsoluteLocation(actor.ObjectId); } }
+        public Action<string, Frame3D> OnCollecting { get; set; }
 
         public GrippingAvailability GetAvailability(string objectId)
         {
@@ -47,16 +51,18 @@ namespace CVARC.V2
 
         void Collect()
         {
-            foreach(var itemId in FindCollectable())
+            foreach (var itemId in FindCollectable())
             {
+                var location = actor.World.Engine.GetAbsoluteLocation(itemId).NewZ(RobotLocation.Z);
+                
                 if (actor.World.Engine.IsAttached(itemId))
-                {
-                    var dropLocation = actor.World.Engine.GetAbsoluteLocation(itemId).NewZ(RobotLocation.Z);
-                    actor.World.Engine.Detach(itemId, dropLocation);
-                }
+                    actor.World.Engine.Detach(itemId, location);
 
-                if (CollectedCount < Capacity) 
+                if (CollectedCount < Capacity)
+                {
                     GrabObject(itemId);
+                    if (OnCollecting != null) OnCollecting(itemId, location);
+                }
             }
         }
 
