@@ -12,16 +12,16 @@ namespace RoboMovies.Bots
         private bool hasDetail;
         private const int Epsilon = 30;
 
-        protected override IEnumerable<MoveAndGripCommand> FindNextCommands()
+        protected override IEnumerable<MoveAndBuildCommand> FindNextCommands()
         {
             return hasDetail ? RepairStarship() : GripDetail(); 
         }
 
-        private IEnumerable<MoveAndGripCommand> RepairStarship()
+        private IEnumerable<MoveAndBuildCommand> RepairStarship()
         {
             var nearSocket = Map.Walls.Where(x => x.Type.ToLower().Contains(color)).OrderBy(GetDistance).FirstOrDefault();
             if (nearSocket == null)
-                return new MoveAndGripCommand[0];
+                return new MoveAndBuildCommand[0];
             var path = PathSearcher.FindPath(Map, OurCoordinates, nearSocket.DiscreteCoordinate);
             if (path.Length == 0)
             {
@@ -39,11 +39,11 @@ namespace RoboMovies.Bots
             return RobotLocator.GetCommandsByDirection(path.First());
         }
 
-        private IEnumerable<MoveAndGripCommand> GripDetail()
+        private IEnumerable<MoveAndBuildCommand> GripDetail()
         {
             var nearDetail = Map.Details.OrderBy(GetDistance).FirstOrDefault();
             if (nearDetail == null)
-                return new MoveAndGripCommand[0];
+                return new MoveAndBuildCommand[0];
             color = nearDetail.Type.Split(new[] {"Detail"}, StringSplitOptions.None).First().ToLower();
             var path = PathSearcher.FindPath(Map, OurCoordinates, nearDetail.DiscreteCoordinate);
             hasDetail = path.Length == 0;

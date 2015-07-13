@@ -22,16 +22,16 @@ namespace RoboMovies
             logicPart.PredefinedWorldStates.AddRange(Enumerable.Range(0,10).Select(z=>z.ToString()));
             logicPart.WorldStateType = typeof(RTSWorldState);
 
-			var actorFactory = ActorFactory.FromRobot(new RTSRobot<TSensorsData>(), rules);
+			var actorFactory = ActorFactory.FromRobot(new RMRobot<TSensorsData>(), rules);
             logicPart.Actors[TwoPlayersId.Left]=actorFactory;
 			logicPart.Actors[TwoPlayersId.Right]=actorFactory;
 
  	
-            logicPart.Bots[RepairTheStarshipBots.Azura.ToString()] = () => new Azura();
-			logicPart.Bots[RepairTheStarshipBots.Vaermina.ToString()] = () => new Vaermina();
-			logicPart.Bots[RepairTheStarshipBots.MolagBal.ToString()] = () => new MolagBal();
-			logicPart.Bots[RepairTheStarshipBots.Sanguine.ToString()] = () => new Sanguine();
-			logicPart.Bots[RepairTheStarshipBots.None.ToString()] = () => rules.CreateStandingBot();
+            //logicPart.Bots[RoboMoviesBots.Azura.ToString()] = () => new Azura();
+			//logicPart.Bots[RoboMoviesBots.Vaermina.ToString()] = () => new Vaermina();
+			//logicPart.Bots[RoboMoviesBots.MolagBal.ToString()] = () => new MolagBal();
+			//logicPart.Bots[RoboMoviesBots.Sanguine.ToString()] = () => new Sanguine();
+			//logicPart.Bots[RoboMoviesBots.None.ToString()] = () => rules.CreateStandingBot();
 
 			return logicPart;
 		}

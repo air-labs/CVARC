@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CVARC.V2;
 
-namespace RoboMovies
+namespace CVARC.V2
 {
-    public interface IRTSActorManager : IActorManager
+    public enum TowerBuilderAction
     {
-       
-
+        No,
+        Collect,
+        BuildTower,
     }
 }

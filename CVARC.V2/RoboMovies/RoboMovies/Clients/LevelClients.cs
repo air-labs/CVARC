@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RoboMovies
 {
-    public class Level1Client : RTSClient<FullMapSensorData>
+    public class Level1Client : RMClient<FullMapSensorData>
     {
         public override string LevelName
         {
@@ -13,7 +13,7 @@ namespace RoboMovies
         }
     }
 
-	public class Level2Client : RTSClient<FullMapSensorData>
+	public class Level2Client : RMClient<FullMapSensorData>
     {
         public override string LevelName
         {
@@ -21,7 +21,7 @@ namespace RoboMovies
         }
     }
 
-    public class Level3Client : RTSClient<LimitedMapSensorData>
+    public class Level3Client : RMClient<LimitedMapSensorData>
     {
         public override string LevelName
         {

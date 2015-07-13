@@ -7,10 +7,10 @@ namespace RoboMovies.Bots
 {
     public class Vaermina : RepairTheStarshipBot
     {
-        protected override IEnumerable<MoveAndGripCommand> FindNextCommands()
+        protected override IEnumerable<MoveAndBuildCommand> FindNextCommands()
         {
             var path = PathSearcher.FindPath(Map, OurCoordinates, OpponentCoordinates);
-            return path.Length == 0 || path.Length == 1 ? new MoveAndGripCommand[0] : RobotLocator.GetCommandsByDirection(path.First());
+            return path.Length == 0 || path.Length == 1 ? new MoveAndBuildCommand[0] : RobotLocator.GetCommandsByDirection(path.First());
         }
     }
 }

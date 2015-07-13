@@ -6,18 +6,18 @@ using Map = RoboMovies.MapBuilder.InternalMap;
 
 namespace RoboMovies.Bots
 {
-    public abstract class RepairTheStarshipBot : Controller<MoveAndGripCommand>
+    public abstract class RepairTheStarshipBot : Controller<MoveAndBuildCommand>
     {
         SensorPack<BotsSensorsData> sensors;
         protected InternalMap Map;
         protected RobotLocator RobotLocator;
         protected Point OpponentCoordinates;
         protected Point OurCoordinates;
-        private IEnumerable<MoveAndGripCommand> currentCommands = new List<MoveAndGripCommand>();
-        private IEnumerator<MoveAndGripCommand> enumerator;
+        private IEnumerable<MoveAndBuildCommand> currentCommands = new List<MoveAndBuildCommand>();
+        private IEnumerator<MoveAndBuildCommand> enumerator;
         protected RMWorld world;
 
-        override public MoveAndGripCommand GetCommand()
+        override public MoveAndBuildCommand GetCommand()
         {
             Update();
             if (enumerator.MoveNext())
@@ -44,7 +44,7 @@ namespace RoboMovies.Bots
             OurCoordinates = Map.GetDiscretePosition(Map.CurrentPosition);
         }
 
-        protected abstract IEnumerable<MoveAndGripCommand> FindNextCommands();
+        protected abstract IEnumerable<MoveAndBuildCommand> FindNextCommands();
 
 
     }

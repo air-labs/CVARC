@@ -9,7 +9,7 @@ namespace RoboMovies.Bots
     {
         private Direction lastCommand;
 
-        protected override IEnumerable<MoveAndGripCommand> FindNextCommands()
+        protected override IEnumerable<MoveAndBuildCommand> FindNextCommands()
         {
             var path = PathSearcher.FindPath(Map, OurCoordinates, OpponentCoordinates);
             var commands = path.Length == 0 ? GoBack() : RobotLocator.GetCommandsByDirection(path.First());
@@ -17,7 +17,7 @@ namespace RoboMovies.Bots
             return commands;
         }
 
-        private IEnumerable<MoveAndGripCommand> GoBack()
+        private IEnumerable<MoveAndBuildCommand> GoBack()
         {
             return RobotLocator.GetCommandsByDirection(lastCommand.Invert()).Concat(new[] { RMRules.Current.Stand(3) });
         }

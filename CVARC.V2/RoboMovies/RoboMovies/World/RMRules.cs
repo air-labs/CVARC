@@ -9,10 +9,6 @@ namespace RoboMovies
 {
 	public class RMRules
 	{
-		public static readonly MoveAndGripRules Current;
-		static RMRules()
-		{
-			Current = new MoveAndGripRules(90, Angle.FromGrad(90), 1, 1);
-		}
+        public static readonly MoveAndBuildRules Current = new MoveAndBuildRules(90, Angle.FromGrad(90), 6, 1, 1);
 	}
 }

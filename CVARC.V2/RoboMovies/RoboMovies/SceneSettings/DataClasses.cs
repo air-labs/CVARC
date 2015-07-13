@@ -29,6 +29,7 @@ namespace RoboMovies
         Stand,
         Stairs,
         Light,
+        PopCorn,
     }
 
     public struct RMObject

@@ -24,7 +24,7 @@ namespace RoboMovies
 
 
         [DataMember]
-        [FromSensor(typeof(GripSensor))]
-        public bool HasGrippedDetail { get; set; }
+        [FromSensor(typeof(TowerBuilderSensor))]
+        public int CollectedDetailsCount { get; set; }
     }
 }

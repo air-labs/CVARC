@@ -12,7 +12,7 @@ using CVARC.V2;
 
 namespace RoboMovies.KroR
 {
-    public class RMActorManager : ActorManager<IActor>, IRTSActorManager
+    public class RMActorManager : ActorManager<IActor>, IRMActorManager
     {
 
         public void EffectOnCapture(string detailId)
@@ -45,12 +45,12 @@ namespace RoboMovies.KroR
             root.Add(new Cylinder
             {
                 Height = 20,
-                RTop = 10,
-                RBottom = 10,
+                RTop = 12,
+                RBottom = 12,
                 Location = location,
                 DefaultColor = Color.DarkViolet,
                 IsMaterial = true,
-                Density = Density.Iron,
+                Density = Density.Aluminum,
                 FrictionCoefficient = 0,
                 Top = new PlaneImageBrush { Image = topTexture }, 
                 NewId = Actor.ObjectId

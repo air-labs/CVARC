@@ -4,20 +4,19 @@ using System.Linq;
 using System.Text;
 using AIRLab.Mathematics;
 using CVARC.V2;
-using CVARC.V2;
 
 namespace RoboMovies
 {
-
-    public abstract class RTSClient<TSensorData> : CvarcClient<TSensorData, MoveAndGripCommand>
+    public abstract class RMClient<TSensorData> : CvarcClient<TSensorData, MoveAndBuildCommand>
         where TSensorData : class
     {
         public abstract string LevelName { get; }
 
-        public TSensorData Configurate(int port, bool isOnLeftSide, RepairTheStarshipBots bot = RepairTheStarshipBots.None, int seed = 0)
+        public TSensorData Configurate(int port, bool isOnLeftSide, 
+            RoboMoviesBots bot = RoboMoviesBots.None, int seed = 0)
         {
             var configuration = new ConfigurationProposal();
-            configuration.LoadingData.AssemblyName = "RepairTheStarship";
+            configuration.LoadingData.AssemblyName = "RoboMovies";
             configuration.LoadingData.Level = LevelName;
             configuration.SettingsProposal.Controllers = new List<ControllerSettings>();
             configuration.SettingsProposal.Controllers.Add(new ControllerSettings
@@ -47,14 +46,14 @@ namespace RoboMovies
             return Act(RMRules.Current.Rotate(Angle.FromGrad(angleInGrad)));
         }
 
-        public TSensorData Grip()
+        public TSensorData Collect()
         {
-            return Act(RMRules.Current.Grip());
+            return Act(RMRules.Current.Collect());
         }
 
-		public TSensorData Release()
+		public TSensorData BuildTower()
 		{
-			return Act(RMRules.Current.Release());
+			return Act(RMRules.Current.BuildTower());
 		}
 
         public void Stand(double time)

@@ -18,5 +18,6 @@ namespace RoboMovies
         void CreateLight(string lightId, Point2D location);
         void CreateStand(string standId, Point2D location, SideColor color);
         void CreateClapperboard(string clapperboardId, Point2D location, SideColor color);
+        void CreatePopCorn(string popcornId, Point2D location);
     }
 }

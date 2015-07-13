@@ -11,7 +11,7 @@ namespace RoboMovies.Bots
         private Direction[] currentPath = new Direction[0];
         private int currentCommand;
 
-        protected override IEnumerable<MoveAndGripCommand> FindNextCommands()
+        protected override IEnumerable<MoveAndBuildCommand> FindNextCommands()
         {
             while (currentCommand >= currentPath.Length)
             {

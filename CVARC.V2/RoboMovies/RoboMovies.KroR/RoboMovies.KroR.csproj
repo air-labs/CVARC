@@ -7,8 +7,8 @@
     <ProjectGuid>{38C5F68E-4B42-4457-AC17-001FC1DBBF4F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RepairTheStarship.KroR</RootNamespace>
-    <AssemblyName>RepairTheStarship</AssemblyName>
+    <RootNamespace>RoboMovies.KroR</RootNamespace>
+    <AssemblyName>RoboMovies</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

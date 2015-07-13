@@ -19,7 +19,7 @@ namespace RoboMovies.KroR
         {
             var assembly = typeof(WorldInitializerHelper).Assembly;
             var names = assembly.GetManifestResourceNames();
-            return assembly.GetManifestResourceStream("RepairTheStarship.KroR.Resources." + resourceName);
+            return assembly.GetManifestResourceStream("RoboMovies.KroR.Resources." + resourceName);
         }
     }
 
@@ -54,6 +54,7 @@ namespace RoboMovies.KroR
                 YSize = width,
                 ZSize = floorLevel,
                 DefaultColor = Color.White,
+                Density = Density.Wood,
                 Top = new PlaneImageBrush { Image = floorImage },
                 IsStatic = true,
                 NewId = "floor",
@@ -62,11 +63,12 @@ namespace RoboMovies.KroR
             Root.Add(new Box
             {
                 XSize = 60,
-                YSize = 16,
-                ZSize = floorLevel,
+                YSize = 10,
+                ZSize = 2.2,
                 IsStatic = true,
                 IsMaterial = true,
-                Location = new Frame3D(0, -100 + 8, floorLevel),
+                Density = Density.Wood,
+                Location = new Frame3D(0, -100 + 5, floorLevel),
                 DefaultColor = Color.Red,
             });
 
@@ -78,10 +80,10 @@ namespace RoboMovies.KroR
             Color wallsColor = Color.DarkRed;
             for (int i = 0; i < 4; ++i)
             {
-                var sizeX = i / 2 == 0 ? length + 3 : 3;
-                var sizeY = i / 2 == 1 ? width + 3 : 3;
-                var lX = i / 2 == 0 ? width + 3 : 3;
-                var lY = i / 2 == 1 ? length + 3 : 3;
+                var sizeX = i / 2 == 0 ? length + 2.2 : 2.2;
+                var sizeY = i / 2 == 1 ? width + 2.2 : 2.2;
+                var lX = i / 2 == 0 ? width + 2.2 : 2.2;
+                var lY = i / 2 == 1 ? length + 2.2 : 2.2;
                 var pos = i % 2 == 0 ? 1 : -1;
                 Root.Add(new Box
                 {
@@ -119,33 +121,33 @@ namespace RoboMovies.KroR
             entities.Add(new Box
             {
                 XSize = XSize,
-                YSize = 3,
-                ZSize = 3,
+                YSize = 2.2,
+                ZSize = 2.2,
                 Location = new Frame3D(0, YSize / 2, 0),
             });
             
             entities.Add(new Box
             {
                 XSize = XSize,
-                YSize = 3,
-                ZSize = 3,
+                YSize = 2.2,
+                ZSize = 2.2,
                 Location = new Frame3D(0, -YSize / 2, 0),
             });
 
             entities.Add(new Box
             {
-                XSize = 3,
+                XSize = 2.2,
                 YSize = YSize,
-                ZSize = 3,
-                Location = new Frame3D((XSize / 2 - 10) * sideCorrection, 0, 0),
+                ZSize = 2.2,
+                Location = new Frame3D((XSize / 2 - 7) * sideCorrection, 0, 0),
             });
 
             entities.Add(new Box
             {
-                XSize = 10,
-                YSize = 10,
-                ZSize = 3,
-                Location = new Frame3D((XSize / 2 - 5) * sideCorrection, 0, 0),
+                XSize = 7,
+                YSize = 7,
+                ZSize = 2.2,
+                Location = new Frame3D((XSize / 2 - 3.5) * sideCorrection, 0, 0),
             });
 
             foreach (var wall in entities)
@@ -164,32 +166,33 @@ namespace RoboMovies.KroR
             var drawingColor = GetDrawingColor(color);
             var offset = new Frame3D(centerLocation.X, centerLocation.Y, floorLevel);
         
-            Func<double, double> getZSize = l => (70 - l) / 5.0;
+            double ZSize = 7;
+            Func<double, double> getZSize = y => -ZSize / (7 * 4) * (y - 39) + ZSize;
 
-            var XSize = 42;
-         	var YTop = 40;
-         	var YBottom = 64;
-         	var LengthStep = 8;
-            var ZSize = getZSize(YTop);
+            double width = 50;
+         	double bottomLength = 60;
+         	double topLength = bottomLength - 21;
+         	int stairsCount = 3;
+            var stairStep = (bottomLength - topLength) / stairsCount;
             
-            for (var ySize = YTop; ySize <= YBottom; ySize += LengthStep)
+            for (var ySize = topLength; ySize <= bottomLength; ySize += stairStep)
                 Root.Add(new Box
                 {
-                    XSize = XSize,
+                    XSize = width,
                     YSize = ySize,
                     ZSize = getZSize(ySize),
-                    Location = new Frame3D(0, (YBottom - ySize) / 2, 0) + offset,
+                    Location = new Frame3D(0, (bottomLength - ySize) / 2, 0) + offset,
                     DefaultColor = drawingColor,
                     IsStatic = true,
-                    IsMaterial = false,
+                    IsMaterial = true,
                     NewId = "wall",
                 });
 
             Func<double, Box> getBorder = x => new Box
             {
                 XSize = 3,
-                YSize = YBottom,
-                ZSize = ZSize + 3,
+                YSize = bottomLength,
+                ZSize = ZSize + 2.2,
                 Location = new Frame3D(x, 0, 0) + offset,
                 IsMaterial = true,
                 IsStatic = true,
@@ -197,20 +200,20 @@ namespace RoboMovies.KroR
                 NewId = "wall",
             };
 
-            Root.Add(getBorder(XSize / 2));
-            Root.Add(getBorder(-XSize / 2));
+            Root.Add(getBorder(width / 2));
+            Root.Add(getBorder(-width / 2));
         }
 
         public void CreateLight(string lightId, Point2D location)
         {
             Root.Add(new Ball
             {
-                Radius = 5,
+                Radius = 3.2,
                 Location = new Frame3D(location.X, location.Y, floorLevel * 2),
                 DefaultColor = Color.GreenYellow,
                 NewId = lightId,
                 IsMaterial = true,
-                Density = Density.Wood,
+                Density = Density.PlasticPvc,
                 FrictionCoefficient = 10,
             });
         }
@@ -219,16 +222,33 @@ namespace RoboMovies.KroR
         {
             Root.Add(new Cylinder
             {
-                RTop = 5,
-                RBottom = 5,
-                Height = 10,
+                RTop = 3,
+                RBottom = 3,
+                Height = 7,
                 IsStatic = false,
                 IsMaterial = true,
-                Density = Density.Iron,
+                Density = Density.Wood,
                 Location = new Frame3D(location.X, location.Y, floorLevel),
                 DefaultColor = GetDrawingColor(color),
                 FrictionCoefficient = 10,
                 NewId = standId,
+            });
+        }
+        
+        public void CreatePopCorn(string popcornId, Point2D location)
+        {
+            Root.Add(new Cylinder
+            {
+                RTop = 9.5 / 2,
+                RBottom = 5.4 / 2,
+                Height = 14,
+                IsStatic = false,
+                IsMaterial = true,
+                Density = Density.PlasticPvc,
+                Location = new Frame3D(location.X, location.Y, floorLevel),
+                DefaultColor = Color.White,
+                FrictionCoefficient = 10,
+                NewId = popcornId,
             });
         }
 
@@ -241,9 +261,9 @@ namespace RoboMovies.KroR
 
             var clapperBoard = new Box
             {
-                XSize = 18,
+                XSize = 16,
                 YSize = 5,
-                ZSize = 18,
+                ZSize = 10,
                 DefaultColor = Color.Black,
                 Location = mainBodyLocation,
                 IsStatic = true,
@@ -252,9 +272,9 @@ namespace RoboMovies.KroR
 
             var cap = new Box
                 {
-                    XSize = 4,
-                    YSize = 4,
-                    ZSize = 18,
+                    XSize = 3,
+                    YSize = 5,
+                    ZSize = 16,
                     DefaultColor = drawingColor,
                     Location = new Frame3D(8, 0, 16, Angle.Pi / 6, Angle.Zero, Angle.Zero) + mainBodyLocation,
                     IsStatic = true,
@@ -275,9 +295,9 @@ namespace RoboMovies.KroR
                 clapperboard.Remove(cap);
                 clapperboard.Add(new Box
                 {
-                    XSize = 18,
-                    YSize = 4,
-                    ZSize = 4,
+                    XSize = 16,
+                    YSize = 5,
+                    ZSize = 3,
                     DefaultColor = cap.DefaultColor,
                     Location = new Frame3D(0, clapperboard.YSize, 0) + clapperboard.Location,
                     IsStatic = true,

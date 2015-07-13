@@ -7,8 +7,8 @@
     <ProjectGuid>{4C00A5BA-5F04-4173-910D-E7813B313001}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RepairTheStarship</RootNamespace>
-    <AssemblyName>RepairTheStarship.General</AssemblyName>
+    <RootNamespace>RoboMovies</RootNamespace>
+    <AssemblyName>RoboMovies.General</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bots\Azura.cs" />
     <Compile Include="Bots\MapHelper\Direction.cs" />
     <Compile Include="Bots\MapHelper\Map.cs" />
     <Compile Include="Bots\MapHelper\MapBuilder.cs" />
@@ -56,17 +55,13 @@
     <Compile Include="Bots\MapHelper\Point.cs" />
     <Compile Include="Bots\MapHelper\RobotLocator.cs" />
     <Compile Include="Bots\MapHelper\StarshipObject.cs" />
-    <Compile Include="Bots\MolagBal.cs" />
-    <Compile Include="Bots\RepairTheStarshipBot.cs" />
-    <Compile Include="Bots\RepairTheStarshipBots.cs" />
-    <Compile Include="Bots\Sanguine.cs" />
-    <Compile Include="Bots\Vaermina.cs" />
+    <Compile Include="Bots\RoboMoviesBot.cs" />
+    <Compile Include="Bots\RoboMoviesBots.cs" />
     <Compile Include="Clients\LevelClients.cs" />
-    <Compile Include="Clients\RTSAction.cs" />
-    <Compile Include="Clients\RTSClient.cs" />
+    <Compile Include="Clients\RMClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Robot\IRTSActorManager.cs" />
-    <Compile Include="Robot\RTSRobot.cs" />
+    <Compile Include="Robot\IRMActorManager.cs" />
+    <Compile Include="Robot\RMRobot.cs" />
     <Compile Include="RMLogic.cs" />
     <Compile Include="SceneSettings\DataClasses.cs" />
     <Compile Include="SceneSettings\RTSWorldState.cs" />
@@ -83,6 +78,16 @@
     <Compile Include="Sensors\CommonSensorData.cs" />
     <Compile Include="Sensors\Map\WallMapData.cs" />
     <Compile Include="Sensors\LocationSensor.cs" />
+    <Compile Include="Units\MoveAndBuild\MoveAndBuildCommand.cs" />
+    <Compile Include="Units\MoveAndBuild\MoveAndBuildRobot.cs" />
+    <Compile Include="Units\MoveAndBuild\MoveAndBuildRules.cs" />
+    <Compile Include="Units\TowerBuilderUnit\ITowerBuilderCommand.cs" />
+    <Compile Include="Units\TowerBuilderUnit\ITowerBuilderRules.cs" />
+    <Compile Include="Units\TowerBuilderUnit\ITowerRobot.cs" />
+    <Compile Include="Units\TowerBuilderUnit\RulesExtensions.cs" />
+    <Compile Include="Units\TowerBuilderUnit\TowerBuilderAction.cs" />
+    <Compile Include="Units\TowerBuilderUnit\TowerBuilderSensor.cs" />
+    <Compile Include="Units\TowerBuilderUnit\TowerBuilderUnit.cs" />
     <Compile Include="World\RMRules.cs" />
     <Compile Include="World\RMWorld.cs" />
     <Compile Include="World\IRMWorldManager.cs" />
@@ -118,6 +123,7 @@
       <Name>CVARC.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
