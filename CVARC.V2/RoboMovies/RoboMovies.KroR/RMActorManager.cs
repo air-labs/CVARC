@@ -31,12 +31,12 @@ namespace RoboMovies.KroR
 
             if (Actor.ControllerId == TwoPlayersId.Left)
             {
-                location = new Frame3D(-150 + 25 - 10, 0, 3);
+                location = new Frame3D(-150 + 35, 0, 3);
                 topTexture = new Bitmap(WorldInitializerHelper.GetResourceStream("red.png"));
             }
             else
             {
-                location = new Frame3D(150 - 25 + 10, 0, 3, Angle.Zero, Angle.Pi, Angle.Zero);
+                location = new Frame3D(150 - 35, 0, 3, Angle.Zero, Angle.Pi, Angle.Zero);
                 topTexture = new Bitmap(WorldInitializerHelper.GetResourceStream("blue.png"));
             }
 

@@ -123,21 +123,21 @@ namespace RoboMovies.KroR
                 Location = new Frame3D(0, -YSize / 2, 0),
             });
 
-            entities.Add(new Box
-            {
-                XSize = 2.2,
-                YSize = YSize,
-                ZSize = 2.2,
-                Location = new Frame3D((XSize / 2 - 7) * sideCorrection, 0, 0),
-            });
+            //entities.Add(new Box
+            //{
+            //    XSize = 2.2,
+            //    YSize = YSize,
+            //    ZSize = 2.2,
+            //    Location = new Frame3D((XSize / 2 - 7) * sideCorrection, 0, 0),
+            //});
 
-            entities.Add(new Box
-            {
-                XSize = 7,
-                YSize = 7,
-                ZSize = 2.2,
-                Location = new Frame3D((XSize / 2 - 3.5) * sideCorrection, 0, 0),
-            });
+            //entities.Add(new Box
+            //{
+            //    XSize = 7,
+            //    YSize = 7,
+            //    ZSize = 2.2,
+            //    Location = new Frame3D((XSize / 2 - 3.5) * sideCorrection, 0, 0),
+            //});
 
             foreach (var wall in entities)
             {

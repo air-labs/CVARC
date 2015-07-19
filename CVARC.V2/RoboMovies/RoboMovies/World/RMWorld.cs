@@ -91,7 +91,7 @@ namespace RoboMovies
         private void CreateLights(int sideCorrection)
         {
             var light = new RMObject(SideColor.Any, ObjectType.Light);
-            Manager.CreateLight(IdGenerator.CreateNewId(light), new Point2D((150 - 5) * sideCorrection, 0));
+            Manager.CreateLight(IdGenerator.CreateNewId(light), new Point2D((150 - 10) * sideCorrection, 0));
             Manager.CreateLight(IdGenerator.CreateNewId(light), new Point2D(20 * sideCorrection, 8 - 100));
         }
 
