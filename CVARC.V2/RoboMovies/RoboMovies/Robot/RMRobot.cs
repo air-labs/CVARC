@@ -50,12 +50,6 @@ namespace RoboMovies
 
         void CheckTowerPosition(HashSet<string> tower, Frame3D location)
         {
-            World.CloseClapperboard(World.IdGenerator
-                .GetAllPairsOfType<RMObject>()
-                .Where(obj => obj.Item1.Type == ObjectType.Clapperboard)
-                .Select(x => x.Item2)
-                .First());
-
             if (World.IsInsideStartingArea(location, robotColor) || World.IsInsideBuildingArea(location))
                 foreach (var item in tower)
                     World.Scores.Add(ControllerId, 2, 
