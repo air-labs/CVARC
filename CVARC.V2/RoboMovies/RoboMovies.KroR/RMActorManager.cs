@@ -50,7 +50,7 @@ namespace RoboMovies.KroR
                 Location = location,
                 DefaultColor = Color.DarkViolet,
                 IsMaterial = true,
-                Density = Density.Aluminum,
+                Density = Density.Iron,
                 FrictionCoefficient = 0,
                 Top = new PlaneImageBrush { Image = topTexture }, 
                 NewId = Actor.ObjectId
