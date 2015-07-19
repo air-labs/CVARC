@@ -60,18 +60,6 @@ namespace RoboMovies.KroR
                 NewId = "floor",
             });
 
-            Root.Add(new Box
-            {
-                XSize = 60,
-                YSize = 10,
-                ZSize = 2.2,
-                IsStatic = true,
-                IsMaterial = true,
-                Density = Density.Wood,
-                Location = new Frame3D(0, -100 + 5, floorLevel),
-                DefaultColor = Color.Red,
-            });
-
             CreateBorders();
         }
 
@@ -93,6 +81,7 @@ namespace RoboMovies.KroR
                     DefaultColor = wallsColor,
                     IsStatic = true,
                     IsMaterial = true,
+                    Density = Density.Iron,
                     Location = new Frame3D(
                         pos * lY / 2,
                         pos * lX / 2,
@@ -227,7 +216,7 @@ namespace RoboMovies.KroR
                 Height = 7,
                 IsStatic = false,
                 IsMaterial = true,
-                Density = Density.Wood,
+                Density = Density.Iron,
                 Location = new Frame3D(location.X, location.Y, floorLevel),
                 DefaultColor = GetDrawingColor(color),
                 FrictionCoefficient = 10,
@@ -299,7 +288,7 @@ namespace RoboMovies.KroR
                     YSize = 5,
                     ZSize = 3,
                     DefaultColor = cap.DefaultColor,
-                    Location = new Frame3D(0, clapperboard.YSize, 0) + clapperboard.Location,
+                    Location = new Frame3D(0, 0, clapperboard.ZSize),
                     IsStatic = true,
                     NewId = "CC",
                 });
