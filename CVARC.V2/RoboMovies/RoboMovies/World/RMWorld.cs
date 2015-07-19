@@ -7,7 +7,7 @@ using CVARC.V2;
 
 namespace RoboMovies
 {
-    public class RMWorld : World<RTSWorldState, IRMWorldManager>
+    public class RMWorld : World<RMWorldState, IRMWorldManager>
      {
         public override void AdditionalInitialization()
         {
@@ -16,7 +16,7 @@ namespace RoboMovies
                 {
                     var robot = Actors
                         .OfType<ITowerBuilderRobot>()
-                        .Where(z => z.ObjectId == side.ObjectId)
+                        .Where(z => z.ObjectId == side.ObjectId || z.TowerBuilder.CollectedIds.Contains(z.ObjectId))
                         .FirstOrDefault();
                     if (robot != null)
                     {
@@ -51,6 +51,27 @@ namespace RoboMovies
 
             CreatePopCorn();
             CreateClapperboards();
+        }
+
+        public void CloseClapperboard(string clapperboardId)
+        {
+            Manager.CloseClapperboard(clapperboardId);
+        }
+
+        public bool IsInsideStartingArea(Frame3D location, SideColor color)
+        {
+            var loc2d = new Frame2D(Math.Abs(location.X), Math.Abs(location.Y), Angle.Zero);
+
+            var insideSquare = loc2d.X >= 150 - 45 && loc2d.Y <= 20;
+            var insideCircle = Math.Sqrt(Math.Pow(loc2d.X - 150 + 45, 2) + Math.Pow(loc2d.Y, 2)) <= 20;
+            var correctSide = location.X * GetSideCorrection(color) > 0;
+
+            return (insideSquare || insideCircle) && correctSide;
+        }
+
+        public bool IsInsideBuildingArea(Frame3D location)
+        {
+            return location.Y <= -100 + 20 && Math.Abs(location.X) <= 40;
         }
 
         private void CreateClapperboards()

@@ -29,7 +29,7 @@ namespace ClientExample
         {
             var client = new Level2Client();
 			client.SensorDataReceived += sensorData => form.ShowMap(sensorData.Map);
-			client.Configurate(port, true, RoboMoviesBots.MolagBal);
+			client.Configurate(port, true, RoboMoviesBots.None);
 			client.Rotate(-90);
             client.Move(100);
             client.Rotate(90);
