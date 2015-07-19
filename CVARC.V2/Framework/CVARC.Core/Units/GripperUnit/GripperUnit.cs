@@ -7,42 +7,15 @@ using System.Windows.Forms;
 
 namespace CVARC.V2
 {
-
-    public class GrippingAvailability
+    public class GripperUnit : BaseGripperUnit<IGripperRules>
     {
-        public readonly Frame3D RelativeLocation;
-        public readonly double Distance;
-        public readonly Angle Angle;
-        public GrippingAvailability(Frame3D relativeLocation)
-        {
-            RelativeLocation=relativeLocation;
-            Distance = Math.Sqrt(Math.Pow(RelativeLocation.X, 2) + Math.Pow(RelativeLocation.Y, 2));
-            Angle = Angle.FromRad(Math.Atan2(RelativeLocation.Y, relativeLocation.X));
-        }
-    }
-
-    public class GripperUnit : IUnit
-    {
-        IActor actor;
-        IGripperRules gripperRules;
-
-		public const string GripCommand = "Grip";
-		public const string ReleaseCommand = "Release";
-
-        public GripperUnit(IActor actor)
-        {
-            this.actor = actor;
-            gripperRules = Compatibility.Check<IGripperRules>(this,actor.Rules);
-        }
+        public GripperUnit(IActor actor) : base(actor) { }
 
         public string GrippedObjectId { get; private set; }
-
-        public Frame3D GrippingPoint { get; set; }
-
         public Func<string> FindDetail { get; set; }
-
         public Action<string, Frame3D> OnRelease { get; set; }
-
+        public Action<string, Frame3D> OnGrip { get; set; }
+        
         void Grip()
         {
             if (GrippedObjectId != null) return;
@@ -54,16 +27,6 @@ namespace CVARC.V2
                 actor.ObjectId,
                 GrippingPoint
                 );
-        }
-
-        public GrippingAvailability GetAvailability(string objectId)
-        {
-            if (!actor.World.Engine.ContainBody(objectId)) return null;
-            var robotLocation = actor.World.Engine.GetAbsoluteLocation(actor.ObjectId);
-            var gripperLocation = robotLocation.Apply(GrippingPoint);
-            var objectLocation = actor.World.Engine.GetAbsoluteLocation(objectId);
-            var relativeLocation = gripperLocation.Invert().Apply(objectLocation);
-            return new GrippingAvailability(relativeLocation);
         }
 
         void Release()
@@ -78,9 +41,7 @@ namespace CVARC.V2
                 OnRelease(detailId, location);
         }
 
-
-
-        public UnitResponse ProcessCommand(object _cmd)
+        public override UnitResponse ProcessCommand(object _cmd)
         {
             var cmd = Compatibility.Check<IGripperCommand>(this, _cmd);
             Debugger.Log(DebuggerMessageType.Workflow,"Command comes to gripper, "+cmd.GripperCommand.ToString());
@@ -89,10 +50,10 @@ namespace CVARC.V2
                 case GripperAction.No: return UnitResponse.Denied();
                 case GripperAction.Grip:
                     Grip();
-                    return UnitResponse.Accepted(gripperRules.GrippingTime);
+                    return UnitResponse.Accepted(rules.GrippingTime);
                 case GripperAction.Release:
                     Release();
-                    return UnitResponse.Accepted(gripperRules.ReleasingTime);
+                    return UnitResponse.Accepted(rules.ReleasingTime);
             }
             throw new Exception("Cannot reach this part of code");
         }
