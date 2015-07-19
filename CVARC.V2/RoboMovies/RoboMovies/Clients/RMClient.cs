@@ -33,7 +33,7 @@ namespace RoboMovies
             });
 
 
-            return Configurate(port, configuration, new RTSWorldState { Seed = seed } );
+            return Configurate(port, configuration, new RMWorldState { Seed = seed } );
         }
 
         public TSensorData Move(double distance)
