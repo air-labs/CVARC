@@ -294,5 +294,20 @@ namespace RoboMovies.KroR
                 });
             }
         }
+
+        public void CreatePopCornDispenser(string id, Point2D location)
+        {
+            Root.Add(new Box
+            {
+                XSize = 6,
+                YSize = 6,
+                ZSize = 28,
+                IsStatic = true,
+                IsMaterial = true,
+                Location = new Frame3D(location.X, location.Y, floorLevel),
+                DefaultColor = Color.CornflowerBlue,
+                NewId = id,
+            });
+        }
     }
 }

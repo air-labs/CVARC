@@ -47,6 +47,7 @@ namespace RoboMovies
                     new Point2D(25 * sideCorrection, 100 - 32), color);
                 CreateStands(sideCorrection, color);
                 CreateLights(sideCorrection);
+                CreatePopCornDispensers(sideCorrection);
             }
 
             CreatePopCorn();
@@ -111,6 +112,16 @@ namespace RoboMovies
             foreach (var point in allCoords)
                 Manager.CreatePopCorn(IdGenerator.CreateNewId(new RMObject(SideColor.Any, ObjectType.PopCorn)), point);
 
+        }
+
+        private void CreatePopCornDispensers(int sideCorrection)
+        {
+            var step = 33;
+            for (var x = 1; x < 3; ++x)
+                Manager.CreatePopCornDispenser(
+                    IdGenerator.CreateNewId(new RMObject(SideColor.Any, ObjectType.Dispenser)),
+                    new Point2D((150 - x * step) * sideCorrection, 100)
+                );
         }
 
         private void CreateStands(int sideCorrection, SideColor color)

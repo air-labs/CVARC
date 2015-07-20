@@ -24,12 +24,12 @@ namespace RoboMovies
 
     public enum ObjectType
     {
-        Robot,
         Clapperboard,
         Stand,
         Stairs,
         Light,
         PopCorn,
+        Dispenser,
     }
 
     public struct RMObject
