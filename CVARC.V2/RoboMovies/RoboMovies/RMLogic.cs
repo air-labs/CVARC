@@ -36,7 +36,7 @@ namespace RoboMovies
         {
             var testMethods = GetType()
                 .GetMethods()
-                .Where(x => x.GetCustomAttributes(true).FirstOrDefault() is TestLoader)
+                .Where(x => x.GetCustomAttributes(true).FirstOrDefault() is TestLoaderMethod)
                 .Select(x => x.Name);
 
             foreach (var name in testMethods)

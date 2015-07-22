@@ -7,7 +7,7 @@ using CVARC.V2;
 namespace RoboMovies
 {
     [AttributeUsage(AttributeTargets.Method)]
-    class TestLoader : Attribute { }
+    class TestLoaderMethod : Attribute { }
 
     public partial class RMLogicPartHelper
     {

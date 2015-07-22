@@ -9,7 +9,7 @@ namespace RoboMovies
 {
     partial class RMLogicPartHelper
     {
-        [TestLoader]
+        [TestLoaderMethod]
         public void LoadTowerBuilderTests(LogicPart logic, MoveAndBuildRules rules)
         {
             AddTest(logic, "Grip_Single_Detail", TowerBuilderTest(

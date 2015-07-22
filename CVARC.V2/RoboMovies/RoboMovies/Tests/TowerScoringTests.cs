@@ -9,7 +9,7 @@ namespace RoboMovies
 {
     partial class RMLogicPartHelper
     {
-        [TestLoader]
+        [TestLoaderMethod]
         public void LoadTowerScoringTests(LogicPart logic, MoveAndBuildRules rules)
         {
             AddTest(logic, "Scores_Zero", ScoreTest(
