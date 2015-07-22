@@ -26,5 +26,9 @@ namespace RoboMovies
         [DataMember]
         [FromSensor(typeof(TowerBuilderSensor))]
         public int CollectedDetailsCount { get; set; }
+        
+        [DataMember]
+        [FromSensor(typeof(ScoreSensor))]
+        public int MyScores { get; set; }
     }
 }
