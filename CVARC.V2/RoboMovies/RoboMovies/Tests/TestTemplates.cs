@@ -6,6 +6,9 @@ using CVARC.V2;
 
 namespace RoboMovies
 {
+    [AttributeUsage(AttributeTargets.Method)]
+    class TestLoader : Attribute { }
+
     public partial class RMLogicPartHelper
     {
         RMTestEntry TowerBuilderTest(int count, params MoveAndBuildCommand[] commands)

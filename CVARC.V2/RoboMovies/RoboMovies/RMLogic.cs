@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,9 +27,21 @@ namespace RoboMovies
 
             logicPart.Bots["Stand"] = () => rules.CreateStandingBot();
 
-            LoadTowerBuilderTests(logicPart, rules);
+            LoadTests(logicPart, rules);
 
             return logicPart;
+        }
+
+        private void LoadTests(LogicPart logic, MoveAndBuildRules rules)
+        {
+            var testMethods = GetType()
+                .GetMethods()
+                .Where(x => x.GetCustomAttributes(true).FirstOrDefault() is TestLoader)
+                .Select(x => x.Name);
+
+            foreach (var name in testMethods)
+                GetType().GetMethod(name).Invoke(this, new Object[] { logic, rules });
+
         }
     }
 }
