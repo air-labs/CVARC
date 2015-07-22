@@ -80,6 +80,7 @@
     <Compile Include="Sensors\LocationSensor.cs" />
     <Compile Include="Sensors\ScoreSensor.cs" />
     <Compile Include="Tests\RMTestBase.cs" />
+    <Compile Include="Tests\TestTemplates.cs" />
     <Compile Include="Tests\TowerBuildingTests.cs" />
     <Compile Include="Units\MoveAndBuild\MoveAndBuildCommand.cs" />
     <Compile Include="Units\MoveAndBuild\MoveAndBuildRobot.cs" />
