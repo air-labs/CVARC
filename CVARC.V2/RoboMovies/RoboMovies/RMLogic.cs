@@ -36,12 +36,11 @@ namespace RoboMovies
         {
             var testMethods = GetType()
                 .GetMethods()
-                .Where(x => x.GetCustomAttributes(true).FirstOrDefault() is TestLoaderMethod)
-                .Select(x => x.Name);
+                .Where(m => m.GetCustomAttributes(true).Where(a => a is TestLoaderMethod).Count() != 0)
+                .Select(m => m.Name);
 
             foreach (var name in testMethods)
                 GetType().GetMethod(name).Invoke(this, new Object[] { logic, rules });
-
         }
     }
 }
