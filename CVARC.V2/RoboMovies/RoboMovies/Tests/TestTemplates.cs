@@ -6,11 +6,11 @@ using CVARC.V2;
 
 namespace RoboMovies
 {
-    [AttributeUsage(AttributeTargets.Method)]
-    class TestLoaderMethod : Attribute { }
-
     public partial class RMLogicPartHelper
     {
+        [AttributeUsage(AttributeTargets.Method)]
+        class TestLoaderMethod : Attribute { }
+
         RMTestEntry TowerBuilderTest(int count, params MoveAndBuildCommand[] commands)
         {
             return TestTemplate((data, asserter) => asserter.IsEqual(count, data.CollectedDetailsCount, 0), commands);
