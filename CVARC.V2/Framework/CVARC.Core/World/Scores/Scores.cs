@@ -26,5 +26,11 @@ namespace CVARC.V2
         {
             return Records.Keys.Select(z => new Tuple<string, int>(z, Records[z].Sum(x => x.Count)));
         }
+        public int GetTotalScore(string controllerId)
+        {
+            if (!Records.ContainsKey(controllerId)) 
+                throw new ArgumentException("Unrecognized controller ID.");
+            return Records[controllerId].Sum(x => x.Count);
+        }
     }
 }
