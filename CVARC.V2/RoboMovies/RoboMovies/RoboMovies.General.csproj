@@ -82,6 +82,7 @@
     <Compile Include="Tests\RMTestBase.cs" />
     <Compile Include="Tests\TestTemplates.cs" />
     <Compile Include="Tests\TowerBuildingTests.cs" />
+    <Compile Include="Tests\TowerScoringTests.cs" />
     <Compile Include="Units\MoveAndBuild\MoveAndBuildCommand.cs" />
     <Compile Include="Units\MoveAndBuild\MoveAndBuildRobot.cs" />
     <Compile Include="Units\MoveAndBuild\MoveAndBuildRules.cs" />
