@@ -9,6 +9,8 @@ namespace RoboMovies
 {
     public class RMWorld : World<RMWorldState, IRMWorldManager>
      {
+        //TODO: словарик для информации о башнях
+
         public override void AdditionalInitialization()
         {
             var detector = new CollisionDetector(this);

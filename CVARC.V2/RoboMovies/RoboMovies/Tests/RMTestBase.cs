@@ -14,7 +14,7 @@ namespace RoboMovies
         {
             return new SettingsProposal
             {
-                TimeLimit = 10,
+                TimeLimit = 20,
                 Controllers = new List<ControllerSettings> 
                     {
                         new ControllerSettings  { ControllerId=TwoPlayersId.Left, Name="This", Type= ControllerType.Client},

@@ -22,7 +22,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            AddTest(logic, "Scores_Bottom_Building_Area", ScoreTest(
+            AddTest(logic, "Scores_BottomBuildingArea", ScoreTest(
                 2,
                 rules.Move(100),
                 rules.Rotate(-Angle.HalfPi),
@@ -34,7 +34,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            AddTest(logic, "Scores_Starting_Area_Square", ScoreTest(
+            AddTest(logic, "Scores_StartingAreaSquare", ScoreTest(
                 2,
                 rules.Move(65),
                 rules.Rotate(-Angle.HalfPi),
@@ -48,7 +48,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            AddTest(logic, "Scores_Starting_Area_Circle", ScoreTest(
+            AddTest(logic, "Scores_StartingAreaCircle", ScoreTest(
                 2,
                 rules.Move(65),
                 rules.Rotate(-Angle.HalfPi),
@@ -62,7 +62,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            AddTest(logic, "Scores_Building_In_Yellow_Square", ScoreTest(
+            AddTest(logic, "Scores_BuildingInYellowSquare", ScoreTest(
                 0,
                 rules.Move(65),
                 rules.Rotate(-Angle.HalfPi),
@@ -76,7 +76,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
 
-            AddTest(logic, "Scores_Big_Tower", ScoreTest(
+            AddTest(logic, "Scores_BigTower", ScoreTest(
                 2 * 2,
                 rules.Move(65),
                 rules.Rotate(-Angle.HalfPi),
@@ -95,7 +95,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            AddTest(logic, "Scores_Tower_With_Light", ScoreTest(
+            AddTest(logic, "Scores_TowerWithLight", ScoreTest(
                 2 + 3,
                 rules.Rotate(Angle.Pi),
                 rules.Move(10),
@@ -112,8 +112,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            /* FIXME: не хватает времени на тест! Как увеличить время? о_О */
-            AddTest(logic, "Scores_Big_Tower_With_Light", ScoreTest(
+            AddTest(logic, "Scores_BigTowerWithLight", ScoreTest(
                 (2 + 3) * 2,
                 rules.Rotate(Angle.Pi),
                 rules.Move(10),
