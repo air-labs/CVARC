@@ -11,6 +11,8 @@ namespace RoboMovies
      {
         //TODO: словарик для информации о башнях
 
+        public Dictionary<string, int> PopCornFullness = new Dictionary<string, int>();
+
         public override void AdditionalInitialization()
         {
             var detector = new CollisionDetector(this);
@@ -63,7 +65,7 @@ namespace RoboMovies
 
         public bool IsInsideStartingArea(Frame3D location, SideColor color)
         {
-            var loc2d = new Frame2D(Math.Abs(location.X), Math.Abs(location.Y), Angle.Zero);
+            var loc2d = GetSideIndependentLocation(location);
 
             var insideSquare = loc2d.X >= 150 - 45 && loc2d.Y <= 20;
             var insideCircle = Math.Sqrt(Math.Pow(loc2d.X - 150 + 45, 2) + Math.Pow(loc2d.Y, 2)) <= 20;
@@ -75,6 +77,21 @@ namespace RoboMovies
         public bool IsInsideBuildingArea(Frame3D location)
         {
             return location.Y <= -100 + 20 && Math.Abs(location.X) <= 40;
+        }
+
+        public bool IsInsideCinema(Frame3D location, SideColor color)
+        {
+            var loc2d = GetSideIndependentLocation(location);
+
+            var insideSquare = loc2d.X >= 150 - 45 && loc2d.Y >= 20 && loc2d.Y <= 60;
+            var correctSide = location.X * GetSideCorrection(color) < 0;
+
+            return correctSide && insideSquare;
+        }
+        
+        private Frame2D GetSideIndependentLocation(Frame3D location)
+        {
+            return new Frame2D(Math.Abs(location.X), Math.Abs(location.Y), Angle.Zero);
         }
 
         private void CreateClapperboards()
@@ -110,10 +127,13 @@ namespace RoboMovies
             var allCoords = coords
                 .Union(coords.Select(p => new Point2D(p.X * -1, p.Y)))
                 .Distinct();
-            
-            foreach (var point in allCoords)
-                Manager.CreatePopCorn(IdGenerator.CreateNewId(new RMObject(SideColor.Any, ObjectType.PopCorn)), point);
 
+            foreach (var point in allCoords)
+            {
+                var id = IdGenerator.CreateNewId(new RMObject(SideColor.Any, ObjectType.PopCorn));
+                Manager.CreatePopCorn(id, point);
+                PopCornFullness[id] = 4;
+            }
         }
 
         private void CreatePopCornDispensers(int sideCorrection)
