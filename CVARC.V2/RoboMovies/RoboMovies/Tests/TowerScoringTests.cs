@@ -136,7 +136,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
 
-            AddTest(logic, "Scores_Light_Without_Stands", ScoreTest(
+            AddTest(logic, "Scores_LightWithoutStands", ScoreTest(
                 0,
                 rules.Rotate(Angle.Pi),
                 rules.Move(10),
@@ -147,7 +147,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            AddTest(logic, "Scores_Scam_Test", ScoreTest(
+            AddTest(logic, "Scores_ScamTest", ScoreTest(
                 2,
                 rules.Move(100),
                 rules.Rotate(-Angle.HalfPi),
@@ -165,7 +165,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            AddTest(logic, "Scores_Invalid_Stand_Penalty", ScoreTest(
+            AddTest(logic, "Scores_InvalidStandPenalty", ScoreTest(
                 -10,
                 rules.Move(135),
                 rules.Rotate(-Angle.HalfPi),
