@@ -37,6 +37,8 @@ namespace Demo
             logic.Tests["GAX_Rotating"] = new RoundMovementTestBase(
                        GAXTest(new Point3D(0, 0, 0), Angle.Zero, Angle.Zero, Angle.HalfPi,
                        rules.DWMRotate(Angle.Pi), rules.DWMStand(1.0)));
+
+			
 		}
 	}
 }

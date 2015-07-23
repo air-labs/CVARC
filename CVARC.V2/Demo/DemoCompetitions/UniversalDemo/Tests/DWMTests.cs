@@ -34,12 +34,12 @@ namespace Demo
                                         rules.DWMStand(1.0)));
             //advanced DWM tests
             logic.Tests["DWM_Turning"] = new RoundMovementTestBase(
-                LocationTest(6, 6, 90, 10, rules.DWMMoveForward(3.0),rules.DWMStand(1.0),
-                                           rules.Rotate(AIRLab.Mathematics.Angle.FromGrad(90.0)),rules.DWMStand(1.0),
-                                           rules.DWMMoveForward(3.0),rules.DWMStand(1.0),
-                                           rules.Rotate(AIRLab.Mathematics.Angle.FromGrad(-90.0)),
-                                           rules.DWMMoveForward(3.0),rules.DWMStand(1.0),
-                                           rules.DWMRotate(AIRLab.Mathematics.Angle.FromGrad(90.0)),rules.DWMStand(1.0),
+                LocationTest(6, 6, 90, 10, rules.DWMMoveForward(3.0),
+                                           rules.DWMRotate(AIRLab.Mathematics.Angle.FromGrad(90.0)),
+                                           rules.DWMMoveForward(3.0),
+                                           rules.DWMRotate(AIRLab.Mathematics.Angle.FromGrad(-90.0)),
+                                           rules.DWMMoveForward(3.0),
+                                           rules.DWMRotate(AIRLab.Mathematics.Angle.FromGrad(90.0)),
                                            rules.DWMMoveForward(3.0), rules.DWMStand(1.0)));
             logic.Tests["DWM_ArcMoving"] = new RoundMovementTestBase(
                 LocationTest(6, 6, 90, 10, rules.DWMMoveArc(3.0, AIRLab.Mathematics.Angle.FromGrad(90.0), true),

@@ -154,6 +154,7 @@
     <Compile Include="Sensors\SensorPack.cs" />
     <Compile Include="Units\Bot.cs" />
     <Compile Include="Units\DWMUnit\DifWheelMovement.cs" />
+    <Compile Include="Units\DWMUnit\DWMDistortionCommandFilter.cs" />
     <Compile Include="Units\DWMUnit\DWMUnit.cs" />
     <Compile Include="Units\DWMUnit\IDWMCommand.cs" />
     <Compile Include="Units\DWMUnit\IDWMRobot.cs" />

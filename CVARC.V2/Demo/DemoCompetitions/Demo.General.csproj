@@ -70,7 +70,7 @@
     <Compile Include="UniversalDemo\DemoSensorsData.cs" />
     <Compile Include="UniversalDemo\DemoRobot.cs" />
     <Compile Include="UniversalDemo\DemoWorld.cs" />
-    <Compile Include="UniversalDemo\LogicPart.cs" />
+    <Compile Include="UniversalDemo\LogicParts.cs" />
     <Compile Include="UniversalDemo\TestBases\WorldStates.cs" />
     <Compile Include="UniversalDemo\Tests\InteractionTests.cs" />
     <Compile Include="VSUnitTestGenerator.cs" />

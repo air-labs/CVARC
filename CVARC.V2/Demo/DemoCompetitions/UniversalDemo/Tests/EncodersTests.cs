@@ -5,7 +5,7 @@ using System.Text;
 using AIRLab.Mathematics;
 using CVARC.V2;
 
-namespace Demo.UniversalDemo.Tests
+namespace Demo
 {
     partial class DemoLogicPartHelper
     {
@@ -38,6 +38,8 @@ namespace Demo.UniversalDemo.Tests
                     TotalRightRotation = Angle.FromGrad(52.0)
                 },
                 rules.DWMMoveArc(3.0, Angle.HalfPi, true)));
+
+			//езда назад, поворот на месте, одна склейка двух-трех движений
         }
     }
 

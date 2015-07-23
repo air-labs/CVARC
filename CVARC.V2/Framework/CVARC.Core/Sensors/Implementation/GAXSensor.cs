@@ -9,7 +9,7 @@ namespace CVARC.V2
 	public class GAXSensor : Sensor<List<GAXData>,IActor>
 	{
 
-		const double GAXDelta = 0.005;
+		const double GAXDelta = 0.02;
 
 		public override void Initialize(IActor actor)
 		{

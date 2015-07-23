@@ -21,6 +21,7 @@ namespace Demo
             logicPart.PredefinedWorldStates.Add("Empty");
             logicPart.WorldStateType = typeof(DemoWorldState);
 
+
             return new Tuple<DemoRules, LogicPart>(rules, logicPart);
         }
 
@@ -37,11 +38,14 @@ namespace Demo
             logicPart.Bots["Square"] = () => rules.CreateSquareWalkingBot(50);
             logicPart.Bots["Random"] = () => rules.CreateRandomWalkingBot(50);
 
+
             LoadMovementTests(logicPart, rules);
 			LoadInteractionTests(logicPart, rules);
             LoadGrippingTests(logicPart, rules);
             LoadCollisionTests(logicPart, rules);
 			LoadDWMTests(logicPart, rules);
+			LoadEncodersTests(logicPart, rules);
+			LoadGAXTests(logicPart, rules);
 
             return logicPart;
         }

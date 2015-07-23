@@ -61,7 +61,7 @@ namespace Demo
 			GrippingTime = ReleasingTime = 1;
 			WheelRadius = 5;
 			DistanceBetweenWheels = 10;
-			RotationSpeedLimit = Angle.HalfPi;
+			RotationSpeedLimit = 2 * Angle.Pi;
 		}
 
 		public void DefineKeyboardControl(IKeyboardController _pool, string controllerId)
