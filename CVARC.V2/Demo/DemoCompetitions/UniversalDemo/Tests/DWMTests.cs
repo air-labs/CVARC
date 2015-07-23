@@ -23,7 +23,7 @@ namespace Demo
             logic.Tests["DWM_LeftRotate"] = new RoundMovementTestBase(
                 LocationTest(0, 0, 90, 1, rules.Rotate(-1 * AIRLab.Mathematics.Angle.FromGrad(90.0)),rules.DWMStand(1.0)));
            
-            //following tests didn't work correct!
+            //
 
             logic.Tests["DWM_ArcRight"] = new RoundMovementTestBase(
                 LocationTest(3, 3, 0, 1, rules.DWMMoveArc(3.0, AIRLab.Mathematics.Angle.FromGrad(90.0), true),
@@ -41,9 +41,10 @@ namespace Demo
                                            rules.DWMMoveForward(3.0),rules.DWMStand(1.0),
                                            rules.DWMRotate(AIRLab.Mathematics.Angle.FromGrad(90.0)),rules.DWMStand(1.0),
                                            rules.DWMMoveForward(3.0), rules.DWMStand(1.0)));
-            logic.Tests["DWM_ArcMoving"] = new RoundGrippingTestBase(
-                LocationTest(6, 6, 90, 10, rules.DWMMoveArc(3.0, AIRLab.Mathematics.Angle.FromGrad(90), true),
-                                          rules.DWMMoveArc(3.0, AIRLab.Mathematics.Angle.FromGrad(90), false)));
+            logic.Tests["DWM_ArcMoving"] = new RoundMovementTestBase(
+                LocationTest(6, 6, 90, 10, rules.DWMMoveArc(3.0, AIRLab.Mathematics.Angle.FromGrad(90.0), true),
+                                           rules.DWMStand(1.0),
+                                          rules.DWMMoveArc(3.0, AIRLab.Mathematics.Angle.FromGrad(90.0), false)));
 
             //вперед, назад, повороты
             //езда по дугам 
