@@ -32,7 +32,7 @@ namespace RoboMovies.MapBuilder
             realRobotAngle = map.CurrentPosition.Angle;
         }
 
-        private IEnumerable<MoveAndBuildCommand> GetCommandsByDirectionInternal(Direction direction)
+        private IEnumerable<RMCommand> GetCommandsByDirectionInternal(Direction direction)
         {
             currentDirection = direction;
             yield return CorrectRobotPosition();
@@ -43,12 +43,12 @@ namespace RoboMovies.MapBuilder
             yield return RMRules.Current.Move(50);
         }
 
-        public IEnumerable<MoveAndBuildCommand> GetCommandsByDirection(Direction direction)
+        public IEnumerable<RMCommand> GetCommandsByDirection(Direction direction)
         {
             return GetCommandsByDirectionInternal(direction).Where(x => (int)x.SimpleMovement.LinearVelocity != 0 || Math.Abs(x.SimpleMovement.AngularVelocity.Grad) > 0.01);
         }
 
-        private MoveAndBuildCommand CorrectRobotPosition()
+        private RMCommand CorrectRobotPosition()
         {
             var angleError = expectedRobotAngle - realRobotAngle;
             return RMRules.Current.Rotate(Normilize(Angle.FromGrad(angleError)));

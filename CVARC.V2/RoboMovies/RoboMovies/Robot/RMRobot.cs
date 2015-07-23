@@ -8,16 +8,32 @@ using CVARC.V2;
 
 namespace RoboMovies
 {
-    public class RMRobot<TSensorsData> : MoveAndBuildRobot<IRMActorManager,RMWorld,TSensorsData>
+    public class RMRobot<TSensorsData> : 
+                Robot<IRMActorManager, RMWorld, TSensorsData, RMCommand, RMRules>,
+                ITowerBuilderRobot
         where TSensorsData : new()
     {
+        public SimpleMovementUnit SimpleMovementUnit { get; private set; }
+        public TowerBuilderUnit TowerBuilder {get; private set;}
+
+        public override IEnumerable<IUnit> Units
+        {
+            get
+            {
+                yield return SimpleMovementUnit;
+                yield return TowerBuilder;
+            }
+        }
+    
         SideColor robotColor;
 
 		public override void AdditionalInitialization()
 		{
-			base.AdditionalInitialization();
-            
-            base.TowerBuilder.FindCollectable = () =>
+            base.AdditionalInitialization();
+            SimpleMovementUnit = new SimpleMovementUnit(this);
+            TowerBuilder = new TowerBuilderUnit(this);
+			
+            TowerBuilder.FindCollectable = () =>
                 {
                     Func<string, bool> isAttachedToStand = s =>
                         (s = World.Engine.FindParent(s)) != null &&
@@ -37,9 +53,9 @@ namespace RoboMovies
                         .Select(z => z.Id);
                 };
 			
-            base.TowerBuilder.GrippingPoint = new Frame3D(15, 0, 5);
-            base.TowerBuilder.OnRelease = CheckTowerPosition;
-            base.TowerBuilder.OnGrip = (id, location) =>
+            TowerBuilder.GrippingPoint = new Frame3D(15, 0, 5);
+            TowerBuilder.OnRelease = CheckTowerPosition;
+            TowerBuilder.OnGrip = (id, location) =>
                 {
                     var obj = GetObjectFromId(id);
                     if (obj.Color != robotColor && obj.Color != SideColor.Any)

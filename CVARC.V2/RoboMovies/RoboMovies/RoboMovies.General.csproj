@@ -83,9 +83,9 @@
     <Compile Include="Tests\TestTemplates.cs" />
     <Compile Include="Tests\TowerBuildingTests.cs" />
     <Compile Include="Tests\TowerScoringTests.cs" />
-    <Compile Include="Units\MoveAndBuild\MoveAndBuildCommand.cs" />
+    <Compile Include="Robot\RMCommand.cs" />
     <Compile Include="Units\MoveAndBuild\MoveAndBuildRobot.cs" />
-    <Compile Include="Units\MoveAndBuild\MoveAndBuildRules.cs" />
+    <Compile Include="Robot\RMRules.cs" />
     <Compile Include="Units\TowerBuilderUnit\ITowerBuilderCommand.cs" />
     <Compile Include="Units\TowerBuilderUnit\ITowerBuilderRules.cs" />
     <Compile Include="Units\TowerBuilderUnit\ITowerRobot.cs" />
@@ -93,7 +93,6 @@
     <Compile Include="Units\TowerBuilderUnit\TowerBuilderAction.cs" />
     <Compile Include="Units\TowerBuilderUnit\TowerBuilderSensor.cs" />
     <Compile Include="Units\TowerBuilderUnit\TowerBuilderUnit.cs" />
-    <Compile Include="World\RMRules.cs" />
     <Compile Include="World\RMWorld.cs" />
     <Compile Include="World\IRMWorldManager.cs" />
     <Compile Include="SceneSettings\Node.cs" />

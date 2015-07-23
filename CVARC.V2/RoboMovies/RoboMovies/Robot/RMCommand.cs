@@ -7,7 +7,7 @@ using System.Text;
 namespace CVARC.V2
 {
     [DataContract]
-	public class MoveAndBuildCommand : ICommand, ISimpleMovementCommand, ITowerBuilderCommand
+	public class RMCommand : ICommand, ISimpleMovementCommand, ITowerBuilderCommand
 	{
         [DataMember]
 		public SimpleMovement SimpleMovement

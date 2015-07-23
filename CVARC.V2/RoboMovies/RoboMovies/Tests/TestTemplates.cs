@@ -11,17 +11,17 @@ namespace RoboMovies
         [AttributeUsage(AttributeTargets.Method)]
         class TestLoaderMethod : Attribute { }
 
-        RMTestEntry TowerBuilderTest(int count, params MoveAndBuildCommand[] commands)
+        RMTestEntry TowerBuilderTest(int count, params RMCommand[] commands)
         {
             return TestTemplate((data, asserter) => asserter.IsEqual(count, data.CollectedDetailsCount, 0), commands);
         }
 
-        RMTestEntry ScoreTest(int scoreCount, params MoveAndBuildCommand[] commands)
+        RMTestEntry ScoreTest(int scoreCount, params RMCommand[] commands)
         {
             return TestTemplate((data, asserter) => asserter.IsEqual(scoreCount, data.MyScores, 0), commands);
         }
 
-        RMTestEntry TestTemplate(Action<FullMapSensorData, IAsserter> assert, params MoveAndBuildCommand[] commands)
+        RMTestEntry TestTemplate(Action<FullMapSensorData, IAsserter> assert, params RMCommand[] commands)
         {
             return (client, world, asserter) =>
             {

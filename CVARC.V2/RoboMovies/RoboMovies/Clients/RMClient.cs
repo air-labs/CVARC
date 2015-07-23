@@ -7,7 +7,7 @@ using CVARC.V2;
 
 namespace RoboMovies
 {
-    public abstract class RMClient<TSensorData> : CvarcClient<TSensorData, MoveAndBuildCommand>
+    public abstract class RMClient<TSensorData> : CvarcClient<TSensorData, RMCommand>
         where TSensorData : class
     {
         public abstract string LevelName { get; }

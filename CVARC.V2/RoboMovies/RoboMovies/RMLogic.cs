@@ -32,7 +32,7 @@ namespace RoboMovies
             return logicPart;
         }
 
-        private void LoadTests(LogicPart logic, MoveAndBuildRules rules)
+        private void LoadTests(LogicPart logic, RMRules rules)
         {
             var testMethods = GetType()
                 .GetMethods()

@@ -6,14 +6,16 @@ using System.Text;
 
 namespace CVARC.V2
 {
-	public class MoveAndBuildRules : IRules, ITowerBuilderRules<MoveAndBuildCommand>, ISimpleMovementRules<MoveAndBuildCommand>
+	public class RMRules : IRules, ITowerBuilderRules<RMCommand>, ISimpleMovementRules<RMCommand>
 	{
-		public void DefineKeyboardControl(IKeyboardController _pool, string controllerId)
+        public static readonly RMRules Current = new RMRules(90, Angle.FromGrad(90), 6, 1, 1);
+		
+        public void DefineKeyboardControl(IKeyboardController _pool, string controllerId)
 		{
-			var pool = Compatibility.Check<KeyboardController<MoveAndBuildCommand>>(this, _pool);
-			this.AddBuilderKeys<MoveAndBuildCommand>(pool, controllerId);
-			this.AddSimpleMovementKeys<MoveAndBuildCommand>(pool, controllerId);
-            pool.StopCommand = () => new MoveAndBuildCommand { SimpleMovement = SimpleMovement.Stand(0.1) };
+			var pool = Compatibility.Check<KeyboardController<RMCommand>>(this, _pool);
+			this.AddBuilderKeys<RMCommand>(pool, controllerId);
+			this.AddSimpleMovementKeys<RMCommand>(pool, controllerId);
+            pool.StopCommand = () => new RMCommand { SimpleMovement = SimpleMovement.Stand(0.1) };
 		}
 
         public double BuildingTime { get; private set; }
@@ -23,7 +25,7 @@ namespace CVARC.V2
         public double LinearVelocityLimit { get; private set; }
 		public AIRLab.Mathematics.Angle AngularVelocityLimit { get; private set; }
 
-		public MoveAndBuildRules(double linearVelocityLimit, Angle angularVelocityLimit, 
+		public RMRules(double linearVelocityLimit, Angle angularVelocityLimit, 
             int builderCapacity, double collectingTime, double buildingTime)
 		{
 			LinearVelocityLimit = linearVelocityLimit;
@@ -33,6 +35,6 @@ namespace CVARC.V2
             BuildingTime = buildingTime;
 		}
 
-		public MoveAndBuildRules() : this(50, Angle.HalfPi, 8, 1, 1) { }
+		public RMRules() : this(50, Angle.HalfPi, 8, 1, 1) { }
     }
 }

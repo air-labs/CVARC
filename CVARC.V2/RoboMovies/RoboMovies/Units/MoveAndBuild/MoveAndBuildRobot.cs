@@ -6,7 +6,7 @@ using System.Text;
 namespace CVARC.V2
 {
     public class MoveAndBuildRobot<TActorManager,TWorld,TSensorsData> : 
-                Robot<TActorManager,TWorld,TSensorsData, MoveAndBuildCommand, MoveAndBuildRules>,
+                Robot<TActorManager,TWorld,TSensorsData, RMCommand, RMRules>,
                 ITowerBuilderRobot
         where TActorManager : IActorManager
         where TWorld : IWorld
