@@ -82,7 +82,6 @@ namespace RoboMovies
                         .FirstOrDefault();
                 };
             Gripper.GrippingPoint = new Frame3D(-15, 0, 5);
-            Gripper.OnRelease = CheckPopCornPosition;
 	
             robotColor = ControllerId == TwoPlayersId.Left ? SideColor.Yellow : SideColor.Green;
 		}
@@ -104,14 +103,6 @@ namespace RoboMovies
                 foreach (var item in validTower)
                     World.Scores.Add(ControllerId, 2 + bonus, 
                         String.Format("{0} stand(s) has been deployed in correct place.", tower.Count));
-        }
-
-        void CheckPopCornPosition(string popcornId, Frame3D location)
-        {
-            World.Engine.Detach(popcornId, location.NewZ(3));
-            if (World.IsInsideCinema(location, robotColor))
-                World.Scores.Add(ControllerId, World.PopCornFullness[popcornId],
-                    "Pop corn located in a valid place.");
         }
 
         RMObject GetObjectFromId(string id)

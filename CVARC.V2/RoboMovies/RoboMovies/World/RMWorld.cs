@@ -86,7 +86,7 @@ namespace RoboMovies
             var insideSquare = loc2d.X >= 150 - 45 && loc2d.Y >= 20 && loc2d.Y <= 60;
             var correctSide = location.X * GetSideCorrection(color) < 0;
 
-            return correctSide && insideSquare || IsInsideStartingArea(location, color);
+            return correctSide && insideSquare;
         }
         
         private Frame2D GetSideIndependentLocation(Frame3D location)
