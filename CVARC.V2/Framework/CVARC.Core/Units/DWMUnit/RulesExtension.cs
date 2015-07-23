@@ -94,12 +94,12 @@ namespace CVARC.V2
             if (direction)
             {
                 leftRotatingVelocity = rules.RotationSpeedLimit;
-                rightRotatingVelocity = Angle.FromRad(rightRotatingVelocity.Radian * arcDiff);
+                rightRotatingVelocity = Angle.FromRad(leftRotatingVelocity.Radian / arcDiff);
             }
             else
             {
                 rightRotatingVelocity = rules.RotationSpeedLimit;
-                leftRotatingVelocity = Angle.FromRad(rightRotatingVelocity.Radian * arcDiff);
+                leftRotatingVelocity = Angle.FromRad(rightRotatingVelocity.Radian / arcDiff);
             }
             return new TCommand
             {

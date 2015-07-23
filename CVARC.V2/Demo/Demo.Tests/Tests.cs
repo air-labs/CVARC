@@ -117,3 +117,9 @@ namespace Collision {
 [Test] public void RotateAndReturn() { TestRunner.Run("DWM_RotateAndReturn"); }}
 [TestFixture] public partial class DWM {
 [Test] public void SquareMoving() { TestRunner.Run("DWM_SquareMoving"); }}
+[TestFixture]
+public partial class DWM
+{
+    [Test]
+    public void CircleMoving() { TestRunner.Run("GAX_CircleMoving"); }
+}
