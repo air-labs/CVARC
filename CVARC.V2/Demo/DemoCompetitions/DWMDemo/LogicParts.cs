@@ -7,12 +7,12 @@ using CVARC.V2;
 
 namespace Demo
 {
-    public partial class DemoLogicPartHelper : LogicPartHelper
+    public partial class DWMLogicPartHelper : LogicPartHelper
     {
 
-        public static Tuple<DemoRules,LogicPart> CreateWorldFactory()
+		public static Tuple<DWMRules, LogicPart> CreateWorldFactory()
         {
-            var rules = new DemoRules();
+            var rules = new DWMRules();
 
             var logicPart = new LogicPart();
             logicPart.CreateWorld = () => new DemoWorld();
@@ -20,6 +20,7 @@ namespace Demo
             logicPart.CreateWorldState = stateName => new DemoWorldState();
             logicPart.PredefinedWorldStates.Add("Empty");
             logicPart.WorldStateType = typeof(DemoWorldState);
+
 
             return new Tuple<DemoRules, LogicPart>(rules, logicPart);
         }
@@ -30,18 +31,15 @@ namespace Demo
             var rules = data.Item1;
             var logicPart = data.Item2;
 
-            var actorFactory = ActorFactory.FromRobot(new DemoRobot(), rules);
+            var actorFactory = ActorFactory.FromRobot(new DWMRobot(), rules);
             logicPart.Actors[TwoPlayersId.Left] = actorFactory;
             logicPart.Actors[TwoPlayersId.Right] = actorFactory;            
-            logicPart.Bots["Stand"] = () => rules.CreateStandingBot();
-            logicPart.Bots["Square"] = () => rules.CreateSquareWalkingBot(50);
-            logicPart.Bots["Random"] = () => rules.CreateRandomWalkingBot(50);
+            
 
-            LoadMovementTests(logicPart, rules);
-			LoadInteractionTests(logicPart, rules);
-            LoadGrippingTests(logicPart, rules);
-            LoadCollisionTests(logicPart, rules);
-			LoadDWMTests(logicPart, rules);
+
+         	LoadDWMTests(logicPart, rules);
+			LoadEncodersTests(logicPart, rules);
+			LoadGAXTests(logicPart, rules);
 
             return logicPart;
         }

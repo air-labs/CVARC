@@ -112,14 +112,22 @@ namespace Collision {
 [TestFixture] public partial class DWM {
 [Test] public void Backward() { TestRunner.Run("DWM_Backward"); }}
 [TestFixture] public partial class DWM {
-[Test] public void ForwardAndReturn() { TestRunner.Run("DWM_ForwardAndReturn"); }}
+[Test] public void RightRotate() { TestRunner.Run("DWM_RightRotate"); }}
 [TestFixture] public partial class DWM {
-[Test] public void RotateAndReturn() { TestRunner.Run("DWM_RotateAndReturn"); }}
+[Test] public void LeftRotate() { TestRunner.Run("DWM_LeftRotate"); }}
 [TestFixture] public partial class DWM {
-[Test] public void SquareMoving() { TestRunner.Run("DWM_SquareMoving"); }}
-[TestFixture]
-public partial class DWM
-{
-    [Test]
-    public void CircleMoving() { TestRunner.Run("GAX_CircleMoving"); }
-}
+[Test] public void ArcRight() { TestRunner.Run("DWM_ArcRight"); }}
+[TestFixture] public partial class DWM {
+[Test] public void ArcLeft() { TestRunner.Run("DWM_ArcLeft"); }}
+[TestFixture] public partial class DWM {
+[Test] public void Turning() { TestRunner.Run("DWM_Turning"); }}
+[TestFixture] public partial class DWM {
+[Test] public void ArcMoving() { TestRunner.Run("DWM_ArcMoving"); }}
+[TestFixture] public partial class Encoder {
+[Test] public void MoveForward() { TestRunner.Run("Encoder_MoveForward"); }}
+[TestFixture] public partial class Encoder {
+[Test] public void ArcMoving() { TestRunner.Run("Encoder_ArcMoving"); }}
+[TestFixture] public partial class GAX {
+[Test] public void CircleMoving() { TestRunner.Run("GAX_CircleMoving"); }}
+[TestFixture] public partial class GAX {
+[Test] public void Rotating() { TestRunner.Run("GAX_Rotating"); }}

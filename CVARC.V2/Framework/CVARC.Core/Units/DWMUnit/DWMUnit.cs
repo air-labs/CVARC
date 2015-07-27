@@ -7,6 +7,7 @@ namespace CVARC.V2
 {
 	public class DWMUnit : IUnit
 	{
+		const double TriggerFrequency = 0.005;
 		DifWheelMovement movement;
 		IDWMRobot actor;
 		IDWMRules rules;
@@ -14,7 +15,7 @@ namespace CVARC.V2
 		public DWMUnit(IActor actor)
 		{
 			this.actor = Compatibility.Check<IDWMRobot>(this,actor);
-			actor.World.Clocks.AddTrigger(new TimerTrigger(UpdateSpeed, 0.005));
+			actor.World.Clocks.AddTrigger(new TimerTrigger(UpdateSpeed, TriggerFrequency));
 			rules = Compatibility.Check<IDWMRules>(this, actor.Rules);
 		}
 
@@ -36,9 +37,9 @@ namespace CVARC.V2
             var requestedAngular = rules.WheelRadius * (movement.RightRotatingVelocity.Radian - movement.LeftRotatingVelocity.Radian) / rules.DistanceBetweenWheels;
             var requestedLinear = rules.WheelRadius * (movement.LeftRotatingVelocity.Radian + movement.RightRotatingVelocity.Radian) / 2;
 
-            var linear = Math.Sign(requestedLinear) * Math.Min(Math.Abs(requestedLinear), rules.LinearVelocityLimit);
-            var angular = Math.Sign(requestedAngular) * Math.Min(Math.Abs(requestedAngular), rules.AngularVelocityLimit.Radian);
-            var angle = actor.World.Engine.GetAbsoluteLocation(actor.ObjectId).Yaw.Radian;
+			var linear = requestedLinear; // Math.Sign(requestedLinear) * Math.Min(Math.Abs(requestedLinear), rules.LinearVelocityLimit);
+			var angular = requestedAngular;// Math.Sign(requestedAngular) * Math.Min(Math.Abs(requestedAngular), rules.AngularVelocityLimit.Radian);
+			var angle = actor.World.Engine.GetAbsoluteLocation(actor.ObjectId).Yaw.Radian;
             
             //convert into cvarc world velocity
             

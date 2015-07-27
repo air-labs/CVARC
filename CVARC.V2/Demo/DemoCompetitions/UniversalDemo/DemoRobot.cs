@@ -27,6 +27,7 @@ namespace Demo
 		public override void AdditionalInitialization()
 		{
 			base.AdditionalInitialization();
+			
 			SimpleMovementUnit = new SimpleMovementUnit(this);
 			Gripper = new GripperUnit(this);
 			DWMUnit = new DWMUnit(this);

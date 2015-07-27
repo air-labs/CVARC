@@ -13,4 +13,11 @@ namespace Demo.KroR
             : base(new DemoLogicPartHelper(), new KroREnginePart(), new MovementManagerPart())
         { }
     }
+
+	public class DWMCompetitions : Competitions
+	{
+		public DWMCompetitions()
+			: base(new DWMLogicPartHelper(), new KroREnginePart(), new MovementManagerPart())
+		{ }
+	}
 }
