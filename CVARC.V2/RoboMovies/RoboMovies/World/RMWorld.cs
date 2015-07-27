@@ -8,7 +8,7 @@ using CVARC.V2;
 namespace RoboMovies
 {
     public class RMWorld : World<RMWorldState, IRMWorldManager>
-     {
+    {
         //TODO: словарик для информации о башнях
 
         public Dictionary<string, int> PopCornFullness = new Dictionary<string, int>();
@@ -38,26 +38,7 @@ namespace RoboMovies
             Scores.Add(TwoPlayersId.Left, 0, "Staring scores");
             Scores.Add(TwoPlayersId.Right, 0, "Staring scores");
         }
-
-        override public void CreateWorld()
-        {
-            Manager.CreateEmptyTable();
-            
-            foreach (var color in new[] { SideColor.Green, SideColor.Yellow })
-            {
-                var sideCorrection = GetSideCorrection(color);
-                Manager.CreateStartingArea(new Point2D((150 - 20) * sideCorrection, 0), color);
-                Manager.CreateStairs(IdGenerator.CreateNewId(new RMObject(color, ObjectType.Stairs)),
-                    new Point2D(25 * sideCorrection, 100 - 32), color);
-                CreateStands(sideCorrection, color);
-                CreateLights(sideCorrection);
-                CreatePopCornDispensers(sideCorrection);
-            }
-
-            CreatePopCorn();
-            CreateClapperboards();
-        }
-
+        
         public void CloseClapperboard(string clapperboardId)
         {
             Manager.CloseClapperboard(clapperboardId);
@@ -92,6 +73,26 @@ namespace RoboMovies
         private Frame2D GetSideIndependentLocation(Frame3D location)
         {
             return new Frame2D(Math.Abs(location.X), Math.Abs(location.Y), Angle.Zero);
+        }
+
+        #region WorldCreation
+        override public void CreateWorld()
+        {
+            Manager.CreateEmptyTable();
+            
+            foreach (var color in new[] { SideColor.Green, SideColor.Yellow })
+            {
+                var sideCorrection = GetSideCorrection(color);
+                Manager.CreateStartingArea(new Point2D((150 - 20) * sideCorrection, 0), color);
+                Manager.CreateStairs(IdGenerator.CreateNewId(new RMObject(color, ObjectType.Stairs)),
+                    new Point2D(25 * sideCorrection, 100 - 32), color);
+                CreateStands(sideCorrection, color);
+                CreateLights(sideCorrection);
+                CreatePopCornDispensers(sideCorrection);
+            }
+
+            CreatePopCorn();
+            CreateClapperboards();
         }
 
         private void CreateClapperboards()
@@ -169,5 +170,6 @@ namespace RoboMovies
         {
             return color == SideColor.Yellow ? -1 : 1;
         }
-    }
+        #endregion
+     }
 }
