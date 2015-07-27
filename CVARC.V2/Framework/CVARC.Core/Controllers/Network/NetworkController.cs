@@ -52,7 +52,7 @@ namespace CVARC.V2
 
             var async = @delegate.BeginInvoke(typeof(TCommand), null, null);
 
-			OperationalTimeLimit = 0.1; //TODO: убрать рак
+			OperationalTimeLimit = 0.5; //TODO: убрать рак
 
             while (OperationalTime <OperationalTimeLimit)
             {

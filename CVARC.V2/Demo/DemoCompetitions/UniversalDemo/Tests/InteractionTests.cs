@@ -32,7 +32,7 @@ namespace Demo
                 LocationTest((frame, asserter) =>
                 {
                     asserter.IsEqual(Angle.HalfPi.Grad, frame.Angle.Grad % 360, 1);
-                    asserter.IsEqual(22.45, frame.Y, 1e-3);
+                    asserter.IsEqual(22.5, frame.Y, 1e-3);
                 },
                 rules.Rotate(Angle.HalfPi / 2),
                 rules.Move(30),
@@ -48,8 +48,8 @@ namespace Demo
                 LocationTest((frame, asserter) =>
                 {
                     asserter.IsEqual(0, frame.Angle.Grad % 360, 1);
-                    asserter.IsEqual(-10, frame.Y, 1e-3);
-                    asserter.IsEqual(100, frame.X, 1e-3);
+                    asserter.IsEqual(-10, frame.Y, 1e-2);
+                    asserter.IsEqual(100, frame.X, 1e-2);
                 },
                 rules.Rotate(-Angle.HalfPi),
                 rules.Move(10),
