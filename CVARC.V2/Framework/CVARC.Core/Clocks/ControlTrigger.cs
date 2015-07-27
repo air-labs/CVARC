@@ -10,14 +10,13 @@ namespace CVARC.V2
     {
         IController controller;
         IActor controllable;
-        ICommandPreprocessor preprocessor;
-        IEnumerator<ICommand> currentBuffer;
+        CommandFilterSet filterSet;
 
-        public ControlTrigger(IController controller, IActor controllable, ICommandPreprocessor preprocessor)
+        public ControlTrigger(IController controller, IActor controllable, CommandFilterSet filterSet)
         {
             this.controller = controller;
             this.controllable = controllable;
-            this.preprocessor = preprocessor;
+            this.filterSet = filterSet;
         }
 
 
@@ -29,10 +28,9 @@ namespace CVARC.V2
 			if (command == null) return false;
             Debugger.Log(DebuggerMessageType.Workflow, "Command accepted in ControlTrigger");
 			controllable.World.Logger.AccountCommand(controllable.ControllerId, command);
-            var processedCommands = preprocessor.Preprocess(command);
-            Debugger.Log(DebuggerMessageType.Workflow, processedCommands.Count()+" commands after preprocessor");
-            currentBuffer = processedCommands.GetEnumerator();
-            if (!currentBuffer.MoveNext())
+
+            filterSet.ProcessCommand(command);
+            if (!filterSet.CommandAvailable)
             {
                 throw new Exception("The preprocessor has returned an empty set of commands. Unable to processd");
             }
@@ -41,19 +39,17 @@ namespace CVARC.V2
 
         public override void Act(out double nextTime)
         {
-            if (currentBuffer == null)
+            if (!filterSet.CommandAvailable)
                 if (!FillBuffer())
                 {
                     nextTime = double.PositiveInfinity;
                     return;
                 }
-            var currentCommand = currentBuffer.Current;
+            var currentCommand = filterSet.GetNextCommand();
             double duration;
             Debugger.Log(DebuggerMessageType.Workflow, "Command goes to robot");
             controllable.ExecuteCommand(currentCommand, out duration);
             nextTime = base.ThisCall +  duration;
-            if (!currentBuffer.MoveNext())
-                currentBuffer = null;
         }
     }
 }

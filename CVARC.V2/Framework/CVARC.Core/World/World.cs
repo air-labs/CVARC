@@ -107,7 +107,7 @@ namespace CVARC.V2
                 
                 var controller = controllerFactory.Create(e.ControllerId, e);
                 controller.Initialize(e);
-                var preprocessor = factory.CreatePreprocessor();
+                var preprocessor = factory.CreateCommandFilterSet();
                 preprocessor.Initialize(e);
                 Clocks.AddTrigger(new ControlTrigger(controller, e, preprocessor));
                 actors.Add(e);

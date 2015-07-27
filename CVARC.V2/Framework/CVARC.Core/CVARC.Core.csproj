@@ -170,11 +170,11 @@
     <Compile Include="Units\TwoPlayersId.cs" />
     <Compile Include="Units\UnitResponse.cs" />
     <Compile Include="World\Actor.cs" />
-    <Compile Include="World\CommandPreprocessor.cs" />
+    <Compile Include="World\CommandFilterSet.cs" />
+    <Compile Include="World\CommandFilter.cs" />
     <Compile Include="World\IActor.cs" />
     <Compile Include="World\ICommand.cs" />
-    <Compile Include="World\ICommandPreprocessor.cs" />
-    <Compile Include="World\IdentityCommandPreprocessor.cs" />
+    <Compile Include="World\ICommandFilter.cs" />
     <Compile Include="World\IdGenerator.cs" />
     <Compile Include="World\IWorld.cs" />
     <Compile Include="World\Robot.cs" />
