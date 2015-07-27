@@ -10,7 +10,7 @@ using CVARC.Core;
 
 namespace RoboMovies
 {
-    class Clapperboard : Box
+    public class Clapperboard : Box
     {
         public Box Cap { get; private set; }
 

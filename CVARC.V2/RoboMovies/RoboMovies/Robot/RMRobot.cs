@@ -10,12 +10,13 @@ namespace RoboMovies
 {
     public class RMRobot<TSensorsData> : 
                 Robot<IRMActorManager, RMWorld, TSensorsData, RMCommand, RMRules>,
-                ITowerBuilderRobot, IGrippableRobot
+                ITowerBuilderRobot, IGrippableRobot, IRMCombinedRobot
         where TSensorsData : new()
     {
         public SimpleMovementUnit SimpleMovementUnit { get; private set; }
         public TowerBuilderUnit TowerBuilder {get; private set;}
         public GripperUnit Gripper { get; private set; }
+        public RMCombinedUnit Combiner { get; set; }
 
         public override IEnumerable<IUnit> Units
         {
@@ -24,6 +25,7 @@ namespace RoboMovies
                 yield return SimpleMovementUnit;
                 yield return TowerBuilder;
                 yield return Gripper;
+                yield return Combiner;
             }
         }
     
@@ -35,7 +37,16 @@ namespace RoboMovies
             SimpleMovementUnit = new SimpleMovementUnit(this);
             TowerBuilder = new TowerBuilderUnit(this);
             Gripper = new GripperUnit(this);
-	
+            Combiner = new RMCombinedUnit(this);
+
+            Combiner.FindClapperboards = () =>
+                {
+                    return World.IdGenerator.GetAllPairsOfType<RMObject>()
+                        .Where(z => z.Item1.Type == ObjectType.Clapperboard)
+                        .Where(z => World.Engine.ContainBody(z.Item2))
+                        .Select(z => z.Item2);
+                };
+
             TowerBuilder.FindCollectable = () =>
                 {
                     Func<string, bool> isAttachedToStand = s =>
@@ -120,5 +131,7 @@ namespace RoboMovies
                 throw new ArgumentException("This id is not bind to any RMObject.");
             return World.IdGenerator.GetKey<RMObject>(id);
         }
+
+        
     }
 }

@@ -7,7 +7,7 @@ using System.Text;
 namespace CVARC.V2
 {
     [DataContract]
-	public class RMCommand : ICommand, ISimpleMovementCommand, ITowerBuilderCommand, IGripperCommand
+    public class RMCommand : ICommand, ISimpleMovementCommand, ITowerBuilderCommand, IGripperCommand, ICombinedCommand
 	{
         [DataMember]
 		public SimpleMovement SimpleMovement
@@ -25,6 +25,13 @@ namespace CVARC.V2
 
         [DataMember]
         public GripperAction GripperCommand
+        {
+            get;
+            set;
+        }
+
+        [DataMember]
+        public string[] CombinedCommand
         {
             get;
             set;

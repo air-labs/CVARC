@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CVARC.V2
 {
-	public class RMRules : IRules, ITowerBuilderRules<RMCommand>, ISimpleMovementRules<RMCommand>, IGripperRules<RMCommand>
+	public class RMRules : IRules, ITowerBuilderRules<RMCommand>, ISimpleMovementRules<RMCommand>, IGripperRules<RMCommand>, IRMCombinedRules<RMCommand>
 	{
         public static readonly RMRules Current = new RMRules();
 		
@@ -16,6 +16,7 @@ namespace CVARC.V2
 			this.AddBuilderKeys<RMCommand>(pool, controllerId);
 			this.AddSimpleMovementKeys<RMCommand>(pool, controllerId);
             this.AddGripKeys<RMCommand>(pool, controllerId);
+            this.AddCombinedKeys<RMCommand>(pool, controllerId);
             pool.StopCommand = () => new RMCommand { SimpleMovement = SimpleMovement.Stand(0.1) };
 		}
 

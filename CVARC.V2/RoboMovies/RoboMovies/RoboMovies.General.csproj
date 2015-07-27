@@ -85,6 +85,12 @@
     <Compile Include="Tests\TowerScoringTests.cs" />
     <Compile Include="Robot\RMCommand.cs" />
     <Compile Include="Robot\RMRules.cs" />
+    <Compile Include="Units\CombinedUnit\CombinedUnit.cs" />
+    <Compile Include="Units\CombinedUnit\IRMCombinedRules.cs" />
+    <Compile Include="Units\CombinedUnit\ICombinedCommand.cs" />
+    <Compile Include="Units\CombinedUnit\IRMCombinedRobot.cs" />
+    <Compile Include="Units\CombinedUnit\RMCombinedUnit.cs" />
+    <Compile Include="Units\CombinedUnit\RulesExtensions.cs" />
     <Compile Include="Units\TowerBuilderUnit\ITowerBuilderCommand.cs" />
     <Compile Include="Units\TowerBuilderUnit\ITowerBuilderRules.cs" />
     <Compile Include="Units\TowerBuilderUnit\ITowerRobot.cs" />
