@@ -29,8 +29,6 @@ namespace RoboMovies
             }
         }
     
-        SideColor robotColor;
-
 		public override void AdditionalInitialization()
 		{
             base.AdditionalInitialization();
@@ -39,6 +37,9 @@ namespace RoboMovies
             Gripper = new GripperUnit(this);
             Combiner = new RMCombinedUnit(this);
 
+            var robotColor = ControllerId == TwoPlayersId.Left ? SideColor.Yellow : SideColor.Green;
+
+            #region Combiner
             Combiner.FindClapperboards = () =>
                 {
                     return World.IdGenerator.GetAllPairsOfType<RMObject>()
@@ -46,13 +47,15 @@ namespace RoboMovies
                         .Where(z => World.Engine.ContainBody(z.Item2))
                         .Select(z => z.Item2);
                 };
+            #endregion
 
+            #region TowerBuilder
             TowerBuilder.FindCollectable = () =>
                 {
                     Func<string, bool> isAttachedToStand = s =>
                         (s = World.Engine.FindParent(s)) != null &&
                         World.IdGenerator.KeyOfType<RMObject>(s) &&
-                        GetObjectFromId(s).Type == ObjectType.Stand;
+                        World.GetObjectById(s).Type == ObjectType.Stand;
 
                     var allCollectable = World.IdGenerator.GetAllPairsOfType<RMObject>()
                 		.Where(z => z.Item1.Type == ObjectType.Stand || z.Item1.Type == ObjectType.Light)
@@ -68,14 +71,16 @@ namespace RoboMovies
                 };
             
             TowerBuilder.GrippingPoint = new Frame3D(15, 0, 5);
-            TowerBuilder.OnRelease = CheckTowerPosition;
+            
             TowerBuilder.OnGrip = (id, location) =>
                 {
-                    var obj = GetObjectFromId(id);
+                    var obj = World.GetObjectById(id);
                     if (obj.Color != robotColor && obj.Color != SideColor.Any)
                         World.Scores.Add(ControllerId, -10, "Took the stand of invalid color.");
                 };
+            #endregion
 
+            #region Gripper
             Gripper.FindDetail = () =>
                 {
                     var allCollectable = World.IdGenerator.GetAllPairsOfType<RMObject>()
@@ -92,46 +97,20 @@ namespace RoboMovies
                         .Select(z => z.Id)
                         .FirstOrDefault();
                 };
+            
             Gripper.GrippingPoint = new Frame3D(-15, 0, 5);
-            Gripper.OnRelease = CheckPopCornPosition;
-	
-            robotColor = ControllerId == TwoPlayersId.Left ? SideColor.Yellow : SideColor.Green;
-		}
+           
+            Gripper.OnRelease = (id, location) =>
+                {
+            	    World.Engine.Detach(id, location.NewZ(3));
+            	    World.PopCornOwner[id] = ControllerId;
+            	};
+            #endregion
+        }
         
-        private double Distance(string from, string to)
+        double Distance(string from, string to)
         {
             return Geometry.Hypot(World.Engine.GetAbsoluteLocation(from) - World.Engine.GetAbsoluteLocation(to));
         }
-
-        void CheckTowerPosition(HashSet<string> tower, Frame3D location)
-        {
-            var bonus = TowerBuilder.ContainsBall ? 3 : 0;
-
-            var validTower = tower
-                .Select(x => GetObjectFromId(x))
-                .Where(x => x.Color == robotColor && x.Type == ObjectType.Stand);
-
-            if (World.IsInsideStartingArea(location, robotColor) || World.IsInsideBuildingArea(location))
-                foreach (var item in validTower)
-                    World.Scores.Add(ControllerId, 2 + bonus, 
-                        String.Format("{0} stand(s) has been deployed in correct place.", tower.Count));
-        }
-
-        void CheckPopCornPosition(string popcornId, Frame3D location)
-        {
-            World.Engine.Detach(popcornId, location.NewZ(3));
-            if (World.IsInsideCinema(location, robotColor))
-                World.Scores.Add(ControllerId, World.PopCornFullness[popcornId],
-                    "Pop corn located in a valid place.");
-        }
-
-        RMObject GetObjectFromId(string id)
-        {
-            if (!World.IdGenerator.KeyOfType<RMObject>(id))
-                throw new ArgumentException("This id is not bind to any RMObject.");
-            return World.IdGenerator.GetKey<RMObject>(id);
-        }
-
-        
     }
 }

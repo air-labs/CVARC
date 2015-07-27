@@ -12,6 +12,7 @@ namespace RoboMovies
         //TODO: словарик для информации о башнях
 
         public Dictionary<string, int> PopCornFullness = new Dictionary<string, int>();
+        public Dictionary<string, string> PopCornOwner = new Dictionary<string, string>();
 
         public override void AdditionalInitialization()
         {
@@ -37,6 +38,8 @@ namespace RoboMovies
             
             Scores.Add(TwoPlayersId.Left, 0, "Staring scores");
             Scores.Add(TwoPlayersId.Right, 0, "Staring scores");
+
+            Clocks.AddTrigger(new RMScoresTrigger(this));
         }
         
         public void CloseClapperboard(string clapperboardId)
@@ -44,7 +47,25 @@ namespace RoboMovies
             Manager.CloseClapperboard(clapperboardId);
         }
 
-        public bool IsInsideStartingArea(Frame3D location, SideColor color)
+        public bool IsCorrectStand(Frame3D location, string controllerId)
+        {
+            var color = GetColorByController(controllerId);
+            return IsInsideStartingArea(location, color) || IsInsideBuildingArea(location);
+        }
+        
+        public bool IsCorrectPopCorn(Frame3D location, string controllerId)
+        {
+            var color = GetColorByController(controllerId);
+            return IsInsideCinema(location, color) || IsInsideStartingArea(location, color);
+        }
+        
+        public bool IsCorrectPopCorn(string popcornId, string controllerId)
+        {
+            var location = Engine.GetAbsoluteLocation(popcornId);
+            return IsCorrectPopCorn(location, controllerId);
+        }
+
+        bool IsInsideStartingArea(Frame3D location, SideColor color)
         {
             var loc2d = GetSideIndependentLocation(location);
 
@@ -55,24 +76,40 @@ namespace RoboMovies
             return (insideSquare || insideCircle) && correctSide;
         }
 
-        public bool IsInsideBuildingArea(Frame3D location)
+        bool IsInsideBuildingArea(Frame3D location)
         {
             return location.Y <= -100 + 20 && Math.Abs(location.X) <= 40;
         }
 
-        public bool IsInsideCinema(Frame3D location, SideColor color)
+        bool IsInsideCinema(Frame3D location, SideColor color)
         {
             var loc2d = GetSideIndependentLocation(location);
 
             var insideSquare = loc2d.X >= 150 - 45 && loc2d.Y >= 20 && loc2d.Y <= 60;
             var correctSide = location.X * GetSideCorrection(color) < 0;
 
-            return correctSide && insideSquare || IsInsideStartingArea(location, color);
+            return correctSide && insideSquare;
         }
         
-        private Frame2D GetSideIndependentLocation(Frame3D location)
+        Frame2D GetSideIndependentLocation(Frame3D location)
         {
             return new Frame2D(Math.Abs(location.X), Math.Abs(location.Y), Angle.Zero);
+        }
+
+        SideColor GetColorByController(string twoPlayersId)
+        {
+            if (twoPlayersId == TwoPlayersId.Left)
+                return SideColor.Yellow;
+            if (twoPlayersId == TwoPlayersId.Right)
+                return SideColor.Green;
+            throw new ArgumentException();
+        }
+        
+        public RMObject GetObjectById(string id)
+        {
+            if (!IdGenerator.KeyOfType<RMObject>(id))
+                throw new ArgumentException("This id is not binded to any RMObject.");
+            return IdGenerator.GetKey<RMObject>(id);
         }
 
         #region WorldCreation
@@ -134,6 +171,7 @@ namespace RoboMovies
                 var id = IdGenerator.CreateNewId(new RMObject(SideColor.Any, ObjectType.PopCorn));
                 Manager.CreatePopCorn(id, point);
                 PopCornFullness[id] = 4;
+                PopCornOwner[id] = null;
             }
         }
 

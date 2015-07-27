@@ -98,6 +98,7 @@
     <Compile Include="Units\TowerBuilderUnit\TowerBuilderAction.cs" />
     <Compile Include="Units\TowerBuilderUnit\TowerBuilderSensor.cs" />
     <Compile Include="Units\TowerBuilderUnit\TowerBuilderUnit.cs" />
+    <Compile Include="World\RMScoresTrigger.cs" />
     <Compile Include="World\RMWorld.cs" />
     <Compile Include="World\IRMWorldManager.cs" />
     <Compile Include="SceneSettings\Node.cs" />
