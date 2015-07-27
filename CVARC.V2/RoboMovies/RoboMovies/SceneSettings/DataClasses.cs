@@ -22,6 +22,17 @@ namespace RoboMovies
         Any,
     }
 
+    public enum Cinema
+    {
+        None,
+        UpperLeft,
+        BottomLeft,
+        UpperRight,
+        BottomRight,
+        LeftStartingArea,
+        RightStartingArea,
+    }
+
     public enum ObjectType
     {
         Clapperboard,

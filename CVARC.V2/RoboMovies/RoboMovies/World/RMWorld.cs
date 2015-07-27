@@ -47,22 +47,23 @@ namespace RoboMovies
             Manager.CloseClapperboard(clapperboardId);
         }
 
-        public bool IsCorrectStand(Frame3D location, string controllerId)
+        public bool IsValidStand(Frame3D location, string controllerId)
         {
             var color = GetColorByController(controllerId);
             return IsInsideStartingArea(location, color) || IsInsideBuildingArea(location);
         }
         
-        public bool IsCorrectPopCorn(Frame3D location, string controllerId)
+        public bool IsValidPopCorn(Frame3D location, string controllerId)
         {
             var color = GetColorByController(controllerId);
             return IsInsideCinema(location, color) || IsInsideStartingArea(location, color);
         }
         
-        public bool IsCorrectPopCorn(string popcornId, string controllerId)
+        public bool IsValidPopCorn(string popcornId, string controllerId, out Cinema cinema)
         {
             var location = Engine.GetAbsoluteLocation(popcornId);
-            return IsCorrectPopCorn(location, controllerId);
+            cinema = GetCinemaByLocation(location);
+            return IsValidPopCorn(location, controllerId);
         }
 
         bool IsInsideStartingArea(Frame3D location, SideColor color)
@@ -90,7 +91,29 @@ namespace RoboMovies
 
             return correctSide && insideSquare;
         }
-        
+
+        Cinema GetCinemaByLocation(Frame3D location)
+        {
+            if (IsInsideCinema(location, SideColor.Yellow))
+                if (location.Y > 0)
+                    return Cinema.UpperRight;
+                else
+                    return Cinema.BottomRight;
+
+            if (IsInsideCinema(location, SideColor.Green))
+                if (location.Y > 0)
+                    return Cinema.UpperLeft;
+                else
+                    return Cinema.BottomLeft;
+
+            if (IsInsideStartingArea(location, SideColor.Green))
+                return Cinema.RightStartingArea;
+            if (IsInsideStartingArea(location, SideColor.Yellow))
+                return Cinema.LeftStartingArea;
+            
+            return Cinema.None;
+        }
+
         Frame2D GetSideIndependentLocation(Frame3D location)
         {
             return new Frame2D(Math.Abs(location.X), Math.Abs(location.Y), Angle.Zero);

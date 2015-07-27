@@ -36,15 +36,25 @@ namespace RoboMovies
             var popcorn = world.IdGenerator.GetAllPairsOfType<RMObject>()
                 .Where(x => x.Item1.Type == ObjectType.PopCorn)
                 .Select(x => x.Item2)
-                .Where(x => world.Engine.FindParent(x) == null);
+                .Where(x => world.Engine.FindParent(x) == null)
+                .OrderBy(x => world.PopCornFullness[x]);
 
-            foreach(var popcornId in popcorn)
+            var scores = new Dictionary<string, Dictionary<Cinema, int>>();
+            scores[TwoPlayersId.Left] = new Dictionary<Cinema, int>();
+            scores[TwoPlayersId.Right] = new Dictionary<Cinema, int>();
+            var cinema = Cinema.None;
+
+            foreach (var popcornId in popcorn)
             {
                 var ownerId = world.PopCornOwner[popcornId];
-                if (ownerId != null && world.IsCorrectPopCorn(popcornId, ownerId))
-                    world.Scores.Add(ownerId, world.PopCornFullness[popcornId],
-                        "Popcorn deployed in correct location.", RecordType.Temporary);
+                if (ownerId != null && world.IsValidPopCorn(popcornId, ownerId, out cinema))
+                    scores[ownerId][cinema] = world.PopCornFullness[popcornId];
             }
+
+            foreach (var record in scores)
+                foreach(var score in record.Value.Values)
+                    world.Scores.Add(record.Key, score,
+                        "Popcorn deployed in correct location.", RecordType.Temporary);
         }
 
         void UpdateStandsScores(string controllerId)
@@ -58,7 +68,7 @@ namespace RoboMovies
                 .Select(z => world.Engine.GetAbsoluteLocation(z.ID));
 
             foreach (var standLocation in stands)
-                if (world.IsCorrectStand(standLocation, controllerId))
+                if (world.IsValidStand(standLocation, controllerId))
                     world.Scores.Add(controllerId, 2, "Correct stand", RecordType.Temporary);
         }
     }
