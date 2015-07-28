@@ -77,7 +77,20 @@ namespace RoboMovies
                     var obj = World.GetObjectById(id);
                     if (obj.Color != robotColor && obj.Color != SideColor.Any)
                         World.Scores.Add(ControllerId, -10, "Took the stand of invalid color.");
+
+                    World.Spotlights = World.Spotlights
+                        .Where(kv => !kv.Value.Contains(id))
+                        .ToDictionary(kv => kv.Key, kv => kv.Value);
                 };
+
+            TowerBuilder.OnRelease = (ids, location) => 
+            {
+                var light = ids
+                    .Where(id => World.IdGenerator.GetKey<RMObject>(id).Type == ObjectType.Light)
+                    .FirstOrDefault();
+                ids.Remove(light);
+                if (light != null) World.Spotlights[light] = ids;
+            };
             #endregion
 
             #region Gripper
@@ -99,12 +112,7 @@ namespace RoboMovies
                 };
             
             Gripper.GrippingPoint = new Frame3D(-15, 0, 5);
-           
-            Gripper.OnRelease = (id, location) =>
-                {
-            	    World.Engine.Detach(id, location.NewZ(3));
-            	    World.PopCornOwner[id] = ControllerId;
-            	};
+            Gripper.OnRelease = (id, location) => World.Engine.Detach(id, location.NewZ(3));
             #endregion
         }
         

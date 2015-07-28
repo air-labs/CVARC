@@ -9,10 +9,8 @@ namespace RoboMovies
 {
     public class RMWorld : World<RMWorldState, IRMWorldManager>
     {
-        //TODO: словарик для информации о башнях
-
         public Dictionary<string, int> PopCornFullness = new Dictionary<string, int>();
-        public Dictionary<string, string> PopCornOwner = new Dictionary<string, string>();
+        public Dictionary<string, HashSet<string>> Spotlights = new Dictionary<string, HashSet<string>>();
 
         public override void AdditionalInitialization()
         {
@@ -66,7 +64,7 @@ namespace RoboMovies
             return IsValidPopCorn(location, controllerId);
         }
 
-        bool IsInsideStartingArea(Frame3D location, SideColor color)
+        public bool IsInsideStartingArea(Frame3D location, SideColor color)
         {
             var loc2d = GetSideIndependentLocation(location);
 
@@ -77,7 +75,7 @@ namespace RoboMovies
             return (insideSquare || insideCircle) && correctSide;
         }
 
-        bool IsInsideBuildingArea(Frame3D location)
+        public bool IsInsideBuildingArea(Frame3D location)
         {
             return location.Y <= -100 + 20 && Math.Abs(location.X) <= 40;
         }
@@ -194,7 +192,6 @@ namespace RoboMovies
                 var id = IdGenerator.CreateNewId(new RMObject(SideColor.Any, ObjectType.PopCorn));
                 Manager.CreatePopCorn(id, point);
                 PopCornFullness[id] = 4;
-                PopCornOwner[id] = null;
             }
         }
 
