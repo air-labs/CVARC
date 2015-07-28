@@ -75,7 +75,7 @@ namespace CVARC.V2
                 OnRelease(CollectedIds, dropLocation);
             
             ContainsBall = false;
-            CollectedIds.Clear();
+            CollectedIds = new HashSet<string>();
             actor.World.Engine.Detach(BuildTower(), dropLocation);
         }
 
