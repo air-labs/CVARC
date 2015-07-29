@@ -199,10 +199,11 @@ namespace RoboMovies
         {
             var step = 33;
             for (var x = 1; x < 3; ++x)
-                Manager.CreatePopCornDispenser(
-                    IdGenerator.CreateNewId(new RMObject(SideColor.Any, ObjectType.Dispenser)),
-                    new Point2D((150 - x * step) * sideCorrection, 100)
-                );
+            {
+                var id = IdGenerator.CreateNewId(new RMObject(SideColor.Any, ObjectType.Dispenser));
+                PopCornFullness[id] = 5;
+                Manager.CreatePopCornDispenser(id, new Point2D((150 - x * step) * sideCorrection, 100));
+            }
         }
 
         private void CreateStands(int sideCorrection, SideColor color)
