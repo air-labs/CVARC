@@ -17,8 +17,8 @@ namespace RoboMovies
                 TimeLimit = 30,
                 Controllers = new List<ControllerSettings> 
                     {
-                        new ControllerSettings  { ControllerId=TwoPlayersId.Right, Name="This", Type= ControllerType.Client},
-                        new ControllerSettings  { ControllerId=TwoPlayersId.Left, Name="Stand", Type= ControllerType.Bot}
+                        new ControllerSettings  { ControllerId=TwoPlayersId.Left, Name="This", Type= ControllerType.Client},
+                        new ControllerSettings  { ControllerId=TwoPlayersId.Right, Name="Stand", Type= ControllerType.Bot}
                     }
             };
         }

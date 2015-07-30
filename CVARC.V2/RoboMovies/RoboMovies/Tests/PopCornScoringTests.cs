@@ -12,7 +12,7 @@ namespace RoboMovies
         [TestLoaderMethod]
         public void LoadPopCornScoringTests(LogicPart logic, RMRules rules)
         {
-            AddTest(logic, "Scores_PopCornStartinArea", ScoreTest(
+            AddTest(logic, "Scores_PopCornStartingArea", ScoreTest(
                 4,
                 rules.Move(64),
                 rules.Rotate(-Angle.HalfPi),

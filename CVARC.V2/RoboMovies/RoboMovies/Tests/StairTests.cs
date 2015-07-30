@@ -15,15 +15,15 @@ namespace RoboMovies
             //забираемся почему-то только на жёлтую лесенку
             AddTest(logic, "Scores_MoveToOpponentStair", ScoreTest(50,
                 rules.Move(150),
-                rules.Rotate(-Angle.HalfPi),
+                rules.Rotate(Angle.HalfPi),
                 rules.Move(40),
                 rules.Stand(0.1),
                 rules.UpLadder(),
                 rules.Stand(0.1),
-                rules.Rotate(-Angle.HalfPi),
+                rules.Rotate(Angle.HalfPi),
                 rules.Move(50),
                 rules.Stand(0.1),
-                rules.Rotate(Angle.HalfPi),
+                rules.Rotate(-Angle.HalfPi),
                 rules.Stand(0.1),
                 rules.UpLadder()
             ));
