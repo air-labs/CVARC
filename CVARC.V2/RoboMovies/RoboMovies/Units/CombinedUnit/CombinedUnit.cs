@@ -19,7 +19,7 @@ namespace CVARC.V2
 
         public UnitResponse ProcessCommand(object _command)
         {
-            var command = (_command as RMCommand).CombinedCommand;
+            var command = (_command as ICombinedCommand).CombinedCommand;
             
             if (command.Length == 0)
             {

@@ -25,5 +25,25 @@ namespace CVARC.V2
 			}
 		}
 
+        public static TCommand LeftDeployerUse<TCommand>(this IRMCombinedRules<TCommand> factory)
+            where TCommand : ICombinedCommand, new()
+        {
+            return new TCommand { CombinedCommand = new[] { "LeftDeployer" } };
+        }
+        public static TCommand RightDeployerUse<TCommand>(this IRMCombinedRules<TCommand> factory)
+            where TCommand : ICombinedCommand, new()
+        {
+            return new TCommand { CombinedCommand = new[] { "RightDeployer" } };
+        }
+        public static TCommand UpLadder<TCommand>(this IRMCombinedRules<TCommand> factory)
+            where TCommand : ICombinedCommand, new()
+        {
+            return new TCommand { CombinedCommand = new[] { "LadderTaker" } };
+        }
+        public static TCommand GetPopCorn<TCommand>(this IRMCombinedRules<TCommand> factory)
+           where TCommand : ICombinedCommand, new()
+        {
+            return new TCommand { CombinedCommand = new[] { "PopcornMachineUser" } };
+        }
 	}
 }

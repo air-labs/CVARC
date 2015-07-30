@@ -39,16 +39,6 @@ namespace RoboMovies
 
             var robotColor = ControllerId == TwoPlayersId.Left ? SideColor.Yellow : SideColor.Green;
 
-            #region Combiner
-            Combiner.FindClapperboards = () =>
-                {
-                    return World.IdGenerator.GetAllPairsOfType<RMObject>()
-                        .Where(z => z.Item1.Type == ObjectType.Clapperboard)
-                        .Where(z => World.Engine.ContainBody(z.Item2))
-                        .Select(z => z.Item2);
-                };
-            #endregion
-
             #region TowerBuilder
             TowerBuilder.FindCollectable = () =>
                 {

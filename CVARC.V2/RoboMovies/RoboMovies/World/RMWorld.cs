@@ -11,6 +11,7 @@ namespace RoboMovies
     {
         public Dictionary<string, int> PopCornFullness = new Dictionary<string, int>();
         public Dictionary<string, HashSet<string>> Spotlights = new Dictionary<string, HashSet<string>>();
+        public Dictionary<string, bool> IsClapperboardClosed = new Dictionary<string, bool>();
 
         public override void AdditionalInitialization()
         {
@@ -159,9 +160,10 @@ namespace RoboMovies
             {
                 var clapperOffset = i < 0 ? -30 : 60;
                 var color = i % 2 == 0 ? SideColor.Green : SideColor.Yellow;
+                var clapperboardId = IdGenerator.CreateNewId(new RMObject(color, ObjectType.Clapperboard));
+                IsClapperboardClosed.Add(clapperboardId, false);
 
-                Manager.CreateClapperboard(
-                    IdGenerator.CreateNewId(new RMObject(color, ObjectType.Clapperboard)),
+                Manager.CreateClapperboard(clapperboardId,
                     new Point2D(i * 30 + clapperOffset, -100 - 1),
                     color);
             }
