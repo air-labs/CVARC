@@ -54,8 +54,8 @@ namespace CVARC.V2
             Controls.Add(control);
 
 
-            world.Scores.ScoresChanged += Scores_ScoresChanged;
-            world.Clocks.Ticked += () => { BeginInvoke(new Action(UpdateClocks)); };
+            world.Scores.ScoresChanged += () => { Invoke(new Action(UpdateScores)); };
+            world.Clocks.Ticked += () => { Invoke(new Action(UpdateClocks)); };
             world.Exit += () => worldExited = true;
 
             UpdateScores();
@@ -91,12 +91,6 @@ namespace CVARC.V2
         void UpdateClocks()
         {
             clocks.Text = Math.Round(world.Clocks.CurrentTime).ToString();
-        }
-
-        void Scores_ScoresChanged()
-        {
-            BeginInvoke(new Action(UpdateScores));
-
         }
     }
 }

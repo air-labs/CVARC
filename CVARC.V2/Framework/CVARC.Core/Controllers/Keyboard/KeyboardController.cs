@@ -33,7 +33,10 @@ namespace CVARC.V2
             var pressedKeys = keyboard.PressedKeys.ToList();
             foreach (var key in keys)
                 if (pressedKeys.Contains(key.Key.ToString()))
-                    return key.Value();
+                {
+                    var a = key.Value();
+                    return a;
+                }
             return StopCommand();
         }
     }

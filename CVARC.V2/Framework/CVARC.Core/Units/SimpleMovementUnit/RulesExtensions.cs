@@ -53,9 +53,6 @@ namespace CVARC.V2
             return new TCommand { SimpleMovement = SimpleMovement.RotateWithVelocity(angle, velocity) };
         }
 
-
-
-
 		public static void AddSimpleMovementKeys<TCommand>(this ISimpleMovementRules<TCommand> factory, KeyboardController<TCommand> pool, string controllerId)
 			where TCommand : ISimpleMovementCommand, new()
 		{
