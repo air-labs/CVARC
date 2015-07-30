@@ -19,7 +19,6 @@ namespace Demo
                     asserter.IsEqual(angleInGrad, frame.Angle.Grad % 360, 1e-1 * tolerance);
                 },
                     command);
-                        
         }
 
         DemoTestEntry LocationTest(Action<Frame2D, IAsserter> test, params MoveAndGripCommand[] command)

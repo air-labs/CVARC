@@ -90,6 +90,14 @@
       <Project>{11b6a7c1-e6aa-4f81-9710-ec84069ca858}</Project>
       <Name>RepairTheStarship.General</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\RoboMovies\RoboMovies.KroR\RoboMovies.KroR.csproj">
+      <Project>{38c5f68e-4b42-4457-ac17-001fc1dbbf4f}</Project>
+      <Name>RoboMovies.KroR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RoboMovies\RoboMovies\RoboMovies.General.csproj">
+      <Project>{4c00a5ba-5f04-4173-910d-e7813b313001}</Project>
+      <Name>RoboMovies.General</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CVARC.Core\CVARC.Core.csproj">
       <Project>{f7b5021f-09e8-4388-97a2-4b44b9770d03}</Project>
       <Name>CVARC.Core</Name>

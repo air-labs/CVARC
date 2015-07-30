@@ -150,6 +150,7 @@
     <Compile Include="Sensors\Sensor.cs" />
     <Compile Include="Sensors\SensorPack.cs" />
     <Compile Include="Units\Bot.cs" />
+    <Compile Include="Units\GripperUnit\BaseGripperUnit.cs" />
     <Compile Include="Units\GripperUnit\RulesExtensions.cs" />
     <Compile Include="Units\GripperUnit\GripperAction.cs" />
     <Compile Include="Units\GripperUnit\GripperUnit.cs" />
