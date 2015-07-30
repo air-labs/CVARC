@@ -39,14 +39,6 @@ namespace RoboMovies
             Gripper = new GripperUnit(this);
             Combiner = new RMCombinedUnit(this);
 
-            Combiner.FindClapperboards = () =>
-                {
-                    return World.IdGenerator.GetAllPairsOfType<RMObject>()
-                        .Where(z => z.Item1.Type == ObjectType.Clapperboard)
-                        .Where(z => World.Engine.ContainBody(z.Item2))
-                        .Select(z => z.Item2);
-                };
-
             TowerBuilder.FindCollectable = () =>
                 {
                     Func<string, bool> isAttachedToStand = s =>
