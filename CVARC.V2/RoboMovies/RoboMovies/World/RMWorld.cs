@@ -144,7 +144,7 @@ namespace RoboMovies
                 var sideCorrection = GetSideCorrection(color);
                 Manager.CreateStartingArea(new Point2D((150 - 20) * sideCorrection, 0), color);
                 Manager.CreateStairs(IdGenerator.CreateNewId(new RMObject(color, ObjectType.Stairs)),
-                    new Point2D(25 * sideCorrection, 100 - 32), color);
+                    new Point2D(25 * sideCorrection, 100 - 30), color);
                 CreateStands(sideCorrection, color);
                 CreateLights(sideCorrection);
                 CreatePopCornDispensers(sideCorrection);
