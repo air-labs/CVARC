@@ -22,7 +22,7 @@ namespace Demo
             logicPart.WorldStateType = typeof(DemoWorldState);
 
 
-            return new Tuple<DemoRules, LogicPart>(rules, logicPart);
+            return new Tuple<DWMRules, LogicPart>(rules, logicPart);
         }
 
         public override LogicPart Create()

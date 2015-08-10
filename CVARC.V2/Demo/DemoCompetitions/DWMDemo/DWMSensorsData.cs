@@ -8,7 +8,7 @@ using CVARC.V2;
 namespace Demo
 {
     [DataContract]
-    public class DwmSensorsData
+    public class DWMSensorsData
     {
         [DataMember]
         [FromSensor(typeof(LocatorSensor))]

@@ -9,27 +9,27 @@ namespace Demo
 {
 	partial class DWMLogicPartHelper
     {
-        DemoTestEntry EncodersTest(EncodersData encoders, params DemoCommand[] command)
+        DWMTestEntry EncodersTest(EncodersData encoders, params DWMCommand[] command)
         {
             return (client, world, asserter) =>
             {
-                DemoSensorsData data = new DemoSensorsData();
+                DWMSensorsData data = new DWMSensorsData();
                 foreach (var c in command)
                     data = client.Act(c);
                 asserter.IsEqual(encoders.TotalLeftRotation.Radian, data.Encoders.Sum(x => x.TotalLeftRotation.Radian), 0);
                 asserter.IsEqual(encoders.TotalRightRotation.Radian, data.Encoders.Sum(x => x.TotalRightRotation.Radian),0);
             };
         }
-        void LoadEncodersTests(LogicPart logic, DemoRules rules)
+        void LoadEncodersTests(LogicPart logic, DWMRules rules)
         {
-            logic.Tests["Encoder_MoveForward"] = new RoundMovementTestBase(
+            logic.Tests["Encoder_MoveForward"] = new DWMMovementTestBase(
                 EncodersTest(
                 new EncodersData { 
                     Timestamp = 0, 
                     TotalLeftRotation = Angle.FromGrad(114.3), 
                     TotalRightRotation = Angle.FromGrad(114.3) },
                 rules.DWMMoveForward(10.0), rules.DWMStand(1.0)));
-            logic.Tests["Encoder_ArcMoving"] = new RoundMovementTestBase(
+            logic.Tests["Encoder_ArcMoving"] = new DWMMovementTestBase(
                 EncodersTest(
                 new EncodersData
                 {

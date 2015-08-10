@@ -7,7 +7,7 @@ using CVARC.V2;
 
 namespace Demo
 {
-    public class DWMRobot : Robot<IActorManager,DemoWorld,DwmSensorsData,DWMCommand,DemoRules>,
+    public class DWMRobot : Robot<IActorManager,DemoWorld,DWMSensorsData,DWMCommand,DWMRules>,
                 IDWMRobot
     {
 		public DWMUnit DWMUnit { get; private set;  }

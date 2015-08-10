@@ -7,10 +7,45 @@ using System.Text;
 
 namespace Demo
 {
-	partial class DWMLogicPartHelper
-	{
+    public delegate void DWMTestEntry(CvarcClient<DWMSensorsData, DWMCommand> client, DemoWorld world, IAsserter asserter);
+    public class DWMMovementTestBase : DWMTestBase
+    {
+        public DWMMovementTestBase(DWMTestEntry entry)
+            : base(entry, KnownWorldStates.EmptyWithOneRobot(false)) { }
+    }
+    public class DWMTestBase : DelegatedCvarcTest<DWMSensorsData, DWMCommand, DemoWorld, DemoWorldState>
+    {
+        public override SettingsProposal GetSettings()
+        {
+            return new SettingsProposal
+            {
+                TimeLimit = 10,
+                Controllers = new List<ControllerSettings> 
+                    {
+                        new ControllerSettings  { ControllerId=TwoPlayersId.Left, Name="This", Type= ControllerType.Client},
+                        new ControllerSettings  { ControllerId=TwoPlayersId.Right, Name="Stand", Type= ControllerType.Bot}
+                    }
+            };
+        }
 
-		DemoTestEntry LocationTest(double X, double Y, double angleInGrad, double tolerance, params DemoCommand[] command)
+        DemoWorldState WorldState;
+
+        public override DemoWorldState GetWorldState()
+        {
+            return WorldState;
+        }
+
+        public DWMTestBase(DWMTestEntry entry, DemoWorldState state)
+            : base((client, world, asserter) => { entry(client, world, asserter); })
+        {
+            WorldState = state;
+        }
+    }
+
+
+    partial class DWMLogicPartHelper
+	{
+		DWMTestEntry LocationTest(double X, double Y, double angleInGrad, double tolerance, params DWMCommand[] command)
 		{
 			return LocationTest(
 				(frame, asserter) =>
@@ -23,11 +58,11 @@ namespace Demo
 
 		}
 
-		DemoTestEntry LocationTest(Action<Frame2D, IAsserter> test, params DemoCommand[] command)
+		DWMTestEntry LocationTest(Action<Frame2D, IAsserter> test, params DWMCommand[] command)
 		{
 			return (client, world, asserter) =>
 			{
-				DemoSensorsData data = null;
+				DWMSensorsData data = null;
 				int x = 0;
 				foreach (var c in command)
 				{

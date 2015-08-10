@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CVARC.V2;
+using Demo;
 
 namespace CVARC.V2
 {
@@ -44,8 +45,8 @@ namespace CVARC.V2
 			loader.AddLevel("RepairTheStarship", "Level1", () => new RepairTheStarship.KroR.Level1());
 			loader.AddLevel("RepairTheStarship", "Level2", () => new RepairTheStarship.KroR.Level2());
 			loader.AddLevel("RepairTheStarship", "Level3", () => new RepairTheStarship.KroR.Level3());
-			loader.AddLevel("Demo", "Demo", () => new Demo.KroR.DemoCompetitions());
-			loader.AddLevel("Demo", "DWM", () => new Demo.KroR.DWMCompetitions());
+			loader.AddLevel("Demo", "Demo", () => new Demo.DemoCompetitions());
+			loader.AddLevel("Demo", "DWM", () => new Demo.DWMCompetitions());
             return loader;
         }
 
