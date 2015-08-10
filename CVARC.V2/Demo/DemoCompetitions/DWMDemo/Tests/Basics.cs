@@ -7,13 +7,22 @@ using System.Text;
 
 namespace Demo
 {
-    public delegate void DWMTestEntry(CvarcClient<DWMSensorsData, DWMCommand> client, DemoWorld world, IAsserter asserter);
+    public delegate void DWMTestEntry(CvarcClient<DWMSensorsData, DWMCommand> client, DWMWorld world, IAsserter asserter);
     public class DWMMovementTestBase : DWMTestBase
     {
         public DWMMovementTestBase(DWMTestEntry entry)
-            : base(entry, KnownWorldStates.EmptyWithOneRobot(false)) { }
+            : base(entry, new DWMWorldState(0,0)) { }
     }
-    public class DWMTestBase : DelegatedCvarcTest<DWMSensorsData, DWMCommand, DemoWorld, DemoWorldState>
+
+	public class DWMDistortionTestBase : DWMTestBase
+	{
+		public DWMDistortionTestBase(DWMTestEntry entry)
+			: base(entry, new DWMWorldState(10,1)) { }
+	}
+
+	
+
+    public class DWMTestBase : DelegatedCvarcTest<DWMSensorsData, DWMCommand, DWMWorld, DWMWorldState>
     {
         public override SettingsProposal GetSettings()
         {
@@ -23,19 +32,18 @@ namespace Demo
                 Controllers = new List<ControllerSettings> 
                     {
                         new ControllerSettings  { ControllerId=TwoPlayersId.Left, Name="This", Type= ControllerType.Client},
-                        new ControllerSettings  { ControllerId=TwoPlayersId.Right, Name="Stand", Type= ControllerType.Bot}
                     }
             };
         }
 
-        DemoWorldState WorldState;
+        DWMWorldState WorldState;
 
-        public override DemoWorldState GetWorldState()
+		public override DWMWorldState GetWorldState()
         {
             return WorldState;
         }
 
-        public DWMTestBase(DWMTestEntry entry, DemoWorldState state)
+		public DWMTestBase(DWMTestEntry entry, DWMWorldState state)
             : base((client, world, asserter) => { entry(client, world, asserter); })
         {
             WorldState = state;

@@ -12,6 +12,10 @@ namespace Demo
         
         void LoadDWMTests(LogicPart logic, DWMRules rules)
         {
+			logic.Tests["DWM_LongForward"] = new DWMMovementTestBase(
+			LocationTest(100, 0, 0, 1, rules.DWMMoveForward(100.0),
+								   rules.DWMStand(1.0)));
+      
             //base DWM tests
             logic.Tests["DWM_Forward"] = new DWMMovementTestBase(
                 LocationTest(10, 0, 0, 1, rules.DWMMoveForward(10.0),

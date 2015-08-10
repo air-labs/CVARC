@@ -7,7 +7,7 @@ using CVARC.V2;
 
 namespace Demo
 {
-    public class DWMRobot : Robot<IActorManager,DemoWorld,DWMSensorsData,DWMCommand,DWMRules>,
+    public class DWMRobot : Robot<IActorManager,DWMWorld,DWMSensorsData,DWMCommand,DWMRules>,
                 IDWMRobot
     {
 		public DWMUnit DWMUnit { get; private set;  }
@@ -25,6 +25,12 @@ namespace Demo
 			base.AdditionalInitialization();
 			DWMUnit = new DWMUnit(this);
 			DWMData = new DWMData();
+			var state = World.WorldState;
+			// в этом state есть настройки шума, которые надо перенести в GAX
+			var gax = sensors.Sensors.OfType<GAXSensor>().FirstOrDefault();
+			//gax.AccelerometerDistortion = state.AccelerometerDistortion;
+			var filter = this.FilterSet.Filters.OfType<DWMDistortionCommandFilter>().FirstOrDefault();
+			filter.Multiplier = 1+state.ControlDistortion;
 		}
 
         public DWMData DWMData

@@ -29,7 +29,7 @@ namespace CVARC.V2
             Debugger.Log(DebuggerMessageType.Workflow, "Command accepted in ControlTrigger");
 			controllable.World.Logger.AccountCommand(controllable.ControllerId, command);
 
-            filterSet.ProcessCommand(command);
+            filterSet.ProcessCommand(controllable, command);
             if (!filterSet.CommandAvailable)
             {
                 throw new Exception("The preprocessor has returned an empty set of commands. Unable to processd");

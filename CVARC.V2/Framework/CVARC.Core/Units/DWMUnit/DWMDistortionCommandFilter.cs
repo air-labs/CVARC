@@ -9,7 +9,7 @@ namespace CVARC.V2
 	{
 		public double Multiplier = 1;
 
-		public IEnumerable<ICommand> Preprocess(ICommand command)
+		public IEnumerable<ICommand> Preprocess(IActor actor, ICommand command)
 		{
 			if (!(command is IDWMCommand))
 			{
@@ -23,11 +23,13 @@ namespace CVARC.V2
 				yield break;
 			}
 
+
+
 			cmd.DifWheelMovement = new DifWheelMovement
 			{
 				LeftRotatingVelocity=cmd.DifWheelMovement.LeftRotatingVelocity*Multiplier,
 				RightRotatingVelocity = cmd.DifWheelMovement.RightRotatingVelocity*Multiplier,
-			 Duration=cmd.DifWheelMovement.Duration,
+				Duration=cmd.DifWheelMovement.Duration,
 			
 			};
 			yield return cmd as ICommand;
