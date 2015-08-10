@@ -10,7 +10,7 @@ using CVARC.V2;
 
 namespace Demo
 {
-	public class MovementWorldManager : KroRWorldManager<DemoWorld>, IDemoWorldManager
+	public class MovementWorldManager : KroRWorldManager<IWorld>, IDemoWorldManager
 	{
 		public override void CreateWorld(IdGenerator generator)
 		{

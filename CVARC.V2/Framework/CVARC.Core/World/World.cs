@@ -24,6 +24,7 @@ namespace CVARC.V2
         public Configuration Configuration { get; private set; }
         public Competitions Competitions { get; private set; }
         public TWorldState WorldState { get; private set; }
+		IWorldState IWorld.WorldState { get { return WorldState;  } }
         public IKeyboard Keyboard { get; private set; }
         public abstract void CreateWorld();
 

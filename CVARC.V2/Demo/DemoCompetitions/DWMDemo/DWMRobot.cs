@@ -7,7 +7,7 @@ using CVARC.V2;
 
 namespace Demo
 {
-    public class DWMRobot : Robot<IActorManager,DemoWorld,DWMSensorsData,DWMCommand,DWMRules>,
+    public class DWMRobot : Robot<IActorManager,DWMWorld,DWMSensorsData,DWMCommand,DWMRules>,
                 IDWMRobot
     {
 		public DWMUnit DWMUnit { get; private set;  }
@@ -25,6 +25,7 @@ namespace Demo
 			base.AdditionalInitialization();
 			DWMUnit = new DWMUnit(this);
 			DWMData = new DWMData();
+
 		}
 
         public DWMData DWMData

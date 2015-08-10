@@ -15,11 +15,14 @@ namespace Demo
             var rules = new DWMRules();
 
             var logicPart = new LogicPart();
-            logicPart.CreateWorld = () => new DemoWorld();
+            logicPart.CreateWorld = () => new DWMWorld();
             logicPart.CreateDefaultSettings = () => new Settings { OperationalTimeLimit = 1, TimeLimit = 15 };
-            logicPart.CreateWorldState = stateName => new DemoWorldState();
+            logicPart.CreateWorldState = stateName => new DWMWorldState();
             logicPart.PredefinedWorldStates.Add("Empty");
-            logicPart.WorldStateType = typeof(DemoWorldState);
+			logicPart.WorldStateType = typeof(DWMWorldState);
+
+
+			
 
 
             return new Tuple<DWMRules, LogicPart>(rules, logicPart);
@@ -32,9 +35,13 @@ namespace Demo
             var logicPart = data.Item2;
 
             var actorFactory = ActorFactory.FromRobot(new DWMRobot(), rules);
+			actorFactory.CreateCommandFilterSet = 
+				()=> new CommandFilterSet {
+						Filters = { new DWMDistortionCommandFilter() }
+				};
+
             logicPart.Actors[TwoPlayersId.Left] = actorFactory;
-            logicPart.Actors[TwoPlayersId.Right] = actorFactory;            
-            
+           
 
 
          	LoadDWMTests(logicPart, rules);
