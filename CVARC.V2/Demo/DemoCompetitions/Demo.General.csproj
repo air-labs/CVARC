@@ -50,7 +50,7 @@
   <ItemGroup>
     <Compile Include="Collision\CollisionTestBase.cs" />
     <Compile Include="Collision\LogicPart.Tests.cs" />
-    <Compile Include="DWMDemo\DemoRules.cs" />
+    <Compile Include="DWMDemo\DWMDemoRules.cs" />
     <Compile Include="DWMDemo\DWMCommand.cs" />
     <Compile Include="DWMDemo\DWMRobot.cs" />
     <Compile Include="DWMDemo\DWMSensorsData.cs" />

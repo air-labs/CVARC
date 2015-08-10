@@ -26,7 +26,7 @@ public static class TestRunner
 	public static void Run(string testName)
 	{
 		var loader = new Loader();
-		loader.AddLevel("Demo", "Demo", () => new Demo.KroR.DemoCompetitions());
+		loader.AddLevel("Demo", "Demo", () => new Demo.DemoCompetitions());
 		loader.RunSelfTestInVSContext("Demo", "Demo", testName, new NUnitAsserter());
 	}
 	public static void Main()

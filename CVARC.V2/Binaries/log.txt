@@ -18,16 +18,3 @@ Complete: actor. Creating manager
 Comlete: manager creation. Initializing manager
 Comlete: manager initialization. Creating actor body
 Complete: body. Starting controller
-Actor Right is initialized
-Additional world initialization
-{"Encoders":[],"GAX":[],"Locations":[{"Angle":0,"Id":"Left","X":0,"Y":0},{"Angle":0,"Id":"Right","X":400,"Y":400}]}
-
-Before performance
-{"DifWheelMovement":{"Duration":0.09549296585513721,"LeftRotatingVelocity":{"Grad":360},"RightRotatingVelocity":{"Grad":360}},"GripperCommand":0,"SimpleMovement":null}
-Command accepted in controller
-Command accepted in ControlTrigger
-Command goes to robot
-Command comes to robot, 1 units
-Starting unit DWMUnit
-Command accepted in ControlTrigger
-Command goes to robot

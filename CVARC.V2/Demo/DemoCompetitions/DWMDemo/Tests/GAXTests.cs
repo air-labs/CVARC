@@ -9,11 +9,11 @@ namespace Demo
 {
 	partial class DWMLogicPartHelper
 	{
-        DemoTestEntry GAXTest(Point3D accelerations, Angle AroundX, Angle AroundY, Angle AroundZ, params DemoCommand[] command)
+        DWMTestEntry GAXTest(Point3D accelerations, Angle AroundX, Angle AroundY, Angle AroundZ, params DWMCommand[] command)
         {
             return (client, world, asserter) =>
             {
-				DwmSensorsData data = new DwmSensorsData();
+				DWMSensorsData data = new DWMSensorsData();
                 foreach (var c in command)
                     data = client.Act(c);
                     
@@ -30,11 +30,11 @@ namespace Demo
 			//2. Пустить робота по кругу и проверить, что ускорение смотрит в центр
 			//3. Аналогично с угловой скоростью
 			//На DWM-е
-            logic.Tests["GAX_CircleMoving"] = new RoundMovementTestBase(
+            logic.Tests["GAX_CircleMoving"] = new DWMMovementTestBase(
                        GAXTest(new Point3D(0, -3, 0), Angle.Zero, Angle.Zero, Angle.Zero,
                        rules.DWMMoveArc(3, Angle.FromGrad(360), false),
                        rules.DWMStand(1.0)));
-            logic.Tests["GAX_Rotating"] = new RoundMovementTestBase(
+            logic.Tests["GAX_Rotating"] = new DWMMovementTestBase(
                        GAXTest(new Point3D(0, 0, 0), Angle.Zero, Angle.Zero, Angle.HalfPi,
                        rules.DWMRotate(Angle.Pi), rules.DWMStand(1.0)));
 

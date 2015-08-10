@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CVARC.V2;
 
-namespace Demo.KroR
+
+namespace Demo
 {
     public class DemoCompetitions : Competitions
     {
