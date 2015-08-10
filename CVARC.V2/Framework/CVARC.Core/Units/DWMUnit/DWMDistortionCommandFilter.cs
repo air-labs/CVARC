@@ -9,7 +9,7 @@ namespace CVARC.V2
 	{
 		public double Multiplier = 1;
 
-		public IEnumerable<ICommand> Preprocess(ICommand command)
+		public IEnumerable<ICommand> Preprocess(IActor actor, ICommand command)
 		{
 			if (!(command is IDWMCommand))
 			{

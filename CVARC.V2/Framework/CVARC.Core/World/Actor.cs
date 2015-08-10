@@ -21,11 +21,14 @@ namespace CVARC.V2
         public TRules Rules { get; private set; }
         IRules IActor.Rules { get { return Rules; } }
 
-        public void Initialize(IActorManager manager, IWorld world, IRules rules, string actorObjectId, string controllerId)
+		public CommandFilterSet FilterSet { get; private set; }
+
+        public void Initialize(IActorManager manager, IWorld world, IRules rules, CommandFilterSet filters, string actorObjectId, string controllerId)
         {
             Manager = Compatibility.Check<TActorManager>(this, manager);
             World = Compatibility.Check<TWorld>(this, world);
             Rules = Compatibility.Check<TRules>(this, rules);
+			FilterSet = filters;
             ObjectId = actorObjectId;
             ControllerId = controllerId;
             AdditionalInitialization();

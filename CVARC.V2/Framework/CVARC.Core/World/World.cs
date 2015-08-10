@@ -97,7 +97,8 @@ namespace CVARC.V2
                 Debugger.Log(DebuggerMessageType.Initialization, "Complete: actor. Creating manager");
                 var manager = competitions.Manager.CreateActorManagerFor(e);
                 var rules = factory.CreateRules();
-                e.Initialize(manager, this, rules, actorObjectId, id);
+				var preprocessor = factory.CreateCommandFilterSet();
+                e.Initialize(manager, this, rules, preprocessor, actorObjectId, id);
 
                 Debugger.Log(DebuggerMessageType.Initialization, "Comlete: manager creation. Initializing manager");
                 manager.Initialize(e);
@@ -108,8 +109,7 @@ namespace CVARC.V2
                 
                 var controller = controllerFactory.Create(e.ControllerId, e);
                 controller.Initialize(e);
-                var preprocessor = factory.CreateCommandFilterSet();
-                preprocessor.Initialize(e);
+
                 Clocks.AddTrigger(new ControlTrigger(controller, e, preprocessor));
                 actors.Add(e);
                 Debugger.Log(DebuggerMessageType.Initialization, "Actor "+id+" is initialized");   

@@ -29,7 +29,8 @@ namespace Demo
 			// в этом state есть настройки шума, которые надо перенести в GAX
 			var gax = sensors.Sensors.OfType<GAXSensor>().FirstOrDefault();
 			//gax.AccelerometerDistortion = state.AccelerometerDistortion;
-			
+			var filter = this.FilterSet.Filters.OfType<DWMDistortionCommandFilter>().FirstOrDefault();
+			filter.Multiplier = 1+state.ControlDistortion;
 		}
 
         public DWMData DWMData

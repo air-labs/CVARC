@@ -7,7 +7,6 @@ namespace CVARC.V2
 {
     public interface ICommandFilter
     {
-        IEnumerable<ICommand> Preprocess(ICommand command);
-        void Initialize(IActor actor);
+        IEnumerable<ICommand> Preprocess(IActor actor, ICommand command);
     }
 }
