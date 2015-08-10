@@ -11,55 +11,16 @@ namespace Demo
     public class DWMMovementTestBase : DWMTestBase
     {
         public DWMMovementTestBase(DWMTestEntry entry)
-            : base(entry, KnownDWMWorldStates.NoDistortion) { }
+            : base(entry, new DWMWorldState(0,0)) { }
     }
 
 	public class DWMDistortionTestBase : DWMTestBase
 	{
 		public DWMDistortionTestBase(DWMTestEntry entry)
-			: base(entry, KnownDWMWorldStates.HardDistortion) { }
+			: base(entry, new DWMWorldState(10,1)) { }
 	}
 
-	public class KnownDWMWorldStates
-	{
-		public static DWMWorldState NoDistortion = new DWMWorldState 
-		{
-			Multiplier=1,
-			  Robots = 
-				{
-					new DemoRobotData
-					{
-						 Color= ObjectColor.Red,
-						 IsRound=true,
-						 RobotName=TwoPlayersId.Left,
-						 X=0,
-						 Y=0,
-						 YSize=5,
-						 XSize=5,
-						 ZSize=10
-					}
-				}
-		};
-		public static DWMWorldState HardDistortion = new DWMWorldState 
-		{
-			Multiplier=1,
-			  Robots = 
-				{
-					new DemoRobotData
-					{
-						 Color= ObjectColor.Red,
-						 IsRound=true,
-						 RobotName=TwoPlayersId.Left,
-						 X=0,
-						 Y=0,
-						 YSize=5,
-						 XSize=5,
-						 ZSize=10
-					}
-				}
-		};
-
-	}
+	
 
     public class DWMTestBase : DelegatedCvarcTest<DWMSensorsData, DWMCommand, DWMWorld, DWMWorldState>
     {

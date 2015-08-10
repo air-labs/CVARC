@@ -8,17 +8,3 @@ World created
 Actor Left initialization
 Creating actor
 Complete: actor. Creating manager
-Comlete: manager creation. Initializing manager
-Comlete: manager initialization. Creating actor body
-Complete: body. Starting controller
-Actor Left is initialized
-Additional world initialization
-{"Encoders":[],"GAX":[],"Locations":[{"Angle":0,"Id":"Left","X":0,"Y":0}]}
-
-Before performance
-{"DifWheelMovement":{"Duration":3.183098861837907,"LeftRotatingVelocity":{"Grad":360},"RightRotatingVelocity":{"Grad":360}}}
-Command accepted in controller
-Command accepted in ControlTrigger
-Command goes to robot
-Command comes to robot, 1 units
-Starting unit DWMUnit

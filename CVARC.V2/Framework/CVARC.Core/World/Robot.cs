@@ -19,7 +19,7 @@ namespace CVARC.V2
 
       
 
-        SensorPack<TSensorsData> sensors;
+        protected SensorPack<TSensorsData> sensors;
 
         public abstract IEnumerable<IUnit> Units { get; }
 

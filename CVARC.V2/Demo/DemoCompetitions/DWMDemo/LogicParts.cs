@@ -17,7 +17,7 @@ namespace Demo
             var logicPart = new LogicPart();
             logicPart.CreateWorld = () => new DWMWorld();
             logicPart.CreateDefaultSettings = () => new Settings { OperationalTimeLimit = 1, TimeLimit = 15 };
-            logicPart.CreateWorldState = stateName => new DWMWorldState();
+			logicPart.CreateWorldState = stateName => new DWMWorldState(0, 0);
             logicPart.PredefinedWorldStates.Add("Empty");
 			logicPart.WorldStateType = typeof(DWMWorldState);
 

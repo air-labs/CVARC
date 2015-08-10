@@ -25,7 +25,11 @@ namespace Demo
 			base.AdditionalInitialization();
 			DWMUnit = new DWMUnit(this);
 			DWMData = new DWMData();
-
+			var state = World.WorldState;
+			// в этом state есть настройки шума, которые надо перенести в GAX
+			var gax = sensors.Sensors.OfType<GAXSensor>().FirstOrDefault();
+			//gax.AccelerometerDistortion = state.AccelerometerDistortion;
+			
 		}
 
         public DWMData DWMData

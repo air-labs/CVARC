@@ -12,7 +12,7 @@ namespace Demo
         
         void LoadDWMTests(LogicPart logic, DWMRules rules)
         {
-			logic.Tests["DWM_LongForward"] = new DWMMovementTestBase(
+			logic.Tests["DWM_LongForward"] = new DWMDistortionTestBase(
 			LocationTest(100, 0, 0, 1, rules.DWMMoveForward(100.0),
 								   rules.DWMStand(1.0)));
       
