@@ -26,12 +26,5 @@ namespace Demo
         [FromSensor(typeof(DemoCamera))]
         public byte[] Image { get; set; }
 
-		[FromSensor(typeof(GAXSensor))]
-		[DataMember]
-		public List<GAXData> GAX { get; set; }
-
-		[FromSensor(typeof(EncodersSensor))]
-		[DataMember]
-		public List<EncodersData> Encoders { get; set; }
     }
 }

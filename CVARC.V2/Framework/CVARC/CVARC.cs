@@ -14,7 +14,7 @@ namespace CVARC.V2
     public static class CVARCProgram
     {
 
-        public static void RunServerInTheSameThread(Action<int,bool> Control)
+        public static void RunServerInTheSameThread(Action<int> Control)
         {
 
             var nsData = new NetworkServerData();
@@ -23,7 +23,7 @@ namespace CVARC.V2
             new Action(() =>
             {
                 nsData.WaitForServer();
-                Control(nsData.Port,true);
+                Control(nsData.Port);
             }).BeginInvoke(null, null);
 
             var loader = GetLoader();
