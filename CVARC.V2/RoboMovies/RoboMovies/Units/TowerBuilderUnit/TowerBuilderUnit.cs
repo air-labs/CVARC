@@ -37,6 +37,7 @@ namespace CVARC.V2
         {
             foreach (var itemId in FindCollectable())
             {
+                Debugger.Log(RMDebugMessage.Logic, "Solving " + itemId);
                 var location = actor.World.Engine.GetAbsoluteLocation(itemId).NewZ(RobotLocation.Z);
                 
                 if (actor.World.Engine.IsAttached(itemId))
@@ -47,6 +48,11 @@ namespace CVARC.V2
                     stackStorage.Push(itemId);
                     CollectedIds.Add(itemId);
                     if (OnGrip != null) OnGrip(itemId, location);
+                    Debugger.Log(RMDebugMessage.Logic , "    " + itemId + " collected");
+                }
+                else
+                {
+                    Debugger.Log(RMDebugMessage.Logic , "    " + itemId + " recieved, but is not collected!");
                 }
             }
 
@@ -65,7 +71,7 @@ namespace CVARC.V2
             return hasEmptySpace && canInsertBall;
         }
 
-        void DetachCollected()
+        void BuildTower()
         {
             if (CollectedCount == 0) return;
 
@@ -76,10 +82,10 @@ namespace CVARC.V2
             
             ContainsBall = false;
             CollectedIds = new HashSet<string>();
-            actor.World.Engine.Detach(BuildTower(), dropLocation);
+            actor.World.Engine.Detach(AttachTower(), dropLocation);
         }
 
-        string BuildTower()
+        string AttachTower()
         {
             var towerBase = stackStorage.Pop();
             var index = 1;
@@ -108,19 +114,22 @@ namespace CVARC.V2
 
         public override UnitResponse ProcessCommand(object _command)
         {
-            var command = Compatibility.Check<ITowerBuilderCommand>(this, _command);
-            Debugger.Log(DebuggerMessageType.Workflow, "Command comes to gripper, " + command.TowerBuilderCommand.ToString());
+            var command = Compatibility.Check<ITowerBuilderCommand>(this, _command).TowerBuilderCommand;
+            Debugger.Log(RMDebugMessage.Workflow, "Command comes to tower builder: " + command.ToString());
             
-            switch (command.TowerBuilderCommand)
+            switch (command)
             {
-                case TowerBuilderAction.No: return UnitResponse.Denied();
+                case TowerBuilderAction.No:
+                    return UnitResponse.Denied();
                 case TowerBuilderAction.Collect: 
                     Collect(); 
                     return UnitResponse.Accepted(rules.CollectingTime);
                 case TowerBuilderAction.BuildTower: 
-                    DetachCollected(); 
+                    BuildTower(); 
                     return UnitResponse.Accepted(rules.BuildingTime);
-                default: throw new Exception("Unrecognized gripper action.");
+                default: 
+                    Debugger.Log(RMDebugMessage.Workflow, "Command denied due to unrecognized action!");
+                    throw new Exception("Unrecognized gripper action.");
             }
         }
     }
