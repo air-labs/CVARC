@@ -180,7 +180,7 @@ namespace RoboMovies
         {
             var coords = new List<Point2D>()
             {
-                new Point2D(50, 15),
+                new Point2D(50, 20),
                 new Point2D(110, -80),
                 new Point2D(0, -70),
             };
