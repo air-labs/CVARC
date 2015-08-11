@@ -21,6 +21,15 @@ namespace RoboMovies
             return TestTemplate((data, asserter) => asserter.IsEqual(scoreCount, data.MyScores, 0), commands);
         }
 
+        RMTestEntry PositionTest(double x, double y, double angle, double delta, params RMCommand[] commands)
+        {
+            return TestTemplate((data, asserter) => { 
+                    asserter.IsEqual(x, data.SelfLocation.X, delta);
+                    asserter.IsEqual(y, data.SelfLocation.Y, delta);
+                    asserter.IsEqual(angle, data.SelfLocation.Angle, delta);
+                }, commands);
+        }
+
         RMTestEntry TestTemplate(Action<FullMapSensorData, IAsserter> assert, params RMCommand[] commands)
         {
             return (client, world, asserter) =>
