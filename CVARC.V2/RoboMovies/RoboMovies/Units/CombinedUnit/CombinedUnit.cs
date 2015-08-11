@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AIRLab.Mathematics;
+using RoboMovies;
 
 namespace CVARC.V2
 {
@@ -19,12 +20,12 @@ namespace CVARC.V2
 
         public UnitResponse ProcessCommand(object _command)
         {
-            var command = (_command as ICombinedCommand).CombinedCommand;
+            var command = Compatibility.Check<ICombinedCommand>(this, _command).CombinedCommand;
             
-            if (command.Length == 0)
-            {
+            Debugger.Log(RMDebugMessage.Workflow, "Command comes to combined unit");
+
+            if (command == null || command.Length == 0)
                 return UnitResponse.Denied();
-            }
 
             var accessCount = 0;
             var maxTime = 0.0;
