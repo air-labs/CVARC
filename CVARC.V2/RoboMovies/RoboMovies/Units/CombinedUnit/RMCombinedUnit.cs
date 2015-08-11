@@ -99,11 +99,11 @@ namespace CVARC.V2
 
         public double GoStair(IActor actor)
         {
-            var id = GetStairId(actor);
-            if (id != null)
+            var stairId = GetStairId(actor);
+            if (stairId != null)
             {
                 //синий робот похоже тоже приаттачится к желтой лесенке
-                actor.World.Engine.Attach(actor.ObjectId, id, new Frame3D(0, 0, 0));
+                (actor.World.Manager as IRMWorldManager).ClimbUpStairs(actor.ObjectId, stairId);
                 actor.World.Scores.Add(actor.ControllerId, 50, "ladderComplete");
                 return Double.PositiveInfinity;
             }
