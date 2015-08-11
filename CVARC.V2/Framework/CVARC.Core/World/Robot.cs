@@ -37,18 +37,21 @@ namespace CVARC.V2
         {
             Debugger.Log( DebuggerMessageType.Workflow, "Command comes to robot, " + Units.Count()+" units");
             
+            duration = 0;
+            var processed = false;
             foreach (var e in Units)
             {
                 Debugger.Log( DebuggerMessageType.Workflow, "Starting unit "+e.GetType().Name);
-                
+
                 var response = e.ProcessCommand(command);
                 if (response.Processed)
                 {
-                    duration = response.RequestedTime;
-                    return;
+                    duration = Math.Max(response.RequestedTime, duration);
+                    processed = true;
                 }
             }
-            throw new Exception("The command was not processed by any of the robot units");
+            if (!processed)
+                throw new Exception("The command was not processed by any of the robot units");
         }
     }
 }
