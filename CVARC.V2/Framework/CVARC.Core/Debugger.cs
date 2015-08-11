@@ -20,21 +20,21 @@ namespace CVARC.V2
     public static class Debugger
     {
         public static bool DisableByDefault { get; set; }
-        public static List<DebuggerMessageType> EnabledTypes { get; private set; }
+        public static List<object> EnabledTypes { get; private set; }
 
         static object lockObject = new object();
 
         static Debugger()
         {
-            EnabledTypes = new List<DebuggerMessageType>();
+            EnabledTypes = new List<object>();
             File.Delete("log.txt");
         }
-        public static void Log(DebuggerMessageType messageType, object obj)
+        public static void Log(object messageType, object obj)
         {
             lock (lockObject)
             {
                 var str = obj.ToString();
-                if (DisableByDefault && !EnabledTypes.Contains(messageType) && messageType != DebuggerMessageType.Always)
+                if (DisableByDefault && !EnabledTypes.Contains(messageType) && !messageType.Equals(DebuggerMessageType.Always))
                     return;
                 if (Logger != null)
                     Logger(str);
