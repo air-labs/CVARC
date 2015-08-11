@@ -3,6 +3,7 @@ bin
 *.suo
 /TestResults
 *.user
+Thumbs.db
 /CVARC.sln.DotSettings.user
 /build
 /Cvarc.Logs
