@@ -12,7 +12,7 @@ namespace RoboMovies
         [TestLoaderMethod]
         public void LoadPopCornScoringTests(LogicPart logic, RMRules rules)
         {
-            AddTest(logic, "Scores_PopCornStartingArea", ScoreTest(
+            AddTest(logic, "Scores_PopCorn_StartingArea", ScoreTest(
                 4,
                 rules.Move(64),
                 rules.Rotate(-Angle.HalfPi),
@@ -24,7 +24,7 @@ namespace RoboMovies
                 rules.Release()
             ));
             
-            AddTest(logic, "Scores_PopCornUpperCinema", ScoreTest(
+            AddTest(logic, "Scores_PopCorn_UpperCinema", ScoreTest(
                 4,
                 rules.Move(64),
                 rules.Rotate(-Angle.HalfPi),
@@ -40,7 +40,7 @@ namespace RoboMovies
                 rules.Release()
             ));
             
-            AddTest(logic, "Scores_PopCornBottomCinema", ScoreTest(
+            AddTest(logic, "Scores_PopCorn_BottomCinema", ScoreTest(
                 4,
                 rules.Move(64),
                 rules.Rotate(-Angle.HalfPi),
@@ -56,7 +56,7 @@ namespace RoboMovies
                 rules.Release()
             ));
             
-            AddTest(logic, "Scores_PopCornBuildingArea", ScoreTest(
+            AddTest(logic, "Scores_PopCorn_BuildingArea", ScoreTest(
                 0,
                 rules.Move(115),
                 rules.Rotate(Angle.HalfPi),
@@ -70,7 +70,7 @@ namespace RoboMovies
                 rules.Stand(0.1)
             ));
 
-            AddTest(logic, "Scores_TwoPopCornOneLocation", ScoreTest(
+            AddTest(logic, "Scores_PopCorn_TwoCupSameLocation", ScoreTest(
                 4,
                 rules.Move(115),
                 rules.Rotate(Angle.HalfPi),
@@ -92,7 +92,7 @@ namespace RoboMovies
                 rules.Release()
             ));
             
-            AddTest(logic, "Scores_TwoPopCornTwoLocations", ScoreTest(
+            AddTest(logic, "Scores_PopCorn_TwoCupDiffLocations", ScoreTest(
                 4 + 4,
                 rules.Move(115),
                 rules.Rotate(Angle.HalfPi),
@@ -118,7 +118,7 @@ namespace RoboMovies
                 rules.Release()
             ));
 
-            AddTest(logic, "Scores_GrippedPopCornShouldBeZero", ScoreTest(
+            AddTest(logic, "Scores_PopCorn_GrippedShouldBeZero", ScoreTest(
                 0,
                 rules.Move(64),
                 rules.Rotate(-Angle.HalfPi),
