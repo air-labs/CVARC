@@ -64,7 +64,7 @@ namespace RoboMovies
             ));
             
             AddTest(logic, "Clapper_Scores_WrongClapperboardColor", ScoreTest(-10,
-                rules.Move(30),
+                rules.Move(25),
                 rules.Rotate(-Angle.HalfPi),
                 rules.Move(85),
                 rules.Rotate(Angle.HalfPi),
