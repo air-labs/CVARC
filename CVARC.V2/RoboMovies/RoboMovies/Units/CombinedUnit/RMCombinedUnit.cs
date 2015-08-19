@@ -21,8 +21,8 @@ namespace CVARC.V2
         public RMCombinedUnit(IActor actor, RMWorld world) :
             base(actor)
         {
-            LeftClapperOffset = new Frame3D(0, 12, 4);
-            RightClapperOffset = new Frame3D(0, -12, 4);
+            LeftClapperOffset = new Frame3D(0, 12, 6);
+            RightClapperOffset = new Frame3D(0, -12, 6);
 
             this.world = world;
 
