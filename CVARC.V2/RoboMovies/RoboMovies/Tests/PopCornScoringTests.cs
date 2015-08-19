@@ -19,7 +19,7 @@ namespace RoboMovies
                 rules.Stand(0.1),
                 rules.Grip(),
                 rules.Rotate(Angle.HalfPi),
-                rules.Move(-64),
+                rules.Move(-54),
                 rules.Stand(0.1),
                 rules.Release()
             ));
