@@ -12,7 +12,7 @@ namespace RoboMovies
         [TestLoaderMethod]
         public void LoadTowerScoringTests(LogicPart logic, RMRules rules)
         {
-            AddTest(logic, "Scores_Tower_Zero", ScoreTest(
+            AddTest(logic, "Tower_Scores_Zero", ScoreTest(
                 0,
                 rules.Move(65),
                 rules.Rotate(-Angle.HalfPi),
@@ -22,7 +22,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            AddTest(logic, "Scores_Tower_BottomBuildingArea", ScoreTest(
+            AddTest(logic, "Tower_Scores_BottomBuildingArea", ScoreTest(
                 2,
                 rules.Move(100),
                 rules.Rotate(-Angle.HalfPi),
@@ -34,7 +34,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            AddTest(logic, "Scores_Tower_StartingAreaSquare", ScoreTest(
+            AddTest(logic, "Tower_Scores_StartingAreaSquare", ScoreTest(
                 2,
                 rules.Move(65),
                 rules.Rotate(-Angle.HalfPi),
@@ -48,7 +48,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            AddTest(logic, "Scores_Tower_StartingAreaCircle", ScoreTest(
+            AddTest(logic, "Tower_Scores_StartingAreaCircle", ScoreTest(
                 2,
                 rules.Move(65),
                 rules.Rotate(-Angle.HalfPi),
@@ -62,7 +62,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            AddTest(logic, "Scores_Tower_BuildingInYellowSquare", ScoreTest(
+            AddTest(logic, "Tower_Scores_BuildingInYellowSquare", ScoreTest(
                 0,
                 rules.Move(65),
                 rules.Rotate(-Angle.HalfPi),
@@ -76,7 +76,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
 
-            AddTest(logic, "Scores_Tower_BigTower", ScoreTest(
+            AddTest(logic, "Tower_Scores_BigTower", ScoreTest(
                 2 * 2,
                 rules.Move(65),
                 rules.Rotate(-Angle.HalfPi),
@@ -95,7 +95,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            AddTest(logic, "Scores_Tower_TowerWithLight", ScoreTest(
+            AddTest(logic, "Tower_Scores_TowerWithLight", ScoreTest(
                 2 + 3,
                 rules.Rotate(Angle.Pi),
                 rules.Move(10),
@@ -112,7 +112,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            AddTest(logic, "Scores_Tower_BigTowerWithLight", ScoreTest(
+            AddTest(logic, "Tower_Scores_BigTowerWithLight", ScoreTest(
                 (2 + 3) * 2,
                 rules.Rotate(Angle.Pi),
                 rules.Move(10),
@@ -136,7 +136,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
 
-            AddTest(logic, "Scores_Tower_LightWithoutStands", ScoreTest(
+            AddTest(logic, "Tower_Scores_LightWithoutStands", ScoreTest(
                 0,
                 rules.Rotate(Angle.Pi),
                 rules.Move(10),
@@ -147,7 +147,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            AddTest(logic, "Scores_Tower_ScamTest", ScoreTest(
+            AddTest(logic, "Tower_Scores_ScamTest", ScoreTest(
                 2,
                 rules.Move(100),
                 rules.Rotate(-Angle.HalfPi),
@@ -165,7 +165,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            AddTest(logic, "Scores_Tower_InvalidStandPenalty", ScoreTest(
+            AddTest(logic, "Tower_Scores_InvalidStandPenalty", ScoreTest(
                 -10,
                 rules.Move(135),
                 rules.Rotate(-Angle.HalfPi),
@@ -174,7 +174,7 @@ namespace RoboMovies
                 rules.Collect()
             ));
 
-            AddTest(logic, "Scores_Tower_TwoTowersOneLocation", ScoreTest(
+            AddTest(logic, "Tower_Scores_TwoTowersOneLocation", ScoreTest(
                 (2 + 3) * 2 /* 2-level spotlight with bonus */ + (2 + 0) * 1 /* one level spotlight, no bonus */,
                 rules.Rotate(Angle.Pi),
                 rules.Move(10),
@@ -210,7 +210,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
             
-            AddTest(logic, "Scores_Tower_TwoTowersTwoLocation", ScoreTest(
+            AddTest(logic, "Tower_Scores_TwoTowersTwoLocation", ScoreTest(
                 (2 + 3) * 2 + (2 + 3) * 1,
                 rules.Rotate(Angle.Pi),
                 rules.Move(10),
