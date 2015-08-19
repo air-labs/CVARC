@@ -30,6 +30,14 @@ namespace RoboMovies
                 }, commands);
         }
 
+        RMTestEntry PositionTest(double x, double y, double delta, params RMCommand[] commands)
+        {
+            return TestTemplate((data, asserter) => { 
+                    asserter.IsEqual(x, data.SelfLocation.X, delta);
+                    asserter.IsEqual(y, data.SelfLocation.Y, delta);
+                }, commands);
+        }
+        
         RMTestEntry TestTemplate(Action<FullMapSensorData, IAsserter> assert, params RMCommand[] commands)
         {
             return (client, world, asserter) =>
