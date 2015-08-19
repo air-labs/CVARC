@@ -21,8 +21,8 @@ namespace CVARC.V2
         public RMCombinedUnit(IActor actor, RMWorld world) :
             base(actor)
         {
-            LeftClapperOffset = new Frame3D(0, 12, 0);
-            RightClapperOffset = new Frame3D(0, -12, 0);
+            LeftClapperOffset = new Frame3D(0, 12, 4);
+            RightClapperOffset = new Frame3D(0, -12, 4);
 
             this.world = world;
 
@@ -45,19 +45,25 @@ namespace CVARC.V2
 
         private Tuple<string, SideColor> GetClapperboardToDeploy(IActor actor, Frame3D deployerLocation)
         {
-            var clapperboards = GetObjectsOfType(actor, ObjectType.Clapperboard).ToList();
-            var nearerClapperboards = clapperboards
+            var clapperboards = GetObjectsOfType(actor, ObjectType.Clapperboard)
                 .Select(z => new
                 {
                     Id = z.Item2,
                     Dist = Distance(deployerLocation, actor.World.Engine.GetAbsoluteLocation(z.Item2)),
                     Color = z.Item1.Color
-                })
+                }).ToList();
+
+            Debugger.Log(RMDebugMessage.Logic, String.Format("Found {0} clapperboards:", clapperboards.Count));
+
+            clapperboards = clapperboards
                 .Where(z => z.Dist < 10)
                 .Where(z => !((RMWorld)actor.World).ClosedClapperboards.Contains(z.Id))
                 .ToList();
-            if (nearerClapperboards.Count == 0) return null;
-            return new Tuple<string, SideColor>(nearerClapperboards[0].Id, nearerClapperboards[0].Color);
+
+            Debugger.Log(RMDebugMessage.Logic, String.Format("{0} clapperboard(s) available", clapperboards.Count));
+
+            if (clapperboards.Count == 0) return null;
+            return new Tuple<string, SideColor>(clapperboards[0].Id, clapperboards[0].Color);
         }
 
         private Frame3D GetDirectionFrame(Frame3D locationFrame)
@@ -67,17 +73,24 @@ namespace CVARC.V2
 
         public double MakeClapper(IActor actor, Frame3D deployerOffset)
         {
+            Debugger.Log(RMDebugMessage.Logic, "Closing clapperboard");
+
             var actorLocation = actor.World.Engine.GetAbsoluteLocation(actor.ObjectId);
             var deployerLocation = GetDirectionFrame(actorLocation).Apply(deployerOffset) + actorLocation;
 
             var target = GetClapperboardToDeploy(actor, deployerLocation);
-            if (target == null) return 1;
+            if (target == null)
+            {
+                Debugger.Log(RMDebugMessage.Logic, "Clapperboard not found!");
+                return 1;
+            }
 
             world.Manager.CloseClapperboard(target.Item1);
             world.ClosedClapperboards.Add(target.Item1);
 
             SolveClapperboardScores(actor, target.Item2 == SideColor.Yellow ? TwoPlayersId.Left : TwoPlayersId.Right);
 
+            Debugger.Log(RMDebugMessage.Logic, "Clapperboard closed");
             return 1;
         }
 
