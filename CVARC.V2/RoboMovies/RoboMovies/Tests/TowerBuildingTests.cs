@@ -83,35 +83,6 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
 
-            AddTest(logic, "Tower_Release_ThroughBorder", TowerBuilderTest(
-                1,
-                rules.Move(100),
-                rules.Rotate(-Angle.HalfPi),
-                rules.Move(25),
-                rules.Stand(0.1),
-                rules.Collect(),
-                rules.Move(100),
-                rules.Stand(0.1),
-                rules.BuildTower(),
-                rules.Move(-50),
-                rules.Stand(0.1)
-            ));
-
-            AddTest(logic, "Tower_Grip_ThroughBorder", TowerBuilderTest(
-                0,
-                rules.Move(100),
-                rules.Rotate(-Angle.HalfPi),
-                rules.Move(25),
-                rules.Stand(0.1),
-                rules.Collect(),
-                rules.Move(100),
-                rules.Stand(0.1),
-                rules.BuildTower(),
-                rules.Collect(),
-                rules.Move(-50),
-                rules.Stand(0.1)
-            ));
-
             AddTest(logic, "Tower_Grip_AlreadyConnected", TowerBuilderTest(
                 2,
                 rules.Move(65),
