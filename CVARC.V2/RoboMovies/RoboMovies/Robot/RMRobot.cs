@@ -38,7 +38,7 @@ namespace RoboMovies
             SimpleMovementUnit = new SimpleMovementUnit(this);
             TowerBuilder = new TowerBuilderUnit(this);
             Gripper = new GripperUnit(this);
-            Combiner = new RMCombinedUnit(this);
+            Combiner = new RMCombinedUnit(this, World);
 
             var robotColor = ControllerId == TwoPlayersId.Left ? SideColor.Yellow : SideColor.Green;
 
