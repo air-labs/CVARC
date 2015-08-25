@@ -17,14 +17,16 @@ namespace CVARC.V2
         Frame3D RightClapperOffset;
 
         RMWorld world;
+        IRMRobot robot;
 
-        public RMCombinedUnit(IActor actor, RMWorld world) :
+        public RMCombinedUnit(IRMRobot actor, RMWorld world) :
             base(actor)
         {
             LeftClapperOffset = new Frame3D(0, 12, 6);
             RightClapperOffset = new Frame3D(0, -12, 6);
 
             this.world = world;
+            this.robot = actor;
 
             SubUnits.Add("LeftDeployer", x => MakeClapper(x, LeftClapperOffset));
             SubUnits.Add("RightDeployer", x => MakeClapper(x, RightClapperOffset));
@@ -37,19 +39,19 @@ namespace CVARC.V2
             return AIRLab.Mathematics.Geometry.Distance(a.ToPoint3D(), b.ToPoint3D());
         }
 
-        private IEnumerable<Tuple<RMObject, string>> GetObjectsOfType(IActor actor, ObjectType objectType)
+        private IEnumerable<Tuple<RMObject, string>> GetObjectsOfType(ObjectType objectType)
         {
-            return actor.World.IdGenerator.GetAllPairsOfType<RMObject>()
+            return world.IdGenerator.GetAllPairsOfType<RMObject>()
                 .Where(z => z.Item1.Type == objectType);
         }
 
         private Tuple<string, SideColor> GetClapperboardToDeploy(IActor actor, Frame3D deployerLocation)
         {
-            var clapperboards = GetObjectsOfType(actor, ObjectType.Clapperboard)
+            var clapperboards = GetObjectsOfType(ObjectType.Clapperboard)
                 .Select(z => new
                 {
                     Id = z.Item2,
-                    Dist = Distance(deployerLocation, actor.World.Engine.GetAbsoluteLocation(z.Item2)),
+                    Dist = Distance(deployerLocation, world.Engine.GetAbsoluteLocation(z.Item2)),
                     Color = z.Item1.Color
                 }).ToList();
 
@@ -57,7 +59,7 @@ namespace CVARC.V2
 
             clapperboards = clapperboards
                 .Where(z => z.Dist < 10)
-                .Where(z => !((RMWorld)actor.World).ClosedClapperboards.Contains(z.Id))
+                .Where(z => !world.ClosedClapperboards.Contains(z.Id))
                 .ToList();
 
             Debugger.Log(RMDebugMessage.Logic, String.Format("{0} clapperboard(s) available", clapperboards.Count));
@@ -75,7 +77,7 @@ namespace CVARC.V2
         {
             Debugger.Log(RMDebugMessage.Logic, "Closing clapperboard");
 
-            var actorLocation = actor.World.Engine.GetAbsoluteLocation(actor.ObjectId);
+            var actorLocation = world.Engine.GetAbsoluteLocation(actor.ObjectId);
             var deployerLocation = GetDirectionFrame(actorLocation).Apply(deployerOffset) + actorLocation;
 
             var target = GetClapperboardToDeploy(actor, deployerLocation);
@@ -98,7 +100,7 @@ namespace CVARC.V2
         {
             world.Scores.Add(sideId, claperBoardScore, "Clapperboard of appropriate color has been closed.");
             if (sideId != actor.ControllerId)
-                actor.World.Scores.Add(actor.ControllerId, -10, "Closed opponent's clapperboard");
+                world.Scores.Add(actor.ControllerId, -10, "Closed opponent's clapperboard");
         }
 
         private bool IsPossibleGoUp(Frame3D bot, Frame3D stair)
@@ -110,16 +112,15 @@ namespace CVARC.V2
         {
             if (!(TwoPlayersId.Ids.Contains(actor.ControllerId)))
                 throw new InvalidProgramException("неизвестный ControllerId");
+            
             var actorSideColor = actor.ControllerId == TwoPlayersId.Left ? SideColor.Yellow : SideColor.Green;
-            var allStairs = GetObjectsOfType(actor, ObjectType.Stairs).ToList();
-            var StairToGoUp = allStairs
-                .Where(z => IsPossibleGoUp(
-                        actor.World.Engine.GetAbsoluteLocation(actor.ObjectId),
-                        actor.World.Engine.GetAbsoluteLocation(z.Item2))
-                    )
-                .FirstOrDefault(z => z.Item1.Color == actorSideColor);
-            if (StairToGoUp == null) return null;
-            return StairToGoUp.Item2;
+            
+            return GetObjectsOfType(ObjectType.Stairs)
+                .Where(z => IsPossibleGoUp(world.Engine.GetAbsoluteLocation(actor.ObjectId),
+                    world.Engine.GetAbsoluteLocation(z.Item2)))
+                .Where(z => z.Item1.Color == actorSideColor)
+                .Select(z => z.Item2)
+                .FirstOrDefault();
         }
 
         public double GoStair(IActor actor)
@@ -127,39 +128,43 @@ namespace CVARC.V2
             var stairId = GetStairId(actor);
             if (stairId != null)
             {
-                //синий робот похоже тоже приаттачится к желтой лесенке
-                (actor.World.Manager as IRMWorldManager).ClimbUpStairs(actor.ObjectId, stairId);
-                actor.World.Scores.Add(actor.ControllerId, stairsScore, "Stairs complete.");
+                world.Manager.ClimbUpStairs(actor.ObjectId, stairId);
+                world.Scores.Add(actor.ControllerId, stairsScore, "Stairs complete.");
                 return Double.PositiveInfinity;
             }
             return 1;
         }
 
-        private string GetMachineId(IActor actor)
+        private string GetDispenserId(Frame3D cupLocation)
         {
-            if (!(TwoPlayersId.Ids.Contains(actor.ControllerId)))
-                throw new InvalidProgramException("неизвестный ControllerId");
-            var sideColor = actor.ControllerId == TwoPlayersId.Left ? SideColor.Yellow : SideColor.Green;
-            var allPopCornDispensers = GetObjectsOfType(actor, ObjectType.Dispenser);
-            var nearestDispenser = allPopCornDispensers
-                .Where(z =>
-                    Distance(
-                        actor.World.Engine.GetAbsoluteLocation(actor.ObjectId),
-                        actor.World.Engine.GetAbsoluteLocation(z.Item2)) < 20
-                    )
-                .FirstOrDefault(z => z.Item1.Color == sideColor);
-            if (nearestDispenser == null) return null;
-            return nearestDispenser.Item2;
+            return GetObjectsOfType(ObjectType.Dispenser)
+                .Where(z => Distance(cupLocation, world.Engine.GetAbsoluteLocation(z.Item2)) < 20)
+                .Select(z => z.Item2)
+                .FirstOrDefault();
         }
 
         public double TakePopCorn(IActor actor)
         {
-            var id = GetMachineId(actor);
-            if (id != null)
+            Debugger.Log(RMDebugMessage.Logic, "Taking pop corn..");
+
+            var cupId = robot.Gripper.GrippedObjectId;
+            if (cupId == null) return 1;
+
+            Debugger.Log(RMDebugMessage.Logic, "Cup found!");
+
+            var dispenserId = GetDispenserId(world.Engine.GetAbsoluteLocation(cupId));
+            if (dispenserId == null) return 1;
+            
+            Debugger.Log(RMDebugMessage.Logic, "Dispenser found!");
+
+            if (world.PopCornFullness[dispenserId] > 0 && world.PopCornFullness[cupId] < world.CupCapacity)
             {
-                //Dispense PopCorn
+                world.PopCornFullness[dispenserId]--;
+                world.PopCornFullness[cupId]++;
+                Debugger.Log(RMDebugMessage.Logic, "Pop corn successfuly added to cup!");
             }
-            return 1.0;
+
+            return 1;
         }
     }
 }
