@@ -8,9 +8,7 @@ using CVARC.V2;
 
 namespace RoboMovies
 {
-    public class RMRobot<TSensorsData> : 
-                Robot<IRMActorManager, RMWorld, TSensorsData, RMCommand, RMRules>,
-                ITowerBuilderRobot, IGrippableRobot, IRMCombinedRobot
+    public class RMRobot<TSensorsData> : Robot<IRMActorManager, RMWorld, TSensorsData, RMCommand, RMRules>, IRMRobot
         where TSensorsData : new()
     {
         public SimpleMovementUnit SimpleMovementUnit { get; private set; }
