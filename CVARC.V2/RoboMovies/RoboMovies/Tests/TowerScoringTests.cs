@@ -148,13 +148,15 @@ namespace RoboMovies
             ));
             
             AddTest(logic, "Tower_Scores_ScamTest", ScoreTest(
-                5,
+                2,
                 rules.Move(100),
                 rules.Rotate(-Angle.HalfPi),
                 rules.Move(25),
                 rules.Stand(0.1),
                 rules.Collect(),
-                rules.Move(50),
+                rules.Move(-25),
+                rules.Rotate(-Angle.HalfPi),
+                rules.Move(90),
                 rules.Stand(0.1),
                 rules.BuildTower(),
                 rules.Collect(),
