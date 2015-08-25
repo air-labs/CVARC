@@ -16,6 +16,11 @@ namespace RoboMovies
             return TestTemplate((data, asserter) => asserter.IsEqual(count, data.CollectedDetailsCount, 0), commands);
         }
 
+        RMTestEntry PopCornTest(int count, params RMCommand[] commands)
+        {
+            return TestTemplate((data, asserter) => asserter.IsEqual(count, data.LoadedPopCornCount, 0), commands);
+        }
+
         RMTestEntry ScoreTest(int scoreCount, params RMCommand[] commands)
         {
             return TestTemplate((data, asserter) => asserter.IsEqual(scoreCount, data.MyScores, 0), commands);
