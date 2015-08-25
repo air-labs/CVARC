@@ -12,7 +12,11 @@ namespace RoboMovies
         public Dictionary<string, int> PopCornFullness = new Dictionary<string, int>();
         public Dictionary<string, HashSet<string>> Spotlights = new Dictionary<string, HashSet<string>>();
         public HashSet<string> ClosedClapperboards = new HashSet<string>();
-
+        
+        public int CupCapacity { get { return 10; } }
+        const int defaultCupFullness = 4;
+        const int defaultDispenserFullness = 5;
+        
         public override void AdditionalInitialization()
         {
             var detector = new CollisionDetector(this);
@@ -195,7 +199,7 @@ namespace RoboMovies
             {
                 var id = IdGenerator.CreateNewId(new RMObject(SideColor.Any, ObjectType.PopCorn));
                 Manager.CreatePopCorn(id, point);
-                PopCornFullness[id] = 4;
+                PopCornFullness[id] = defaultCupFullness;
             }
         }
 
@@ -205,7 +209,7 @@ namespace RoboMovies
             for (var x = 1; x < 3; ++x)
             {
                 var id = IdGenerator.CreateNewId(new RMObject(SideColor.Any, ObjectType.Dispenser));
-                PopCornFullness[id] = 5;
+                PopCornFullness[id] = defaultDispenserFullness;
                 Manager.CreatePopCornDispenser(id, new Point2D((150 - x * step) * sideCorrection, 100));
             }
         }
