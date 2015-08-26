@@ -69,6 +69,8 @@ namespace CVARC.V2
                 Debugger.Log(DebuggerMessageType.Workflow,"Command accepted in controller");
                 return result.Item1;
             }
+
+            Thread.Sleep(200);
 			client.Close();
 			Debugger.Log(DebuggerMessageType.Error, "Can't get command");
             return null;
