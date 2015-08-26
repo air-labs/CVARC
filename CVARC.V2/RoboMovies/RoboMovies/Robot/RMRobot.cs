@@ -20,10 +20,10 @@ namespace RoboMovies
         {
             get
             {
-                yield return SimpleMovementUnit;
                 yield return TowerBuilder;
                 yield return Gripper;
                 yield return Combiner;
+                yield return SimpleMovementUnit;
             }
         }
     
