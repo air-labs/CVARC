@@ -16,7 +16,6 @@ namespace Demo
 			
 			foreach (var helper in helpers)
 			{
-
 				var logicPart = helper.Create();
 				foreach (var e in logicPart.Tests)
 				{
@@ -36,8 +35,10 @@ namespace Demo
 					ending += "}";
 
 					var methodName = nameParts[nameParts.Length - 1];
-					var entry = "[Test] public void " + methodName + "() { TestRunner.Run(\"" + name + "\"); }";
-
+                    var entry = "";
+                    string helperType = helper.GetType().Name.Replace("LogicPartHelper", "");
+                    entry = "[Test] public void " + methodName + "() { TestRunner.Run"+ helperType + "(\"" + name + "\"); }";
+                    
 					builder.Append(beginning + entry + ending + "\n");
 				}
 			}

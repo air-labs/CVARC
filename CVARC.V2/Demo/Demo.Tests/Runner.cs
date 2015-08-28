@@ -23,14 +23,21 @@ public class NUnitAsserter : IAsserter
 public static class TestRunner
 {
 
-	public static void Run(string testName)
+	public static void RunDemo(string testName)
 	{
 		var loader = new Loader();
 		loader.AddLevel("Demo", "Demo", () => new Demo.DemoCompetitions());
 		loader.RunSelfTestInVSContext("Demo", "Demo", testName, new NUnitAsserter());
 	}
+    public static void RunDWM(string testName)
+    {
+        var loader = new Loader();
+        loader.AddLevel("Demo", "DWM", () => new Demo.DWMCompetitions());
+        loader.RunSelfTestInVSContext("Demo", "DWM", testName, new NUnitAsserter());
+    }
 	public static void Main()
 	{
 		new Movement.Round().Forward();
 	}
 }
+

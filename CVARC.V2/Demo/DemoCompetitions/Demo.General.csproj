@@ -64,7 +64,7 @@
     <Compile Include="UniversalDemo\DemoRules.cs" />
     <Compile Include="UniversalDemo\TestBases\TestBases.cs" />
     <Compile Include="UniversalDemo\Tests\CollisionTests.cs" />
-    <Compile Include="DWMDemo\Tests\DWMTests.cs" />
+    <Compile Include="DWMDemo\Tests\MovementTests.cs" />
     <Compile Include="DWMDemo\Tests\EncodersTests.cs" />
     <Compile Include="DWMDemo\Tests\GAXTests.cs" />
     <Compile Include="UniversalDemo\Tests\GrippingTest.cs" />
