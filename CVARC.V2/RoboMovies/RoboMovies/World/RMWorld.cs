@@ -11,8 +11,12 @@ namespace RoboMovies
     {
         public Dictionary<string, int> PopCornFullness = new Dictionary<string, int>();
         public Dictionary<string, HashSet<string>> Spotlights = new Dictionary<string, HashSet<string>>();
-        public Dictionary<string, bool> IsClapperboardClosed = new Dictionary<string, bool>();
-
+        public HashSet<string> ClosedClapperboards = new HashSet<string>();
+        
+        public int CupCapacity { get { return 10; } }
+        const int defaultCupFullness = 4;
+        const int defaultDispenserFullness = 5;
+        
         public override void AdditionalInitialization()
         {
             var detector = new CollisionDetector(this);
@@ -40,7 +44,9 @@ namespace RoboMovies
 
             Clocks.AddTrigger(new RMScoresTrigger(this));
         }
-        
+
+        // TODO: create RMWorldHelper.cs
+        #region WorldHelper
         public void CloseClapperboard(string clapperboardId)
         {
             Manager.CloseClapperboard(clapperboardId);
@@ -126,13 +132,14 @@ namespace RoboMovies
                 return SideColor.Green;
             throw new ArgumentException();
         }
-        
+
         public RMObject GetObjectById(string id)
         {
             if (!IdGenerator.KeyOfType<RMObject>(id))
                 throw new ArgumentException("This id is not binded to any RMObject.");
             return IdGenerator.GetKey<RMObject>(id);
         }
+        #endregion
 
         #region WorldCreation
         override public void CreateWorld()
@@ -144,7 +151,7 @@ namespace RoboMovies
                 var sideCorrection = GetSideCorrection(color);
                 Manager.CreateStartingArea(new Point2D((150 - 20) * sideCorrection, 0), color);
                 Manager.CreateStairs(IdGenerator.CreateNewId(new RMObject(color, ObjectType.Stairs)),
-                    new Point2D(25 * sideCorrection, 100 - 32), color);
+                    new Point2D(25 * sideCorrection, 100 - 30), color);
                 CreateStands(sideCorrection, color);
                 CreateLights(sideCorrection);
                 CreatePopCornDispensers(sideCorrection);
@@ -161,7 +168,6 @@ namespace RoboMovies
                 var clapperOffset = i < 0 ? -30 : 60;
                 var color = i % 2 == 0 ? SideColor.Green : SideColor.Yellow;
                 var clapperboardId = IdGenerator.CreateNewId(new RMObject(color, ObjectType.Clapperboard));
-                IsClapperboardClosed.Add(clapperboardId, false);
 
                 Manager.CreateClapperboard(clapperboardId,
                     new Point2D(i * 30 + clapperOffset, -100 - 1),
@@ -180,7 +186,7 @@ namespace RoboMovies
         {
             var coords = new List<Point2D>()
             {
-                new Point2D(50, 15),
+                new Point2D(50, 20),
                 new Point2D(110, -80),
                 new Point2D(0, -70),
             };
@@ -193,7 +199,7 @@ namespace RoboMovies
             {
                 var id = IdGenerator.CreateNewId(new RMObject(SideColor.Any, ObjectType.PopCorn));
                 Manager.CreatePopCorn(id, point);
-                PopCornFullness[id] = 4;
+                PopCornFullness[id] = defaultCupFullness;
             }
         }
 
@@ -203,7 +209,7 @@ namespace RoboMovies
             for (var x = 1; x < 3; ++x)
             {
                 var id = IdGenerator.CreateNewId(new RMObject(SideColor.Any, ObjectType.Dispenser));
-                PopCornFullness[id] = 5;
+                PopCornFullness[id] = defaultDispenserFullness;
                 Manager.CreatePopCornDispenser(id, new Point2D((150 - x * step) * sideCorrection, 100));
             }
         }
@@ -215,8 +221,8 @@ namespace RoboMovies
                 new Point2D(20, -40),
                 new Point2D(50, -40),
                 new Point2D(35, -60),
-                new Point2D(50, 75),
-                new Point2D(50, 90),
+                new Point2D(60, 75),
+                new Point2D(60, 90),
                 new Point2D(140, -75),
                 new Point2D(140, -90),
                 new Point2D(140, 75),

@@ -12,19 +12,19 @@ namespace RoboMovies
         [TestLoaderMethod]
         public void LoadPopCornScoringTests(LogicPart logic, RMRules rules)
         {
-            AddTest(logic, "Scores_PopCornStartingArea", ScoreTest(
+            AddTest(logic, "PopCorn_Scores_StartingArea", ScoreTest(
                 4,
                 rules.Move(64),
                 rules.Rotate(-Angle.HalfPi),
                 rules.Stand(0.1),
                 rules.Grip(),
                 rules.Rotate(Angle.HalfPi),
-                rules.Move(-64),
+                rules.Move(-54),
                 rules.Stand(0.1),
                 rules.Release()
             ));
             
-            AddTest(logic, "Scores_PopCornUpperCinema", ScoreTest(
+            AddTest(logic, "PopCorn_Scores_UpperCinema", ScoreTest(
                 4,
                 rules.Move(64),
                 rules.Rotate(-Angle.HalfPi),
@@ -40,7 +40,7 @@ namespace RoboMovies
                 rules.Release()
             ));
             
-            AddTest(logic, "Scores_PopCornBottomCinema", ScoreTest(
+            AddTest(logic, "PopCorn_Scores_BottomCinema", ScoreTest(
                 4,
                 rules.Move(64),
                 rules.Rotate(-Angle.HalfPi),
@@ -56,7 +56,7 @@ namespace RoboMovies
                 rules.Release()
             ));
             
-            AddTest(logic, "Scores_PopCornBuildingArea", ScoreTest(
+            AddTest(logic, "PopCorn_Scores_BuildingArea", ScoreTest(
                 0,
                 rules.Move(115),
                 rules.Rotate(Angle.HalfPi),
@@ -70,7 +70,7 @@ namespace RoboMovies
                 rules.Stand(0.1)
             ));
 
-            AddTest(logic, "Scores_TwoPopCornOneLocation", ScoreTest(
+            AddTest(logic, "PopCorn_Scores_TwoCupsSameLocation", ScoreTest(
                 4,
                 rules.Move(115),
                 rules.Rotate(Angle.HalfPi),
@@ -92,7 +92,7 @@ namespace RoboMovies
                 rules.Release()
             ));
             
-            AddTest(logic, "Scores_TwoPopCornTwoLocations", ScoreTest(
+            AddTest(logic, "PopCorn_Scores_TwoCupsDiffLocations", ScoreTest(
                 4 + 4,
                 rules.Move(115),
                 rules.Rotate(Angle.HalfPi),
@@ -118,7 +118,7 @@ namespace RoboMovies
                 rules.Release()
             ));
 
-            AddTest(logic, "Scores_GrippedPopCornShouldBeZero", ScoreTest(
+            AddTest(logic, "PopCorn_Scores_GrippedShouldBeZero", ScoreTest(
                 0,
                 rules.Move(64),
                 rules.Rotate(-Angle.HalfPi),
@@ -127,6 +127,54 @@ namespace RoboMovies
                 rules.Rotate(Angle.HalfPi),
                 rules.Move(-64),
                 rules.Stand(0.1)
+            ));
+
+            AddTest(logic, "PopCorn_Scores_FilledCup", ScoreTest(
+                5,
+                rules.Move(64),
+                rules.Rotate(-Angle.HalfPi),
+                rules.Stand(0.1),
+                rules.Grip(),
+                rules.Rotate(Angle.HalfPi),
+                rules.Move(-30),
+                rules.Rotate(-Angle.HalfPi),
+                rules.Move(-70),
+                rules.Stand(0.1),
+                rules.GetPopCorn(),
+                rules.Move(70),
+                rules.Rotate(Angle.HalfPi),
+                rules.Move(-10),
+                rules.Stand(0.1),
+                rules.Release()
+            ));
+
+            AddTest(logic, "PopCorn_Scores_TwoCupsFilled", ScoreTest(
+                5,
+                rules.Move(115),
+                rules.Rotate(Angle.HalfPi),
+                rules.Move(-60),
+                rules.Stand(0.1),
+                rules.Grip(),
+                rules.Move(60),
+                rules.Rotate(-Angle.HalfPi),
+                rules.Move(-115),
+                rules.Stand(0.1),
+                rules.Release(),
+                rules.Move(64),
+                rules.Rotate(-Angle.HalfPi),
+                rules.Stand(0.1),
+                rules.Grip(),
+                rules.Rotate(Angle.HalfPi),
+                rules.Move(-30),
+                rules.Rotate(-Angle.HalfPi),
+                rules.Move(-70),
+                rules.Stand(0.1),
+                rules.GetPopCorn(),
+                rules.Move(70),
+                rules.Rotate(Angle.HalfPi),
+                rules.Move(-10),
+                rules.Stand(0.1),
+                rules.Release()
             ));
         }
     }

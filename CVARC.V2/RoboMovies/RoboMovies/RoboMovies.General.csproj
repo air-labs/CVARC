@@ -59,12 +59,14 @@
     <Compile Include="Bots\RoboMoviesBots.cs" />
     <Compile Include="Clients\LevelClients.cs" />
     <Compile Include="Clients\RMClient.cs" />
+    <Compile Include="Misc\RMDebugMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Robot\IRMActorManager.cs" />
+    <Compile Include="Robot\IRMRobot.cs" />
     <Compile Include="Robot\RMRobot.cs" />
     <Compile Include="RMLogic.cs" />
-    <Compile Include="SceneSettings\DataClasses.cs" />
-    <Compile Include="SceneSettings\RMWorldState.cs" />
+    <Compile Include="Misc\DataClasses.cs" />
+    <Compile Include="Misc\RMWorldState.cs" />
     <Compile Include="Sensors\Bots\BotsSensorsData.cs" />
     <Compile Include="Sensors\LocatorItem.cs" />
     <Compile Include="Sensors\Map\DetailMapData.cs" />
@@ -78,7 +80,9 @@
     <Compile Include="Sensors\CommonSensorData.cs" />
     <Compile Include="Sensors\Map\WallMapData.cs" />
     <Compile Include="Sensors\LocationSensor.cs" />
+    <Compile Include="Sensors\PopCornSensor.cs" />
     <Compile Include="Sensors\ScoreSensor.cs" />
+    <Compile Include="Tests\PopCornFillingTests.cs" />
     <Compile Include="Tests\PopCornScoringTests.cs" />
     <Compile Include="Tests\ClapperboardDeployingTests.cs" />
     <Compile Include="Tests\StairTests.cs" />
@@ -104,9 +108,9 @@
     <Compile Include="World\RMScoresTrigger.cs" />
     <Compile Include="World\RMWorld.cs" />
     <Compile Include="World\IRMWorldManager.cs" />
-    <Compile Include="SceneSettings\Node.cs" />
-    <Compile Include="SceneSettings\SceneSettings.cs" />
-    <Compile Include="SceneSettings\Map.cs" />
+    <Compile Include="Misc\Node.cs" />
+    <Compile Include="Misc\SceneSettings.cs" />
+    <Compile Include="Misc\Map.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

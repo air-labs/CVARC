@@ -12,33 +12,29 @@ namespace RoboMovies
         [TestLoaderMethod]
         public void LoadStairTests(LogicPart logic, RMRules rules)
         {
-            //забираемся почему-то только на жёлтую лесенку
-            AddTest(logic, "Scores_MoveToOpponentStair", ScoreTest(50,
-                rules.Move(150),
+            var yellowUp = new RMCommand[] {
+                rules.Move(90),
                 rules.Rotate(Angle.HalfPi),
-                rules.Move(40),
+                rules.Move(25),
                 rules.Stand(0.1),
                 rules.UpLadder(),
-                rules.Stand(0.1),
+            };
+
+            var greenUp = new RMCommand[yellowUp.Length];
+            yellowUp.CopyTo(greenUp, 0);
+            greenUp[0] = rules.Move(140);
+
+            AddTest(logic, "Stairs_YellowSuccess", PositionTest(-25, 80, 10, yellowUp));
+            AddTest(logic, "Stairs_GreenFailure", PositionTest(25, 30, 10, greenUp));
+            
+            AddTest(logic, "Stairs_Scoring_Success", ScoreTest(15, yellowUp));
+            AddTest(logic, "Stairs_Scoring_Failure", ScoreTest(0, greenUp));
+            
+            AddTest(logic, "Stairs_Scoring_UpWithoutCommand", ScoreTest(0, 
+                rules.Move(90),
                 rules.Rotate(Angle.HalfPi),
-                rules.Move(50),
-                rules.Stand(0.1),
-                rules.Rotate(-Angle.HalfPi),
-                rules.Stand(0.1),
-                rules.UpLadder()
-            ));
-            AddTest(logic, "Scores_UnUsualUp", ScoreTest(50,
-                rules.Move(100),
-                rules.Rotate(-Angle.HalfPi),
-                rules.Move(40),
-                rules.Stand(0.1),
-                rules.UpLadder(),
-                rules.Stand(0.1),
-                rules.Move(-50),
-                rules.Rotate(Angle.HalfPi),
-                rules.Move(50),
-                rules.Stand(0.1),
-                rules.UpLadder()
+                rules.Move(80),
+                rules.Stand(0.1)
             ));
         }
     }

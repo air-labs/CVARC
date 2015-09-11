@@ -22,7 +22,6 @@ namespace RoboMovies
         [FromSensor(typeof(SelfIdSensor))]
         public string RobotId { get; set; }
 
-
         [DataMember]
         [FromSensor(typeof(TowerBuilderSensor))]
         public int CollectedDetailsCount { get; set; }
@@ -30,5 +29,9 @@ namespace RoboMovies
         [DataMember]
         [FromSensor(typeof(ScoreSensor))]
         public int MyScores { get; set; }
+
+        [DataMember]
+        [FromSensor(typeof(PopCornSensor))]
+        public int LoadedPopCornCount { get; set; }
     }
 }

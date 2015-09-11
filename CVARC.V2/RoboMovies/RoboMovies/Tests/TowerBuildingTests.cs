@@ -12,7 +12,7 @@ namespace RoboMovies
         [TestLoaderMethod]
         public void LoadTowerBuilderTests(LogicPart logic, RMRules rules)
         {
-            AddTest(logic, "Grip_SingleDetail", TowerBuilderTest(
+            AddTest(logic, "Tower_Grip_SingleDetail", TowerBuilderTest(
                 1,
                 rules.Move(65),
                 rules.Rotate(-Angle.HalfPi),
@@ -21,7 +21,7 @@ namespace RoboMovies
                 rules.Collect()
             ));
 
-            AddTest(logic, "Grip_MultipleDetails", TowerBuilderTest(
+            AddTest(logic, "Tower_Grip_MultipleDetails", TowerBuilderTest(
                 2,
                 rules.Move(65),
                 rules.Rotate(-Angle.HalfPi),
@@ -35,7 +35,7 @@ namespace RoboMovies
                 rules.Collect()
             ));
 
-            AddTest(logic, "Grip_LightBeforeStand", TowerBuilderTest(
+            AddTest(logic, "Tower_Grip_LightBeforeStand", TowerBuilderTest(
                 1,
                 rules.Rotate(Angle.Pi),
                 rules.Move(10),
@@ -43,7 +43,7 @@ namespace RoboMovies
                 rules.Collect()
             ));
 
-            AddTest(logic, "Grip_LightAfterStand", TowerBuilderTest(
+            AddTest(logic, "Tower_Grip_LightAfterStand", TowerBuilderTest(
                 1,
                 rules.Move(65),
                 rules.Rotate(-Angle.HalfPi),
@@ -58,7 +58,7 @@ namespace RoboMovies
                 rules.Collect()
             ));
             
-            AddTest(logic, "Release_SingleDetail", TowerBuilderTest(
+            AddTest(logic, "Tower_Release_SingleDetail", TowerBuilderTest(
                 0,
                 rules.Move(65),
                 rules.Rotate(-Angle.HalfPi),
@@ -68,7 +68,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
 
-            AddTest(logic, "Release_MultipleDetail", TowerBuilderTest(
+            AddTest(logic, "Tower_Release_MultipleDetail", TowerBuilderTest(
                 0,
                 rules.Move(65),
                 rules.Rotate(-Angle.HalfPi),
@@ -83,36 +83,7 @@ namespace RoboMovies
                 rules.BuildTower()
             ));
 
-            AddTest(logic, "Release_ThroughBorder", TowerBuilderTest(
-                1,
-                rules.Move(100),
-                rules.Rotate(-Angle.HalfPi),
-                rules.Move(25),
-                rules.Stand(0.1),
-                rules.Collect(),
-                rules.Move(100),
-                rules.Stand(0.1),
-                rules.BuildTower(),
-                rules.Move(-50),
-                rules.Stand(0.1)
-            ));
-
-            AddTest(logic, "Grip_ThroughBorder", TowerBuilderTest(
-                0,
-                rules.Move(100),
-                rules.Rotate(-Angle.HalfPi),
-                rules.Move(25),
-                rules.Stand(0.1),
-                rules.Collect(),
-                rules.Move(100),
-                rules.Stand(0.1),
-                rules.BuildTower(),
-                rules.Collect(),
-                rules.Move(-50),
-                rules.Stand(0.1)
-            ));
-
-            AddTest(logic, "Grip_Tower", TowerBuilderTest(
+            AddTest(logic, "Tower_Grip_AlreadyConnected", TowerBuilderTest(
                 2,
                 rules.Move(65),
                 rules.Rotate(-Angle.HalfPi),

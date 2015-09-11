@@ -294,5 +294,9 @@ namespace RoboMovies.KroR
             });
         }
 
+        public void ClimbUpStairs(string actorId, string stairsId)
+        {
+            Engine.Attach(actorId, stairsId, new Frame3D(0, 0, 7));
+        }
     }
 }
