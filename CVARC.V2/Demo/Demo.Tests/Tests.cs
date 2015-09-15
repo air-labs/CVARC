@@ -107,24 +107,33 @@ namespace Collision {
 namespace Collision { 
 [TestFixture] public partial class Rect {
 [Test] public void WallAndBrickCollision() { TestRunner.RunDemo("Collision_Rect_WallAndBrickCollision"); }}}
-[TestFixture] public partial class DWM {
-[Test] public void LongForward() { TestRunner.RunDWM("DWM_LongForward"); }}
-[TestFixture] public partial class DWM {
-[Test] public void Forward() { TestRunner.RunDWM("DWM_Forward"); }}
-[TestFixture] public partial class DWM {
-[Test] public void Backward() { TestRunner.RunDWM("DWM_Backward"); }}
-[TestFixture] public partial class DWM {
-[Test] public void RightRotate() { TestRunner.RunDWM("DWM_RightRotate"); }}
-[TestFixture] public partial class DWM {
-[Test] public void LeftRotate() { TestRunner.RunDWM("DWM_LeftRotate"); }}
-[TestFixture] public partial class DWM {
-[Test] public void ArcRight() { TestRunner.RunDWM("DWM_ArcRight"); }}
-[TestFixture] public partial class DWM {
-[Test] public void ArcLeft() { TestRunner.RunDWM("DWM_ArcLeft"); }}
-[TestFixture] public partial class DWM {
-[Test] public void Turning() { TestRunner.RunDWM("DWM_Turning"); }}
-[TestFixture] public partial class DWM {
-[Test] public void ArcMoving() { TestRunner.RunDWM("DWM_ArcMoving"); }}
+namespace DWM { 
+[TestFixture] public partial class Movement {
+[Test] public void LongForward() { TestRunner.RunDWM("DWM_Movement_LongForward"); }}}
+namespace DWM { 
+[TestFixture] public partial class Movement {
+[Test] public void Forward() { TestRunner.RunDWM("DWM_Movement_Forward"); }}}
+namespace DWM { 
+[TestFixture] public partial class Movement {
+[Test] public void Backward() { TestRunner.RunDWM("DWM_Movement_Backward"); }}}
+namespace DWM { 
+[TestFixture] public partial class Movement {
+[Test] public void RightRotate() { TestRunner.RunDWM("DWM_Movement_RightRotate"); }}}
+namespace DWM { 
+[TestFixture] public partial class Movement {
+[Test] public void LeftRotate() { TestRunner.RunDWM("DWM_Movement_LeftRotate"); }}}
+namespace DWM { 
+[TestFixture] public partial class Movement {
+[Test] public void ArcRight() { TestRunner.RunDWM("DWM_Movement_ArcRight"); }}}
+namespace DWM { 
+[TestFixture] public partial class Movement {
+[Test] public void ArcLeft() { TestRunner.RunDWM("DWM_Movement_ArcLeft"); }}}
+namespace DWM { 
+[TestFixture] public partial class Movement {
+[Test] public void Turning() { TestRunner.RunDWM("DWM_Movement_Turning"); }}}
+namespace DWM { 
+[TestFixture] public partial class Movement {
+[Test] public void ArcMoving() { TestRunner.RunDWM("DWM_Movement_ArcMoving"); }}}
 [TestFixture] public partial class Encoder {
 [Test] public void MoveForward() { TestRunner.RunDWM("Encoder_MoveForward"); }}
 [TestFixture] public partial class Encoder {
