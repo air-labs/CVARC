@@ -50,21 +50,21 @@
   <ItemGroup>
     <Compile Include="Collision\CollisionTestBase.cs" />
     <Compile Include="Collision\LogicPart.Tests.cs" />
+    <Compile Include="DWMDemo\TestBases\DWMTestBase.cs" />
     <Compile Include="DWMDemo\DWMWorld.cs" />
     <Compile Include="DWMDemo\DWMDemoRules.cs" />
     <Compile Include="DWMDemo\DWMCommand.cs" />
     <Compile Include="DWMDemo\DWMRobot.cs" />
     <Compile Include="DWMDemo\DWMSensorsData.cs" />
-    <Compile Include="DWMDemo\DWMWorldState.cs" />
+    <Compile Include="DWMDemo\TestBases\DWMWorldState.cs" />
     <Compile Include="DWMDemo\LogicParts.cs" />
-    <Compile Include="DWMDemo\Tests\Basics.cs" />
     <Compile Include="UniversalDemo\CollisionSensor.cs" />
     <Compile Include="UniversalDemo\DemoCamera.cs" />
     <Compile Include="UniversalDemo\DemoCommand.cs" />
     <Compile Include="UniversalDemo\DemoRules.cs" />
     <Compile Include="UniversalDemo\TestBases\TestBases.cs" />
     <Compile Include="UniversalDemo\Tests\CollisionTests.cs" />
-    <Compile Include="DWMDemo\Tests\DWMTests.cs" />
+    <Compile Include="DWMDemo\Tests\MovementTests.cs" />
     <Compile Include="DWMDemo\Tests\EncodersTests.cs" />
     <Compile Include="DWMDemo\Tests\GAXTests.cs" />
     <Compile Include="UniversalDemo\Tests\GrippingTest.cs" />

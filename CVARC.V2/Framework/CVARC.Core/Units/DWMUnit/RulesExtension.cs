@@ -25,8 +25,8 @@ namespace CVARC.V2
         public static TCommand DWMMoveForward<TCommand>(this IDWMRules<TCommand> rules, double distance)
             where TCommand : IDWMCommand, new()
         {
-            var period = 2 * Math.PI / rules.RotationSpeedLimit.Radian;
-            var routes = Math.Abs(distance) / (2 * Math.PI * rules.WheelRadius);
+            var period = 2.0 * Math.PI / rules.RotationSpeedLimit.Radian;
+            var routes = Math.Abs(distance) / (2.0 * Math.PI * rules.WheelRadius);
             var duration = routes * period;
             var wheelSpeed = rules.RotationSpeedLimit;
             return new TCommand
