@@ -12,17 +12,11 @@ namespace CVARC.V2
         IEnumerator<ICommand> currentEnumerator;
         public bool CommandAvailable { get; private set; }
 
-        public void Initialize(IActor actor)
-        {
-            foreach (var e in Filters)
-                e.Initialize(actor);
-        }
-
-        public void ProcessCommand(ICommand command)
+        public void ProcessCommand(IActor actor, ICommand command)
         {
             IEnumerable<ICommand> result = new List<ICommand> { command };
             foreach (var e in Filters)
-                result = result.SelectMany(c => e.Preprocess(c));
+                result = result.SelectMany(c => e.Preprocess(actor,c));
             currentEnumerator = result.GetEnumerator();
             CommandAvailable = currentEnumerator.MoveNext();
         }

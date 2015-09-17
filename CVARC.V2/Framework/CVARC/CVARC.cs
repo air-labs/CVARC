@@ -7,13 +7,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CVARC.V2;
+using Demo;
 
 namespace CVARC.V2
 {
     public static class CVARCProgram
     {
 
-        public static void RunServerInTheSameThread(Action<int,bool> Control)
+        public static void RunServerInTheSameThread(Action<int> Control)
         {
 
             var nsData = new NetworkServerData();
@@ -22,7 +23,7 @@ namespace CVARC.V2
             new Action(() =>
             {
                 nsData.WaitForServer();
-                Control(nsData.Port,true);
+                Control(nsData.Port);
             }).BeginInvoke(null, null);
 
             var loader = GetLoader();
@@ -44,8 +45,8 @@ namespace CVARC.V2
 			loader.AddLevel("RoboMovies", "Level1", () => new RoboMovies.KroR.Level1());
 			loader.AddLevel("RoboMovies", "Level2", () => new RoboMovies.KroR.Level2());
 			loader.AddLevel("RoboMovies", "Level3", () => new RoboMovies.KroR.Level3());
-			loader.AddLevel("Demo", "Demo", () => new Demo.KroR.DemoCompetitions());
-      
+			loader.AddLevel("Demo", "Demo", () => new Demo.DemoCompetitions());
+			loader.AddLevel("Demo", "DWM", () => new Demo.DWMCompetitions());
             return loader;
         }
 

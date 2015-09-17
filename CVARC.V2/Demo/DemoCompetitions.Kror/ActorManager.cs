@@ -25,7 +25,7 @@ namespace Demo
         public override void CreateActorBody()
         {
             var root = (Actor.World.Engine as KroREngine).Root;
-			var state = (Actor.World as DemoWorld).WorldState;
+			var state = (Actor.World.WorldState) as DemoWorldState;
 
 			var description = state.Robots.Where(z => z.RobotName == Actor.ControllerId).FirstOrDefault();
 

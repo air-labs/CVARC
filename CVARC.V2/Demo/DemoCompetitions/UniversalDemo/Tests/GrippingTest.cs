@@ -9,7 +9,7 @@ namespace Demo
 {
     partial class DemoLogicPartHelper
     {
-        DemoTestEntry GrippingTest(bool flag, params MoveAndGripCommand[] command)
+        DemoTestEntry GrippingTest(bool flag, params DemoCommand[] command)
         {
             return (client, world, asserter) =>
             {
@@ -20,7 +20,7 @@ namespace Demo
             };
         }
 
-        void LoadGrippingTests(LogicPart logic, MoveAndGripRules rules)
+        void LoadGrippingTests(LogicPart logic, DemoRules rules)
         {
             logic.Tests["Gripping_Rect_Grip"] = new RectangularGrippingTestBase(GrippingTest(
                 true,

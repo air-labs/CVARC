@@ -25,5 +25,6 @@ namespace Demo
         [DataMember]
         [FromSensor(typeof(DemoCamera))]
         public byte[] Image { get; set; }
+
     }
 }

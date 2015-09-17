@@ -12,17 +12,14 @@ namespace CVARC.V2
     {
         public TActor Actor { get; private set; }
 
-        IEnumerable<ICommand> ICommandFilter.Preprocess(ICommand _command)
+        IEnumerable<ICommand> ICommandFilter.Preprocess(IActor _actor, ICommand _command)
         {
             var command = Compatibility.Check<TInputCommand>(this, _command);
-            return Preprocess(command).Cast<ICommand>();
+			var actor = Compatibility.Check<TActor>(this, _actor);
+            return Preprocess(actor,command).Cast<ICommand>();
         }
 
-        public abstract IEnumerable<TOutputCommand> Preprocess(TInputCommand command);
+        public abstract IEnumerable<TOutputCommand> Preprocess(TActor actor, TInputCommand command);
 
-        public void Initialize(IActor actor)
-        {
-            Actor=Compatibility.Check<TActor>(this, actor);
-        }
     }
 }

@@ -10,6 +10,9 @@ namespace CVARC.V2
         where TSensorData : new()
     {
         List<ISensor> sensors = new List<ISensor>();
+
+		public IEnumerable<ISensor> Sensors { get { return sensors; } }
+
         public Func<TSensorData> MeasureAll { get; private set; }
         public SensorPack(IActor actor)
         {

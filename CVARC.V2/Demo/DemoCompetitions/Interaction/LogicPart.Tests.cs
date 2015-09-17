@@ -12,7 +12,7 @@
 //	{
 
 
-//		InteractionTestEntry InteractionTest(bool flag, params MoveAndGripCommand[] command)
+//		InteractionTestEntry InteractionTest(bool flag, params DemoCommand[] command)
 //		{
 //			return (client, world, asserter) =>
 //			{
@@ -25,7 +25,7 @@
 //		}
 
 
-//		void LoadTests(LogicPart logicPart, MoveAndGripRules rules)
+//		void LoadTests(LogicPart logicPart, DemoRules rules)
 //		{
 
 //			logicPart.Tests["Grip"] = new InteractionTestBase(InteractionTest(true,

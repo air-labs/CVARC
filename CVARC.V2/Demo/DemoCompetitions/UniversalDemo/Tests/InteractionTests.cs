@@ -9,7 +9,7 @@ namespace Demo
 {
 	partial class DemoLogicPartHelper
 	{
-		void LoadInteractionTests(LogicPart logic, MoveAndGripRules rules)
+		void LoadInteractionTests(LogicPart logic, DemoRules rules)
 		{
 
 			//для AlignmentRect пришлось увеличить delta на проверке угла поворота до 0,005

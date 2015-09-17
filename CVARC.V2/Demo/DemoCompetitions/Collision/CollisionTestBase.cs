@@ -7,7 +7,7 @@
 //namespace Demo
 //{
    
-//	public class CollisionTestBase : DelegatedCvarcTest<SensorsData, MoveAndGripCommand, MovementWorld, MovementWorldState>
+//	public class CollisionTestBase : DelegatedCvarcTest<SensorsData, DemoCommand, MovementWorld, MovementWorldState>
 //	{
 //		public override SettingsProposal GetSettings()
 //		{

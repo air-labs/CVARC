@@ -10,7 +10,7 @@ namespace CVARC.V2
     {
         string ObjectId { get; }
         IWorld World { get; }
-        void Initialize(IActorManager manager, IWorld world, IRules rules, string objectId, string controllerId);
+        void Initialize(IActorManager manager, IWorld world, IRules rules,CommandFilterSet filters,  string objectId, string controllerId);
         string ControllerId { get; }
         void ExecuteCommand(ICommand command, out double commandDuration);
         object GetSensorData();

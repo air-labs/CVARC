@@ -22,6 +22,7 @@ namespace CVARC.V2
         Logger Logger { get; }
         void CreateWorld();
         void RunActively(double requiredPhysicalDelta);
+		IWorldState WorldState { get;  }
     }
 
 }

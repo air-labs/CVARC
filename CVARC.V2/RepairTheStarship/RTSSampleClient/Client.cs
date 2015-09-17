@@ -64,6 +64,11 @@ namespace ClientExample
             Application.Run(form);
         }
 
+		static void Run(int port)
+		{
+			Run(port, true);
+		}
+
 		
         [STAThread]
         public static void Main(string[] args)

@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using CVARC.V2;
+
+namespace Demo
+{
+    [DataContract]
+    public class DemoSensorsData
+    {
+        [DataMember]
+        [FromSensor(typeof(LocatorSensor))]
+        public LocatorItem[] Locations { get; set; }
+
+		[DataMember]
+		[FromSensor(typeof(GripSensor))]
+		public bool IsGripped { get; set; }
+
+		[DataMember]
+		[FromSensor(typeof(CollisionSensor))]
+		public List<CollisionData> Collisions { get; set; }
+
+<<<<<<< HEAD
+		//[DataMember]
+		//[FromSensor(typeof(DemoCamera))]
+		//public byte[] CameraImage { get; set; }
+=======
+        [DataMember]
+        [FromSensor(typeof(DemoCamera))]
+        public byte[] Image { get; set; }
+>>>>>>> origin/Stable
+    }
+}

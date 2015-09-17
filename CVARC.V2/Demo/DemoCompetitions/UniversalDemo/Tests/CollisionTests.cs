@@ -10,7 +10,7 @@ namespace Demo
 {
     partial class DemoLogicPartHelper
     {
-        DemoTestEntry CollisionTest(int count, int left, int right, params MoveAndGripCommand[] command)
+        DemoTestEntry CollisionTest(int count, int left, int right, params DemoCommand[] command)
         {
             return (client, world, asserter) =>
             {
@@ -23,7 +23,7 @@ namespace Demo
             };
         }
 
-        DemoTestEntry ComplexCollisionTest(int count, double time, bool first, bool second, params MoveAndGripCommand[] command)
+		DemoTestEntry ComplexCollisionTest(int count, double time, bool first, bool second, params DemoCommand[] command)
         {
             return (client, world, asserter) =>
             {
@@ -37,7 +37,7 @@ namespace Demo
                 asserter.IsEqual(result.Collisions[count-2].Time, result.Collisions[count-1].Time, 0);
             };
         }
-        DemoTestEntry CollisionTest(int count, bool first, bool second, params MoveAndGripCommand[] command)
+		DemoTestEntry CollisionTest(int count, bool first, bool second, params DemoCommand[] command)
         {
             return (client, world, asserter) =>
             {
@@ -51,7 +51,7 @@ namespace Demo
             };
         }
 
-        private void LoadCollisionTests(LogicPart logic, MoveAndGripRules rules)
+        private void LoadCollisionTests(LogicPart logic, DemoRules rules)
         {
             logic.Tests["Collision_Rect_NoCollision"] = new RectangularCollisionTestBase(CollisionTest(0, 0, 0,
                 rules.Grip(),

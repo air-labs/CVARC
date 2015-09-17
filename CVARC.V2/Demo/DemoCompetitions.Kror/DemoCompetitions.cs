@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CVARC.V2;
 
-namespace Demo.KroR
+
+namespace Demo
 {
     public class DemoCompetitions : Competitions
     {
@@ -13,4 +14,11 @@ namespace Demo.KroR
             : base(new DemoLogicPartHelper(), new KroREnginePart(), new MovementManagerPart())
         { }
     }
+
+	public class DWMCompetitions : Competitions
+	{
+		public DWMCompetitions()
+			: base(new DWMLogicPartHelper(), new KroREnginePart(), new MovementManagerPart())
+		{ }
+	}
 }

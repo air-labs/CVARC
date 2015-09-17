@@ -13,28 +13,29 @@ namespace CameraClient
 
         static void Control(int port)
         {
-            var client = new CvarcClient<object, MoveAndGripCommand>();
+            var client = new CvarcClient<DemoSensorsData, MoveAndGripCommand>();
             client.Configurate(port, new ConfigurationProposal
             {
-                LoadingData = new LoadingData { AssemblyName = "Demo", Level = "Movement" },
+                LoadingData = new LoadingData { AssemblyName = "Demo", Level = "Demo" },
                 SettingsProposal = new SettingsProposal
                 {
                     TimeLimit=3,
                     Controllers = new List<ControllerSettings>
                       {
-                          new ControllerSettings { ControllerId="Left", Type= ControllerType.Client, Name="This" }
+                          new ControllerSettings { ControllerId="Left", Type= ControllerType.Client, Name="This" },
+                          new ControllerSettings { ControllerId="Right", Type= ControllerType.Bot, Name="Stand" }
                       }
                 }
             }, KnownWorldStates.EmptyWithOneRobot(false));
             var rules = new MoveAndGripRules();
-            client.Act(rules.Move(10));
-            client.Act(rules.Rotate(Angle.Pi));
+            var sensors = client.Act(rules.Move(10));
+            sensors = client.Act(rules.Rotate(Angle.Pi));
             client.Exit();
         }
 
         static void ControlWithSeparateProcess()
         {
-            var port = 14000;
+            var port = 14345;
             var process = new Process
             {
                 StartInfo =
@@ -50,8 +51,8 @@ namespace CameraClient
 
         public static void Main()
         {
-            //CVARC.V2.CVARCProgram.RunServerInTheSameThread(Control);
-            ControlWithSeparateProcess();
+            CVARC.V2.CVARCProgram.RunServerInTheSameThread(Control);
+            //ControlWithSeparateProcess();
         }
     }
 }
