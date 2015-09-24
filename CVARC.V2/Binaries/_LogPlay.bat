@@ -1,1 +1,0 @@
-CVARC tournament.cvarclog
