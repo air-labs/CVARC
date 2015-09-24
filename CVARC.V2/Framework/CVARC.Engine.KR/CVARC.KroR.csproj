@@ -112,17 +112,6 @@
     <Compile Include="Drawing\DirectX\GraphicsBodyComparer.cs" />
     <Compile Include="Drawing\DirectX\IDirectXDrawer.cs" />
     <Compile Include="Drawing\DirectX\OffscreenDirectXDrawer.cs" />
-    <Compile Include="Drawing\DirectX\Tests\BodyComparerTests.cs" />
-    <Compile Include="Drawing\DirectX\Tests\BrushConverterTests.cs" />
-    <Compile Include="Drawing\DirectX\Tests\CameraTests.cs" />
-    <Compile Include="Drawing\DirectX\Tests\ControlPlacementTests.cs" />
-    <Compile Include="Drawing\DirectX\Tests\DeviceCreationTests.cs" />
-    <Compile Include="Drawing\DirectX\Tests\DrawerControlTests.cs" />
-    <Compile Include="Drawing\DirectX\Tests\DrawerTests.cs" />
-    <Compile Include="Drawing\DirectX\Tests\LightConversionTests.cs" />
-    <Compile Include="Drawing\DirectX\Tests\ModelFactoryTests.cs" />
-    <Compile Include="Drawing\DirectX\Tests\MultiSceneTests.cs" />
-    <Compile Include="Drawing\DirectX\Tests\OffscreenDrawerTests.cs" />
     <Compile Include="Drawing\DrawerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -204,6 +193,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
